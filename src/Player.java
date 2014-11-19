@@ -11,12 +11,14 @@ public class Player {
 	private int offensive;
 	private int defensive;
 	private int stamina;
+	private int price;
 	
-	public Player(String name, int off, int def, int sta) {
+	public Player(String name, int off, int def, int sta, int price) {
 		setName(name);
 		setOffensive(off);
 		setDefensive(def);
 		setStamina(sta);
+		setPrice(price);
 	}
 	
 	/**
@@ -42,36 +44,74 @@ public class Player {
 		
 		return s;
 	}
-	
+
+	/**
+	 * @return the name
+	 */
 	public String getName() {
-		return this.name;
+		return name;
 	}
-	
+
+	/**
+	 * @param name the name to set
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
+	/**
+	 * @return the offensive
+	 */
 	public int getOffensive() {
-		return this.offensive;
+		return offensive;
 	}
-	
-	public void setOffensive(int off) {
-		this.offensive = off;
+
+	/**
+	 * @param offensive the offensive to set
+	 */
+	public void setOffensive(int offensive) {
+		this.offensive = offensive;
 	}
-	
+
+	/**
+	 * @return the defensive
+	 */
 	public int getDefensive() {
-		return this.defensive;
+		return defensive;
 	}
-	
-	public void setDefensive(int def) {
-		this.defensive = def;
+
+	/**
+	 * @param defensive the defensive to set
+	 */
+	public void setDefensive(int defensive) {
+		this.defensive = defensive;
 	}
-	
+
+	/**
+	 * @return the stamina
+	 */
 	public int getStamina() {
-		return this.stamina;
+		return stamina;
 	}
-	
-	public void setStamina(int sta) {
-		this.stamina = sta;
+
+	/**
+	 * @param stamina the stamina to set
+	 */
+	public void setStamina(int stamina) {
+		this.stamina = stamina;
+	}
+
+	/**
+	 * @return the price
+	 */
+	public int getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(int price) {
+		this.price = price;
 	}
 }
