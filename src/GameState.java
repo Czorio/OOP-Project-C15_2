@@ -38,10 +38,9 @@ public class GameState {
 		setTeam(gameState.getTeam());
 	}
 	
-	/**
-	 * Empty constructor
-	 */
-	public GameState(){}
+	public void saveGameState() {
+		
+	}
 
 	/**
 	 * @return the coachName
