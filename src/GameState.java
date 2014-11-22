@@ -30,7 +30,7 @@ public class GameState {
 	public GameState(File file) {
 		XMLConfig xmlConfig = new XMLConfig(file);
 		
-		GameState gameState = xmlConfig.ReadFromFile();
+		GameState gameState = xmlConfig.readFromFile();
 		
 		setCoachName(gameState.getCoachName());
 		setRound(gameState.getRound());
@@ -38,8 +38,27 @@ public class GameState {
 		setTeam(gameState.getTeam());
 	}
 	
-	public void saveGameState() {
+	/**
+	 * @param file XML file to read config from.
+	 */
+	public void loadGameState(File file) {
+		XMLConfig xmlConfig = new XMLConfig(file);
 		
+		GameState gameState = xmlConfig.readFromFile();
+		
+		setCoachName(gameState.getCoachName());
+		setRound(gameState.getRound());
+		setLeague(gameState.getLeague());
+		setTeam(gameState.getTeam());
+	}
+	
+	/**
+	 * @param file XML file to write config to.
+	 */
+	public void saveGameState(File file) {
+		XMLConfig xmlConfig = new XMLConfig(file);
+		
+		xmlConfig.writeToFile(this);		
 	}
 
 	/**
