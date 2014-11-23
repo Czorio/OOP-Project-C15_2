@@ -57,6 +57,26 @@ public class Player {
 	}
 	
 	/**
+	 * Create en empty Player object.
+	 * @param id
+	 */
+	public Player(Integer id) {
+		this.id = id;
+		this.firstName = null;
+		this.lastName = null;		
+		this.club = null;
+		this.nationality = null;
+		this.dateOfBirth = null;
+		this.position = null;
+		this.pace = 0;
+		this.shooting = 0;
+		this.passing = 0;
+		this.offensive = 0;
+		this.defensive = 0;
+		this.stamina = 0;
+	}
+	
+	/**
 	 * Checks if this is equal to other.
 	 */
 	public boolean equals(Object other) {

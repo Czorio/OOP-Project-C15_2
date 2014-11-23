@@ -3,7 +3,7 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 /**
- * @author Boris Schrijver
+ * @author Boris Schrijver <boris@radialcontext.nl>
  */
 public class XMLConfigHandler extends DefaultHandler {
 
@@ -81,5 +81,9 @@ public class XMLConfigHandler extends DefaultHandler {
 		
 		// currentElement will be set by the next call of startElement().
 		currentElement = null;		
+	}
+	
+	public void endElement(String uri, String localName, String qName) { 
+		// Not needed yet.
 	}
 }
