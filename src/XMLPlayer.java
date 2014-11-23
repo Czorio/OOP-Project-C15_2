@@ -21,12 +21,21 @@ public class XMLPlayer extends XML {
 		super(file);
 	}
 	
+	/**
+	 * write league to file.
+	 * @param league
+	 */
 	public void writeToFile(League league) {
 		/**
 		 * @TODO writeToFile();
 		 */
 	}
 	
+	/**
+	 * read specific league from file.
+	 * @param league
+	 * @return
+	 */
 	public League readFromFile(String league) {
 		
 		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
@@ -47,6 +56,19 @@ public class XMLPlayer extends XML {
 				
 		// Return empty League if non found.
 		return new League(null);
+	}
+	
+	/**
+	 * equals method.
+	 */
+	public boolean equals(Object other) {
+		if(other instanceof XMLPlayer) {
+			XMLPlayer that = (XMLPlayer)other;
+			
+			return this.file.equals(that.file);
+		}
+		
+		return false;		
 	}
 
 }
