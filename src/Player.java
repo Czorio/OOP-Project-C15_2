@@ -108,7 +108,7 @@ public class Player {
 	public String toString() {
 		return "[" + this.id + " " + this.firstName + " " + this.lastName + ": "
 				+ this.club + " "
-				+ this.nationality + " "
+				//+ this.nationality + " "
 				+ this.dateOfBirth + " "
 				+ this.position + " "
 				+ this.pace + " "
