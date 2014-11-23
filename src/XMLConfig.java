@@ -111,4 +111,17 @@ public class XMLConfig extends XML {
 		// Return empty GameState if non found.
 		return new GameState(null, 0, null, null);
 	}
+	
+	/**
+	 * equals method.
+	 */
+	public boolean equals(Object other) {
+		if(other instanceof XMLConfig) {
+			XMLConfig that = (XMLConfig)other;
+			
+			return this.file.equals(that.file);
+		}
+		
+		return false;
+	}
 }
