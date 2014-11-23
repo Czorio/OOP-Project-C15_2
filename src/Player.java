@@ -9,8 +9,9 @@ import java.util.Date;
  */
 public class Player {
 	// Properties of a player
-	private String firstname;
-	private String lastname;
+	private int id;
+	private String firstName;
+	private String lastName;
 	private String club;
 	private String nationality;
 	private Date dateOfBirth;
@@ -24,8 +25,12 @@ public class Player {
 	//private int price; // Will be based on his stats.
 	
 	/**
+	 * @param id
 	 * @param firstname
 	 * @param lastname
+	 * @param club
+	 * @param nationality
+	 * @param dateOfBirth
 	 * @param position
 	 * @param pace
 	 * @param shooting
@@ -34,10 +39,11 @@ public class Player {
 	 * @param defensive
 	 * @param stamina
 	 */
-	public Player(String firstname, String lastname, String club, String nationality, Date dateOfBirth, String position, int pace,
+	public Player(Integer id, String firstname, String lastname, String club, String nationality, Date dateOfBirth, String position, int pace,
 			int shooting, int passing, int offensive, int defensive, int stamina) {
-		this.firstname = firstname;
-		this.lastname = lastname;
+		this.id = id;
+		this.firstName = firstname;
+		this.lastName = lastname;
 		this.club = club;
 		this.nationality = nationality;
 		this.dateOfBirth = dateOfBirth;
@@ -57,8 +63,9 @@ public class Player {
 		if (other instanceof Player) {
 			Player that = (Player)other;
 			
-			return this.firstname.equals(that.firstname) &&
-					this.lastname.equals(that.lastname) &&
+			return this.id == that.id &&
+					this.firstName.equals(that.firstName) &&
+					this.lastName.equals(that.lastName) &&
 					this.club.equals(that.club) &&
 					this.nationality.equals(that.nationality) &&
 					this.dateOfBirth.equals(that.dateOfBirth) &&
@@ -79,7 +86,7 @@ public class Player {
 	 * @return This Player object as a String.
 	 */
 	public String toString() {
-		return "[" + this.firstname + " " + this.lastname + ": "
+		return "[" + this.id + " " + this.firstName + " " + this.lastName + ": "
 				+ this.club + " "
 				+ this.nationality + " "
 				+ this.dateOfBirth + " "
@@ -91,33 +98,44 @@ public class Player {
 				+ this.defensive + " "
 				+ this.stamina + "]";
 	}
+	
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the firstname
 	 */
 	public String getFirstname() {
-		return firstname;
+		return firstName;
 	}
 
 	/**
 	 * @param firstname the firstname to set
 	 */
 	public void setFirstname(String firstname) {
-		this.firstname = firstname;
+		this.firstName = firstname;
 	}
 
 	/**
 	 * @return the lastname
 	 */
 	public String getLastname() {
-		return lastname;
+		return lastName;
 	}
 
 	/**
 	 * @param lastname the lastname to set
 	 */
 	public void setLastname(String lastname) {
-		this.lastname = lastname;
+		this.lastName = lastname;
 	}
 
 	/**
