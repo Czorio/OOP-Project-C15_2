@@ -105,7 +105,7 @@ public class XMLPlayerHandler extends DefaultHandler {
 			currentPlayerElement = qName.toUpperCase();
 		}
 		else if (bInsidePlayer) {
-			System.out.println("XMLPlayerHandler: Unkown element in Player, ID: " + currentPlayer.getId());
+			System.out.println("XMLPlayerHandler: Unkown element in Player, ID: " + currentPlayer.getId() + " --> " + "\"" + qName + "\"");
 		}	
 	}
 	

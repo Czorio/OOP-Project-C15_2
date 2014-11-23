@@ -50,75 +50,8 @@ public class XMLPlayer extends XML {
 	    	// Create the root element "Players"
 	        Element ePlayers = dom.createElement("Players");
 	        
-	        // Create a league element "League" with given name.
-	        Element eLeague = dom.createElement("League");
-	        eLeague.setAttribute("Name", league.getLeague());
+	        addLeagueToDom(dom, ePlayers, league);
 	        
-	        Element eTeam = null;
-	        Element ePlayer = null;
-	        Element ePlayerElement = null;
-	        
-	        DateFormat df = new SimpleDateFormat("dd-MM-yyy");
-	        
-	        for(int i = 0; i < league.getTeams().size(); i++) {
-	        	eTeam = dom.createElement("Team");
-	        	eTeam.setAttribute("Name", league.getTeams().get(i).getTeam());
-	        	
-	        	for(int j = 0; j < league.getTeams().get(i).getPlayers().size(); j++) {
-	        		ePlayer = dom.createElement("Player");
-	        		ePlayer.setAttribute("id", String.valueOf(league.getTeams().get(i).getPlayers().get(j).getId()));
-	        		
-	        		ePlayerElement = dom.createElement("FirstName");
-	        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getFirstname()));
-	        		ePlayer.appendChild(ePlayerElement);
-	        		
-	        		ePlayerElement = dom.createElement("LastName");
-	        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getLastname()));
-	        		ePlayer.appendChild(ePlayerElement);
-	        		
-	        		ePlayerElement = dom.createElement("Position");
-	        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getPosition()));
-	        		ePlayer.appendChild(ePlayerElement);
-	        		
-	        		ePlayerElement = dom.createElement("Pace");
-	        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getPace())));
-	        		ePlayer.appendChild(ePlayerElement);
-	        		
-	        		ePlayerElement = dom.createElement("Shooting");
-	        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getShooting())));
-	        		ePlayer.appendChild(ePlayerElement);
-	        		
-	        		ePlayerElement = dom.createElement("Passing");
-	        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getPassing())));
-	        		ePlayer.appendChild(ePlayerElement);
-	        		
-	        		ePlayerElement = dom.createElement("Offensive");
-	        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getOffensive())));
-	        		ePlayer.appendChild(ePlayerElement);
-	        		
-	        		ePlayerElement = dom.createElement("Defensive");
-	        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getDefensive())));
-	        		ePlayer.appendChild(ePlayerElement);
-	        		
-	        		ePlayerElement = dom.createElement("Stamina");
-	        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getStamina())));
-	        		ePlayer.appendChild(ePlayerElement);
-	        		
-	        		ePlayerElement = dom.createElement("Club");
-	        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getClub()));
-	        		ePlayer.appendChild(ePlayerElement);	        		
-	        		
-	        		ePlayerElement = dom.createElement("DateOfBirth");
-	        		ePlayerElement.appendChild(dom.createTextNode(df.format(league.getTeams().get(i).getPlayers().get(j).getDateOfBirth())));
-	        		ePlayer.appendChild(ePlayerElement);
-	        		
-	        		eTeam.appendChild(ePlayer);
-	        	}
-	        	
-	        	eLeague.appendChild(eTeam);
-	        }
-	        
-	        ePlayers.appendChild(eLeague);
 	    	dom.appendChild(ePlayers);
 	    	
 	        try {
@@ -137,8 +70,6 @@ public class XMLPlayer extends XML {
 	    } catch(ParserConfigurationException e) {
 	    	e.printStackTrace();
 	    }
-		
-		//return true;
 	}
 	
 	/**
@@ -146,9 +77,38 @@ public class XMLPlayer extends XML {
 	 * @param league
 	 */
 	public void writeToFile(ArrayList<League> leagues) {
-		/**
-		 * @TODO writeToFile();
-		 */
+		Document dom;    
+	    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+	    
+	    try {
+	    	DocumentBuilder db = dbf.newDocumentBuilder();
+	    	dom = db.newDocument();
+	    	
+	    	// Create the root element "Players"
+	        Element ePlayers = dom.createElement("Players");
+	        
+	        for(int i = 0; i < leagues.size(); i++) {
+	        	addLeagueToDom(dom, ePlayers, leagues.get(i));
+	        }
+	        
+	    	dom.appendChild(ePlayers);
+	    	
+	        try {
+	        	Transformer tr = TransformerFactory.newInstance().newTransformer();
+	        	tr.setOutputProperty(OutputKeys.INDENT, "yes");
+	        	tr.setOutputProperty(OutputKeys.METHOD, "xml");
+	        	tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+	            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+	            
+	            // Write to file
+	            tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(file)));
+	        } catch(TransformerException | IOException e) {
+	        	e.printStackTrace();
+	        }
+	    	
+	    } catch(ParserConfigurationException e) {
+	    	e.printStackTrace();
+	    }
 	}
 	
 	/**
@@ -208,7 +168,77 @@ public class XMLPlayer extends XML {
 		return new ArrayList<League>();
 	}
 	
-	
+	private void addLeagueToDom(Document dom, Element ePlayers, League league) {
+		// Create a league element "League" with given name.
+        Element eLeague = dom.createElement("League");
+        eLeague.setAttribute("Name", league.getLeague());
+        
+        Element eTeam = null;
+        Element ePlayer = null;
+        Element ePlayerElement = null;
+        
+        DateFormat df = new SimpleDateFormat("dd-MM-yyy");
+        
+        for(int i = 0; i < league.getTeams().size(); i++) {
+        	eTeam = dom.createElement("Team");
+        	eTeam.setAttribute("Name", league.getTeams().get(i).getTeam());
+        	
+        	for(int j = 0; j < league.getTeams().get(i).getPlayers().size(); j++) {
+        		ePlayer = dom.createElement("Player");
+        		ePlayer.setAttribute("id", String.valueOf(league.getTeams().get(i).getPlayers().get(j).getId()));
+        		
+        		ePlayerElement = dom.createElement("FirstName");
+        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getFirstname()));
+        		ePlayer.appendChild(ePlayerElement);
+        		
+        		ePlayerElement = dom.createElement("LastName");
+        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getLastname()));
+        		ePlayer.appendChild(ePlayerElement);
+        		
+        		ePlayerElement = dom.createElement("Position");
+        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getPosition()));
+        		ePlayer.appendChild(ePlayerElement);
+        		
+        		ePlayerElement = dom.createElement("Pace");
+        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getPace())));
+        		ePlayer.appendChild(ePlayerElement);
+        		
+        		ePlayerElement = dom.createElement("Shooting");
+        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getShooting())));
+        		ePlayer.appendChild(ePlayerElement);
+        		
+        		ePlayerElement = dom.createElement("Passing");
+        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getPassing())));
+        		ePlayer.appendChild(ePlayerElement);
+        		
+        		ePlayerElement = dom.createElement("Offensive");
+        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getOffensive())));
+        		ePlayer.appendChild(ePlayerElement);
+        		
+        		ePlayerElement = dom.createElement("Defensive");
+        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getDefensive())));
+        		ePlayer.appendChild(ePlayerElement);
+        		
+        		ePlayerElement = dom.createElement("Stamina");
+        		ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getStamina())));
+        		ePlayer.appendChild(ePlayerElement);
+        		
+        		ePlayerElement = dom.createElement("Club");
+        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getClub()));
+        		ePlayer.appendChild(ePlayerElement);	        		
+        		
+        		ePlayerElement = dom.createElement("DateOfBirth");
+        		ePlayerElement.appendChild(dom.createTextNode(df.format(league.getTeams().get(i).getPlayers().get(j).getDateOfBirth())));
+        		ePlayer.appendChild(ePlayerElement);
+        		
+        		eTeam.appendChild(ePlayer);
+        	}
+        	
+        	eLeague.appendChild(eTeam);
+        }
+        
+        ePlayers.appendChild(eLeague);
+	}
 	
 	/**
 	 * equals method.
