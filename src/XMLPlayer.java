@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
@@ -40,15 +41,18 @@ public class XMLPlayer extends XML {
 		
 		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 		
+		ArrayList<String> leagueArray = new ArrayList<String>();
+		leagueArray.add(league);
+		
 		try { 
 			SAXParser saxParser = saxParserFactory.newSAXParser();
-			XMLPlayerHandler handler = new XMLPlayerHandler(league);
+			XMLPlayerHandler handler = new XMLPlayerHandler(leagueArray);
 			
 			// Parse the document
 			saxParser.parse(file, handler);
 			
 			// Return the League object extracted from the XML
-			return handler.getLeagueObject();
+			return handler.getLeagueObjects().get(0);
 			
 		} catch(ParserConfigurationException | SAXException | IOException e) {
 			e.printStackTrace();
@@ -57,6 +61,35 @@ public class XMLPlayer extends XML {
 		// Return empty League if non found.
 		return new League(null);
 	}
+	
+	/**
+	 * read multiple specific leagues from file.
+	 * @param league
+	 * @return
+	 */
+	public ArrayList<League> readFromFile(ArrayList<String> leagues) {
+		
+		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+		
+		try { 
+			SAXParser saxParser = saxParserFactory.newSAXParser();
+			XMLPlayerHandler handler = new XMLPlayerHandler(leagues);
+			
+			// Parse the document
+			saxParser.parse(file, handler);
+			
+			// Return the League object extracted from the XML
+			return handler.getLeagueObjects();
+			
+		} catch(ParserConfigurationException | SAXException | IOException e) {
+			e.printStackTrace();
+		}
+				
+		// Return empty ArrayList if non found.
+		return new ArrayList<League>();
+	}
+	
+	
 	
 	/**
 	 * equals method.

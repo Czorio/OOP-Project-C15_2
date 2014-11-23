@@ -11,12 +11,13 @@ import org.xml.sax.helpers.DefaultHandler;
  * @author Boris Schrijver <boris@radialcontext.nl>
  */
 public class XMLPlayerHandler extends DefaultHandler {
-	private String league;
+	private ArrayList<String> leagueNames;
+	private ArrayList<League> leagueObjects;
 	
+	private League currentLeague;
 	private Team currentTeam;
 	private Player currentPlayer;
 	private String currentPlayerElement;
-	private ArrayList<Team> teams;
 	private ArrayList<String> PlayerElements;
 	
 	private boolean bInsidePlayers;
@@ -25,11 +26,13 @@ public class XMLPlayerHandler extends DefaultHandler {
 	private boolean bInsideTeam;
 	private boolean bInsidePlayer;
 	
-	
-	public XMLPlayerHandler(String league) {
+	/**
+	 * @param league
+	 */
+	public XMLPlayerHandler(ArrayList<String> leagueNames) {
 		super();
-		this.league = league;
-		this.teams = new ArrayList<Team>();
+		this.leagueNames = leagueNames;
+		this.leagueObjects = new ArrayList<League>();
 		this.PlayerElements = fillPlayerElementsList();
 		
 		this.currentPlayerElement = null;
@@ -39,29 +42,13 @@ public class XMLPlayerHandler extends DefaultHandler {
 		this.bInsideCorrectLeague = false;
 		this.bInsidePlayer = false;
 		this.bInsideTeam = false;
+		
+		
 	}
 	
-	/**
-	 * @return The League object.
-	 */
-	public League getLeagueObject() {
-		return new League(league, teams);
-	}
-	
-	/**
-	 * @return The League name.
-	 */
-	public String getLeague() {
-		return league;
-	}
-	
-	/**
-	 * @param league the league to set.
-	 */
-	public void setLeague(String league) {
-		this.league = league;
-	}
-	
+	public ArrayList<League> getLeagueObjects() {
+		return leagueObjects;
+	}	
 
 	/** (non-Javadoc)
 	 * @see org.xml.sax.helpers.DefaultHandler#startElement(java.lang.String, java.lang.String, java.lang.String, org.xml.sax.Attributes)
@@ -79,8 +66,20 @@ public class XMLPlayerHandler extends DefaultHandler {
 		// Enter league
 		if(bInsidePlayers && !bInsideLeague && qName.equalsIgnoreCase("LEAGUE")) {
 			bInsideLeague = true;	// Inside a league
-			if(getValueIgnoreCase(attributes, "NAME").equals(league)) {
+			
+			boolean bLeagueExists = false;
+			
+			for(int i = 0; i < leagueObjects.size(); i++) {
+				if(leagueObjects.get(i).getLeague().equals(getValueIgnoreCase(attributes, "NAME"))) {
+					bLeagueExists = true;
+					System.out.println("XMLPlayerHandler: XML File contains multiple leagues with shared names.");
+				}
+			}
+			
+			if(leagueNames.contains(getValueIgnoreCase(attributes, "NAME")) && !bLeagueExists) {
 				bInsideCorrectLeague = true;	// Inside the correct league
+				
+				currentLeague = new League(getValueIgnoreCase(attributes, "NAME"));
 			}
 			return;
 		}
@@ -193,6 +192,16 @@ public class XMLPlayerHandler extends DefaultHandler {
 		
 		// Exit from league nodelist.
 		if(bInsideLeague && qName.equalsIgnoreCase("LEAGUE")) {
+			
+			if(bInsideCorrectLeague)
+				leagueObjects.add(currentLeague);
+			
+			currentLeague = null;
+			currentTeam = null;
+			currentPlayer = null;
+			currentPlayerElement = null;
+			
+						
 			bInsideLeague = false;
 			bInsideCorrectLeague = false;
 			bInsideTeam = false;
@@ -200,10 +209,10 @@ public class XMLPlayerHandler extends DefaultHandler {
 			return;
 		}
 		
-		// Exit from team nodelist.
+		// Exit from team nodelist and add current Team to the Teams array.
 		if(bInsideTeam && qName.equalsIgnoreCase("TEAM")) {
+			currentLeague.addTeam(currentTeam);
 			
-			teams.add(currentTeam);
 			currentTeam = null;
 			currentPlayer = null;
 			currentPlayerElement = null;
