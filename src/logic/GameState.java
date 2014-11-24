@@ -1,4 +1,7 @@
+package logic;
 import java.io.File;
+
+import filehandling.XMLConfig;
 
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>

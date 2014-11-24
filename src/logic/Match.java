@@ -1,3 +1,4 @@
+package logic;
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
  *

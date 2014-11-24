@@ -1,3 +1,4 @@
+package filehandling;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,6 +17,8 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
+
+import logic.League;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
