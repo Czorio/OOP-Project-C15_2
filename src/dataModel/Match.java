@@ -1,4 +1,4 @@
-package logic;
+package dataModel;
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
  *

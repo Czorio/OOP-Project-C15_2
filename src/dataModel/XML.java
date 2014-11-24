@@ -1,4 +1,4 @@
-package filehandling;
+package dataModel;
 import java.io.File;
 
 

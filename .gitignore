@@ -28,3 +28,7 @@ local.properties
 
 # TeXlipse plugin
 .texlipse
+/GameState.xml
+/out.xml
+/Players.xml
+/src/

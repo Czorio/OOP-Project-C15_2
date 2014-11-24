@@ -1,4 +1,4 @@
-package logic;
+package dataModel;
 import java.util.ArrayList;
 
 /**

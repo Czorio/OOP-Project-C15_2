@@ -1,12 +1,8 @@
-package filehandling;
+package dataModel;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-
-import logic.League;
-import logic.Player;
-import logic.Team;
 
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
