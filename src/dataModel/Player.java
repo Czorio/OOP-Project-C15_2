@@ -23,7 +23,7 @@ public class Player {
 	private int offensive;
 	private int defensive;
 	private int stamina;
-	//private int price; // Will be based on his stats.
+	private int price; // Will be based on his stats.
 	
 	/**
 	 * @param id
@@ -297,6 +297,20 @@ public class Player {
 	 */
 	public void setStamina(int stamina) {
 		this.stamina = stamina;
+	}
+
+	/**
+	 * @return the price
+	 */
+	public int getPrice() {
+		return price;
+	}
+
+	/**
+	 * @param price the price to set
+	 */
+	public void setPrice(int price) {
+		this.price = price;
 	}
 
 	
