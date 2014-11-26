@@ -19,6 +19,7 @@ public class Team {
 	public Team(String team, ArrayList<Player> players) {
 		this.team = team;
 		this.players = players;
+		this.budget = 0;
 	}
 	
 	/**
@@ -63,18 +64,22 @@ public class Team {
 		}
 	}
 	
-	public static void transferPlayer(Player player, Team seller, Team buyer) {
+	public static boolean transferPlayer(Player player, Team seller, Team buyer) {
 		assert(player != null);
 		assert(seller != null);
 		assert(buyer != null);
 		
 		int price = player.getPrice();
 		
+		if (price > buyer.getBudget()) return false;
+		
 		seller.setBudget(seller.getBudget() + price);
 		seller.removePlayer(player);
 		
 		buyer.setBudget(buyer.getBudget() - price);
 		buyer.addPlayer(player);
+		
+		return true;
 	}
 	
 	/**
