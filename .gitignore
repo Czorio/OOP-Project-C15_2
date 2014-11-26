@@ -29,8 +29,5 @@ local.properties
 # TeXlipse plugin
 .texlipse
 
-# Game config files
-*.xml
-
 # Because Mac
 .DS_Store

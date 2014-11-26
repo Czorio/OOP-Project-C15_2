@@ -15,8 +15,8 @@ import org.junit.Test;
  */
 public class GameStateTest {
 
-	File loadFile = new File("src/dataModel/tests/GameStateTest.xml");
-	File saveFile = new File("src/dataModel/tests/SaveGameStateTest.xml");
+	File loadFile = new File("XML/GameStateTest.xml");
+	File saveFile = new File("XML/SaveGameStateTest.xml");
 	GameState testGameState1 = new GameState("Karel Janssen", 7, "Eredivisie", "ADO Den Haag");
 	GameState testGameState2 = new GameState(loadFile);
 	
