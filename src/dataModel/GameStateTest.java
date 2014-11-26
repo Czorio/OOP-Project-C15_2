@@ -22,7 +22,7 @@ public class GameStateTest {
 	
 	/**
 	 * Test method for {@link dataModel.GameState#GameState(java.lang.String, int, java.lang.String, java.lang.String)}.
-	 * Tests contructor.
+	 * Tests Constructor.
 	 */
 	@Test
 	public void testGameStateStringIntStringStringConstructor() {
