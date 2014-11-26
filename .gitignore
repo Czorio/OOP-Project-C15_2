@@ -31,3 +31,6 @@ local.properties
 
 # Game config files
 *.xml
+
+# Because Mac
+.DS_Store
