@@ -10,18 +10,18 @@ public class Test {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		File in = new File("GameState.xml");
+		File in = new File("XML/GameState.xml");
 		GameState gameState = new GameState(in);
 		
 		System.out.println(gameState.getCoachName());
 		
-		File out = new File("out.xml");
+		File out = new File("XML/out.xml");
 		gameState.saveGameState(out);
 		
 		// XMLPlayer can read and write one or multiple leagues at once.
 		// You can therefore input a single String or an ArrayList of Strings.				
 		
-		in = new File("Players.xml");									// File to read data from.
+		in = new File("XML/Players.xml");									// File to read data from.
 		XMLPlayer xmlplayer = new XMLPlayer(in);							// Create XMLPlayer with input file.
 		
 		League league = xmlplayer.readFromFile("Eredivisie");				// Generate one specific League object using a single String with data from input file.
@@ -30,8 +30,8 @@ public class Test {
 		leagueNames.add("Eredivisie");										// Add Eredivisie as a League name.
 		ArrayList<League> leagues = xmlplayer.readFromFile(leagueNames);	// Generate possibly multiple League objects using a ArrayList of Strings.		
 		
-		out = new File("PlayersOut.xml");								//
-		File outArray = new File("PlayersOutArray.xml");					//
+		out = new File("XML/PlayersOut.xml");								//
+		File outArray = new File("XML/PlayersOutArray.xml");					//
 		
 		xmlplayer.setFile(out);												//
 		xmlplayer.writeToFile(league);										//

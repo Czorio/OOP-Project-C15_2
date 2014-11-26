@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Players>
+    <League Name="Eredivisie">
+        <Team Name="Feyenoord">
+            <Player id="1">
+                <FirstName>Jordy</FirstName>
+                <LastName>Clasie</LastName>
+                <Position>CM</Position>
+                <Pace>68</Pace>
+                <Shooting>64</Shooting>
+                <Passing>73</Passing>
+                <Offensive>69</Offensive>
+                <Defensive>65</Defensive>
+                <Stamina>83</Stamina>
+                <Club>Feyenoord</Club>
+                <DateOfBirth>05-06-1989</DateOfBirth>
+            </Player>
+            <Player id="2">
+                <FirstName>Jean-Paul</FirstName>
+                <LastName>Boëtius</LastName>
+                <Position>LW</Position>
+                <Pace>88</Pace>
+                <Shooting>71</Shooting>
+                <Passing>68</Passing>
+                <Offensive>76</Offensive>
+                <Defensive>26</Defensive>
+                <Stamina>69</Stamina>
+                <Club>Feyenoord</Club>
+                <DateOfBirth>05-06-1989</DateOfBirth>
+            </Player>
+        </Team>
+    </League>
+</Players>
