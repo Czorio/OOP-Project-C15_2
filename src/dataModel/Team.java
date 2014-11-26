@@ -8,6 +8,7 @@ import java.util.ArrayList;
 public class Team {
 	private String team;
 	private ArrayList<Player> players;
+	private int budget;
 	
 
 	/**
@@ -60,6 +61,20 @@ public class Team {
 		if(bExists) {
 			players.remove(index);
 		}
+	}
+	
+	public static void transferPlayer(Player player, Team seller, Team buyer) {
+		assert(player != null);
+		assert(seller != null);
+		assert(buyer != null);
+		
+		int price = player.getPrice();
+		
+		seller.setBudget(seller.getBudget() + price);
+		seller.removePlayer(player);
+		
+		buyer.setBudget(buyer.getBudget() - price);
+		buyer.addPlayer(player);
 	}
 	
 	/**
@@ -133,5 +148,19 @@ public class Team {
 	 */
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
+	}
+
+	/**
+	 * @return the budget
+	 */
+	public int getBudget() {
+		return budget;
+	}
+
+	/**
+	 * @param budget the budget to set
+	 */
+	public void setBudget(int budget) {
+		this.budget = budget;
 	}	
 }
