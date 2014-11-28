@@ -9,6 +9,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * code made with help from a tutorial on: http://code.makery.ch/java/javafx-8-tutorial-part1/
+ * @author Mathijs de Boer
+ *
+ */
 public class MainApp extends Application {
 
     private Stage primaryStage;
@@ -21,7 +26,7 @@ public class MainApp extends Application {
 
         initRootLayout();
 
-        showPersonOverview();
+        showTeamOverview();
     }
 
     /**
@@ -44,9 +49,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Shows the person overview inside the root layout.
+     * Shows the team overview inside the root layout.
      */
-    public void showPersonOverview() {
+    public void showTeamOverview() {
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
