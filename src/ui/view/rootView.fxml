@@ -11,8 +11,8 @@
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button mnemonicParsing="false" onAction="#press" text="Save Game" />
-            <Button mnemonicParsing="false" text="Load Game" />
+          <Button fx:id="saveGameButton" mnemonicParsing="false" text="Save Game" />
+            <Button fx:id="loadGameButton" mnemonicParsing="false" text="Load Game" />
         </items>
       </ToolBar>
    </top>
