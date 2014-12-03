@@ -17,6 +17,7 @@ public class Player {
 	private String nationality;
 	private Date dateOfBirth;
 	private String position;
+	private String curPosition;
 	private int pace;
 	private int shooting;
 	private int passing;
@@ -69,6 +70,7 @@ public class Player {
 		this.nationality = null;
 		this.dateOfBirth = null;
 		this.position = null;
+		this.curPosition = null;
 		this.pace = 0;
 		this.shooting = 0;
 		this.passing = 0;
@@ -91,6 +93,7 @@ public class Player {
 					this.nationality.equals(that.nationality) &&
 					this.dateOfBirth.equals(that.dateOfBirth) &&
 					this.position.equals(that.position) &&
+					this.curPosition.equals(that.curPosition) &&
 					this.pace == that.pace &&
 					this.shooting == that.shooting &&
 					this.passing == that.passing &&
@@ -112,6 +115,7 @@ public class Player {
 				//+ this.nationality + " "
 				+ this.dateOfBirth + " "
 				+ this.position + " "
+				+ this.curPosition + " "
 				+ this.pace + " "
 				+ this.shooting + " "
 				+ this.passing + " "
@@ -214,6 +218,21 @@ public class Player {
 	public void setPosition(String position) {
 		this.position = position;
 	}
+	
+	/**
+	 * @param the current position
+	 */
+	public String getcurPosition(){
+		return curPosition;
+	}
+	
+	/**
+	 * @param set current position
+	 */
+	public void setcurPosition(String curposition){
+		this.curPosition = curposition;
+	}
+	
 
 	/**
 	 * @return the pace
