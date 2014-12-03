@@ -7,6 +7,8 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -15,11 +17,21 @@ import org.junit.Test;
  */
 public class GameStateTest {
 
-	File loadFile = new File("XML/GameStateTest.xml");
-	File saveFile = new File("XML/SaveGameStateTest.xml");
-	GameState testGameState1 = new GameState("Karel Janssen", 7, "Eredivisie", "ADO Den Haag");
-	GameState testGameState2 = new GameState(loadFile);
+	File loadFile, loadFile2, saveFile;
+	GameState testGameState1, testGameState2, testGameState3, testGameState4, testGameState5;
 	
+	@Before 
+	public void initialize() {
+		loadFile = new File("XML/GameStateTest.xml");
+		loadFile2 = new File("XML/GameStateTest2.xml");
+		saveFile = new File("XML/SaveGameStateTest.xml");
+		testGameState1 = new GameState("Karel Janssen", 7, "Eredivisie", "ADO Den Haag");
+		testGameState2 = new GameState("Pjotter Karelson", 1, "Eerste Divisie", "Feyenoord");
+		testGameState3 = new GameState(loadFile);
+		testGameState4 = new GameState(loadFile2);
+		testGameState5 = new GameState(saveFile);
+	}
+
 	/**
 	 * Test method for {@link dataModel.GameState#GameState(java.lang.String, int, java.lang.String, java.lang.String)}.
 	 * Tests Constructor.
@@ -27,8 +39,9 @@ public class GameStateTest {
 	@Test
 	public void testGameStateStringIntStringStringConstructor() {
 		assertNotNull(testGameState1);
+		assertNotNull(testGameState2);
 	}
-	
+
 	/**
 	 * Test method for {@link dataModel.GameState#GameState(java.lang.String, int, java.lang.String, java.lang.String)}.
 	 * Tests Coach name.
@@ -36,9 +49,9 @@ public class GameStateTest {
 	@Test
 	public void testGameStateStringIntStringStringCoachName() {
 		assertEquals("Karel Janssen", testGameState1.getCoachName());
-		assertNotEquals("Pjotter Karelson", testGameState1.getCoachName());
+		assertEquals("Pjotter Karelson", testGameState2.getCoachName());
 	}
-	
+
 	/**
 	 * Test method for {@link dataModel.GameState#GameState(java.lang.String, int, java.lang.String, java.lang.String)}.
 	 * Tests Round number.
@@ -46,9 +59,9 @@ public class GameStateTest {
 	@Test
 	public void testGameStateStringIntStringStringRound() {
 		assertEquals(7, testGameState1.getRound());
-		assertNotEquals(1, testGameState1.getRound());
+		assertEquals(1, testGameState2.getRound());
 	}
-	
+
 	/**
 	 * Test method for {@link dataModel.GameState#GameState(java.lang.String, int, java.lang.String, java.lang.String)}.
 	 * Tests League.
@@ -56,9 +69,9 @@ public class GameStateTest {
 	@Test
 	public void testGameStateStringIntStringStringLeague() {
 		assertEquals("Eredivisie", testGameState1.getLeague());
-		assertNotEquals("Eerste divisie", testGameState1.getLeague());
+		assertEquals("Eerste Divisie", testGameState2.getLeague());
 	}
-	
+
 	/**
 	 * Test method for {@link dataModel.GameState#GameState(java.lang.String, int, java.lang.String, java.lang.String)}.
 	 * Tests Team.
@@ -66,7 +79,7 @@ public class GameStateTest {
 	@Test
 	public void testGameStateStringIntStringStringTeam() {
 		assertEquals("ADO Den Haag", testGameState1.getTeam());
-		assertNotEquals("Feyenoord", testGameState1.getTeam());
+		assertEquals("Feyenoord", testGameState2.getTeam());
 	}
 
 	/**
@@ -75,98 +88,148 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateFileContructor() {
-		assertNotNull(testGameState2);	
+		assertNotNull(testGameState3);	
+		assertNotNull(testGameState4);
 	}
-	
+
 	/**
 	 * Test method for {@link dataModel.GameState#GameState(java.io.File)}.
 	 * Tests Coach Name.
 	 */
 	@Test
 	public void testGameStateFileCoachName() {
-		assertEquals("Steven Meijer", testGameState2.getCoachName());
-		assertNotEquals("Boris Schrijver", testGameState2.getTeam());
+		assertEquals("Steven Meijer", testGameState3.getCoachName());
+		assertEquals("Boris Schrijver", testGameState4.getCoachName());
 	}
-	
+
 	/**
 	 * Test method for {@link dataModel.GameState#GameState(java.io.File)}.
 	 * Tests Round number.
 	 */
 	@Test
 	public void testGameStateFileRound() {
-		assertEquals(4, testGameState2.getRound());
-		assertNotEquals(5, testGameState2.getRound());
+		assertEquals(4, testGameState3.getRound());
+		assertEquals(5, testGameState4.getRound());
 	}
-	
+
 	/**
 	 * Test method for {@link dataModel.GameState#GameState(java.io.File)}.
 	 * Tests League.
 	 */
 	@Test
 	public void testGameStateFileLeague() {
-		assertEquals("Eredivisie", testGameState2.getLeague());
-		assertNotEquals("Eerste Divisie", testGameState2.getLeague());
+		assertEquals("Eredivisie", testGameState3.getLeague());
+		assertEquals("Eerste Divisie", testGameState4.getLeague());
 	}
-	
+
 	/**
 	 * Test method for {@link dataModel.GameState#GameState(java.io.File)}.
 	 * Tests Team.
 	 */
 	@Test
 	public void testGameStateFileTeam() {
-		assertEquals("Feyenoord", testGameState2.getTeam());
-		assertNotEquals("Ajax", testGameState2.getTeam());
+		assertEquals("Feyenoord", testGameState3.getTeam());
+		assertEquals("Ajax", testGameState4.getTeam());
 	}
 
-	/**
-	 * Test method for {@link dataModel.GameState#loadGameState(java.io.File)}.
-	 * Tests Coach name.
-	 */
-	@Test
-	public void testLoadGameStateFileCoachName() {
-		assertEquals("Steven Meijer", testGameState2.getCoachName());
-		assertNotEquals("Boris Schrijver", testGameState2.getTeam());
-	}
-	
-	/**
-	 * Test method for {@link dataModel.GameState#loadGameState(java.io.File)}.
-	 * Tests Round number.
-	 */
-	@Test
-	public void testLoadGameStateFileRound() {
-		assertEquals(4, testGameState2.getRound());
-		assertNotEquals(5, testGameState2.getRound());
-	}
-	
-	/**
-	 * Test method for {@link dataModel.GameState#loadGameState(java.io.File)}.
-	 * Tests League.
-	 */
-	@Test
-	public void testLoadGameStateFileLeague() {
-		assertEquals("Eredivisie", testGameState2.getLeague());
-		assertNotEquals("Eerste Divisie", testGameState2.getLeague());
-	}
-	
-	/**
-	 * Test method for {@link dataModel.GameState#loadGameState(java.io.File)}.
-	 * Tests Team.
-	 */
-	@Test
-	public void testLoadGameStateFileTeam() {
-		assertEquals("Feyenoord", testGameState2.getTeam());
-		assertNotEquals("Ajax", testGameState2.getTeam());
-	}
+	//TODO Test GameState.LoadGameState(file)
+//	/**
+//	 * Test method for {@link dataModel.GameState#loadGameState(java.io.File)}.
+//	 * Tests Coach name.
+//	 */
+//	@Test
+//	public void testLoadGameStateFileCoachName() {
+//		
+//		assertEquals("Steven Meijer", testGameState2.getCoachName());
+//		assertNotEquals("Boris Schrijver", testGameState2.getTeam());
+//	}
+//
+//	/**
+//	 * Test method for {@link dataModel.GameState#loadGameState(java.io.File)}.
+//	 * Tests Round number.
+//	 */
+//	@Test
+//	public void testLoadGameStateFileRound() {
+//		assertEquals(4, testGameState2.getRound());
+//		assertNotEquals(5, testGameState2.getRound());
+//	}
+//
+//	/**
+//	 * Test method for {@link dataModel.GameState#loadGameState(java.io.File)}.
+//	 * Tests League.
+//	 */
+//	@Test
+//	public void testLoadGameStateFileLeague() {
+//		assertEquals("Eredivisie", testGameState2.getLeague());
+//		assertNotEquals("Eerste Divisie", testGameState2.getLeague());
+//	}
+//
+//	/**
+//	 * Test method for {@link dataModel.GameState#loadGameState(java.io.File)}.
+//	 * Tests Team.
+//	 */
+//	@Test
+//	public void testLoadGameStateFileTeam() {
+//		assertEquals("Feyenoord", testGameState2.getTeam());
+//		assertNotEquals("Ajax", testGameState2.getTeam());
+//	}
 
 	/**
 	 * Test method for {@link dataModel.GameState#saveGameState(java.io.File)}.
+	 * Tests saving of Coach name
 	 */
 	@Test
-	public void testSaveGameState() {
+	public void testSaveGameStateCoachName() {
 		testGameState1.saveGameState(saveFile);
-		GameState testGameState3 = new GameState(saveFile);
+
+		assertTrue(testGameState5.getCoachName().equals(testGameState1.getCoachName()));
 		
-		assertEquals(testGameState3, testGameState3);
+		saveFile.delete();
+	}
+	
+	/**
+	 * Test method for {@link dataModel.GameState#saveGameState(java.io.File)}.
+	 * Tests saving of Round number
+	 */
+	@Test
+	public void testSaveGameStateRound() {
+		testGameState1.saveGameState(saveFile);
+
+		assertEquals(testGameState5.getRound(), testGameState1.getRound());
+		
+		saveFile.delete();
+	}
+	
+	/**
+	 * Test method for {@link dataModel.GameState#saveGameState(java.io.File)}.
+	 * Tests saving of League
+	 */
+	@Test
+	public void testSaveGameStateLeague() {
+		testGameState1.saveGameState(saveFile);
+
+		assertTrue(testGameState5.getLeague().equals(testGameState1.getLeague()));
+		
+		saveFile.delete();
+	}
+	
+	/**
+	 * Test method for {@link dataModel.GameState#saveGameState(java.io.File)}.
+	 * Tests saving of Team name
+	 */
+	@Test
+	public void testSaveGameStateTeam() {
+		testGameState1.saveGameState(saveFile);
+
+		assertTrue(testGameState5.getTeam().equals(testGameState1.getTeam()));
+		
+		saveFile.delete();
+	}
+	
+	//TODO Fix delete file
+	@After
+	public void deleteOutput() {
+		saveFile.delete();
 	}
 
 }
