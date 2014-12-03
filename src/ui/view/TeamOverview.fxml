@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="560.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <SplitPane dividerPositions="0.75" layoutX="125.0" layoutY="165.0" prefHeight="560.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <SplitPane dividerPositions="0.75" layoutX="125.0" layoutY="165.0" prefHeight="560.0" prefWidth="598.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" SplitPane.resizableWithParent="false">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
@@ -45,7 +45,7 @@
                   </TabPane>
                </children>
             </AnchorPane>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" />
+          <AnchorPane maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="160.0" prefWidth="150.0" SplitPane.resizableWithParent="false" />
         </items>
       </SplitPane>
    </children>
