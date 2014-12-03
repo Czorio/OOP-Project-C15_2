@@ -16,56 +16,63 @@ import java.util.Date;
 public class XMLImport {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		readCSV();
+		File dir = new File("CSV/");
+		readCSV(dir);
 	}
 	
-	private static void readCSV() {
-		String csvFileToRead = "XML/XLSX/Players.csv";
+	private static void readCSV(File dir) {
 		BufferedReader br = null;
 		String line = "";
 		String delimiter = ";";
 		League eredivisie = new League("Eredivisie");
-		XMLPlayer xmlPlayer = new XMLPlayer(new File("XML/Players_Eredivise.xml"));
+		XMLPlayer xmlPlayer = new XMLPlayer(new File("XML/Database_Eredivise.xml"));
 		
-		try {
-			br = new BufferedReader(new FileReader(csvFileToRead));
-			
-			while((line = br.readLine()) != null) {
+		int id = 0;
+		
+		for (File csvFile : dir.listFiles()) {
+			try {
+				br = new BufferedReader(new FileReader(csvFile));
 				
-				String[] player = line.split(delimiter);
-				
-				// Create league and players
-				if(eredivisie.getTeam(player[9]) == null) {
-					eredivisie.addTeam(new Team(player[9]));
+				br.readLine();
+				while((line = br.readLine()) != null) {
+					
+					String[] player = line.split(delimiter);
+					
+					// Create league and players
+					if(eredivisie.getTeam(player[8]) == null) {
+						eredivisie.addTeam(new Team(player[8]));
+					}
+					
+					Player p = new Player(
+							id++,
+							player[0],
+							"",
+							player[8],
+							"",
+							new Date(),
+							player[1],
+							Integer.parseInt(player[2]),
+							Integer.parseInt(player[3]),
+							Integer.parseInt(player[4]),
+							Integer.parseInt(player[5]),
+							Integer.parseInt(player[6]),
+							Integer.parseInt(player[7]));
+					
+					eredivisie.getTeam(player[8]).addPlayer(p);
+//					System.out.println(p);
 				}
-				
-				eredivisie.getTeam(player[9]).addPlayer(new Player(
-						Integer.parseInt(player[0]),
-						player[1],
-						"",
-						player[9],
-						"",
-						new Date(),
-						player[2],
-						Integer.parseInt(player[3]),
-						Integer.parseInt(player[4]),
-						Integer.parseInt(player[5]),
-						Integer.parseInt(player[6]),
-						Integer.parseInt(player[7]),
-						Integer.parseInt(player[8])));
-			}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} finally {
-			if(br != null) {
-				try {
-					br.close();
-				} catch (IOException e) {
-					e.printStackTrace();
+				System.out.println(csvFile.getName());
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			} finally {
+				if(br != null) {
+					try {
+						br.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		}
