@@ -35,7 +35,7 @@ public class League {
 	public void addTeam(Team team) {
 		boolean bExists = false;
 		for(int i = 0; i < teams.size(); i++) {
-			if(teams.get(i).getTeam().equals(teams.get(i).getTeam())) bExists = true;  
+			if(team.getTeam().equals(teams.get(i).getTeam())) bExists = true;  
 		}
 		
 		if(!bExists) {
