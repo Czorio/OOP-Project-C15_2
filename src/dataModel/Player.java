@@ -25,6 +25,7 @@ public class Player {
 	private int defensive;
 	private int stamina;
 	private int price; // Will be based on his stats.
+	private int playedGames;
 	
 	/**
 	 * @param id
@@ -77,6 +78,7 @@ public class Player {
 		this.offensive = 0;
 		this.defensive = 0;
 		this.stamina = 0;
+		this.playedGames = 0;
 	}
 	
 	/**
@@ -99,7 +101,8 @@ public class Player {
 					this.passing == that.passing &&
 					this.offensive == that.offensive &&
 					this.defensive == that.defensive &&
-					this.stamina == that.stamina;
+					this.stamina == that.stamina &&
+					this.playedGames == that.playedGames;
 		}
 		
 		return false;
@@ -121,7 +124,8 @@ public class Player {
 				+ this.passing + " "
 				+ this.offensive + " "
 				+ this.defensive + " "
-				+ this.stamina + "]";
+				+ this.stamina + " "
+				+ this.playedGames + "]";
 	}
 	
 	/**
@@ -234,14 +238,14 @@ public class Player {
 	/**
 	 * @param the current position
 	 */
-	public String getcurPosition(){
+	public String getCurPosition(){
 		return curPosition;
 	}
 	
 	/**
 	 * @param set current position
 	 */
-	public void setcurPosition(String curposition){
+	public void setCurPosition(String curposition){
 		this.curPosition = curposition;
 	}
 	
@@ -344,5 +348,20 @@ public class Player {
 		this.price = price;
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
+	public int getPlayedGames(){
+		return playedGames;
+	}
+	
+	/**
+	 * 
+	 * @param playedGames
+	 */
+	public void setPlayedGames(int playedGames){
+		this.playedGames = playedGames;
+	}
 	
 }
