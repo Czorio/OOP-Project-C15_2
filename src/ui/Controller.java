@@ -30,7 +30,7 @@ public class Controller implements Initializable, Observer {
 	@FXML
 	private Label gamesPlayed;
 
-	private GameState gamestate;
+	private GameState gameState;
 	private League league;
 
 	/* (non-Javadoc)
@@ -49,7 +49,7 @@ public class Controller implements Initializable, Observer {
 
 		loadGameButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
-			setGamestate(loadGame(getGameState()));
+			setGameState(loadGame(getGameState()));
 		});
 	}
 
@@ -101,8 +101,8 @@ public class Controller implements Initializable, Observer {
 	public void update(Observable o, Object arg) {
 		System.out.println("An instance of " + o.getClass().toString() + " has changed!");
 		
-		if (o == gamestate) {
-			this.gamesPlayed.setText(String.valueOf(gamestate.getRound()));
+		if (o == gameState) {
+			this.gamesPlayed.setText(String.valueOf(gameState.getRound()));
 		}
 	}
 
@@ -149,17 +149,31 @@ public class Controller implements Initializable, Observer {
 	}
 
 	/**
-	 * @return the gamestate
+	 * @return the league
 	 */
-	public GameState getGameState() {
-		return gamestate;
+	public League getLeague() {
+		return league;
 	}
 
 	/**
-	 * @param gamestate the gamestate to set
+	 * @param league the league to set
 	 */
-	public void setGamestate(GameState gamestate) {
-		this.gamestate = gamestate;
+	public void setLeague(League league) {
+		this.league = league;
+	}
+
+	/**
+	 * @return the gameState
+	 */
+	public GameState getGameState() {
+		return gameState;
+	}
+
+	/**
+	 * @param gameState the gameState to set
+	 */
+	public void setGameState(GameState gameState) {
+		this.gameState = gameState;
 	}
 
 }

@@ -2,6 +2,7 @@ package ui;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.application.Application;
@@ -38,13 +39,15 @@ public class FootballManager extends Application {
 			e.printStackTrace();
 		}
 		
-		c.setGamestate(new GameState(null, 0, null, null));
+		c.setGameState(new GameState(null, 0, null, null));
 		c.getGameState().addObserver(c);
 		
 		if (GameState.isUseless(c.getGameState())) {
 			System.out.println("GameState is empty, asking to load one.");
-			c.setGamestate(c.loadGame(c.getGameState()));
+			c.setGameState(c.loadGame(c.getGameState()));
 		}
+		
+		
 		
 		System.out.println("Start finished!");
 		
@@ -84,9 +87,11 @@ public class FootballManager extends Application {
 	 * @return
 	 */
 	public static File getSaveFile(FileChooser chooser) {
-		String now = new Date().toGMTString();
-		System.out.println(now);
-//		chooser.setInitialFileName(value);
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd-HHmmss");
+		String now = sdf.format(new Date());
+		String fileName = now + ".xml";
+		System.out.println("Filename: " + fileName);
+		chooser.setInitialFileName(fileName);
 		return chooser.showSaveDialog(stage);
 	}
 

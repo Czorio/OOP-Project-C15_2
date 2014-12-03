@@ -36,22 +36,25 @@ public class League extends Observable {
 	 * @param team
 	 */
 	public void addTeam(Team team) {
-//		boolean bExists = false;
-//		for(int i = 0; i < teams.size(); i++) {
-//			if(team.getTeam().equals(teams.get(i).getTeam())) bExists = true;  
-//		}
-//		
-//		if(!bExists) {
-//			teams.add(team);
-//		}
+		boolean bExists = false;
+		for(Team t : this.teams) {
+			if(team.getTeam().equals(t.getTeam())) {
+				bExists = true;  
+				break;
+			}
+		}
+		
+		if(!bExists) {
+			teams.add(team);
+		}
 		
 		// Is dit niet veel handiger?
-		if (this.getTeams().contains(team) == false) {
-			this.teams.add(team);
-			
-			this.setChanged();
-			this.notifyObservers(this);
-		}
+//		if (this.getTeams().contains(team) == false) {
+//			this.teams.add(team);
+//			
+//			this.setChanged();
+//			this.notifyObservers(this);
+//		}
 	}
 	
 	/**
@@ -59,27 +62,27 @@ public class League extends Observable {
 	 * @param team
 	 */
 	public void removeTeam(Team team) {
-//		boolean bExists = false;
-//		int index = 0;
-//		for(int i = 0; i < teams.size(); i++) {
-//			if(teams.get(i).getTeam().equals(team.getTeam())) {
-//				bExists = true;
-//				index = i;
-//			}
-//		}
-//		
-//		if(bExists) {
-//			teams.remove(index);
-//		}
+		boolean bExists = false;
+		int index = 0;
+		for(int i = 0; i < teams.size(); i++) {
+			if(teams.get(i).getTeam().equals(team.getTeam())) {
+				bExists = true;
+				index = i;
+			}
+		}
+		
+		if(bExists) {
+			teams.remove(index);
+		}
 		
 		// Dit lijkt me ook beter
-		int index;
-		if ((index = this.teams.indexOf(team)) != -1) {
-			this.teams.remove(index);
-			
-			this.setChanged();
-			this.notifyObservers();
-		}
+//		int index;
+//		if ((index = this.teams.indexOf(team)) != -1) {
+//			this.teams.remove(index);
+//			
+//			this.setChanged();
+//			this.notifyObservers();
+//		}
 	}
 	
 	/**
