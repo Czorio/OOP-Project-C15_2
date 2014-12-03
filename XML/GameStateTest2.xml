@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <GameState>
-	<coachName>Boris Schrijver</coachName>
-	<round>5</round>
-	<league>Eerste Divisie</league>
-	<team>Ajax</team>
+    <coachName>Boris Schrijver</coachName>
+    <round>4</round>
+    <league>Eredivisie</league>
+    <team>Feyenoord</team>
 </GameState>
