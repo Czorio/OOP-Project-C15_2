@@ -1,5 +1,6 @@
 package dataModel;
 import java.util.Date;
+import java.util.Observable;
 
 /**
  * Player class.
@@ -8,7 +9,7 @@ import java.util.Date;
  * 
  * @author Toine Hartman <tjbhartman@gmail.com>
  */
-public class Player {
+public class Player extends Observable {
 	// Properties of a player
 	private int id;
 	private String firstName;
@@ -57,6 +58,9 @@ public class Player {
 		this.offensive = offensive;
 		this.defensive = defensive;
 		this.stamina = stamina;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -79,6 +83,9 @@ public class Player {
 		this.defensive = 0;
 		this.stamina = 0;
 		this.playedGames = 0;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -137,6 +144,9 @@ public class Player {
 	
 	public void setId(int id) {
 		this.id = id;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -151,6 +161,9 @@ public class Player {
 	 */
 	public void setFirstname(String firstname) {
 		this.firstName = firstname;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -165,6 +178,9 @@ public class Player {
 	 */
 	public void setLastname(String lastname) {
 		this.lastName = lastname;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -179,6 +195,9 @@ public class Player {
 	 */
 	public void setClub(String club) {
 		this.club = club;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -193,6 +212,9 @@ public class Player {
 	 */
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -207,6 +229,9 @@ public class Player {
 	 */
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -233,6 +258,9 @@ public class Player {
 	 */
 	public void setPosition(String position) {
 		this.position = position;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -247,6 +275,9 @@ public class Player {
 	 */
 	public void setCurPosition(String curposition){
 		this.curPosition = curposition;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 
@@ -262,6 +293,9 @@ public class Player {
 	 */
 	public void setPace(int pace) {
 		this.pace = pace;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -276,6 +310,9 @@ public class Player {
 	 */
 	public void setShooting(int shooting) {
 		this.shooting = shooting;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -290,6 +327,9 @@ public class Player {
 	 */
 	public void setPassing(int passing) {
 		this.passing = passing;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -304,6 +344,9 @@ public class Player {
 	 */
 	public void setOffensive(int offensive) {
 		this.offensive = offensive;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -318,6 +361,9 @@ public class Player {
 	 */
 	public void setDefensive(int defensive) {
 		this.defensive = defensive;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -332,6 +378,9 @@ public class Player {
 	 */
 	public void setStamina(int stamina) {
 		this.stamina = stamina;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -346,6 +395,9 @@ public class Player {
 	 */
 	public void setPrice(int price) {
 		this.price = price;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -362,6 +414,9 @@ public class Player {
 	 */
 	public void setPlayedGames(int playedGames){
 		this.playedGames = playedGames;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 }

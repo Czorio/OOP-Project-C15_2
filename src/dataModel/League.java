@@ -1,13 +1,16 @@
 package dataModel;
 import java.util.ArrayList;
+import java.util.Observable;
+//import java.util.Set;
 
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>
  *
  */
-public class League {
+public class League extends Observable {
 	private String league;
-	private ArrayList<Team> teams;
+	private ArrayList<Team> teams; // Wellicht handig om een Set te maken, elementen zijn tenslotte distinct
+//	private Set<Team> teams;
 	
 
 	/**
@@ -33,13 +36,21 @@ public class League {
 	 * @param team
 	 */
 	public void addTeam(Team team) {
-		boolean bExists = false;
-		for(int i = 0; i < teams.size(); i++) {
-			if(team.getTeam().equals(teams.get(i).getTeam())) bExists = true;  
-		}
+//		boolean bExists = false;
+//		for(int i = 0; i < teams.size(); i++) {
+//			if(team.getTeam().equals(teams.get(i).getTeam())) bExists = true;  
+//		}
+//		
+//		if(!bExists) {
+//			teams.add(team);
+//		}
 		
-		if(!bExists) {
-			teams.add(team);
+		// Is dit niet veel handiger?
+		if (this.getTeams().contains(team) == false) {
+			this.teams.add(team);
+			
+			this.setChanged();
+			this.notifyObservers(this);
 		}
 	}
 	
@@ -48,17 +59,26 @@ public class League {
 	 * @param team
 	 */
 	public void removeTeam(Team team) {
-		boolean bExists = false;
-		int index = 0;
-		for(int i = 0; i < teams.size(); i++) {
-			if(teams.get(i).getTeam().equals(team.getTeam())) {
-				bExists = true;
-				index = i;
-			}
-		}
+//		boolean bExists = false;
+//		int index = 0;
+//		for(int i = 0; i < teams.size(); i++) {
+//			if(teams.get(i).getTeam().equals(team.getTeam())) {
+//				bExists = true;
+//				index = i;
+//			}
+//		}
+//		
+//		if(bExists) {
+//			teams.remove(index);
+//		}
 		
-		if(bExists) {
-			teams.remove(index);
+		// Dit lijkt me ook beter
+		int index;
+		if ((index = this.teams.indexOf(team)) != -1) {
+			this.teams.remove(index);
+			
+			this.setChanged();
+			this.notifyObservers();
 		}
 	}
 	
@@ -88,6 +108,9 @@ public class League {
 	 */
 	public void setLeague(String league) {
 		this.league = league;
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -117,5 +140,8 @@ public class League {
 	 */
 	public void setTeams(ArrayList<Team> teams) {
 		this.teams = teams;
+
+		this.setChanged();
+		this.notifyObservers();
 	}	
 }

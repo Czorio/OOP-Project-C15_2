@@ -1,16 +1,15 @@
 package dataModel;
 import java.io.File;
+import java.util.Observable;
 
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>
  */
-public class GameState {
+public class GameState extends Observable {
 	private String coachName;
 	private int round;
 	private String league;
 	private String team;	
-	
-
 
 	/**
 	 * @param coachName
@@ -23,6 +22,9 @@ public class GameState {
 		this.round = round;
 		this.league = league;
 		this.team = team;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -33,10 +35,23 @@ public class GameState {
 		
 		GameState gameState = xmlConfig.readFromFile();
 		
-		setCoachName(gameState.getCoachName());
-		setRound(gameState.getRound());
-		setLeague(gameState.getLeague());
-		setTeam(gameState.getTeam());
+//		setCoachName(gameState.getCoachName());
+//		setRound(gameState.getRound());
+//		setLeague(gameState.getLeague());
+//		setTeam(gameState.getTeam());
+		
+		/** 
+		 * Changed this above to below because above methods all call
+		 * the setChanged() method, which triggers all Observers 5 times.
+		 */
+		
+		this.coachName = gameState.getCoachName();
+		this.round = gameState.getRound();
+		this.league = gameState.getLeague();
+		this.team = gameState.getTeam();
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -47,10 +62,23 @@ public class GameState {
 		
 		GameState gameState = xmlConfig.readFromFile();
 		
-		setCoachName(gameState.getCoachName());
-		setRound(gameState.getRound());
-		setLeague(gameState.getLeague());
-		setTeam(gameState.getTeam());
+//		setCoachName(gameState.getCoachName());
+//		setRound(gameState.getRound());
+//		setLeague(gameState.getLeague());
+//		setTeam(gameState.getTeam());
+		
+		/** 
+		 * Changed this above to below because above methods all call
+		 * the setChanged() method, which triggers all Observers 5 times.
+		 */
+		
+		this.coachName = gameState.getCoachName();
+		this.round = gameState.getRound();
+		this.league = gameState.getLeague();
+		this.team = gameState.getTeam();
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -60,6 +88,13 @@ public class GameState {
 		XMLConfig xmlConfig = new XMLConfig(file);
 		
 		xmlConfig.writeToFile(this);		
+	}
+	
+	public static boolean isUseless(GameState gameState) {
+		return gameState == null
+				|| gameState.getCoachName() == null
+				|| gameState.getLeague() == null
+				|| gameState.getTeam() == null;
 	}
 
 	/**
@@ -74,6 +109,9 @@ public class GameState {
 	 */
 	public void setCoachName(String coachName) {
 		this.coachName = coachName;
+		
+		setChanged();
+		notifyObservers(this);
 	}
 
 	/**
@@ -88,6 +126,9 @@ public class GameState {
 	 */
 	public void setRound(int round) {
 		this.round = round;
+		
+		setChanged();
+		notifyObservers(this);
 	}
 
 	/**
@@ -102,6 +143,9 @@ public class GameState {
 	 */
 	public void setLeague(String league) {
 		this.league = league;
+		
+		setChanged();
+		notifyObservers(this);
 	}
 
 	/**
@@ -116,6 +160,9 @@ public class GameState {
 	 */
 	public void setTeam(String team) {
 		this.team = team;
+		
+		setChanged();
+		notifyObservers(this);
 	}
 
 	/* (non-Javadoc)

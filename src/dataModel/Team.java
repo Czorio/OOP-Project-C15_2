@@ -1,11 +1,12 @@
 package dataModel;
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
-public class Team {
+public class Team extends Observable {
 	private String team;
 	private ArrayList<Player> players;
 	private int budget;
@@ -20,6 +21,9 @@ public class Team {
 		this.team = team;
 		this.players = players;
 		this.budget = 0;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**

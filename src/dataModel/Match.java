@@ -1,10 +1,13 @@
 package dataModel;
+
+import java.util.Observable;
+
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
 
-public class Match {
+public class Match extends Observable {
 	private Team home;
 	private Team away;
 	
@@ -29,6 +32,9 @@ public class Match {
 	 */
 	public void setHome(Team home) {
 		this.home = home;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -43,6 +49,9 @@ public class Match {
 	 */
 	public void setAway(Team away) {
 		this.away = away;
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	
