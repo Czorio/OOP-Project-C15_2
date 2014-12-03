@@ -209,7 +209,19 @@ public class Player {
 	 * @return the position
 	 */
 	public String getPosition() {
-		return position;
+		if (position.equals("ST") || position.equals("CF")){
+			return "Attacker";
+		}
+		else if (position.equals("CM") || position.equals("CDM") || position.equals("CAM") 
+				|| position.equals("LW") || position.equals("RW") || position.equals("RM") 
+				|| position.equals("LM")){
+			return "Midfielder";
+		}
+		else if (position.equals("CB") || position.equals("RB") || position.equals("LB")){
+			return "Defender";
+		}
+		else
+			return "Goalkeeper";
 	}
 
 	/**

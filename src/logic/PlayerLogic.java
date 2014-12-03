@@ -8,19 +8,19 @@ package logic;
 public class PlayerLogic {
 	
 	private int offScore, defScore, stamina, posModifier, staminaModifier, playedGames;
-	private String position, placedPosition;
+	private String position, curPosition;
 	
-	public PlayerLogic(int offScore, int defScore, int stamina, String position, String placedPosition){
+	public PlayerLogic(int offScore, int defScore, int stamina, String position, String curPosition){
 		this.offScore = offScore;
 		this.defScore = defScore;
 		this.stamina = stamina;
 		this.position = position;
-		this.placedPosition = placedPosition;
+		this.curPosition = curPosition;
 	}
 	
 	public int calculatePlayerOffScore(int playerID){
 		int output;
-		if(position == placedPosition){
+		if(position == curPosition){
 			posModifier = 1;
 		}
 		
@@ -31,7 +31,7 @@ public class PlayerLogic {
 	
 	public int calculatePlayerDefScore(int playerID){
 		int output;
-		if(position == placedPosition){
+		if(position == curPosition){
 			posModifier = 1;
 		}
 		
