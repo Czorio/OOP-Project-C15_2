@@ -41,7 +41,7 @@ public class Player {
 	 * @param defensive
 	 * @param stamina
 	 */
-	public Player(Integer id, String firstname, String lastname, String club, String nationality, Date dateOfBirth, String position,String curPosition, int pace,
+	public Player(Integer id, String firstname, String lastname, String club, String nationality, Date dateOfBirth, String position, int pace,
 			int shooting, int passing, int offensive, int defensive, int stamina) {
 		this.id = id;
 		this.firstName = firstname;
@@ -50,7 +50,6 @@ public class Player {
 		this.nationality = nationality;
 		this.dateOfBirth = dateOfBirth;
 		this.position = position;
-		this.curPosition = curPosition;
 		this.pace = pace;
 		this.shooting = shooting;
 		this.passing = passing;
