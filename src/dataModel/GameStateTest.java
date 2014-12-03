@@ -13,7 +13,7 @@ import org.junit.Test;
 
 /**
  * @author Steven Meijer <stevenmeijer9@gmail.com>
- * @version 26/11/14
+ * @version 03/12/14
  */
 public class GameStateTest {
 
