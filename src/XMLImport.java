@@ -55,10 +55,6 @@ public class XMLImport {
 						Integer.parseInt(player[6]),
 						Integer.parseInt(player[7]),
 						Integer.parseInt(player[8])));
-				
-				
-				
-				
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
