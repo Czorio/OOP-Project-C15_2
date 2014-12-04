@@ -13,8 +13,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import dataModel.GameState;
+import dataModel.League;
+import dataModel.Team;
 
 public class FootballManager extends Application {
+	
+	public final static File PLAYER_DATABASE = new File("GameData/Eredivisie.xml");
 	
 	private static Stage stage;
 	private BorderPane rootLayout;
@@ -47,9 +51,13 @@ public class FootballManager extends Application {
 			c.setGameState(c.loadGame(c.getGameState()));
 		}
 		
+		c.setLeague(League.readFromFile(PLAYER_DATABASE));
 		
+		for (Team t : c.getLeague().getTeams()) {
+			System.out.println(t);
+		}
 		
-		System.out.println("Start finished!");
+		System.out.println("Startup finished!");
 		
 	}
 	

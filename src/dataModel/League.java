@@ -1,7 +1,12 @@
 package dataModel;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Observable;
 //import java.util.Set;
+
+import org.apache.commons.io.FilenameUtils; // Toevoegen aan build path
+
+
 
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>
@@ -10,8 +15,8 @@ import java.util.Observable;
 public class League extends Observable {
 	private String league;
 	private ArrayList<Team> teams; // Wellicht handig om een Set te maken, elementen zijn tenslotte distinct
-//	private Set<Team> teams;
-	
+	//	private Set<Team> teams;
+
 
 	/**
 	 * Construct a league with given name and teamlist.
@@ -22,7 +27,7 @@ public class League extends Observable {
 		this.league = league;
 		this.teams = teams;
 	}
-	
+
 	/**
 	 * Construct an empty League
 	 * @param League Name of the League
@@ -30,7 +35,13 @@ public class League extends Observable {
 	public League(String league) {
 		this(league, new ArrayList<Team>());
 	}
-	
+
+	public static League readFromFile(File inFile) {
+		String leagueName = FilenameUtils.removeExtension(inFile.getName());
+		XMLPlayer xmlplayer = new XMLPlayer(inFile);
+		return xmlplayer.readFromFile(leagueName);
+	}
+
 	/**
 	 * Add team to this league, only if their doesn't exist a team with the same name.
 	 * @param team
@@ -43,20 +54,20 @@ public class League extends Observable {
 				break;
 			}
 		}
-		
+
 		if(!bExists) {
 			teams.add(team);
 		}
-		
+
 		// Is dit niet veel handiger?
-//		if (this.getTeams().contains(team) == false) {
-//			this.teams.add(team);
-//			
-//			this.setChanged();
-//			this.notifyObservers(this);
-//		}
+		//		if (this.getTeams().contains(team) == false) {
+		//			this.teams.add(team);
+		//			
+		//			this.setChanged();
+		//			this.notifyObservers(this);
+		//		}
 	}
-	
+
 	/**
 	 * Remove team, if the team exists, based on Team name.
 	 * @param team
@@ -70,32 +81,32 @@ public class League extends Observable {
 				index = i;
 			}
 		}
-		
+
 		if(bExists) {
 			teams.remove(index);
 		}
-		
+
 		// Dit lijkt me ook beter
-//		int index;
-//		if ((index = this.teams.indexOf(team)) != -1) {
-//			this.teams.remove(index);
-//			
-//			this.setChanged();
-//			this.notifyObservers();
-//		}
+		//		int index;
+		//		if ((index = this.teams.indexOf(team)) != -1) {
+		//			this.teams.remove(index);
+		//			
+		//			this.setChanged();
+		//			this.notifyObservers();
+		//		}
 	}
-	
+
 	/**
 	 * equals method
 	 */
 	public boolean equals(Object other) {
 		if(other instanceof League) {
 			League that = (League)other;
-			
+
 			return this.league.equals(that.league) &&
 					this.teams.equals(that.teams);
 		}
-		
+
 		return false;
 	}
 
@@ -111,11 +122,11 @@ public class League extends Observable {
 	 */
 	public void setLeague(String league) {
 		this.league = league;
-		
+
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 	/**
 	 * Get Team based on name
 	 * @param name
@@ -127,7 +138,7 @@ public class League extends Observable {
 				return teams.get(i);
 			}
 		}
-		
+
 		return null;
 	}
 

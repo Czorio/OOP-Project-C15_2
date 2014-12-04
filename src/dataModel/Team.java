@@ -34,6 +34,16 @@ public class Team extends Observable {
 		this(team, new ArrayList<Player>());
 	}
 	
+	// Just an example
+	public String toString() {
+		String res = this.getTeam() + " (" + this.getBudget() + ")\n";
+		for (Player p : this.getPlayers()) {
+			res += p.getFirstname() + " " + p.getLastname();
+		}
+		
+		return res;
+	}
+	
 	/**
 	 * Add player to this team, only if their doesn't exist a player with the same id.
 	 * @param player
