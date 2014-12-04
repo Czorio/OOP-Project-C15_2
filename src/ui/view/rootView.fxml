@@ -15,8 +15,8 @@
             <Button fx:id="loadGameButton" mnemonicParsing="false" text="Load Game..." />
             <MenuButton mnemonicParsing="false" text="Options">
               <items>
-                <MenuItem mnemonicParsing="false" text="Action 1" />
-                <MenuItem mnemonicParsing="false" text="Quit" />
+                <MenuItem fx:id="saveAndQuitMenuButton" mnemonicParsing="false" text="Save and Quit" />
+                <MenuItem fx:id="quitMenuButton" mnemonicParsing="false" text="Quit" />
               </items>
             </MenuButton>
         </items>

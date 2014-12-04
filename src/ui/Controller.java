@@ -6,10 +6,13 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import dataModel.GameState;
@@ -25,6 +28,9 @@ public class Controller implements Initializable, Observer {
 	@FXML private Button loadGameButton;
 	@FXML private Label gamesPlayed;
 	@FXML private Button nextRoundButton;
+	
+	@FXML private MenuItem quitMenuButton;
+	@FXML private MenuItem saveAndQuitMenuButton;
 	
 //	@FXML private TableView<Player> playerTable;
 //	@FXML private TableColumn<Player, String> firstNameCol;
@@ -74,12 +80,35 @@ public class Controller implements Initializable, Observer {
 //			e.printStackTrace();
 //		}
 		
+		// Save and Quit application
+		saveAndQuitMenuButton.setOnAction((event) -> {
+			System.out.println(event.getSource());
+			boolean result = saveGame(getGameState());
+			if (!result) {
+				System.out.println("Game not saved!");
+			} else {
+				Platform.exit();
+			}
+		});
+		
+		
+		// Quit application
+		quitMenuButton.setOnAction((event) -> {
+			System.out.println(event.getSource());
+			Platform.exit();
+			System.out.println("Game quit!");
+		});
+		
 	}
 
 	public boolean saveGame(GameState state) {
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Save game");
 		configureFileChooser(chooser);
+		
+		// file type filter
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+		chooser.getExtensionFilters().add(extFilter);
 
 		File selectedFile = FootballManager.getSaveFile(chooser);
 		if (selectedFile != null) {
@@ -97,6 +126,10 @@ public class Controller implements Initializable, Observer {
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Load game");
 		configureFileChooser(chooser);
+		
+		// file type filter
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+		chooser.getExtensionFilters().add(extFilter);
 
 		File selectedFile = FootballManager.getOpenFile(chooser);
 		if (selectedFile != null) {
