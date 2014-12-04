@@ -152,15 +152,15 @@ public class Player extends Observable {
 	/**
 	 * @return the firstname
 	 */
-	public String getFirstname() {
+	public String getFirstName() {
 		return firstName;
 	}
 
 	/**
 	 * @param firstname the firstname to set
 	 */
-	public void setFirstname(String firstname) {
-		this.firstName = firstname;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 
 		this.setChanged();
 		this.notifyObservers();
@@ -169,15 +169,15 @@ public class Player extends Observable {
 	/**
 	 * @return the lastname
 	 */
-	public String getLastname() {
+	public String getLastName() {
 		return lastName;
 	}
 
 	/**
 	 * @param lastname the lastname to set
 	 */
-	public void setLastname(String lastname) {
-		this.lastName = lastname;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 
 		this.setChanged();
 		this.notifyObservers();

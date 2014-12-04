@@ -45,8 +45,8 @@ public class Test {
 		DateFormat df = new SimpleDateFormat("dd-MM-yyy");
 		
 		System.out.println(league.getLeague());
-		System.out.println(league.getTeam("Feyenoord").getPlayer(1).getFirstname());
-		System.out.println(league.getTeam("Feyenoord").getPlayer(1).getLastname());
+		System.out.println(league.getTeam("Feyenoord").getPlayer(1).getFirstName());
+		System.out.println(league.getTeam("Feyenoord").getPlayer(1).getLastName());
 		System.out.println(league.getTeam("Feyenoord").getPlayer(1).getPosition());
 		System.out.println(league.getTeam("Feyenoord").getPlayer(1).getPace());
 		System.out.println(league.getTeam("Feyenoord").getPlayer(1).getShooting());
@@ -60,8 +60,8 @@ public class Test {
 		System.out.println();
 		
 		System.out.println(leagues.get(0).getLeague());
-		System.out.println(leagues.get(0).getTeam("Feyenoord").getPlayer(2).getFirstname());
-		System.out.println(leagues.get(0).getTeam("Feyenoord").getPlayer(2).getLastname());
+		System.out.println(leagues.get(0).getTeam("Feyenoord").getPlayer(2).getFirstName());
+		System.out.println(leagues.get(0).getTeam("Feyenoord").getPlayer(2).getLastName());
 		System.out.println(leagues.get(0).getTeam("Feyenoord").getPlayer(2).getPosition());
 		System.out.println(leagues.get(0).getTeam("Feyenoord").getPlayer(2).getPace());
 		System.out.println(leagues.get(0).getTeam("Feyenoord").getPlayer(2).getShooting());

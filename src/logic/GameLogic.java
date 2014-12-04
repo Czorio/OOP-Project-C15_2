@@ -43,5 +43,61 @@ public class GameLogic {
 	public int generateRandom(){
 		return randomNumber.nextInt(101);
 	}
+
+	/**
+	 * @return the homeTeam
+	 */
+	public String getHomeTeam() {
+		return homeTeam;
+	}
+
+	/**
+	 * @param homeTeam the homeTeam to set
+	 */
+	public void setHomeTeam(String homeTeam) {
+		this.homeTeam = homeTeam;
+	}
+
+	/**
+	 * @return the awayTeam
+	 */
+	public String getAwayTeam() {
+		return awayTeam;
+	}
+
+	/**
+	 * @param awayTeam the awayTeam to set
+	 */
+	public void setAwayTeam(String awayTeam) {
+		this.awayTeam = awayTeam;
+	}
+
+	/**
+	 * @return the winner
+	 */
+	public String getWinner() {
+		return winner;
+	}
+
+	/**
+	 * @param winner the winner to set
+	 */
+	public void setWinner(String winner) {
+		this.winner = winner;
+	}
+
+	/**
+	 * @return the randomNumber
+	 */
+	public Random getRandomNumber() {
+		return randomNumber;
+	}
+
+	/**
+	 * @param randomNumber the randomNumber to set
+	 */
+	public void setRandomNumber(Random randomNumber) {
+		this.randomNumber = randomNumber;
+	}
 	
 }

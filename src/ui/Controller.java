@@ -21,14 +21,18 @@ import dataModel.League;
  */
 public class Controller implements Initializable, Observer {
 
-	@FXML
-	private Button saveGameButton;
-
-	@FXML
-	private Button loadGameButton;
-
-	@FXML
-	private Label gamesPlayed;
+	@FXML private Button saveGameButton;
+	@FXML private Button loadGameButton;
+	@FXML private Label gamesPlayed;
+	
+//	@FXML private TableView<Player> playerTable;
+//	@FXML private TableColumn<Player, String> firstNameCol;
+//	@FXML private TableColumn<Player, String> lastNameCol;
+//	@FXML private TableColumn<Player, String> positionCol;
+//	@FXML private TableColumn<Player, Integer> offCol;
+//	@FXML private TableColumn<Player, Integer> defCol;
+//	@FXML private TableColumn<Player, Integer> staminaCol;
+//	@FXML private TableColumn<Player, Integer> priceCol;
 
 	private GameState gameState;
 	private League league;
@@ -51,6 +55,19 @@ public class Controller implements Initializable, Observer {
 			System.out.println(event.getSource());
 			setGameState(loadGame(getGameState()));
 		});
+		
+//		try {
+//			firstNameCol.setCellValueFactory(new PropertyValueFactory<Player, String>("firstName"));
+//			lastNameCol.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
+//			positionCol.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
+//			offCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("offensive"));
+//			defCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("defensive"));
+//			staminaCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("stamina"));
+//			priceCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("price"));
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+		
 	}
 
 	public boolean saveGame(GameState state) {

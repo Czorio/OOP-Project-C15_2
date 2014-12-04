@@ -117,11 +117,11 @@ public class XMLPlayerHandler extends DefaultHandler {
 		if(bInsidePlayer && currentPlayerElement != null) {
 			switch(currentPlayerElement) {
 			case "FIRSTNAME":
-				currentPlayer.setFirstname(new String(ch, start, length));
+				currentPlayer.setFirstName(new String(ch, start, length));
 				break;
 				
 			case "LASTNAME":
-				currentPlayer.setLastname(new String(ch, start, length));
+				currentPlayer.setLastName(new String(ch, start, length));
 				break;
 				
 			case "POSITION":

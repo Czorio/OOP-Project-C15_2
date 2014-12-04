@@ -14,7 +14,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import dataModel.GameState;
 import dataModel.League;
-import dataModel.Team;
 
 public class FootballManager extends Application {
 	
@@ -44,6 +43,7 @@ public class FootballManager extends Application {
 		}
 		
 		c.setGameState(new GameState(null, 0, null, null));
+		c.setGameState(new GameState("Toine", 8, "Eredivisie", "ADO Den Haag"));
 		c.getGameState().addObserver(c);
 		
 		if (GameState.isUseless(c.getGameState())) {
@@ -52,13 +52,21 @@ public class FootballManager extends Application {
 		}
 		
 		c.setLeague(League.readFromFile(PLAYER_DATABASE));
+//		System.out.println(c.getLeague().getTeam(c.getGameState().getTeam()).getPlayers());
 		
-		for (Team t : c.getLeague().getTeams()) {
-			System.out.println(t);
-		}
-		
-		System.out.println("Startup finished!");
-		
+//		String team = c.getGameState().getTeam();
+//		League l = c.getLeague();
+//		Team t = l.getTeam(team);
+////		ObservableList<Player> players = FXCollections.observableList(t.getPlayers());
+//		TableView<Player> view = c.getPlayerTable();
+//		
+//		if (view != null) {
+//			System.out.println("Filling table with data...");
+//			view.getItems().setAll(t.getPlayers());
+//		}
+//		else
+//			System.out.println("view == null");
+//		
 	}
 	
 	public void initRootLayout() throws IOException {
@@ -75,6 +83,7 @@ public class FootballManager extends Application {
 		FXMLLoader l = new FXMLLoader();
 		l.setLocation(FootballManager.class.getResource("view/TeamOverview.fxml"));
 		AnchorPane teamOverview = (AnchorPane) l.load();
+		
 		rootLayout.setCenter(teamOverview);
 	}
 

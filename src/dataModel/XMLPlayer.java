@@ -189,11 +189,11 @@ public class XMLPlayer extends XML {
         		ePlayer.setAttribute("id", String.valueOf(league.getTeams().get(i).getPlayers().get(j).getId()));
         		
         		ePlayerElement = dom.createElement("FirstName");
-        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getFirstname()));
+        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getFirstName()));
         		ePlayer.appendChild(ePlayerElement);
         		
         		ePlayerElement = dom.createElement("LastName");
-        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getLastname()));
+        		ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getLastName()));
         		ePlayer.appendChild(ePlayerElement);
         		
         		ePlayerElement = dom.createElement("Position");

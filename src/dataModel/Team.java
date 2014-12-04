@@ -1,5 +1,6 @@
 package dataModel;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -8,7 +9,7 @@ import java.util.Observable;
  */
 public class Team extends Observable {
 	private String team;
-	private ArrayList<Player> players;
+	private List<Player> players;
 	private int budget;
 	
 
@@ -36,9 +37,10 @@ public class Team extends Observable {
 	
 	// Just an example
 	public String toString() {
-		String res = this.getTeam() + " (" + this.getBudget() + ")\n";
+		String res = this.getTeam() + " (" + this.getBudget() + ") " + "\n";
 		for (Player p : this.getPlayers()) {
-			res += p.getFirstname() + " " + p.getLastname();
+			//TODO Fix all the String editing here
+			res += p.getFirstName().trim() + " " + p.getLastName().trim().replace("\n", "") + "\n";
 		}
 		
 		return res;
@@ -132,7 +134,7 @@ public class Team extends Observable {
 	 */
 	public Player getPlayer(String firstName, String lastName) {
 		for(int i = 0; i < players.size(); i++) {
-			if(players.get(i).getFirstname().equals(firstName) && players.get(i).getLastname().equals(lastName)) {
+			if(players.get(i).getFirstName().equals(firstName) && players.get(i).getLastName().equals(lastName)) {
 				return players.get(i);
 			}
 		}
@@ -158,7 +160,7 @@ public class Team extends Observable {
 	/**
 	 * @return the players
 	 */
-	public ArrayList<Player> getPlayers() {
+	public List<Player> getPlayers() {
 		return players;
 	}
 
