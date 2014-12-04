@@ -25,7 +25,7 @@ public class XMLImport {
 		String line = "";
 		String delimiter = ";";
 		League eredivisie = new League("Eredivisie");
-		XMLPlayer xmlPlayer = new XMLPlayer(new File("XML/Database_Eredivise.xml"));
+		XMLPlayer xmlPlayer = new XMLPlayer(new File("GameData/Eredivisie.xml"));
 		
 		int id = 0;
 		
@@ -39,26 +39,26 @@ public class XMLImport {
 					String[] player = line.split(delimiter);
 					
 					// Create league and players
-					if(eredivisie.getTeam(player[8]) == null) {
-						eredivisie.addTeam(new Team(player[8]));
+					if(eredivisie.getTeam(player[9]) == null) {
+						eredivisie.addTeam(new Team(player[9]));
 					}
 					
 					Player p = new Player(
 							id++,
 							player[0],
-							"",
-							player[8],
-							"",
-							new Date(),
 							player[1],
-							Integer.parseInt(player[2]),
+							player[9],
+							"Nationality",
+							new Date(),
+							player[2],
 							Integer.parseInt(player[3]),
 							Integer.parseInt(player[4]),
 							Integer.parseInt(player[5]),
 							Integer.parseInt(player[6]),
-							Integer.parseInt(player[7]));
+							Integer.parseInt(player[7]),
+							Integer.parseInt(player[8]));
 					
-					eredivisie.getTeam(player[8]).addPlayer(p);
+					eredivisie.getTeam(player[9]).addPlayer(p);
 //					System.out.println(p);
 				}
 				System.out.println(csvFile.getName());
