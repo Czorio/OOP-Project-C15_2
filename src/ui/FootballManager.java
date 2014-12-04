@@ -43,8 +43,11 @@ public class FootballManager extends Application {
 		}
 		
 		c.setGameState(new GameState(null, 0, null, null));
-		c.setGameState(new GameState("Toine", 8, "Eredivisie", "ADO Den Haag"));
 		c.getGameState().addObserver(c);
+		c.getGameState().setCoachName("Dummy Coach");
+		c.getGameState().setLeague("Eredivisie");
+		c.getGameState().setRound(8);
+		c.getGameState().setTeam("SC Cambuur");
 		
 		if (GameState.isUseless(c.getGameState())) {
 			System.out.println("GameState is empty, asking to load one.");
@@ -52,7 +55,7 @@ public class FootballManager extends Application {
 		}
 		
 		c.setLeague(League.readFromFile(PLAYER_DATABASE));
-//		System.out.println(c.getLeague().getTeam(c.getGameState().getTeam()).getPlayers());
+		System.out.println(c.getLeague().getTeam(c.getGameState().getTeam()).getPlayers());
 		
 //		String team = c.getGameState().getTeam();
 //		League l = c.getLeague();

@@ -102,7 +102,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Button layoutX="22.0" layoutY="75.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="148.0" text="To next gameday" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
+                  <Button fx:id="nextRoundButton" layoutX="22.0" layoutY="75.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="148.0" text="To next gameday" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                   <HBox layoutX="15.0" layoutY="31.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
                      <children>
                         <Label layoutX="44.0" layoutY="31.0" text="Gameday: " />

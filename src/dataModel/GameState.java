@@ -96,6 +96,10 @@ public class GameState extends Observable {
 				|| gameState.getLeague() == null
 				|| gameState.getTeam() == null;
 	}
+	
+	public void nextRound() {
+		this.setRound(getRound() + 1);
+	}
 
 	/**
 	 * @return the coachName

@@ -24,6 +24,7 @@ public class Controller implements Initializable, Observer {
 	@FXML private Button saveGameButton;
 	@FXML private Button loadGameButton;
 	@FXML private Label gamesPlayed;
+	@FXML private Button nextRoundButton;
 	
 //	@FXML private TableView<Player> playerTable;
 //	@FXML private TableColumn<Player, String> firstNameCol;
@@ -54,6 +55,11 @@ public class Controller implements Initializable, Observer {
 		loadGameButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
 			setGameState(loadGame(getGameState()));
+		});
+		
+		nextRoundButton.setOnAction((event) -> {
+			System.out.println(event.getSource());
+			getGameState().nextRound();
 		});
 		
 //		try {
