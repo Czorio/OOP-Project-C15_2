@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 //import java.util.Set;
 
-import org.apache.commons.io.FilenameUtils; // Toevoegen aan build path
+import org.apache.commons.io.FilenameUtils; // Toevoegen aan build path **Notitie (MdB): Staat in de lib folder als commons-io-2.4.jar**
 
 
 

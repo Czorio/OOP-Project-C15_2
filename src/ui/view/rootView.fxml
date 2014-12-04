@@ -11,8 +11,14 @@
    <top>
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button fx:id="saveGameButton" mnemonicParsing="false" text="Save Game" />
-            <Button fx:id="loadGameButton" mnemonicParsing="false" text="Load Game" />
+          <Button fx:id="saveGameButton" mnemonicParsing="false" text="Save Game..." />
+            <Button fx:id="loadGameButton" mnemonicParsing="false" text="Load Game..." />
+            <MenuButton mnemonicParsing="false" text="Options">
+              <items>
+                <MenuItem mnemonicParsing="false" text="Action 1" />
+                <MenuItem mnemonicParsing="false" text="Quit" />
+              </items>
+            </MenuButton>
         </items>
       </ToolBar>
    </top>
@@ -91,9 +97,18 @@
                               </AnchorPane>
                         </content>
                       </TitledPane>
-                      <TitledPane text="untitled 3">
+                      <TitledPane text="League scoreboard">
                         <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                 <children>
+                                    <TableView layoutY="25.0" prefHeight="340.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                      <columns>
+                                        <TableColumn prefWidth="33.000001549720764" text="#" />
+                                        <TableColumn prefWidth="106.99999237060547" text="Team" />
+                                          <TableColumn prefWidth="39.0" text="Score" />
+                                      </columns>
+                                    </TableView>
+                                 </children></AnchorPane>
                         </content>
                       </TitledPane>
                     </panes>
