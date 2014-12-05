@@ -6,17 +6,20 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import dataModel.GameState;
 import dataModel.League;
+import dataModel.Player;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -32,14 +35,14 @@ public class Controller implements Initializable, Observer {
 	@FXML private MenuItem quitMenuButton;
 	@FXML private MenuItem saveAndQuitMenuButton;
 	
-//	@FXML private TableView<Player> playerTable;
-//	@FXML private TableColumn<Player, String> firstNameCol;
-//	@FXML private TableColumn<Player, String> lastNameCol;
-//	@FXML private TableColumn<Player, String> positionCol;
-//	@FXML private TableColumn<Player, Integer> offCol;
-//	@FXML private TableColumn<Player, Integer> defCol;
-//	@FXML private TableColumn<Player, Integer> staminaCol;
-//	@FXML private TableColumn<Player, Integer> priceCol;
+	@FXML private TableView<Player> playerTable;
+	@FXML private TableColumn<Player, String> firstNameCol;
+	@FXML private TableColumn<Player, String> lastNameCol;
+	@FXML private TableColumn<Player, String> positionCol;
+	@FXML private TableColumn<Player, Integer> offCol;
+	@FXML private TableColumn<Player, Integer> defCol;
+	@FXML private TableColumn<Player, Integer> staminaCol;
+	@FXML private TableColumn<Player, Integer> priceCol;
 
 	private GameState gameState;
 	private League league;
@@ -68,18 +71,18 @@ public class Controller implements Initializable, Observer {
 			getGameState().nextRound();
 		});
 		
-//		try {
-//			firstNameCol.setCellValueFactory(new PropertyValueFactory<Player, String>("firstName"));
-//			lastNameCol.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
-//			positionCol.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
-//			offCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("offensive"));
-//			defCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("defensive"));
-//			staminaCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("stamina"));
-//			priceCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("price"));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-		
+/*		try {
+			firstNameCol.setCellValueFactory(new PropertyValueFactory<Player, String>("firstName"));
+			lastNameCol.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
+			positionCol.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
+			offCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("offensive"));
+			defCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("defensive"));
+			staminaCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("stamina"));
+			priceCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("price"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+*/		
 		// Save and Quit application
 		saveAndQuitMenuButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
