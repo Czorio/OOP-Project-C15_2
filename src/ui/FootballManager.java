@@ -61,7 +61,7 @@ public class FootballManager extends Application {
 		}
 		
 		rootController.setLeague(League.readFromFile(PLAYER_DATABASE));
-		System.out.println(rootController.getLeague().getTeam(rootController.getGameState().getTeam()).getPlayers());
+//		System.out.println(rootController.getLeague().getTeam(rootController.getGameState().getTeam()).getPlayers());
 		
 		String team = rootController.getGameState().getTeam();
 		League l = rootController.getLeague();
