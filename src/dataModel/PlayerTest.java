@@ -34,9 +34,15 @@ public class PlayerTest {
 		assertNotEquals(p1.getFirstName(),"Celso");
 	}
 
+	/**Player id test
+	 * Create players with only an id. Use getId to test.
+	 */
 	@Test
 	public void testPlayerInteger() {
-		fail("Not yet implemented");
+		Player pl1 = new Player(1);
+		Player pl2 = new Player(3);
+		assertEquals(pl1.getId(),1);
+		assertNotEquals(pl2.getId(),5);
 	}
 
 	/**Equals Test
@@ -90,4 +96,150 @@ public class PlayerTest {
 		
 	}
 
+	/**setId Test
+	 * set a new id for a player and check it with getID method.
+	 */
+	@Test
+	public void testSetID(){
+		p1.setId(3);
+		p2.setId(4);
+		assertEquals(p1.getId(),3);
+		assertNotEquals(p2.getId(),10);
+	}
+
+	/**setFirstName Test
+	 * Use setFirstName method to rename player. Use getFirstName method to test.
+	 */
+	@Test
+	public void testSetFirstName(){
+		p1.setFirstName("Jan");
+		p2.setFirstName("Klaas");
+		assertEquals(p1.getFirstName(),"Jan");
+		assertNotEquals(p2.getFirstName(),"Piet");
+	}
+
+	/**setLastName Test
+	 * Use setLastName to set a new last name for player. Use getLastName and compare.
+	 */
+	@Test
+	public void testSetLastName(){
+		p1.setLastName("Jantje");
+		p2.setLastName("Klaasje");
+		assertEquals(p1.getLastName(),"Jantje");
+		assertNotEquals(p2.getLastName(),"Pietje");
+	}
+
+	/**setClub Tes
+	 * Use setClub method to change playes club. Use getClub to test.
+	 */
+	@Test
+	public void testSetClub(){
+		p1.setClub("Feyenoord");
+		p2.setClub("Cambuur");
+		assertEquals(p1.getClub(),"Feyenoord");
+		assertNotEquals(p2.getClub(),"AZ");
+	}
+
+	/**setNationality Test
+	 * setNationality of players. Use getNationality to compare.
+	 */
+	@Test
+	public void testSetNationality(){
+		p1.setNationality("Surinamese");
+		p2.setNationality("Surinamese");
+		assertEquals(p1.getNationality(),"Surinamese");
+		assertNotEquals(p2.getNationality(),"Dutch");
+	}
+
+	/**setDateOfBirth Test
+	 * use setDateOfBirth to set new date of birth. 
+	 */
+	@Test
+	public void testSetDateOfBirth(){
+		p1.setDateOfBirth(new Date(1/1/2010));
+		p2.setDateOfBirth(new Date(1/1/2020));
+		assertEquals(p1.getDateOfBirth(),(new Date(1/1/2010)));
+	}
+
+	/**setPosition Test
+	 * setPosition to set new position for player. 
+	 */
+	@Test
+	public void testSetPosition(){
+		p1.setPosition("CM");
+		p2.setPosition("RM");
+		assertEquals(p1.getPosition(),"Midfielder");
+		assertNotEquals(p2.getPosition(),"Defender");
+	}
+
+	/**setPace
+	 * Use Setpace to change player pace. 
+	 */
+	@Test
+	public void testSetPace(){
+		p1.setPace(80);
+		p2.setPace(90);
+		assertEquals(p1.getPace(),80);
+		assertNotEquals(p2.getPace(),70);	
+	}
+
+	/**setShooting Test
+	 * Setshooting of player. Compare with getShooting
+	 */
+	@Test
+	public void testSetShooting(){
+		p1.setShooting(80);
+		p2.setShooting(60);
+		assertEquals(p1.getShooting(),80);
+		assertNotEquals(p2.getShooting(),100);
+	}
+
+	/**setPassing Test
+	 * Setpassing to change passing of player. Compare with getPassing
+	 */
+	@Test
+	public void testSetPassing(){
+		p1.setPassing(80);
+		p2.setPassing(70);
+		assertEquals(p1.getPassing(),80);
+		assertNotEquals(p2.getPassing(),0);
+	}
+
+	/**setOffensive Test
+	 * use setoffensive to set offensive of player. Compare with setOffensive
+	 */
+	@Test
+	public void testSetOffensive(){
+		p1.setOffensive(80);
+		p2.setOffensive(90);
+		assertEquals(p1.getOffensive(),80);
+		assertNotEquals(p2.getOffensive(),100);
+	}
+	
+	/**setDefensive Test
+	 * Use setDefensive to change defensive stat. Compare with getDefensive
+	 */
+	@Test
+	public void testSetDefensive(){
+		p1.setDefensive(80);
+		p2.setDefensive(90);
+		assertEquals(p1.getDefensive(),80);
+		assertNotEquals(p2.getDefensive(),100);
+	}
+	
+	/**setStamina Test
+	 * setStamina for new player. Compare with getStamina
+	 */
+	@Test
+	public void testSetStaming(){
+		p1.setStamina(80);
+		p2.setStamina(70);
+		assertEquals(p1.getStamina(),80);
+		assertNotEquals(p2.getStamina(),100);
+		
+	}
+
 }
+
+
+
