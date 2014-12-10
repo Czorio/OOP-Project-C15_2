@@ -6,14 +6,19 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import dataModel.GameState;
 import dataModel.League;
+import dataModel.Player;
+import dataModel.Team;
 
 public class FootballManager extends Application {
 	
@@ -21,7 +26,8 @@ public class FootballManager extends Application {
 	
 	private static Stage stage;
 	private BorderPane rootLayout;
-	private static Controller c;
+	private static RootController rootController;
+	private static TeamOverviewController teamOverviewController;
 
 	@Override
 	public void start(Stage stage) {
@@ -42,34 +48,32 @@ public class FootballManager extends Application {
 			e.printStackTrace();
 		}
 		
-		c.setGameState(new GameState(null, 0, null, null));
-		c.getGameState().addObserver(c);
-		c.getGameState().setCoachName("Dummy Coach");
-		c.getGameState().setLeague("Eredivisie");
-		c.getGameState().setRound(8);
-		c.getGameState().setTeam("SC Cambuur");
+		rootController.setGameState(new GameState(null, 0, null, null));
+		rootController.getGameState().addObserver(rootController);
+		rootController.getGameState().setCoachName("Dummy Coach");
+		rootController.getGameState().setLeague("Eredivisie");
+		rootController.getGameState().setRound(8);
+		rootController.getGameState().setTeam("SC Cambuur");
 		
-		if (GameState.isUseless(c.getGameState())) {
+		if (GameState.isUseless(rootController.getGameState())) {
 			System.out.println("GameState is empty, asking to load one.");
-			c.setGameState(c.loadGame(c.getGameState()));
+			rootController.setGameState(rootController.loadGame(rootController.getGameState()));
 		}
 		
-		c.setLeague(League.readFromFile(PLAYER_DATABASE));
-		System.out.println(c.getLeague().getTeam(c.getGameState().getTeam()).getPlayers());
+		rootController.setLeague(League.readFromFile(PLAYER_DATABASE));
+		System.out.println(rootController.getLeague().getTeam(rootController.getGameState().getTeam()).getPlayers());
 		
-//		String team = c.getGameState().getTeam();
-//		League l = c.getLeague();
-//		Team t = l.getTeam(team);
-////		ObservableList<Player> players = FXCollections.observableList(t.getPlayers());
-//		TableView<Player> view = c.getPlayerTable();
-//		
-//		if (view != null) {
-//			System.out.println("Filling table with data...");
-//			view.getItems().setAll(t.getPlayers());
-//		}
-//		else
-//			System.out.println("view == null");
-//		
+		String team = rootController.getGameState().getTeam();
+		League l = rootController.getLeague();
+		Team t = l.getTeam(team);
+		ObservableList<Player> players = FXCollections.observableList(t.getPlayers());
+		TableView<Player> view = teamOverviewController.getPlayerTableView();
+		
+		if (view != null) {
+			System.out.println("Filling table with data...");
+			view.getItems().setAll(players);
+		} else
+			System.out.println("view == null");
 	}
 	
 	public void initRootLayout() throws IOException {
@@ -79,7 +83,7 @@ public class FootballManager extends Application {
 		stage.setScene(new Scene(rootLayout));
 		stage.show();
 		
-		c = l.getController();
+		rootController = l.getController();
 	}
 	
 	public void showTeamOverview() throws IOException {
@@ -88,6 +92,7 @@ public class FootballManager extends Application {
 		AnchorPane teamOverview = (AnchorPane) l.load();
 		
 		rootLayout.setCenter(teamOverview);
+		teamOverviewController = l.getController();
 	}
 
 	public static void main(String[] args) {

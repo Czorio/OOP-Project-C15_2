@@ -4,9 +4,9 @@ import java.util.Observable;
 
 /**
  * Player class.
- * 
+ *
  * Represents a football player.
- * 
+ *
  * @author Toine Hartman <tjbhartman@gmail.com>
  */
 public class Player extends Observable {
@@ -27,7 +27,7 @@ public class Player extends Observable {
 	private int stamina;
 	private int price; // Will be based on his stats.
 	private int playedGames;
-	
+
 	/**
 	 * @param id
 	 * @param firstname
@@ -62,7 +62,7 @@ public class Player extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 	/**
 	 * Create en empty Player object.
 	 * @param id
@@ -70,7 +70,7 @@ public class Player extends Observable {
 	public Player(Integer id) {
 		this.id = id;
 		this.firstName = null;
-		this.lastName = null;		
+		this.lastName = null;
 		this.club = null;
 		this.nationality = null;
 		this.dateOfBirth = null;
@@ -87,14 +87,14 @@ public class Player extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 	/**
 	 * Checks if this is equal to other.
 	 */
 	public boolean equals(Object other) {
 		if (other instanceof Player) {
 			Player that = (Player)other;
-			
+
 			return this.id == that.id &&
 					this.firstName.equals(that.firstName) &&
 					this.lastName.equals(that.lastName) &&
@@ -111,11 +111,11 @@ public class Player extends Observable {
 					this.stamina == that.stamina &&
 					this.playedGames == that.playedGames;
 		}
-		
+
 		return false;
 	}
 
-	
+
 	/**
 	 * @return This Player object as a String.
 	 */
@@ -134,14 +134,14 @@ public class Player extends Observable {
 				+ this.stamina + " "
 				+ this.playedGames + "]";
 	}
-	
+
 	/**
 	 * @return the id
 	 */
 	public int getId() {
 		return id;
 	}
-	
+
 	public void setId(int id) {
 		this.id = id;
 
@@ -241,8 +241,8 @@ public class Player extends Observable {
 		if (position.equals("ST") || position.equals("CF")){
 			return "Attacker";
 		}
-		else if (position.equals("CM") || position.equals("CDM") || position.equals("CAM") 
-				|| position.equals("LW") || position.equals("RW") || position.equals("RM") 
+		else if (position.equals("CM") || position.equals("CDM") || position.equals("CAM")
+				|| position.equals("LW") || position.equals("RW") || position.equals("RM")
 				|| position.equals("LM")){
 			return "Midfielder";
 		}
@@ -262,14 +262,14 @@ public class Player extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 	/**
 	 * @param the current position
 	 */
 	public String getCurPosition(){
 		return curPosition;
 	}
-	
+
 	/**
 	 * @param set current position
 	 */
@@ -279,7 +279,7 @@ public class Player extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 
 	/**
 	 * @return the pace
@@ -401,15 +401,15 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return
 	 */
 	public int getPlayedGames(){
 		return playedGames;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param playedGames
 	 */
 	public void setPlayedGames(int playedGames){
@@ -418,5 +418,5 @@ public class Player extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
+
 }
