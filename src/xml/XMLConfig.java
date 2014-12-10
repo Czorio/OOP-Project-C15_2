@@ -1,4 +1,4 @@
-package dataModel;
+package xml;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
+
+import dataModel.GameState;
 
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>

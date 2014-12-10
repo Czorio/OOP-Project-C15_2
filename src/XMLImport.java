@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Date;
 
+import xml.XMLPlayer;
+
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>
  * 

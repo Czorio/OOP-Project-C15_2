@@ -1,7 +1,9 @@
-package dataModel;
+package xml;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import dataModel.GameState;
 
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>

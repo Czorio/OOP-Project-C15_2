@@ -1,4 +1,4 @@
-package dataModel;
+package xml;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -7,6 +7,10 @@ import java.util.Date;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
+
+import dataModel.League;
+import dataModel.Player;
+import dataModel.Team;
 
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>
