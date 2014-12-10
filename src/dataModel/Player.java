@@ -43,8 +43,8 @@ public class Player extends Observable {
 	 * @param defensive
 	 * @param stamina
 	 */
-	public Player(Integer id, String firstname, String lastname, String club, String nationality, Date dateOfBirth, String position, int pace,
-			int shooting, int passing, int offensive, int defensive, int stamina) {
+	public Player(Integer id, String firstname, String lastname, String club, String nationality, Date dateOfBirth, String position,
+				 int pace, int shooting, int passing, int offensive, int defensive, int stamina) {
 		this.id = id;
 		this.firstName = firstname;
 		this.lastName = lastname;
@@ -102,7 +102,7 @@ public class Player extends Observable {
 					this.nationality.equals(that.nationality) &&
 					this.dateOfBirth.equals(that.dateOfBirth) &&
 					this.position.equals(that.position) &&
-					this.curPosition.equals(that.curPosition) &&
+					//this.curPosition.equals(that.curPosition) &&
 					this.pace == that.pace &&
 					this.shooting == that.shooting &&
 					this.passing == that.passing &&
@@ -122,7 +122,7 @@ public class Player extends Observable {
 	public String toString() {
 		return "[" + this.id + " " + this.firstName + " " + this.lastName + ": "
 				+ this.club + " "
-				//+ this.nationality + " "
+				+ this.nationality + " "
 				+ this.dateOfBirth + " "
 				+ this.position + " "
 				+ this.curPosition + " "
