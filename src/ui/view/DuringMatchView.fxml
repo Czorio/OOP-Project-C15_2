@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="560.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label layoutX="118.0" layoutY="14.0" text="Now Playing">
+         <font>
+            <Font size="64.0" />
+         </font>
+      </Label>
+      <Label layoutX="81.0" layoutY="100.0" text="#TeamName1" />
+      <Label layoutX="435.0" layoutY="109.0" text="#TeamName2" />
+      <ProgressBar layoutX="33.0" layoutY="349.0" prefHeight="18.0" prefWidth="523.0" progress="0.0" />
+      <Label layoutX="82.0" layoutY="151.0" text="#Team1Score" />
+      <Label layoutX="436.0" layoutY="151.0" text="#Team2Score" />
+      <Label layoutX="256.0" layoutY="272.0" text="#MatchMinute" />
+   </children>
+</AnchorPane>
