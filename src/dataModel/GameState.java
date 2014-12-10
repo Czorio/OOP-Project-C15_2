@@ -2,6 +2,8 @@ package dataModel;
 import java.io.File;
 import java.util.Observable;
 
+import xml.XMLConfig;
+
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>
  */

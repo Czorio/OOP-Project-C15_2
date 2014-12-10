@@ -99,17 +99,18 @@ public class Player extends Observable {
 					this.firstName.equals(that.firstName) &&
 					this.lastName.equals(that.lastName) &&
 					this.club.equals(that.club) &&
-					this.nationality.equals(that.nationality) &&
-					this.dateOfBirth.equals(that.dateOfBirth) &&
+//					this.nationality.equals(that.nationality) &&
+//					this.dateOfBirth.equals(that.dateOfBirth) &&
 					this.position.equals(that.position) &&
 					//this.curPosition.equals(that.curPosition) &&
-					this.pace == that.pace &&
-					this.shooting == that.shooting &&
-					this.passing == that.passing &&
+//					this.pace == that.pace &&
+//					this.shooting == that.shooting &&
+//					this.passing == that.passing &&
 					this.offensive == that.offensive &&
 					this.defensive == that.defensive &&
-					this.stamina == that.stamina &&
-					this.playedGames == that.playedGames;
+					this.stamina == that.stamina;
+//					this.stamina == that.stamina &&
+//					this.playedGames == that.playedGames;
 		}
 
 		return false;
@@ -238,19 +239,20 @@ public class Player extends Observable {
 	 * @return the position
 	 */
 	public String getPosition() {
-		if (position.equals("ST") || position.equals("CF")){
+		if (position.equals("ST") || position.equals("CF") || position.equals("Attacker")) {
 			return "Attacker";
-		}
-		else if (position.equals("CM") || position.equals("CDM") || position.equals("CAM")
+		} else if (position.equals("CM") || position.equals("CDM") || position.equals("CAM")
 				|| position.equals("LW") || position.equals("RW") || position.equals("RM")
-				|| position.equals("LM")){
+				|| position.equals("LM") || position.equals("Midfielder")) {
 			return "Midfielder";
-		}
-		else if (position.equals("CB") || position.equals("RB") || position.equals("LB")){
+		} else if (position.equals("CB") || position.equals("RB") || position.equals("LB")
+				|| position.equals("Defender")) {
 			return "Defender";
-		}
-		else
+		} else if (position.equals("GK") || position.equals("Goalkeeper")) {
 			return "Goalkeeper";
+		} else {
+			return null;
+		}
 	}
 
 	/**
