@@ -8,17 +8,13 @@
 
 <AnchorPane prefHeight="560.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <StackPane alignment="TOP_CENTER" prefHeight="128.0" prefWidth="589.0" AnchorPane.topAnchor="0.0">
+      <StackPane prefHeight="128.0" prefWidth="589.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <AnchorPane>
-               <children>
-                  <Label layoutX="129.0" layoutY="20.0" text="Now Playing" textAlignment="CENTER">
-                     <font>
-                        <Font size="60.0" />
-                     </font>
-                  </Label>
-               </children>
-            </AnchorPane>
+            <Label text="Now Playing" textAlignment="CENTER">
+               <font>
+                  <Font size="60.0" />
+               </font>
+            </Label>
          </children>
       </StackPane>
       <AnchorPane layoutX="106.0" layoutY="135.0" AnchorPane.leftAnchor="106.0">
@@ -43,7 +39,11 @@
       </AnchorPane>
       <AnchorPane layoutX="10.0" layoutY="215.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0">
          <children>
-            <Label layoutX="262.0" layoutY="6.0" text="#Minute" AnchorPane.leftAnchor="262.0" AnchorPane.rightAnchor="262.0" />
+            <StackPane prefHeight="25.0" prefWidth="569.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Label text="#Minute" />
+               </children>
+            </StackPane>
             <TableView layoutY="53.0" prefHeight="285.0" prefWidth="569.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="53.0">
               <columns>
                 <TableColumn prefWidth="38.0" text="Min" />
