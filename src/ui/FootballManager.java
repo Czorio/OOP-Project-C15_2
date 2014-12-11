@@ -74,7 +74,9 @@ public class FootballManager extends Application {
 			view.getItems().setAll(players);
 		} else
 			System.out.println("view == null");
-	}
+		
+		sudowoodoSays("Game is loaded");
+    }
 	
 	public void initRootLayout() throws IOException {
 		FXMLLoader l = new FXMLLoader();
@@ -118,6 +120,24 @@ public class FootballManager extends Application {
 		System.out.println("Filename: " + fileName);
 		chooser.setInitialFileName(fileName);
 		return chooser.showSaveDialog(stage);
+	}
+	
+	private static void sudowoodoSays(String message) {
+        System.out.println("     _              __");
+        System.out.println("    / `\\  (~._    ./  )");
+        System.out.println("    \\__/ __`-_\\__/ ./");
+        System.out.println("   _ \\ \\/  \\  \\ |_   __");
+        System.out.println(" (   )  \\__/ -^    \\ /  \\");
+        System.out.println("  \\_/ \"  \\  | o  o  |.. /  __");
+        System.out.println("       \\\\. --' ====  /  || /  \\");
+        System.out.println("         \\   .  .  |---__.\\__/");
+        System.out.println("         /  :     /   |   |");
+        System.out.println("         /   :   /     \\_/");
+        System.out.println("      --/ ::    (");
+        System.out.println("     (  |     (  (____");
+        System.out.println("   .--  .. ----**.____)");
+        System.out.println("   \\___/          ");
+        System.out.println("Sudowoodo says: " + message);
 	}
 
 }
