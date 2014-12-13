@@ -52,18 +52,6 @@ public final class PlayerLogic {
 	}
 
 	/**
-	 * Calculates the amount of games a player has played.
-	 * @param player The player to calculate the number of games for.
-	 * @return Returns the amound of games played by a certain player.
-	 */
-	public static final int calculatePlayedGames(Player player) {
-		int playedGames = player.getPlayedGames();
-
-		//TODO Implement played games per player
-		return playedGames;
-	}
-
-	/**
 	 * Calculates a player's stamina.
 	 * @param player The player to calculate the stamina for.
 	 * @return Returns the stamina of a player.
@@ -90,4 +78,16 @@ public final class PlayerLogic {
 		return result;
 	}
 
+	/**
+	 * Calculates the amount of games a player has played.
+	 * @param player The player to calculate the number of games for.
+	 * @return Returns the amound of games played by a certain player.
+	 */
+	public static final int calculatePlayedGames(Player player) {
+		int playedGames = player.getPlayedGames();
+
+		//TODO Implement played games per player
+		return playedGames;
+	}
+	
 }
