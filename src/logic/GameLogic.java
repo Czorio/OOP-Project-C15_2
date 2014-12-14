@@ -3,14 +3,13 @@ package logic;
 import java.util.Random;
 
 /**
- * Logic used to determine winner of a game
+ * Logic used to determine the winner of a game.
  * @author Steven Meijer <stevenmeijer9@gmail.com>
  *
  */
 public class GameLogic {
 
 	private String homeTeam, awayTeam, winner;
-	
 	private Random randomNumber = new Random(System.currentTimeMillis());
 	
 	public GameLogic(String homeTeam, String awayTeam){
