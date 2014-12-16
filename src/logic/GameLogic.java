@@ -2,6 +2,8 @@ package logic;
 
 import java.util.Random;
 
+import dataModel.Team;
+
 /**
  * Logic used to determine the winner of a game.
  * @author Steven Meijer <stevenmeijer9@gmail.com>
@@ -9,18 +11,31 @@ import java.util.Random;
  */
 public class GameLogic {
 
-	private String homeTeam, awayTeam, winner;
+	private Team homeTeam, awayTeam;
 	private Random randomNumber = new Random(System.currentTimeMillis());
 	
-	public GameLogic(String homeTeam, String awayTeam){
+	public GameLogic(Team homeTeam, Team awayTeam){
 		this.homeTeam = homeTeam;
 		this.awayTeam = awayTeam;
 	}
 	
-	public String generateWinner(){
-		//..
+	public String generateOutcome(Team home, Team away){
+		int homeScore = TeamLogic.calculateTeamTotalScore(home) + generateRandom();
+		int awayScore = TeamLogic.calculateTeamTotalScore(away) + generateRandom();
 		
-		return winner;
+		if (homeScore > awayScore) {
+			return home.getTeam();
+		}
+		
+		else if (homeScore < awayScore) {
+			return home.getTeam();
+		}
+		
+		else if (homeScore == awayScore) {
+			return "draw";
+		}
+		
+		return null;
 	}
 
 	/**
@@ -46,43 +61,29 @@ public class GameLogic {
 	/**
 	 * @return the homeTeam
 	 */
-	public String getHomeTeam() {
+	public Team getHomeTeam() {
 		return homeTeam;
 	}
 
 	/**
 	 * @param homeTeam the homeTeam to set
 	 */
-	public void setHomeTeam(String homeTeam) {
+	public void setHomeTeam(Team homeTeam) {
 		this.homeTeam = homeTeam;
 	}
 
 	/**
 	 * @return the awayTeam
 	 */
-	public String getAwayTeam() {
+	public Team getAwayTeam() {
 		return awayTeam;
 	}
 
 	/**
 	 * @param awayTeam the awayTeam to set
 	 */
-	public void setAwayTeam(String awayTeam) {
+	public void setAwayTeam(Team awayTeam) {
 		this.awayTeam = awayTeam;
-	}
-
-	/**
-	 * @return the winner
-	 */
-	public String getWinner() {
-		return winner;
-	}
-
-	/**
-	 * @param winner the winner to set
-	 */
-	public void setWinner(String winner) {
-		this.winner = winner;
 	}
 
 	/**
