@@ -12,7 +12,7 @@ import dataModel.Team;
 */
 public final class TeamLogic {
 
-	private List<Player> playingPlayers;
+	private static List<Player> playingPlayers;
 	private List<Player> teamPlayers;
 	
 	/**
@@ -49,7 +49,7 @@ public final class TeamLogic {
 	 * @param team The team to calculate the score of.
 	 * @return Returns the total offensive score.
 	 */
-	public final int calculateTeamOffScore(Team team) {
+	public final static int calculateTeamOffScore(Team team) {
 		int offScore = 0;
 		
 		for (int i = 0; i < playingPlayers.size(); i++) {
@@ -64,7 +64,7 @@ public final class TeamLogic {
 	 * @param team The team to calculate the score of.
 	 * @return Returns the total defensive score.
 	 */
-	public final int calculateTeamDefScore(Team team) {
+	public final static int calculateTeamDefScore(Team team) {
 		int defScore = 0;
 		
 		for (int i = 0; i < playingPlayers.size(); i++) {
@@ -79,7 +79,7 @@ public final class TeamLogic {
 	 * @param team The team to calculate the score of.
 	 * @return
 	 */
-	public final int calculateTeamTotalScore(Team team) {
+	public final static int calculateTeamTotalScore(Team team) {
 		//For now only based on the offensive and defensive score of a team.
 		//TODO Add parameters to calculate the final score of a team
 		return calculateTeamOffScore(team) + calculateTeamDefScore(team);
