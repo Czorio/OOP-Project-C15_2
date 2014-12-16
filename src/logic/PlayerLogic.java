@@ -9,7 +9,7 @@ import dataModel.Player;
  */
 public final class PlayerLogic {
 
-	public PlayerLogic() { }
+	private PlayerLogic() { }
 
 	/**
 	 * Calculates a player's offensive score by their position.
