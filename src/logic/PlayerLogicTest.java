@@ -14,7 +14,7 @@ import dataModel.Player;
  */
 public class PlayerLogicTest {
 	
-	Player testPlayer = new Player(1337, "Pieter", "van Bergen", "ADO Den Haag", "Nederlands", new Date(25/12/1993), "Midfielder", 75, 79, 68, 75, 67, 86);
+	Player testPlayer = new Player(206, "Pieter", "van Bergen", "ADO Den Haag", "Nederlands", new Date(25/12/1993), "Midfielder", 83, 73, 70, 76, 63, 86);
 
 	/**
 	 * Test method for {@link logic.PlayerLogic#PlayerLogic()}.

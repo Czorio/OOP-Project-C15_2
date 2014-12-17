@@ -105,6 +105,4 @@ public final class PlayerLogic {
 			player.setPrice(3000 * (player.getOffensive() + player.getDefensive() + player.getStamina()));
 		}
 	}
-	
-	//Testcode
 }
