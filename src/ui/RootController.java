@@ -44,7 +44,7 @@ public class RootController implements Initializable, Observer {
 			System.out.println(event.getSource());
 			boolean result = saveGame(instance.getGameState());
 			if (!result) {
-				System.out.println("Game not saved!");
+				System.err.println("Game not saved!");
 			}
 		});
 
@@ -63,7 +63,7 @@ public class RootController implements Initializable, Observer {
 			System.out.println(event.getSource());
 			boolean result = saveGame(instance.getGameState());
 			if (!result) {
-				System.out.println("Game not saved!");
+				System.err.println("Game not saved!");
 			} else {
 				Platform.exit();
 			}
@@ -94,7 +94,7 @@ public class RootController implements Initializable, Observer {
 			state.saveGameState(selectedFile);
 			return true;
 		} else {
-			System.out.println("No file selected!");
+			System.err.println("No file selected!");
 			return false;
 		}
 
@@ -116,7 +116,7 @@ public class RootController implements Initializable, Observer {
 			gamestate.loadGameState(selectedFile);
 			System.out.println("GameState: " + gamestate.toString());
 		} else {
-			System.out.println("No file selected!");
+			System.err.println("No file selected!");
 		}
 
 		return gamestate;

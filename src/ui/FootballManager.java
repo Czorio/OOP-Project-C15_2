@@ -48,6 +48,7 @@ public class FootballManager extends Application {
 		}
 		
 		instance.setGameState(new GameState(null, 0, null, null));
+		System.out.println(instance.getGameState());
 		instance.getGameState().addObserver(teamOverviewController);
 		instance.getGameState().addObserver(rootController);
 		
@@ -60,9 +61,6 @@ public class FootballManager extends Application {
 			System.out.println("GameState is empty, asking to load one.");
 			instance.setGameState(rootController.loadGame(instance.getGameState()));
 		}
-		
-		// Ik wil wel m'n console kunnen zien ;)
-		//sudowoodoSays("Game is loaded");
     }
 	
 	public void initRootLayout() throws IOException {
@@ -108,24 +106,6 @@ public class FootballManager extends Application {
 		System.out.println("Filename: " + fileName);
 		chooser.setInitialFileName(fileName);
 		return chooser.showSaveDialog(stage);
-	}
-	
-	private static void sudowoodoSays(String message) {
-        System.out.println("     _              __");
-        System.out.println("    / `\\  (~._    ./  )");
-        System.out.println("    \\__/ __`-_\\__/ ./");
-        System.out.println("   _ \\ \\/  \\  \\ |_   __");
-        System.out.println(" (   )  \\__/ -^    \\ /  \\");
-        System.out.println("  \\_/ \"  \\  | o  o  |.. /  __");
-        System.out.println("       \\\\. --' ====  /  || /  \\");
-        System.out.println("         \\   .  .  |---__.\\__/");
-        System.out.println("         /  :     /   |   |");
-        System.out.println("         /   :   /     \\_/");
-        System.out.println("      --/ ::    (");
-        System.out.println("     (  |     (  (____");
-        System.out.println("   .--  .. ----**.____)");
-        System.out.println("   \\___/          ");
-        System.out.println("Sudowoodo says: " + message);
 	}
 
 	/**
