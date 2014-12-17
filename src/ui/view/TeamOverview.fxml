@@ -103,7 +103,7 @@
                                                                         </children>
                                                                   </GridPane>
                                                                   <Separator layoutY="421.0" prefHeight="3.0" prefWidth="146.0" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                                                  <Button layoutX="38.0" layoutY="464.0" mnemonicParsing="false" text="Buy Player" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="41.0" />
+                                                                  <Button fx:id="sellYourPlayerButton" layoutX="38.0" layoutY="464.0" mnemonicParsing="false" text="Sell Player" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="41.0" />
                                                             </children>
                                                       </AnchorPane>
                                                 </items>
@@ -167,7 +167,7 @@
                                               </rowConstraints>
                                         </GridPane>
                                         <Separator layoutY="320.0" prefHeight="3.0" prefWidth="146.0" AnchorPane.bottomAnchor="208.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                        <Button layoutX="38.0" layoutY="348.0" mnemonicParsing="false" text="Sell Player" AnchorPane.bottomAnchor="156.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" />
+                                        <Button fx:id="buyAPlayerButton" layoutX="38.0" layoutY="348.0" mnemonicParsing="false" text="Buy Player" AnchorPane.bottomAnchor="156.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="38.0" />
                                   </children>
                             </AnchorPane>
                       </items>

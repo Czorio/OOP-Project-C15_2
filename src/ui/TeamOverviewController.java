@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -40,6 +41,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private Label yourPlayerStaminaLabel;
 	@FXML private Label yourPlayerPriceLabel;
 	@FXML private Label yourPlayerTeamLabel;
+	@FXML private Button sellYourPlayerButton;
 
 	Context instance;
 
@@ -73,17 +75,17 @@ public class TeamOverviewController implements Initializable, Observer {
 	public void initialize(URL location, ResourceBundle resources) {
 		instance = Context.getInstance();
 		
+//		System.out.println(sellYourPlayerButton);
+		
+		getSellYourPlayerButton().setOnAction((event) -> {
+			Player selectedPlayer = getYourPlayerTableView().getSelectionModel().getSelectedItem();
+			System.out.println(selectedPlayer);
+			//TODO sell the selected player
+		});
+		
 		getYourPlayerTableView().setOnMouseClicked((event) -> {
-			System.out.println(event);
 			Player clickedPlayer = getYourPlayerTableView().getSelectionModel().getSelectedItem();
-			
-//			System.out.println(getPlayerNameLabel());
-//			System.out.println(getPlayerPositionLabel());
-//			System.out.println(getPlayerOffensiveLabel());
-//			System.out.println(getPlayerDefensiveLabel());
-//			System.out.println(getPlayerStaminaLabel());
-//			System.out.println(getPlayerPriceLabel());
-//			System.out.println(getPlayerTeamLabel());
+			System.out.println(clickedPlayer);
 			
 			getYourPlayerNameLabel().setText(clickedPlayer.getLastName() + ", " + clickedPlayer.getFirstName());
 			getYourPlayerPositionLabel().setText(clickedPlayer.getPosition());
@@ -308,5 +310,19 @@ public class TeamOverviewController implements Initializable, Observer {
 	 */
 	public void setYourPlayerTeamLabel(Label yourPlayerTeamLabel) {
 		this.yourPlayerTeamLabel = yourPlayerTeamLabel;
+	}
+
+	/**
+	 * @return the sellYourPlayerButton
+	 */
+	public Button getSellYourPlayerButton() {
+		return sellYourPlayerButton;
+	}
+
+	/**
+	 * @param sellYourPlayerButton the sellYourPlayerButton to set
+	 */
+	public void setSellYourPlayerButton(Button sellYourPlayerButton) {
+		this.sellYourPlayerButton = sellYourPlayerButton;
 	}
 }
