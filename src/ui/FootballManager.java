@@ -6,19 +6,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import dataModel.GameState;
 import dataModel.League;
-import dataModel.Player;
-import dataModel.Team;
 
 public class FootballManager extends Application {
 	
@@ -28,6 +23,8 @@ public class FootballManager extends Application {
 	private BorderPane rootLayout;
 	private static RootController rootController;
 	private static TeamOverviewController teamOverviewController;
+	
+	static Context instance;
 
 	@Override
 	public void start(Stage stage) {
@@ -48,32 +45,21 @@ public class FootballManager extends Application {
 			e.printStackTrace();
 		}
 		
-		rootController.setGameState(new GameState(null, 0, null, null));
-		rootController.getGameState().addObserver(rootController);
-		rootController.getGameState().setCoachName("Dummy Coach");
-		rootController.getGameState().setLeague("Eredivisie");
-		rootController.getGameState().setRound(8);
-		rootController.getGameState().setTeam("SC Cambuur");
+		instance.setGameState(new GameState(null, 0, null, null));
+		instance.getGameState().addObserver(teamOverviewController);
+		instance.getGameState().addObserver(rootController);
 		
-		if (GameState.isUseless(rootController.getGameState())) {
+		instance.getGameState().setCoachName("Dummy Coach");
+		instance.getGameState().setLeague("Eredivisie");
+		instance.getGameState().setRound(8);
+		instance.getGameState().setTeam("SC Cambuur");
+		
+		if (GameState.isUseless(instance.getGameState())) {
 			System.out.println("GameState is empty, asking to load one.");
-			rootController.setGameState(rootController.loadGame(rootController.getGameState()));
+			instance.setGameState(rootController.loadGame(instance.getGameState()));
 		}
 		
-		rootController.setLeague(League.readFromFile(PLAYER_DATABASE));
-//		System.out.println(rootController.getLeague().getTeam(rootController.getGameState().getTeam()).getPlayers());
-		
-		String team = rootController.getGameState().getTeam();
-		League l = rootController.getLeague();
-		Team t = l.getTeam(team);
-		ObservableList<Player> players = FXCollections.observableList(t.getPlayers());
-		TableView<Player> view = teamOverviewController.getPlayerTableView();
-		
-		if (view != null) {
-			System.out.println("Filling table with data...");
-			view.getItems().setAll(players);
-		} else
-			System.out.println("view == null");
+		instance.setLeague(League.readFromFile(PLAYER_DATABASE));
 		
 		sudowoodoSays("Game is loaded");
     }
@@ -98,6 +84,7 @@ public class FootballManager extends Application {
 	}
 
 	public static void main(String[] args) {
+		instance = Context.getInstance();
 		launch(args);
 	}
 
@@ -138,6 +125,84 @@ public class FootballManager extends Application {
         System.out.println("   .--  .. ----**.____)");
         System.out.println("   \\___/          ");
         System.out.println("Sudowoodo says: " + message);
+	}
+
+	/**
+	 * @return the stage
+	 */
+	public static Stage getStage() {
+		return stage;
+	}
+
+	/**
+	 * @param stage the stage to set
+	 */
+	public static void setStage(Stage stage) {
+		FootballManager.stage = stage;
+	}
+
+	/**
+	 * @return the rootLayout
+	 */
+	public BorderPane getRootLayout() {
+		return rootLayout;
+	}
+
+	/**
+	 * @param rootLayout the rootLayout to set
+	 */
+	public void setRootLayout(BorderPane rootLayout) {
+		this.rootLayout = rootLayout;
+	}
+
+	/**
+	 * @return the rootController
+	 */
+	public static RootController getRootController() {
+		return rootController;
+	}
+
+	/**
+	 * @param rootController the rootController to set
+	 */
+	public static void setRootController(RootController rootController) {
+		FootballManager.rootController = rootController;
+	}
+
+	/**
+	 * @return the teamOverviewController
+	 */
+	public static TeamOverviewController getTeamOverviewController() {
+		return teamOverviewController;
+	}
+
+	/**
+	 * @param teamOverviewController the teamOverviewController to set
+	 */
+	public static void setTeamOverviewController(
+			TeamOverviewController teamOverviewController) {
+		FootballManager.teamOverviewController = teamOverviewController;
+	}
+
+	/**
+	 * @return the instance
+	 */
+	public static Context getInstance() {
+		return instance;
+	}
+
+	/**
+	 * @param instance the instance to set
+	 */
+	public static void setInstance(Context instance) {
+		FootballManager.instance = instance;
+	}
+
+	/**
+	 * @return the playerDatabase
+	 */
+	public static File getPlayerDatabase() {
+		return PLAYER_DATABASE;
 	}
 
 }

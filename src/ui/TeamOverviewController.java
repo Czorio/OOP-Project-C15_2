@@ -8,11 +8,15 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import dataModel.League;
 import dataModel.Player;
+import dataModel.Team;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -28,6 +32,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private TableColumn<Player, Integer> defCol;
 	@FXML private TableColumn<Player, Integer> staminaCol;
 	@FXML private TableColumn<Player, Integer> priceCol;
+	
+	Context instance;
 
 	/* (non-Javadoc)
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
@@ -35,6 +41,23 @@ public class TeamOverviewController implements Initializable, Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		System.out.println("An instance of " + o.getClass().toString() + " has changed!");
+		
+		if (o == instance.getGameState()) {
+			String team = instance.getGameState().getTeam();
+			League l = instance.getLeague();
+			if (l != null) {
+				Team t = l.getTeam(team);
+				ObservableList<Player> players = FXCollections.observableList(t.getPlayers());
+				TableView<Player> view = this.getPlayerTableView();
+				
+				if (view != null) {
+					System.out.println("Filling table with data...");
+					view.getItems().setAll(players);
+				} else {
+					System.out.println("view == null");
+				}
+			}
+		}
 	}
 
 	/* (non-Javadoc)
@@ -42,19 +65,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("Playertable: " + playerTableView);
-		
-//		try {
-//			firstNameCol.setCellValueFactory(new PropertyValueFactory<Player, String>("firstName"));
-//			lastNameCol.setCellValueFactory(new PropertyValueFactory<Player, String>("lastName"));
-//			positionCol.setCellValueFactory(new PropertyValueFactory<Player, String>("position"));
-//			offCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("offensive"));
-//			defCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("defensive"));
-//			staminaCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("stamina"));
-//			priceCol.setCellValueFactory(new PropertyValueFactory<Player, Integer>("price"));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		instance = Context.getInstance();
 	}
 
 	/**
