@@ -15,7 +15,6 @@ import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import dataModel.GameState;
-import dataModel.League;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -30,19 +29,20 @@ public class RootController implements Initializable, Observer {
 	
 	@FXML private MenuItem quitMenuButton;
 	@FXML private MenuItem saveAndQuitMenuButton;
-
-	private GameState gameState;
-	private League league;
+	
+	Context instance;
 
 	/* (non-Javadoc)
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
+		instance = Context.getInstance();
 
 		saveGameButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
-			boolean result = saveGame(getGameState());
+			boolean result = saveGame(instance.getGameState());
 			if (!result) {
 				System.out.println("Game not saved!");
 			}
@@ -50,18 +50,18 @@ public class RootController implements Initializable, Observer {
 
 		loadGameButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
-			setGameState(loadGame(getGameState()));
+			instance.setGameState(loadGame(instance.getGameState()));
 		});
 		
 		nextRoundButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
-			getGameState().nextRound();
+			instance.getGameState().nextRound();
 		});
 		
 		// Save and Quit application
 		saveAndQuitMenuButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
-			boolean result = saveGame(getGameState());
+			boolean result = saveGame(instance.getGameState());
 			if (!result) {
 				System.out.println("Game not saved!");
 			} else {
@@ -133,10 +133,11 @@ public class RootController implements Initializable, Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("An instance of " + o.getClass().toString() + " has changed!");
+//		System.out.println("An instance of " + o.getClass().toString() + " has changed (Root)!");
 		
-		if (o == gameState) {
-			this.gamesPlayed.setText(String.valueOf(gameState.getRound()));
+		if (o == instance.getGameState()) {
+			this.gamesPlayed.setText(String.valueOf(instance.getGameState().getRound()));
+			
 		}
 	}
 
@@ -183,31 +184,44 @@ public class RootController implements Initializable, Observer {
 	}
 
 	/**
-	 * @return the league
+	 * @return the nextRoundButton
 	 */
-	public League getLeague() {
-		return league;
+	public Button getNextRoundButton() {
+		return nextRoundButton;
 	}
 
 	/**
-	 * @param league the league to set
+	 * @param nextRoundButton the nextRoundButton to set
 	 */
-	public void setLeague(League league) {
-		this.league = league;
+	public void setNextRoundButton(Button nextRoundButton) {
+		this.nextRoundButton = nextRoundButton;
 	}
 
 	/**
-	 * @return the gameState
+	 * @return the quitMenuButton
 	 */
-	public GameState getGameState() {
-		return gameState;
+	public MenuItem getQuitMenuButton() {
+		return quitMenuButton;
 	}
 
 	/**
-	 * @param gameState the gameState to set
+	 * @param quitMenuButton the quitMenuButton to set
 	 */
-	public void setGameState(GameState gameState) {
-		this.gameState = gameState;
+	public void setQuitMenuButton(MenuItem quitMenuButton) {
+		this.quitMenuButton = quitMenuButton;
 	}
 
+	/**
+	 * @return the saveAndQuitMenuButton
+	 */
+	public MenuItem getSaveAndQuitMenuButton() {
+		return saveAndQuitMenuButton;
+	}
+
+	/**
+	 * @param saveAndQuitMenuButton the saveAndQuitMenuButton to set
+	 */
+	public void setSaveAndQuitMenuButton(MenuItem saveAndQuitMenuButton) {
+		this.saveAndQuitMenuButton = saveAndQuitMenuButton;
+	}
 }
