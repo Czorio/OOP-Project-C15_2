@@ -23,45 +23,51 @@ import dataModel.Team;
  *
  */
 public class TeamOverviewController implements Initializable, Observer {
-	
-	@FXML private TableView<Player> playerTableView;
-	@FXML private TableColumn<Player, String> firstNameCol;
-	@FXML private TableColumn<Player, String> lastNameCol;
-	@FXML private TableColumn<Player, String> positionCol;
-	@FXML private TableColumn<Player, Integer> offCol;
-	@FXML private TableColumn<Player, Integer> defCol;
-	@FXML private TableColumn<Player, Integer> staminaCol;
-	@FXML private TableColumn<Player, Integer> priceCol;
-	
+
+	@FXML
+	private TableView<Player> playerTableView;
+	@FXML
+	private TableColumn<Player, String> firstNameCol;
+	@FXML
+	private TableColumn<Player, String> lastNameCol;
+	@FXML
+	private TableColumn<Player, String> positionCol;
+	@FXML
+	private TableColumn<Player, Integer> offCol;
+	@FXML
+	private TableColumn<Player, Integer> defCol;
+	@FXML
+	private TableColumn<Player, Integer> staminaCol;
+	@FXML
+	private TableColumn<Player, Integer> priceCol;
+
 	Context instance;
 
-	/* (non-Javadoc)
+	/*
+	 * (non-Javadoc)
+	 * 
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println("An instance of " + o.getClass().toString() + " has changed!");
-		
+//		System.out.println("An instance of " + o.getClass().toString() + " has changed! (TeamOverview)");
+
 		if (o == instance.getGameState()) {
 			String team = instance.getGameState().getTeam();
 			League l = instance.getLeague();
-			if (l != null) {
-				Team t = l.getTeam(team);
+			Team t;
+			if (l != null && null != (t = l.getTeam(team))) {
 				ObservableList<Player> players = FXCollections.observableList(t.getPlayers());
-				TableView<Player> view = this.getPlayerTableView();
-				
-				if (view != null) {
-					System.out.println("Filling table with data...");
-					view.getItems().setAll(players);
-				} else {
-					System.out.println("view == null");
-				}
+				playerTableView.getItems().setAll(players);
 			}
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javafx.fxml.Initializable#initialize(java.net.URL,
+	 * java.util.ResourceBundle)
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -76,7 +82,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	}
 
 	/**
-	 * @param playerTableView the playerTableView to set
+	 * @param playerTableView
+	 *            the playerTableView to set
 	 */
 	public void setPlayerTableView(TableView<Player> playerTableView) {
 		this.playerTableView = playerTableView;
@@ -90,7 +97,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	}
 
 	/**
-	 * @param firstNameCol the firstNameCol to set
+	 * @param firstNameCol
+	 *            the firstNameCol to set
 	 */
 	public void setFirstNameCol(TableColumn<Player, String> firstNameCol) {
 		this.firstNameCol = firstNameCol;
@@ -104,7 +112,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	}
 
 	/**
-	 * @param lastNameCol the lastNameCol to set
+	 * @param lastNameCol
+	 *            the lastNameCol to set
 	 */
 	public void setLastNameCol(TableColumn<Player, String> lastNameCol) {
 		this.lastNameCol = lastNameCol;
@@ -118,7 +127,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	}
 
 	/**
-	 * @param positionCol the positionCol to set
+	 * @param positionCol
+	 *            the positionCol to set
 	 */
 	public void setPositionCol(TableColumn<Player, String> positionCol) {
 		this.positionCol = positionCol;
@@ -132,7 +142,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	}
 
 	/**
-	 * @param offCol the offCol to set
+	 * @param offCol
+	 *            the offCol to set
 	 */
 	public void setOffCol(TableColumn<Player, Integer> offCol) {
 		this.offCol = offCol;
@@ -146,7 +157,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	}
 
 	/**
-	 * @param defCol the defCol to set
+	 * @param defCol
+	 *            the defCol to set
 	 */
 	public void setDefCol(TableColumn<Player, Integer> defCol) {
 		this.defCol = defCol;
@@ -160,7 +172,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	}
 
 	/**
-	 * @param staminaCol the staminaCol to set
+	 * @param staminaCol
+	 *            the staminaCol to set
 	 */
 	public void setStaminaCol(TableColumn<Player, Integer> staminaCol) {
 		this.staminaCol = staminaCol;
@@ -174,7 +187,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	}
 
 	/**
-	 * @param priceCol the priceCol to set
+	 * @param priceCol
+	 *            the priceCol to set
 	 */
 	public void setPriceCol(TableColumn<Player, Integer> priceCol) {
 		this.priceCol = priceCol;

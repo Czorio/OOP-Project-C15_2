@@ -31,6 +31,8 @@ public class FootballManager extends Application {
 		FootballManager.stage = stage;
 		FootballManager.stage.setTitle("Football Manager");
 		
+		instance.setLeague(League.readFromFile(PLAYER_DATABASE));
+		
 		try {
 			initRootLayout();
 		} catch (IOException e) {
@@ -59,9 +61,8 @@ public class FootballManager extends Application {
 			instance.setGameState(rootController.loadGame(instance.getGameState()));
 		}
 		
-		instance.setLeague(League.readFromFile(PLAYER_DATABASE));
-		
-		sudowoodoSays("Game is loaded");
+		// Ik wil wel m'n console kunnen zien ;)
+		//sudowoodoSays("Game is loaded");
     }
 	
 	public void initRootLayout() throws IOException {
