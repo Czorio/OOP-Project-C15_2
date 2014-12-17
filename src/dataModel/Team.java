@@ -39,8 +39,7 @@ public class Team extends Observable {
 	public String toString() {
 		String res = this.getTeam() + " (" + this.getBudget() + ") " + "\n";
 		for (Player p : this.getPlayers()) {
-			//TODO Fix all the String editing here
-			res += p.getFirstName().trim() + " " + p.getLastName().trim().replace("\n", "") + "\n";
+			res += p.getFirstName() + " " + p.getLastName() + "\n";
 		}
 		
 		return res;
