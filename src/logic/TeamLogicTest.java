@@ -5,12 +5,16 @@ package logic;
 
 import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import xml.XMLPlayer;
+import dataModel.GameState;
+import dataModel.League;
 import dataModel.Player;
 import dataModel.Team;
 
@@ -22,12 +26,13 @@ public class TeamLogicTest {
 
 	@Before
 	public void initialize() {
-		//Player(Integer id, String firstname, String lastname, String club, String nationality, Date dateOfBirth, String position,
-		//		 int pace, int shooting, int passing, int offensive, int defensive, int stamina) 
-		ArrayList<Player> testPlayers = new ArrayList<Player>();
-		Player testPlayer1 = new Player(1, "Henk", "de Graaf", "Ajax", "Nederlands", new Date(23/11/1990), "Attacker", 75, 79, 68, 75, 67, 86);
-		
-		Team testTeam = new Team("Ajax", testPlayers);
+	
+		File in = new File("GameData/Eredivisie.xml");
+		XMLPlayer xmlplayer = new XMLPlayer(in);
+		League league = xmlplayer.readFromFile("Eredivisie");
+		System.out.println(league.getTeam("Feyenoord").getPlayers());
+
+		Team testTeam = league.getTeam("Ajax");
 	}
 	
 	/**

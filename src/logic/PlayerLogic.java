@@ -81,13 +81,12 @@ public final class PlayerLogic {
 	/**
 	 * Calculates the amount of games a player has played.
 	 * @param player The player to calculate the number of games for.
-	 * @return Returns the amound of games played by a certain player.
 	 */
-	public static final int calculatePlayedGames(Player player) {
+	public static final void calculatePlayedGames(Player player) {
 		int playedGames = player.getPlayedGames();
-
-		//TODO Implement played games per player
-		return playedGames;
+		
+		if (player.getCurPosition() != null) {
+			player.setPlayedGames(playedGames + 1);
+		}
 	}
-	
 }
