@@ -89,4 +89,21 @@ public final class PlayerLogic {
 			player.setPlayedGames(playedGames + 1);
 		}
 	}
+	
+	/**
+	 * Calculates the initial cost for a player.
+	 * @param player The player to calculate the cost for.
+	 * @return Returns the initial cost of a player.
+	 */
+	public static void calculateInitialPrice(Player player) {
+		int stats = player.getOffensive() + player.getDefensive();
+		
+		//TODO FInetune initial price
+		if (stats > 125) {
+			player.setPrice(5000 * (player.getOffensive() + player.getDefensive() + player.getStamina()));
+		} else {
+			player.setPrice(3000 * (player.getOffensive() + player.getDefensive() + player.getStamina()));
+		}
+	}
+
 }
