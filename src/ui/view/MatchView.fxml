@@ -53,9 +53,9 @@
                         <Circle fill="#e1ff1f" layoutX="198.0" layoutY="168.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
                      </children>
                   </AnchorPane>
-                  <ComboBox layoutX="11.0" layoutY="373.0" prefHeight="25.0" prefWidth="228.0" promptText="Select Formation" visibleRowCount="3" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" />
-                  <Button layoutX="68.0" layoutY="438.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="114.0" text="Play" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="68.0" />
-                  <Button layoutX="99.0" layoutY="501.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="99.0" />
+                  <ComboBox fx:id="formationComboBox" layoutX="11.0" layoutY="373.0" prefHeight="25.0" prefWidth="228.0" promptText="Select Formation" visibleRowCount="3" AnchorPane.leftAnchor="11.0" AnchorPane.rightAnchor="11.0" />
+                  <Button fx:id="playButton" layoutX="68.0" layoutY="438.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="114.0" text="Play" AnchorPane.bottomAnchor="67.0" AnchorPane.leftAnchor="68.0" AnchorPane.rightAnchor="68.0" />
+                  <Button fx:id="cancelButton" layoutX="99.0" layoutY="501.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="32.0" AnchorPane.leftAnchor="99.0" AnchorPane.rightAnchor="99.0" />
                </children>
             </AnchorPane>
         </items>

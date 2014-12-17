@@ -37,9 +37,9 @@
          <children>
             <VBox alignment="CENTER" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                  <Button layoutX="257.0" layoutY="225.0" mnemonicParsing="false" text="New Game" />
-                  <Button layoutX="256.0" layoutY="255.0" mnemonicParsing="false" text="Load Game" />
-                  <Button mnemonicParsing="false" text="Quit Game" />
+                  <Button fx:id="newGameButton" layoutX="257.0" layoutY="225.0" mnemonicParsing="false" text="New Game" />
+                  <Button fx:id="loadGameButton" layoutX="256.0" layoutY="255.0" mnemonicParsing="false" text="Load Game" />
+                  <Button fx:id="quitGameButton" mnemonicParsing="false" text="Quit Game" />
                </children>
             </VBox>
          </children>
