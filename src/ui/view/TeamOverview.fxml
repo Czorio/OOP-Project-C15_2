@@ -17,48 +17,48 @@
 	<children>
 		<TabPane prefHeight="558.0" prefWidth="444.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 			<tabs>
-				<Tab text="All Players">
+				<Tab text="Your Team">
 					<content>
 						<SplitPane dividerPositions="0.75" prefHeight="160.0" prefWidth="200.0">
 							<items>
 								<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
 									<children>
-										<TableView fx:id="playerTableView" prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+										<TableView fx:id="yourPlayerTableView" prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 											<columnResizePolicy>
 												<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
 											</columnResizePolicy>
 											<columns>
-												<TableColumn fx:id="firstNameCol" prefWidth="75.0" text="First Name">
+												<TableColumn fx:id="yourPlayerFirstNameCol" prefWidth="75.0" text="First Name">
 													<cellValueFactory>
 														<PropertyValueFactory property="firstName" />
 													</cellValueFactory>
 												</TableColumn>
-												<TableColumn fx:id="lastNameCol" prefWidth="75.0" text="Surname">
+												<TableColumn fx:id="yourPlayerLastNameCol" prefWidth="75.0" text="Surname">
 													<cellValueFactory>
 														<PropertyValueFactory property="lastName" />
 													</cellValueFactory>
 												</TableColumn>
-												<TableColumn fx:id="positionCol" prefWidth="75.0" text="Position">
+												<TableColumn fx:id="yourPlayerPositionCol" prefWidth="75.0" text="Position">
 													<cellValueFactory>
 														<PropertyValueFactory property="position" />
 													</cellValueFactory>
 												</TableColumn>
-												<TableColumn fx:id="offCol" prefWidth="75.0" text="OFF">
+												<TableColumn fx:id="yourPlayerOffCol" prefWidth="75.0" text="OFF">
 													<cellValueFactory>
 														<PropertyValueFactory property="offensive" />
 													</cellValueFactory>
 												</TableColumn>
-												<TableColumn fx:id="defCol" prefWidth="75.0" text="DEF">
+												<TableColumn fx:id="yourPlayerDefCol" prefWidth="75.0" text="DEF">
 													<cellValueFactory>
 														<PropertyValueFactory property="defensive" />
 													</cellValueFactory>
 												</TableColumn>
-												<TableColumn fx:id="staminaCol" prefWidth="75.0" text="STA">
+												<TableColumn fx:id="yourPlayerStaminaCol" prefWidth="75.0" text="STA">
 													<cellValueFactory>
 														<PropertyValueFactory property="stamina" />
 													</cellValueFactory>
 												</TableColumn>
-												<TableColumn fx:id="priceCol" prefWidth="75.0" text="Price">
+												<TableColumn fx:id="yourPlayerPriceCol" prefWidth="75.0" text="Price">
 													<cellValueFactory>
 														<PropertyValueFactory property="price" />
 													</cellValueFactory>
@@ -91,13 +91,13 @@
 												<Label text="Stamina:" GridPane.rowIndex="4" />
 												<Label text="Price:" GridPane.rowIndex="5" />
 												<Label text="Team:" GridPane.rowIndex="6" />
-												<Label fx:id="playerName" text="#playerName" GridPane.columnIndex="1" />
-												<Label fx:id="playerPos" text="#playerPos" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-												<Label fx:id="playerOffensiveScore" text="#playerOffensiveScore" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-												<Label fx:id="playerDefensiveScore" text="#playerDefensiveScore" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-												<Label fx:id="playerStamina" text="#playerStamina" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-												<Label fx:id="playerPrice" text="#playerPrice" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-												<Label fx:id="playerTeam" text="#playerTeam" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+												<Label fx:id="yourPlayerNameLabel" text="#playerName" GridPane.columnIndex="1" />
+												<Label fx:id="yourPlayerPositionLabel" text="#playerPos" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+												<Label fx:id="yourPlayerOffensiveLabel" text="#playerOffensiveScore" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+												<Label fx:id="yourPlayerDefensiveLabel" text="#playerDefensiveScore" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+												<Label fx:id="yourPlayerStaminaLabel" text="#playerStamina" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+												<Label fx:id="yourPlayerPriceLabel" text="#playerPrice" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+												<Label fx:id="yourPlayerTeamLabel" text="#playerTeam" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 											</children>
 										</GridPane>
 										<Separator layoutY="421.0" prefHeight="3.0" prefWidth="146.0" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
@@ -108,7 +108,7 @@
 						</SplitPane>
 					</content>
 				</Tab>
-				<Tab text="Your Team">
+				<Tab text="All Players">
 					<content>
 						<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 							<children>

@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import dataModel.League;
@@ -24,22 +25,21 @@ import dataModel.Team;
  */
 public class TeamOverviewController implements Initializable, Observer {
 
-	@FXML
-	private TableView<Player> playerTableView;
-	@FXML
-	private TableColumn<Player, String> firstNameCol;
-	@FXML
-	private TableColumn<Player, String> lastNameCol;
-	@FXML
-	private TableColumn<Player, String> positionCol;
-	@FXML
-	private TableColumn<Player, Integer> offCol;
-	@FXML
-	private TableColumn<Player, Integer> defCol;
-	@FXML
-	private TableColumn<Player, Integer> staminaCol;
-	@FXML
-	private TableColumn<Player, Integer> priceCol;
+	@FXML private TableView<Player> yourPlayerTableView;
+	@FXML private TableColumn<Player, String> yourPlayerFirstNameCol;
+	@FXML private TableColumn<Player, String> yourPlayerLastNameCol;
+	@FXML private TableColumn<Player, String> yourPlayerPositionCol;
+	@FXML private TableColumn<Player, Integer> yourPlayerOffCol;
+	@FXML private TableColumn<Player, Integer> yourPlayerDefCol;
+	@FXML private TableColumn<Player, Integer> yourPlayerStaminaCol;
+	@FXML private TableColumn<Player, Integer> yourPlayerPriceCol;
+	@FXML private Label yourPlayerNameLabel;
+	@FXML private Label yourPlayerPositionLabel;
+	@FXML private Label yourPlayerOffensiveLabel;
+	@FXML private Label yourPlayerDefensiveLabel;
+	@FXML private Label yourPlayerStaminaLabel;
+	@FXML private Label yourPlayerPriceLabel;
+	@FXML private Label yourPlayerTeamLabel;
 
 	Context instance;
 
@@ -58,7 +58,7 @@ public class TeamOverviewController implements Initializable, Observer {
 			Team t;
 			if (l != null && null != (t = l.getTeam(team))) {
 				ObservableList<Player> players = FXCollections.observableList(t.getPlayers());
-				playerTableView.getItems().setAll(players);
+				yourPlayerTableView.getItems().setAll(players);
 			}
 		}
 	}
@@ -72,126 +72,241 @@ public class TeamOverviewController implements Initializable, Observer {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		instance = Context.getInstance();
+		
+		getYourPlayerTableView().setOnMouseClicked((event) -> {
+			System.out.println(event);
+			Player clickedPlayer = getYourPlayerTableView().getSelectionModel().getSelectedItem();
+			
+//			System.out.println(getPlayerNameLabel());
+//			System.out.println(getPlayerPositionLabel());
+//			System.out.println(getPlayerOffensiveLabel());
+//			System.out.println(getPlayerDefensiveLabel());
+//			System.out.println(getPlayerStaminaLabel());
+//			System.out.println(getPlayerPriceLabel());
+//			System.out.println(getPlayerTeamLabel());
+			
+			getYourPlayerNameLabel().setText(clickedPlayer.getLastName() + ", " + clickedPlayer.getFirstName());
+			getYourPlayerPositionLabel().setText(clickedPlayer.getPosition());
+			getYourPlayerOffensiveLabel().setText(String.valueOf(clickedPlayer.getOffensive()));
+			getYourPlayerDefensiveLabel().setText(String.valueOf(clickedPlayer.getDefensive()));
+			getYourPlayerStaminaLabel().setText(String.valueOf(clickedPlayer.getStamina()));
+			getYourPlayerPriceLabel().setText(String.valueOf(clickedPlayer.getPrice()));
+			getYourPlayerTeamLabel().setText(clickedPlayer.getClub());
+		});
 	}
 
 	/**
-	 * @return the playerTableView
+	 * @return the yourPlayerTableView
 	 */
-	public TableView<Player> getPlayerTableView() {
-		return playerTableView;
+	public TableView<Player> getYourPlayerTableView() {
+		return yourPlayerTableView;
 	}
 
 	/**
-	 * @param playerTableView
-	 *            the playerTableView to set
+	 * @param yourPlayerTableView the yourPlayerTableView to set
 	 */
-	public void setPlayerTableView(TableView<Player> playerTableView) {
-		this.playerTableView = playerTableView;
+	public void setYourPlayerTableView(TableView<Player> yourPlayerTableView) {
+		this.yourPlayerTableView = yourPlayerTableView;
 	}
 
 	/**
-	 * @return the firstNameCol
+	 * @return the yourPlayerFirstNameCol
 	 */
-	public TableColumn<Player, String> getFirstNameCol() {
-		return firstNameCol;
+	public TableColumn<Player, String> getYourPlayerFirstNameCol() {
+		return yourPlayerFirstNameCol;
 	}
 
 	/**
-	 * @param firstNameCol
-	 *            the firstNameCol to set
+	 * @param yourPlayerFirstNameCol the yourPlayerFirstNameCol to set
 	 */
-	public void setFirstNameCol(TableColumn<Player, String> firstNameCol) {
-		this.firstNameCol = firstNameCol;
+	public void setYourPlayerFirstNameCol(
+			TableColumn<Player, String> yourPlayerFirstNameCol) {
+		this.yourPlayerFirstNameCol = yourPlayerFirstNameCol;
 	}
 
 	/**
-	 * @return the lastNameCol
+	 * @return the yourPlayerLastNameCol
 	 */
-	public TableColumn<Player, String> getLastNameCol() {
-		return lastNameCol;
+	public TableColumn<Player, String> getYourPlayerLastNameCol() {
+		return yourPlayerLastNameCol;
 	}
 
 	/**
-	 * @param lastNameCol
-	 *            the lastNameCol to set
+	 * @param yourPlayerLastNameCol the yourPlayerLastNameCol to set
 	 */
-	public void setLastNameCol(TableColumn<Player, String> lastNameCol) {
-		this.lastNameCol = lastNameCol;
+	public void setYourPlayerLastNameCol(
+			TableColumn<Player, String> yourPlayerLastNameCol) {
+		this.yourPlayerLastNameCol = yourPlayerLastNameCol;
 	}
 
 	/**
-	 * @return the positionCol
+	 * @return the yourPlayerPositionCol
 	 */
-	public TableColumn<Player, String> getPositionCol() {
-		return positionCol;
+	public TableColumn<Player, String> getYourPlayerPositionCol() {
+		return yourPlayerPositionCol;
 	}
 
 	/**
-	 * @param positionCol
-	 *            the positionCol to set
+	 * @param yourPlayerPositionCol the yourPlayerPositionCol to set
 	 */
-	public void setPositionCol(TableColumn<Player, String> positionCol) {
-		this.positionCol = positionCol;
+	public void setYourPlayerPositionCol(
+			TableColumn<Player, String> yourPlayerPositionCol) {
+		this.yourPlayerPositionCol = yourPlayerPositionCol;
 	}
 
 	/**
-	 * @return the offCol
+	 * @return the yourPlayerOffCol
 	 */
-	public TableColumn<Player, Integer> getOffCol() {
-		return offCol;
+	public TableColumn<Player, Integer> getYourPlayerOffCol() {
+		return yourPlayerOffCol;
 	}
 
 	/**
-	 * @param offCol
-	 *            the offCol to set
+	 * @param yourPlayerOffCol the yourPlayerOffCol to set
 	 */
-	public void setOffCol(TableColumn<Player, Integer> offCol) {
-		this.offCol = offCol;
+	public void setYourPlayerOffCol(TableColumn<Player, Integer> yourPlayerOffCol) {
+		this.yourPlayerOffCol = yourPlayerOffCol;
 	}
 
 	/**
-	 * @return the defCol
+	 * @return the yourPlayerDefCol
 	 */
-	public TableColumn<Player, Integer> getDefCol() {
-		return defCol;
+	public TableColumn<Player, Integer> getYourPlayerDefCol() {
+		return yourPlayerDefCol;
 	}
 
 	/**
-	 * @param defCol
-	 *            the defCol to set
+	 * @param yourPlayerDefCol the yourPlayerDefCol to set
 	 */
-	public void setDefCol(TableColumn<Player, Integer> defCol) {
-		this.defCol = defCol;
+	public void setYourPlayerDefCol(TableColumn<Player, Integer> yourPlayerDefCol) {
+		this.yourPlayerDefCol = yourPlayerDefCol;
 	}
 
 	/**
-	 * @return the staminaCol
+	 * @return the yourPlayerStaminaCol
 	 */
-	public TableColumn<Player, Integer> getStaminaCol() {
-		return staminaCol;
+	public TableColumn<Player, Integer> getYourPlayerStaminaCol() {
+		return yourPlayerStaminaCol;
 	}
 
 	/**
-	 * @param staminaCol
-	 *            the staminaCol to set
+	 * @param yourPlayerStaminaCol the yourPlayerStaminaCol to set
 	 */
-	public void setStaminaCol(TableColumn<Player, Integer> staminaCol) {
-		this.staminaCol = staminaCol;
+	public void setYourPlayerStaminaCol(
+			TableColumn<Player, Integer> yourPlayerStaminaCol) {
+		this.yourPlayerStaminaCol = yourPlayerStaminaCol;
 	}
 
 	/**
-	 * @return the priceCol
+	 * @return the yourPlayerPriceCol
 	 */
-	public TableColumn<Player, Integer> getPriceCol() {
-		return priceCol;
+	public TableColumn<Player, Integer> getYourPlayerPriceCol() {
+		return yourPlayerPriceCol;
 	}
 
 	/**
-	 * @param priceCol
-	 *            the priceCol to set
+	 * @param yourPlayerPriceCol the yourPlayerPriceCol to set
 	 */
-	public void setPriceCol(TableColumn<Player, Integer> priceCol) {
-		this.priceCol = priceCol;
+	public void setYourPlayerPriceCol(
+			TableColumn<Player, Integer> yourPlayerPriceCol) {
+		this.yourPlayerPriceCol = yourPlayerPriceCol;
 	}
 
+	/**
+	 * @return the yourPlayerNameLabel
+	 */
+	public Label getYourPlayerNameLabel() {
+		return yourPlayerNameLabel;
+	}
+
+	/**
+	 * @param yourPlayerNameLabel the yourPlayerNameLabel to set
+	 */
+	public void setYourPlayerNameLabel(Label yourPlayerNameLabel) {
+		this.yourPlayerNameLabel = yourPlayerNameLabel;
+	}
+
+	/**
+	 * @return the yourPlayerPositionLabel
+	 */
+	public Label getYourPlayerPositionLabel() {
+		return yourPlayerPositionLabel;
+	}
+
+	/**
+	 * @param yourPlayerPositionLabel the yourPlayerPositionLabel to set
+	 */
+	public void setYourPlayerPositionLabel(Label yourPlayerPositionLabel) {
+		this.yourPlayerPositionLabel = yourPlayerPositionLabel;
+	}
+
+	/**
+	 * @return the yourPlayerOffensiveLabel
+	 */
+	public Label getYourPlayerOffensiveLabel() {
+		return yourPlayerOffensiveLabel;
+	}
+
+	/**
+	 * @param yourPlayerOffensiveLabel the yourPlayerOffensiveLabel to set
+	 */
+	public void setYourPlayerOffensiveLabel(Label yourPlayerOffensiveLabel) {
+		this.yourPlayerOffensiveLabel = yourPlayerOffensiveLabel;
+	}
+
+	/**
+	 * @return the yourPlayerDefensiveLabel
+	 */
+	public Label getYourPlayerDefensiveLabel() {
+		return yourPlayerDefensiveLabel;
+	}
+
+	/**
+	 * @param yourPlayerDefensiveLabel the yourPlayerDefensiveLabel to set
+	 */
+	public void setYourPlayerDefensiveLabel(Label yourPlayerDefensiveLabel) {
+		this.yourPlayerDefensiveLabel = yourPlayerDefensiveLabel;
+	}
+
+	/**
+	 * @return the yourPlayerStaminaLabel
+	 */
+	public Label getYourPlayerStaminaLabel() {
+		return yourPlayerStaminaLabel;
+	}
+
+	/**
+	 * @param yourPlayerStaminaLabel the yourPlayerStaminaLabel to set
+	 */
+	public void setYourPlayerStaminaLabel(Label yourPlayerStaminaLabel) {
+		this.yourPlayerStaminaLabel = yourPlayerStaminaLabel;
+	}
+
+	/**
+	 * @return the yourPlayerPriceLabel
+	 */
+	public Label getYourPlayerPriceLabel() {
+		return yourPlayerPriceLabel;
+	}
+
+	/**
+	 * @param yourPlayerPriceLabel the yourPlayerPriceLabel to set
+	 */
+	public void setYourPlayerPriceLabel(Label yourPlayerPriceLabel) {
+		this.yourPlayerPriceLabel = yourPlayerPriceLabel;
+	}
+
+	/**
+	 * @return the yourPlayerTeamLabel
+	 */
+	public Label getYourPlayerTeamLabel() {
+		return yourPlayerTeamLabel;
+	}
+
+	/**
+	 * @param yourPlayerTeamLabel the yourPlayerTeamLabel to set
+	 */
+	public void setYourPlayerTeamLabel(Label yourPlayerTeamLabel) {
+		this.yourPlayerTeamLabel = yourPlayerTeamLabel;
+	}
 }
