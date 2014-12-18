@@ -1,7 +1,7 @@
 /**
  * Test for GameState class
  */
-package dataModel;
+package test;
 
 import static org.junit.Assert.*;
 
@@ -10,6 +10,8 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
+import dataModel.GameState;
 
 /**
  * @author Steven Meijer <stevenmeijer9@gmail.com>

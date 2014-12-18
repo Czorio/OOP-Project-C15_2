@@ -1,8 +1,10 @@
-package logic;
+package test;
 
 import static org.junit.Assert.*;
 
 import java.util.Date;
+
+import logic.PlayerLogic;
 
 import org.junit.Test;
 

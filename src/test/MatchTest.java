@@ -1,8 +1,11 @@
-package dataModel;
+package test;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import dataModel.Match;
+import dataModel.Team;
 
 public class MatchTest {
 

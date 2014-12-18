@@ -1,10 +1,12 @@
-package dataModel;
+package test;
 
 import static org.junit.Assert.*;
 
 import java.util.Date;
 
 import org.junit.Test;
+
+import dataModel.Player;
 
 public class PlayerTest {
 
