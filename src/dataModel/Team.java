@@ -182,5 +182,22 @@ public class Team extends Observable {
 	 */
 	public void setBudget(int budget) {
 		this.budget = budget;
-	}	
+	}
+	
+	/**
+	 * Get players with a certain position.
+	 * @param position The position that the player must have.
+	 * @return Returns a list with the players with the requested position.
+	 */
+	public List<Player> getByPosition(String position) {
+		List<Player> certainPosition = new ArrayList<Player>();
+		
+		for(int i = 0; i < players.size(); i++) {
+			if(players.get(i).getPosition() == position) {
+				certainPosition.add(players.get(i));
+			}
+		}
+		
+		return certainPosition;
+	}
 }
