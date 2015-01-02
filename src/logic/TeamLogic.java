@@ -96,7 +96,7 @@ public final class TeamLogic {
 	 * Creates a team for every club that is not the club the user is playing.
 	 * @param gs The current gamestate.
 	 */
-	public static void CreateAITeam(GameState gs) {
+	public static void createAITeam(GameState gs) {
 		File in = new File("GameData/Eredivisie.xml");
 		XMLPlayer xmlplayer = new XMLPlayer(in);
 		League league = xmlplayer.readFromFile("Eredivisie");
@@ -106,7 +106,7 @@ public final class TeamLogic {
 
 		for (int i = 0; i < league.getTeams().size(); i++) {
 			if(league.getTeams().get(i) != team) {
-				CreateAIActivePlayers(league.getTeams().get(i));
+				createAIActivePlayers(league.getTeams().get(i));
 			}
 		}
 	}
@@ -115,7 +115,7 @@ public final class TeamLogic {
 	 * Creates an AI team. Picks random players and places them on their positions.
 	 * @param team The team to create.
 	 */
-	public static void CreateAIActivePlayers(Team team) {
+	public static void createAIActivePlayers(Team team) {
 		String setup = createSetup();
 		Scanner sc = new Scanner(setup);
 		Random random = new Random();
@@ -161,6 +161,10 @@ public final class TeamLogic {
 		sc.close();
 	}
 
+	/**
+	 * Creates a random setup for AI games.
+	 * @return Returns a random setup from the list.
+	 */
 	public static String createSetup() {
 		List<String> setup = new ArrayList<String>();
 		setup.add("4-3-3");
