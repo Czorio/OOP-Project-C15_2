@@ -134,7 +134,7 @@ public final class TeamLogic {
 		while (nrDefenders != 0) {
 			int randomNumber = random.nextInt(defenders.size());
 
-			if (defenders.get(randomNumber).getCurPosition() != null) {
+			if (defenders.get(randomNumber).getCurPosition() == null) {
 				defenders.get(randomNumber).setCurPosition("Defender");
 				nrDefenders--;
 			}
@@ -143,7 +143,7 @@ public final class TeamLogic {
 		while (nrMidfielders != 0) {
 			int randomNumber = random.nextInt(midfielders.size());
 
-			if (midfielders.get(randomNumber).getCurPosition() != null) {
+			if (midfielders.get(randomNumber).getCurPosition() == null) {
 				midfielders.get(randomNumber).setCurPosition("Midfielder");
 				nrMidfielders--;
 			}
@@ -152,7 +152,7 @@ public final class TeamLogic {
 		while (nrAttackers != 0) {
 			int randomNumber = random.nextInt(attackers.size());
 
-			if (attackers.get(randomNumber).getCurPosition() != null) {
+			if (attackers.get(randomNumber).getCurPosition() == null) {
 				attackers.get(randomNumber).setCurPosition("Attacker");
 				nrAttackers--;
 			}
