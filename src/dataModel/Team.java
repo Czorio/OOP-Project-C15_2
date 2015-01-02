@@ -49,7 +49,7 @@ public class Team extends Observable {
 	 * Add player to this team, only if their doesn't exist a player with the same id.
 	 * @param player
 	 */
-	public void addPlayer(Player player) {
+	public boolean addPlayer(Player player) {
 		boolean bExists = false;
 		for(int i = 0; i < players.size(); i++) {
 			if(players.get(i).getId() == player.getId()) bExists = true;  
@@ -58,13 +58,15 @@ public class Team extends Observable {
 		if(!bExists) {
 			players.add(player);
 		}
+		
+		return !bExists;
 	}
 	
 	/**
 	 * Remove player, if the player exists, based on Player ID.
 	 * @param player
 	 */
-	public void removePlayer(Player player) {
+	public boolean removePlayer(Player player) {
 		boolean bExists = false;
 		int index = 0;
 		for(int i = 0; i < players.size(); i++) {
@@ -77,24 +79,8 @@ public class Team extends Observable {
 		if(bExists) {
 			players.remove(index);
 		}
-	}
-	
-	public static boolean transferPlayer(Player player, Team seller, Team buyer) {
-		assert(player != null);
-		assert(seller != null);
-		assert(buyer != null);
 		
-		int price = player.getPrice();
-		
-		if (price > buyer.getBudget()) return false;
-		
-		seller.setBudget(seller.getBudget() + price);
-		seller.removePlayer(player);
-		
-		buyer.setBudget(buyer.getBudget() - price);
-		buyer.addPlayer(player);
-		
-		return true;
+		return bExists;
 	}
 	
 	/**
