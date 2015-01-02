@@ -9,7 +9,7 @@ import dataModel.Team;
  * @author Steven Meijer <stevenmeijer9@gmail.com>
  *
  */
-public class GameLogic {
+public final class GameLogic {
 
 	private Team homeTeam, awayTeam;
 	private Random randomNumber = new Random(System.currentTimeMillis());
@@ -28,7 +28,7 @@ public class GameLogic {
 		}
 		
 		else if (homeScore < awayScore) {
-			return home.getTeam();
+			return away.getTeam();
 		}
 		
 		else if (homeScore == awayScore) {
