@@ -22,11 +22,6 @@ public final class TeamLogic {
 	private static List<Player> playingPlayers;
 	private List<Player> teamPlayers;
 
-	public static void main(String[] args) {
-		GameState gs = new GameState("Steven", 1, "Eredivisie", "Ajax");
-		CreateAITeam(gs);
-	}
-
 	/**
 	 * Constructs and initializes a playing team.
 	 * @param team All the players of a team.
