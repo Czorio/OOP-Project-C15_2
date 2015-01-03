@@ -80,6 +80,20 @@ public final class TeamLogic {
 
 		return Math.round(defScore/11);
 	}
+	
+	/**
+	 * Calculates the stamina score of a team. 
+	 * @param team to calculate score
+	 * @return calculated stamina of whole team
+	 */
+	public final static int calculateTeamStaminaScore(Team team){
+		int stamScore = 0;
+		
+		for (int i = 0; i< playingPlayers.size();i++){
+			stamScore += PlayerLogic.calculatePlayerStamina(playingPlayers.get(i));
+		}
+		return Math.round(stamScore/11);
+	}
 
 	/**
 	 * Calculates the total score of a Team.
@@ -89,7 +103,7 @@ public final class TeamLogic {
 	public final static int calculateTeamTotalScore(Team team) {
 		//For now only based on the offensive and defensive score of a team.
 		//TODO Add parameters to calculate the final score of a team
-		return calculateTeamOffScore(team) + calculateTeamDefScore(team);
+		return (calculateTeamOffScore(team) + calculateTeamDefScore(team) + calculateTeamStaminaScore(team))/3;
 	}
 
 	/**
