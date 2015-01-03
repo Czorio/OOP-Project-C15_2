@@ -52,7 +52,8 @@ public class Team extends Observable {
 	public boolean addPlayer(Player player) {
 		boolean bExists = false;
 		for(int i = 0; i < players.size(); i++) {
-			if(players.get(i).getId() == player.getId()) bExists = true;  
+			if(players.get(i).getId() == player.getId()) bExists = true;
+			if(players.get(i).getFirstName().equals(player.getFirstName()) && players.get(i).getLastName().equals(player.getLastName())) bExists = true;
 		}
 		
 		if(!bExists) {
