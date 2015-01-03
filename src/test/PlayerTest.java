@@ -10,11 +10,11 @@ import dataModel.Player;
 
 public class PlayerTest {
 
-	Player p1 = new Player(1,"Davy","Klaasen","Ajax","Dutch", new Date(1/1/1990),"CB",40,50,60,60,80,70);
-	Player p2 = new Player(2,"Celso","Ortiz","AZ","Dutch",new Date(1/1/1800),"RW",50,50,60,40,20,70);
-	Player p3 = new Player(1,"Davy","Klaasen","Ajax","Dutch", new Date(1/1/1990),"CB",40,50,60,60,80,70);
-	Player p4 = new Player(3,"Mitchell","Shet","Ado Den Haag","Dutch",new Date(2/2/2000),"ST",50,60,60,70,40,60);
-	Player p5 = new Player(5,"Jasper","Cillesen","Ajax","Dutch", new Date(5/5/1950),"GK",0,0,0,0,70,70);
+	Player p1 = new Player(1,"Davy","Klaasen","Ajax","Dutch", null, new Date(1/1/1990),"CB",40,50,60,60,80,70);
+	Player p2 = new Player(2,"Celso","Ortiz","AZ","Dutch",null, new Date(1/1/1800),"RW",50,50,60,40,20,70);
+	Player p3 = new Player(1,"Davy","Klaasen","Ajax","Dutch", null, new Date(1/1/1990),"CB",40,50,60,60,80,70);
+	Player p4 = new Player(3,"Mitchell","Shet","Ado Den Haag","Dutch",null, new Date(2/2/2000),"ST",50,60,60,70,40,60);
+	Player p5 = new Player(5,"Jasper","Cillesen","Ajax","Dutch", null, new Date(5/5/1950),"GK",0,0,0,0,70,70);
 	
 	/**Constructor Test
 	 * Tests the constructor using few get Methods and comparing them to actual value.
@@ -73,15 +73,15 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testGetPosition(){
-		Player CF = new Player(1,"Test","Test","Ajax","Dutch", new Date(1/1/2015),"CF",40,40,40,40,40,40);
-		Player RB = new Player(1,"Test","Test","Ajax","Dutch", new Date(1/1/2015),"RB",40,40,40,40,40,40);
-		Player LB = new Player(1,"Test","Test","Ajax","Dutch", new Date(1/1/2015),"LB",40,40,40,40,40,40);
-		Player CM = new Player(1,"Test","Test","Ajax","Dutch", new Date(1/1/2015),"CM",40,40,40,40,40,40);
-		Player CDM  = new Player(1,"Test","Test","Ajax","Dutch", new Date(1/1/2015),"CDM",40,40,40,40,40,40);
-		Player CAM  = new Player(1,"Test","Test","Ajax","Dutch", new Date(1/1/2015),"CAM",40,40,40,40,40,40);
-		Player LW = new Player(1,"Test","Test","Ajax","Dutch", new Date(1/1/2015),"LW",40,40,40,40,40,40);
-		Player RM = new Player(1,"Test","Test","Ajax","Dutch", new Date(1/1/2015),"RM",40,40,40,40,40,40);
-		Player LM = new Player(1,"Test","Test","Ajax","Dutch", new Date(1/1/2015),"LM",40,40,40,40,40,40);
+		Player CF = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"CF",40,40,40,40,40,40);
+		Player RB = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"RB",40,40,40,40,40,40);
+		Player LB = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"LB",40,40,40,40,40,40);
+		Player CM = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"CM",40,40,40,40,40,40);
+		Player CDM  = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"CDM",40,40,40,40,40,40);
+		Player CAM  = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"CAM",40,40,40,40,40,40);
+		Player LW = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"LW",40,40,40,40,40,40);
+		Player RM = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"RM",40,40,40,40,40,40);
+		Player LM = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"LM",40,40,40,40,40,40);
 		assertEquals(CF.getPosition(),"Attacker");
 		assertEquals(p4.getPosition(),"Attacker");
 		assertEquals(p2.getPosition(),"Midfielder");
