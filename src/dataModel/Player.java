@@ -45,7 +45,7 @@ public class Player extends Observable {
 	 * @param stamina
 	 */
 	public Player(Integer id, String firstname, String lastname, String club, String league, String nationality, Date dateOfBirth, String position,
-				 int pace, int shooting, int passing, int offensive, int defensive, int stamina) {
+				  int pace, int shooting, int passing, int offensive, int defensive, int stamina) {
 		this.id = id;
 		this.firstName = firstname;
 		this.lastName = lastname;
@@ -54,12 +54,15 @@ public class Player extends Observable {
 		this.nationality = nationality;
 		this.dateOfBirth = dateOfBirth;
 		this.position = position;
+		//this.curPosition = curPosition;
 		this.pace = pace;
 		this.shooting = shooting;
 		this.passing = passing;
 		this.offensive = offensive;
 		this.defensive = defensive;
 		this.stamina = stamina;
+		//this.price = price;
+		//this.playedGames = playedGames;
 
 		this.setChanged();
 		this.notifyObservers();
@@ -74,7 +77,6 @@ public class Player extends Observable {
 		this.firstName = null;
 		this.lastName = null;
 		this.club = null;
-		this.league = null;
 		this.nationality = null;
 		this.dateOfBirth = null;
 		this.position = null;
@@ -85,6 +87,7 @@ public class Player extends Observable {
 		this.offensive = 0;
 		this.defensive = 0;
 		this.stamina = 0;
+		this.price = 0;
 		this.playedGames = 0;
 
 		this.setChanged();
@@ -102,19 +105,18 @@ public class Player extends Observable {
 					this.firstName.equals(that.firstName) &&
 					this.lastName.equals(that.lastName) &&
 					this.club.equals(that.club) &&
-					this.league.equals(that.league) &&
-//					this.nationality.equals(that.nationality) &&
-//					this.dateOfBirth.equals(that.dateOfBirth) &&
+					this.nationality.equals(that.nationality) &&
+					this.dateOfBirth.equals(that.dateOfBirth) &&
 					this.position.equals(that.position) &&
-					//this.curPosition.equals(that.curPosition) &&
-//					this.pace == that.pace &&
-//					this.shooting == that.shooting &&
-//					this.passing == that.passing &&
+					this.curPosition.equals(that.curPosition) &&
+					this.pace == that.pace &&
+					this.shooting == that.shooting &&
+					this.passing == that.passing &&
 					this.offensive == that.offensive &&
 					this.defensive == that.defensive &&
-					this.stamina == that.stamina;
-//					this.stamina == that.stamina &&
-//					this.playedGames == that.playedGames;
+					this.stamina == that.stamina &&
+					this.price == that.price &&
+					this.playedGames == that.playedGames;
 		}
 
 		return false;
@@ -127,7 +129,6 @@ public class Player extends Observable {
 	public String toString() {
 		return "[" + this.id + " " + this.firstName + " " + this.lastName + ": "
 				+ this.club + " "
-				+ this.league + " "
 				+ this.nationality + " "
 				+ this.dateOfBirth + " "
 				+ this.position + " "
@@ -138,6 +139,7 @@ public class Player extends Observable {
 				+ this.offensive + " "
 				+ this.defensive + " "
 				+ this.stamina + " "
+				+ this.price + " "
 				+ this.playedGames + "]";
 	}
 
@@ -205,23 +207,6 @@ public class Player extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
-	/**
-	 * @return the league
-	 */
-	public String getLeague() {
-		return league;
-	}
-
-	/**
-	 * @param league the league to set
-	 */
-	public void setLeague(String league) {
-		this.league = league;
-
-		this.setChanged();
-		this.notifyObservers();
-	}
 
 	/**
 	 * @return the nationality
@@ -260,7 +245,7 @@ public class Player extends Observable {
 	/**
 	 * @return the position
 	 */
-	public String getReadablePosition() {
+	public String getPosition() {
 		if (position.equals("ST") || position.equals("CF") || position.equals("Attacker")) {
 			return "Attacker";
 		} else if (position.equals("CM") || position.equals("CDM") || position.equals("CAM")
@@ -276,15 +261,6 @@ public class Player extends Observable {
 			return null;
 		}
 	}
-	
-	/**
-	 * @return the position
-	 */
-	public String getPosition() {
-		return position;
-	}
-	
-	
 
 	/**
 	 * @param position the position to set
@@ -300,14 +276,27 @@ public class Player extends Observable {
 	 * @param the current position
 	 */
 	public String getCurPosition(){
-		return curPosition;
+		if (curPosition.equals("ST") || curPosition.equals("CF") || curPosition.equals("Attacker")) {
+			return "Attacker";
+		} else if (curPosition.equals("CM") || curPosition.equals("CDM") || curPosition.equals("CAM")
+				|| curPosition.equals("LW") || curPosition.equals("RW") || curPosition.equals("RM")
+				|| curPosition.equals("LM") || curPosition.equals("Midfielder")) {
+			return "Midfielder";
+		} else if (curPosition.equals("CB") || curPosition.equals("RB") || curPosition.equals("LB")
+				|| curPosition.equals("Defender")) {
+			return "Defender";
+		} else if (curPosition.equals("GK") || curPosition.equals("Goalkeeper")) {
+			return "Goalkeeper";
+		} else {
+			return null;
+		}
 	}
 
 	/**
 	 * @param set current position
 	 */
-	public void setCurPosition(String curposition){
-		this.curPosition = curposition;
+	public void setCurPosition(String curPosition) {
+		this.curPosition = curPosition;
 
 		this.setChanged();
 		this.notifyObservers();
@@ -435,7 +424,7 @@ public class Player extends Observable {
 
 	/**
 	 *
-	 * @return
+	 * @return playedGames
 	 */
 	public int getPlayedGames(){
 		return playedGames;
@@ -450,6 +439,22 @@ public class Player extends Observable {
 
 		this.setChanged();
 		this.notifyObservers();
+	}
+	
+	/**
+	 * 
+	 * @return league
+	 */
+	public String getLeague(){
+		return league;
+	}
+	
+	/**
+	 * 
+	 * @param league
+	 */
+	public void setLeague(String league){
+		this.league = league;
 	}
 
 }
