@@ -214,7 +214,7 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @param club the club to set
+	 * @param league the league to set
 	 */
 	public void setLeague(String league) {
 		this.league = league;
