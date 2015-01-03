@@ -15,6 +15,7 @@ public class Player extends Observable {
 	private String firstName;
 	private String lastName;
 	private String club;
+	private String league;
 	private String nationality;
 	private Date dateOfBirth;
 	private String position;
@@ -43,12 +44,13 @@ public class Player extends Observable {
 	 * @param defensive
 	 * @param stamina
 	 */
-	public Player(Integer id, String firstname, String lastname, String club, String nationality, Date dateOfBirth, String position,
+	public Player(Integer id, String firstname, String lastname, String club, String league, String nationality, Date dateOfBirth, String position,
 				 int pace, int shooting, int passing, int offensive, int defensive, int stamina) {
 		this.id = id;
 		this.firstName = firstname;
 		this.lastName = lastname;
 		this.club = club;
+		this.league = league;
 		this.nationality = nationality;
 		this.dateOfBirth = dateOfBirth;
 		this.position = position;
@@ -72,6 +74,7 @@ public class Player extends Observable {
 		this.firstName = null;
 		this.lastName = null;
 		this.club = null;
+		this.league = null;
 		this.nationality = null;
 		this.dateOfBirth = null;
 		this.position = null;
@@ -99,6 +102,7 @@ public class Player extends Observable {
 					this.firstName.equals(that.firstName) &&
 					this.lastName.equals(that.lastName) &&
 					this.club.equals(that.club) &&
+					this.league.equals(that.league) &&
 //					this.nationality.equals(that.nationality) &&
 //					this.dateOfBirth.equals(that.dateOfBirth) &&
 					this.position.equals(that.position) &&
@@ -123,6 +127,7 @@ public class Player extends Observable {
 	public String toString() {
 		return "[" + this.id + " " + this.firstName + " " + this.lastName + ": "
 				+ this.club + " "
+				+ this.league + " "
 				+ this.nationality + " "
 				+ this.dateOfBirth + " "
 				+ this.position + " "
@@ -200,6 +205,23 @@ public class Player extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
+	
+	/**
+	 * @return the league
+	 */
+	public String getLeague() {
+		return league;
+	}
+
+	/**
+	 * @param club the club to set
+	 */
+	public void setLeague(String league) {
+		this.league = league;
+
+		this.setChanged();
+		this.notifyObservers();
+	}
 
 	/**
 	 * @return the nationality
@@ -238,7 +260,7 @@ public class Player extends Observable {
 	/**
 	 * @return the position
 	 */
-	public String getPosition() {
+	public String getReadablePosition() {
 		if (position.equals("ST") || position.equals("CF") || position.equals("Attacker")) {
 			return "Attacker";
 		} else if (position.equals("CM") || position.equals("CDM") || position.equals("CAM")
@@ -254,6 +276,15 @@ public class Player extends Observable {
 			return null;
 		}
 	}
+	
+	/**
+	 * @return the position
+	 */
+	public String getPosition() {
+		return position;
+	}
+	
+	
 
 	/**
 	 * @param position the position to set
