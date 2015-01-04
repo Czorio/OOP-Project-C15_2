@@ -41,14 +41,14 @@ public class GameLogic {
 			System.out.println("Minute: " + i);
 			
 			//TODO Test values
-			if(scoreChance(home) > 200 && homeGoals <= 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 8) {
+			if(scoreChance(home) > 120 && homeGoals <= 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 8) {
 				homeGoals++;
 				System.out.println("Team " + home + " scored a goal!");
 				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
 				lastGoal = 0;
 			}
 			
-			if(scoreChance(away) > 200 && awayGoals <= 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 8) {
+			if(scoreChance(away) > 120 && awayGoals <= 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 8) {
 				homeGoals++;
 				System.out.println("Team " + away + " scored a goal!");
 				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
@@ -69,9 +69,7 @@ public class GameLogic {
 	 * @return Returns the probability a team scores.
 	 */
 	public int scoreChance(Team team) {
-		int homeScore = TeamLogic.calculateTeamTotalScore(team);
-		
-		return (homeScore  + generateRandom(0, 50));
+		return (TeamLogic.calculateTeamTotalScore(team) + generateRandom(0, 50));
 	}
 
 	/**
@@ -85,9 +83,7 @@ public class GameLogic {
 	 */
 	public int generateRandomWithSeed(long seed, int min, int max){
 		Random generator = new Random(seed);
-		int num = generator.nextInt((max - min) + 1) + min;
-
-		return num;
+		return generator.nextInt((max - min) + 1) + min;
 	}
 
 	/**

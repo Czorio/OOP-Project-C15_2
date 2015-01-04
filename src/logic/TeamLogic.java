@@ -98,10 +98,10 @@ public final class TeamLogic {
 	/**
 	 * Calculates the total score of a Team.
 	 * @param team The team to calculate the score of.
-	 * @return
+	 * @return Returns the total score of a certain team.
 	 */
 	public final static int calculateTeamTotalScore(Team team) {
-		//For now only based on the offensive and defensive score of a team.
+		//For now only based on the offensive, defensive and stamina score of a team.
 		//TODO Add parameters to calculate the final score of a team
 		return (calculateTeamOffScore(team) + calculateTeamDefScore(team) + calculateTeamStaminaScore(team))/3;
 	}
@@ -110,17 +110,17 @@ public final class TeamLogic {
 	 * Creates a team for every club that is not the club the user is playing.
 	 * @param gs The current gamestate.
 	 */
-	public static void CreateAITeam(GameState gs) {
-		File in = new File("GameData/Eredivisie.xml");
+	public static void createAITeam(GameState gs) {
+		File in = new File("GameData/Leagues/" + gs.getLeague() + ".xml");
 		XMLPlayer xmlplayer = new XMLPlayer(in);
-		League league = xmlplayer.readFromFile("Eredivisie");
+		League league = xmlplayer.readFromFile(gs.getLeague());
 
 		String playerTeam = gs.getTeam();
 		Team team = league.getTeam(playerTeam);
 
 		for (int i = 0; i < league.getTeams().size(); i++) {
 			if(league.getTeams().get(i) != team) {
-				CreateAIActivePlayers(league.getTeams().get(i));
+				createAIActivePlayers(league.getTeams().get(i));
 			}
 		}
 	}
@@ -129,7 +129,7 @@ public final class TeamLogic {
 	 * Creates an AI team. Picks random players and places them on their positions.
 	 * @param team The team to create.
 	 */
-	public static void CreateAIActivePlayers(Team team) {
+	public static void createAIActivePlayers(Team team) {
 		String setup = createSetup();
 		Scanner sc = new Scanner(setup);
 		Random random = new Random();
@@ -175,6 +175,10 @@ public final class TeamLogic {
 		sc.close();
 	}
 
+	/**
+	 * Creates a random setup for AI games.
+	 * @return Returns a random setup from the list.
+	 */
 	public static String createSetup() {
 		List<String> setup = new ArrayList<String>();
 		setup.add("4-3-3");
