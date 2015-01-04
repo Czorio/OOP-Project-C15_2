@@ -6,18 +6,11 @@ package test;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-
-import logic.TeamLogic;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import xml.XMLPlayer;
-import dataModel.GameState;
 import dataModel.League;
-import dataModel.Player;
 import dataModel.Team;
 
 /**
