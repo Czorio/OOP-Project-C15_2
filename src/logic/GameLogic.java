@@ -37,6 +37,11 @@ public class GameLogic {
 		int lastGoal = 0; //Minutes since last goal.
 		int randomInterval = generateRandom(2, 8); //Interval where no goals can be scored.
 		int extraTime = generateRandom(0, 6); //Extra game time.
+		int homeScoreChance = TeamLogic.calculateTeamTotalScore(home);
+		int awayScoreChance = TeamLogic.calculateTeamTotalScore(away);
+		
+		System.out.println("Home total score: " + TeamLogic.calculateTeamTotalScore(home)); //TESTCODE
+		System.out.println("Away total score: " + TeamLogic.calculateTeamTotalScore(away));
 		
 		//Match starts here
 		//TODO: Add injuries, cards, ...?
@@ -45,14 +50,14 @@ public class GameLogic {
 			System.out.println("Minute: " + i);
 			
 			//TODO Test values
-			if(scoreChance(home) > 100 && homeGoals <= 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 8) {
+			if(homeScoreChance + generateRandom(0,70) > 170 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 9) {
 				homeGoals++;
 				System.out.println("Team " + home.getTeam() + " scored a goal!");
 				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
 				lastGoal = 0;
 			}
 			
-			if(scoreChance(away) > 100 && awayGoals <= 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 8) {
+			if(awayScoreChance + generateRandom(0,70) > 170 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 9) {
 				awayGoals++;
 				System.out.println("Team " + away.getTeam() + " scored a goal!");
 				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
@@ -65,15 +70,6 @@ public class GameLogic {
 		//Match ends here
 		
 		return homeGoals + " - " + awayGoals;
-	}
-	
-	/**
-	 * Determines the probability a team can score.
-	 * @param team The team to calculate the score for.
-	 * @return Returns the probability a team scores.
-	 */
-	public static int scoreChance(Team team) {
-		return (TeamLogic.calculateTeamTotalScore(team) + generateRandom(0, 50));
 	}
 
 	/**

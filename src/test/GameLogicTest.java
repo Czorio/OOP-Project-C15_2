@@ -38,14 +38,14 @@ public class GameLogicTest {
 		XMLPlayer xmlplayer = new XMLPlayer(in);
 		League league = xmlplayer.readFromFile("Eredivisie");
 
-		Team ajax = league.getTeam("Ajax");
-		Team feyenoord = league.getTeam("Feyenoord");
+		Team team1 = league.getTeam("Ajax");
+		Team team2 = league.getTeam("FC Groningen");
 		
 		GameState gs = new GameState("Steven", 1, "Eredivisie", "ADO Den Haag");
 		
-		new GameLogic(ajax, feyenoord, gs);
+		new GameLogic(team1, team2, gs);
 		
-		System.out.println(GameLogic.game(ajax, feyenoord));
+		System.out.println(GameLogic.game(team1, team2));
 		
 		
 		

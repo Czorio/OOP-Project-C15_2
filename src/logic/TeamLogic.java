@@ -19,37 +19,17 @@ import dataModel.Team;
  */
 public final class TeamLogic {
 
-	private static List<Player> playingPlayers;
+	private static List<Player> playingPlayers = new ArrayList<Player>();
+	private static GameState gs;
 
 	/**
 	 * Constructs and initializes a playing team.
 	 * @param team All the players of a team.
 	 */
 	public TeamLogic(Team team, GameState gs) {
-		createAITeam(gs);
+		TeamLogic.gs = gs;
+		createAITeam();
 	}
-
-//	/**
-//	 * Gets all the playing players from a team for the next match.
-//	 * @param team The team to get the players from.
-//	 * @return Returns a list of active players.
-//	 */
-//	public static List<Player> composeActivePlayers(Team team) {
-//		for (int i = 0; i < team.getPlayers().size(); i++) {			
-//			//TODO: Implement null curPos when not playing or change this
-//			System.out.println(team.getPlayers().get(i).toString());
-//			
-//			if (!team.getPlayers().get(i).getCurPosition().equals("None")) {
-//				playingPlayers.add(team.getPlayers().get(i));
-//			}
-//		}
-//
-//		if (playingPlayers.size() != 11) {
-//			System.out.println("The amount of players is not 11, but " + playingPlayers.size());
-//		}
-//
-//		return playingPlayers;
-//	}
 
 	/**
 	 * Calculates the offensive score of a team.
@@ -60,9 +40,12 @@ public final class TeamLogic {
 		int offScore = 0;
 		
 		for (int i = 0; i < playingPlayers.size(); i++) {
-			offScore += PlayerLogic.calculatePlayerOffScore(playingPlayers.get(i));
+			
+			if (playingPlayers.get(i).getClub().equals(team.getTeam())){
+				offScore += PlayerLogic.calculatePlayerOffScore(playingPlayers.get(i));
+			}
 		}
-
+		
 		return Math.round(offScore/11);
 	}
 
@@ -75,7 +58,9 @@ public final class TeamLogic {
 		int defScore = 0;
 
 		for (int i = 0; i < playingPlayers.size(); i++) {
-			defScore += PlayerLogic.calculatePlayerDefScore(playingPlayers.get(i));
+			if (playingPlayers.get(i).getClub().equals(team.getTeam())){
+				defScore += PlayerLogic.calculatePlayerDefScore(playingPlayers.get(i));
+			}
 		}
 
 		return Math.round(defScore/11);
@@ -89,9 +74,12 @@ public final class TeamLogic {
 	public final static int calculateTeamStaminaScore(Team team){
 		int stamScore = 0;
 		
-		for (int i = 0; i< playingPlayers.size();i++){
-			stamScore += PlayerLogic.calculatePlayerStamina(playingPlayers.get(i));
+		for (int i = 0; i < playingPlayers.size(); i++){
+			if (playingPlayers.get(i).getClub().equals(team.getTeam())){
+				stamScore += PlayerLogic.calculatePlayerStamina(playingPlayers.get(i));
+			}
 		}
+		
 		return Math.round(stamScore/11);
 	}
 
@@ -110,7 +98,7 @@ public final class TeamLogic {
 	 * Creates a team for every club that is not the club the user is playing.
 	 * @param gs The current gamestate.
 	 */
-	public static void createAITeam(GameState gs) {
+	public static void createAITeam() {
 		File in = new File("GameData/Leagues/" + gs.getLeague() + ".xml");
 		XMLPlayer xmlplayer = new XMLPlayer(in);
 		League league = xmlplayer.readFromFile(gs.getLeague());
@@ -134,7 +122,7 @@ public final class TeamLogic {
 		System.out.println("The used setup for team " + team.getTeam() + " is " + setup); //TESTCODE
 		Scanner sc = new Scanner(setup);
 		Random random = new Random(System.currentTimeMillis());
-		playingPlayers = new ArrayList<Player>();
+		//playingPlayers = new ArrayList<Player>();
 
 		int nrDefenders = sc.nextInt();
 		int nrMidfielders = sc.nextInt();
@@ -154,7 +142,9 @@ public final class TeamLogic {
 			team.getPlayers().get(i).setCurPosition("None");
 		}
 		
-		goalkeepers.get(random.nextInt(goalkeepers.size())).setCurPosition("Goalkeeper");
+		int randomKeeper = random.nextInt(goalkeepers.size());
+		goalkeepers.get(randomKeeper).setCurPosition("Goalkeeper");
+		playingPlayers.add(goalkeepers.get(randomKeeper));
 		//System.out.println("Added goalkeeper");
 
 		while (nrDefenders != 0) {
@@ -228,7 +218,6 @@ public final class TeamLogic {
 		setup.add("4 5 1");
 
 		Random random = new Random();
-
 		return setup.get(random.nextInt(setup.size()));
 	}
 
