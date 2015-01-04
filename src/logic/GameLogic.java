@@ -45,16 +45,16 @@ public class GameLogic {
 			System.out.println("Minute: " + i);
 			
 			//TODO Test values
-			if(scoreChance(home) > 120 && homeGoals <= 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 8) {
+			if(scoreChance(home) > 100 && homeGoals <= 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 8) {
 				homeGoals++;
-				System.out.println("Team " + home + " scored a goal!");
+				System.out.println("Team " + home.getTeam() + " scored a goal!");
 				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
 				lastGoal = 0;
 			}
 			
-			if(scoreChance(away) > 120 && awayGoals <= 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 8) {
-				homeGoals++;
-				System.out.println("Team " + away + " scored a goal!");
+			if(scoreChance(away) > 100 && awayGoals <= 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 8) {
+				awayGoals++;
+				System.out.println("Team " + away.getTeam() + " scored a goal!");
 				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
 				lastGoal = 0;
 			}

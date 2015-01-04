@@ -27,30 +27,29 @@ public final class TeamLogic {
 	 */
 	public TeamLogic(Team team, GameState gs) {
 		createAITeam(gs);
-		composeActivePlayers(team);
 	}
 
-	/**
-	 * Gets all the playing players from a team for the next match.
-	 * @param team The team to get the players from.
-	 * @return Returns a list of active players.
-	 */
-	public static List<Player> composeActivePlayers(Team team) {
-		for (int i = 0; i < team.getPlayers().size(); i++) {			
-			//TODO: Implement null curPos when not playing or change this
-			System.out.println(team.getPlayers().get(i).getCurPosition());
-			
-			if (!team.getPlayers().get(i).getCurPosition().equals("None")) {
-				playingPlayers.add(team.getPlayers().get(i));
-			}
-		}
-
-		if (playingPlayers.size() != 11) {
-			System.out.println("The amount of players is not 11, but " + playingPlayers.size());
-		}
-
-		return playingPlayers;
-	}
+//	/**
+//	 * Gets all the playing players from a team for the next match.
+//	 * @param team The team to get the players from.
+//	 * @return Returns a list of active players.
+//	 */
+//	public static List<Player> composeActivePlayers(Team team) {
+//		for (int i = 0; i < team.getPlayers().size(); i++) {			
+//			//TODO: Implement null curPos when not playing or change this
+//			System.out.println(team.getPlayers().get(i).toString());
+//			
+//			if (!team.getPlayers().get(i).getCurPosition().equals("None")) {
+//				playingPlayers.add(team.getPlayers().get(i));
+//			}
+//		}
+//
+//		if (playingPlayers.size() != 11) {
+//			System.out.println("The amount of players is not 11, but " + playingPlayers.size());
+//		}
+//
+//		return playingPlayers;
+//	}
 
 	/**
 	 * Calculates the offensive score of a team.
@@ -135,6 +134,7 @@ public final class TeamLogic {
 		System.out.println("The used setup for team " + team.getTeam() + " is " + setup); //TESTCODE
 		Scanner sc = new Scanner(setup);
 		Random random = new Random(System.currentTimeMillis());
+		playingPlayers = new ArrayList<Player>();
 
 		int nrDefenders = sc.nextInt();
 		int nrMidfielders = sc.nextInt();
@@ -154,10 +154,6 @@ public final class TeamLogic {
 			team.getPlayers().get(i).setCurPosition("None");
 		}
 		
-		for (int i = 0; i < team.getPlayers().size(); i++) {
-			System.out.println(team.getPlayers().get(i).getCurPosition());
-		}
-		
 		goalkeepers.get(random.nextInt(goalkeepers.size())).setCurPosition("Goalkeeper");
 		//System.out.println("Added goalkeeper");
 
@@ -166,6 +162,7 @@ public final class TeamLogic {
 
 			if (defenders.get(randomNumber).getCurPosition().equals("None")) {
 				defenders.get(randomNumber).setCurPosition("Defender");
+				playingPlayers.add(defenders.get(randomNumber));
 				nrDefenders--;
 				//System.out.println("Added defender");
 			}
@@ -179,6 +176,7 @@ public final class TeamLogic {
 				int randomNumber1 =  random.nextInt(defenders.size());
 				if (defenders.get(randomNumber1).getCurPosition().equals("None")) {
 					defenders.get(randomNumber1).setCurPosition("Midfielder");
+					playingPlayers.add(defenders.get(randomNumber1));
 					nrMidfielders--;
 					System.out.println("Too few midfielders, adding defender as midfielder...");
 				}
@@ -186,6 +184,7 @@ public final class TeamLogic {
 			
 			if (midfielders.get(randomNumber).getCurPosition().equals("None")) {
 				midfielders.get(randomNumber).setCurPosition("Midfielder");
+				playingPlayers.add(midfielders.get(randomNumber));
 				nrMidfielders--;
 				//System.out.println("Added midfielder");
 			}
@@ -199,6 +198,7 @@ public final class TeamLogic {
 				int randomNumber1 = random.nextInt(midfielders.size());
 				if (midfielders.get(randomNumber1).getCurPosition().equals("None")) {
 					midfielders.get(randomNumber1).setCurPosition("Attacker");
+					playingPlayers.add(midfielders.get(randomNumber1));
 					nrAttackers--;
 					System.out.println("Too few attackers, adding midfielder as attacker...");
 				}
@@ -206,6 +206,7 @@ public final class TeamLogic {
 			
 			if (attackers.get(randomNumber).getCurPosition().equals("None")) {
 				attackers.get(randomNumber).setCurPosition("Attacker");
+				playingPlayers.add(attackers.get(randomNumber));
 				nrAttackers--;
 				//System.out.println("Added attacker");
 			}
