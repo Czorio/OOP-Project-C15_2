@@ -45,7 +45,7 @@ public class GameLogicTest {
 		
 		new GameLogic(team1, team2, gs);
 		
-		System.out.println(GameLogic.game(team1, team2));
+		GameLogic.game(team1, team2);
 		
 		
 		

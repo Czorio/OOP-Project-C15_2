@@ -40,8 +40,9 @@ public class GameLogic {
 		int homeScoreChance = TeamLogic.calculateTeamTotalScore(home);
 		int awayScoreChance = TeamLogic.calculateTeamTotalScore(away);
 		
-		System.out.println("Home total score: " + TeamLogic.calculateTeamTotalScore(home)); //TESTCODE
+		System.out.println("\nHome total score: " + TeamLogic.calculateTeamTotalScore(home)); //TESTCODE
 		System.out.println("Away total score: " + TeamLogic.calculateTeamTotalScore(away));
+		System.out.println("\nPlay game!");
 		
 		//Match starts here
 		//TODO: Add injuries, cards, ...?
@@ -50,14 +51,14 @@ public class GameLogic {
 			System.out.println("Minute: " + i);
 			
 			//TODO Test values
-			if(homeScoreChance + generateRandom(0,70) > 170 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 9) {
+			if(homeScoreChance + generateRandom(0,70) > 170 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0,20) >= 19) {
 				homeGoals++;
 				System.out.println("Team " + home.getTeam() + " scored a goal!");
 				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
 				lastGoal = 0;
 			}
 			
-			if(awayScoreChance + generateRandom(0,70) > 170 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0,10) >= 9) {
+			if(awayScoreChance + generateRandom(0,70) > 170 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0,20) >= 19) {
 				awayGoals++;
 				System.out.println("Team " + away.getTeam() + " scored a goal!");
 				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
@@ -68,6 +69,8 @@ public class GameLogic {
 			
 		}
 		//Match ends here
+		
+		System.out.println("\nFinal result: " + home.getTeam() + " " + homeGoals + " - " + awayGoals + " " + away.getTeam());
 		
 		return homeGoals + " - " + awayGoals;
 	}
