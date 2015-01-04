@@ -246,6 +246,13 @@ public class Player extends Observable {
 	 * @return the position
 	 */
 	public String getPosition() {
+		return position;
+	}
+	
+	/**
+	 * @return the position as a readable string.
+	 */
+	public String getReadablePosition() {
 		if (position.equals("ST") || position.equals("CF") || position.equals("Attacker")) {
 			return "Attacker";
 		} else if (position.equals("CM") || position.equals("CDM") || position.equals("CAM")
