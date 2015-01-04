@@ -253,11 +253,10 @@ public class Player extends Observable {
 	 * @return the position as a readable string.
 	 */
 	public String getReadablePosition() {
-		if (position.equals("ST") || position.equals("CF") || position.equals("Attacker")) {
+		if (position.equals("ST") || position.equals("CF") || position.equals("LW") || position.equals("RW") || position.equals("Attacker")) {
 			return "Attacker";
 		} else if (position.equals("CM") || position.equals("CDM") || position.equals("CAM")
-				|| position.equals("LW") || position.equals("RW") || position.equals("RM")
-				|| position.equals("LM") || position.equals("Midfielder")) {
+				|| position.equals("RM") || position.equals("LM") || position.equals("Midfielder")) {
 			return "Midfielder";
 		} else if (position.equals("CB") || position.equals("RB") || position.equals("LB")
 				|| position.equals("Defender")) {
