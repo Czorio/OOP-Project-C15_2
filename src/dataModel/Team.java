@@ -180,7 +180,7 @@ public class Team extends Observable {
 		List<Player> certainPosition = new ArrayList<Player>();
 		
 		for(int i = 0; i < players.size(); i++) {
-			if(players.get(i).getPosition() == position) {
+			if(players.get(i).getReadablePosition() == position) {
 				certainPosition.add(players.get(i));
 			}
 		}

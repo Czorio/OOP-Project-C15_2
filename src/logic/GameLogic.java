@@ -2,6 +2,7 @@ package logic;
 
 import java.util.Random;
 
+import dataModel.GameState;
 import dataModel.Team;
 
 /**
@@ -12,11 +13,14 @@ import dataModel.Team;
 public class GameLogic {
 
 	private Team home, away;
-	private Random randomNumber = new Random(System.currentTimeMillis());
+	private static Random randomNumber = new Random(System.currentTimeMillis());
 
-	public GameLogic(Team home, Team away){
+	public GameLogic(Team home, Team away, GameState gs){
 		this.home = home;
 		this.away = away;
+		
+		new TeamLogic(home, gs);
+		new TeamLogic(away, gs);
 	}
 	
 	/**
@@ -27,7 +31,7 @@ public class GameLogic {
 	 * 
 	 * @return Returns the result of the match.
 	 */
-	public String game(Team home, Team away){
+	public static String game(Team home, Team away){
 		int homeGoals = 0;
 		int awayGoals = 0;
 		int lastGoal = 0; //Minutes since last goal.
@@ -36,7 +40,7 @@ public class GameLogic {
 		
 		//Match starts here
 		//TODO: Add injuries, cards, ...?
-		for (int i = 1; i <= 90 + extraTime; i++) {
+		for (int i = 1; i <= (90 + extraTime); i++) {
 			//TODO Implement for player games only
 			System.out.println("Minute: " + i);
 			
@@ -68,7 +72,7 @@ public class GameLogic {
 	 * @param team The team to calculate the score for.
 	 * @return Returns the probability a team scores.
 	 */
-	public int scoreChance(Team team) {
+	public static int scoreChance(Team team) {
 		return (TeamLogic.calculateTeamTotalScore(team) + generateRandom(0, 50));
 	}
 
@@ -94,7 +98,7 @@ public class GameLogic {
 	 * @return Returns a random number.
 	 * @see java.util.Random#nextInt(int)
 	 */
-	public int generateRandom(int min, int max){
+	public static int generateRandom(int min, int max){
 		return randomNumber.nextInt((max - min) + 1) + min;
 	}
 
@@ -137,7 +141,7 @@ public class GameLogic {
 	 * @param randomNumber the randomNumber to set
 	 */
 	public void setRandomNumber(Random randomNumber) {
-		this.randomNumber = randomNumber;
+		GameLogic.randomNumber = randomNumber;
 	}
 
 }

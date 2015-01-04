@@ -282,10 +282,10 @@ public class Player extends Observable {
 	 * @param the current position
 	 */
 	public String getCurPosition(){
-		if (curPosition.equals("ST") || curPosition.equals("CF") || curPosition.equals("Attacker")) {
+		if (curPosition.equals("ST") || curPosition.equals("CF") || curPosition.equals("LW") || curPosition.equals("RW") || curPosition.equals("Attacker")) {
 			return "Attacker";
 		} else if (curPosition.equals("CM") || curPosition.equals("CDM") || curPosition.equals("CAM")
-				|| curPosition.equals("LW") || curPosition.equals("RW") || curPosition.equals("RM")
+				|| curPosition.equals("RM")
 				|| curPosition.equals("LM") || curPosition.equals("Midfielder")) {
 			return "Midfielder";
 		} else if (curPosition.equals("CB") || curPosition.equals("RB") || curPosition.equals("LB")
@@ -293,6 +293,8 @@ public class Player extends Observable {
 			return "Defender";
 		} else if (curPosition.equals("GK") || curPosition.equals("Goalkeeper")) {
 			return "Goalkeeper";
+		} else if (curPosition.equals("None")){
+			return "None";
 		} else {
 			return null;
 		}
