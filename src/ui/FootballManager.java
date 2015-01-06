@@ -17,7 +17,7 @@ import dataModel.League;
 
 public class FootballManager extends Application {
 	
-	public final static File PLAYER_DATABASE = new File("GameData/Eredivisie.xml");
+	public final static File PLAYER_DATABASE = new File("GameData/Leagues/Eredivisie.xml");
 	
 	private static Stage stage;
 	private BorderPane rootLayout;
