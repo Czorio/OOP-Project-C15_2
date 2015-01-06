@@ -101,14 +101,12 @@ public class Player extends Observable {
 		if (other instanceof Player) {
 			Player that = (Player)other;
 
-			return this.id == that.id &&
+			boolean res = this.id == that.id &&
 					this.firstName.equals(that.firstName) &&
 					this.lastName.equals(that.lastName) &&
 					this.club.equals(that.club) &&
-					this.nationality.equals(that.nationality) &&
 					this.dateOfBirth.equals(that.dateOfBirth) &&
 					this.position.equals(that.position) &&
-					this.curPosition.equals(that.curPosition) &&
 					this.pace == that.pace &&
 					this.shooting == that.shooting &&
 					this.passing == that.passing &&
@@ -117,6 +115,22 @@ public class Player extends Observable {
 					this.stamina == that.stamina &&
 					this.price == that.price &&
 					this.playedGames == that.playedGames;
+			
+			if (this.nationality != null) {
+				if (that.nationality != null) {
+					res = res && this.nationality.equals(that.nationality);
+				}
+				else res = false;
+			}
+			
+			if (this.curPosition != null) {
+				if (that.curPosition != null) {
+					res = res && this.curPosition.equals(that.curPosition);
+				}
+				else res = false;
+			}
+			
+			return res;
 		}
 
 		return false;
