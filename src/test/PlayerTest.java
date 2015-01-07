@@ -11,30 +11,45 @@ import dataModel.Team;
 
 public class PlayerTest {
 
-	Player p1 = new Player(1,"Davy","Klaasen","Ajax","Dutch", null, new Date(1/1/1990),"CB",40,50,60,60,80,70);
-	Player p2 = new Player(2,"Celso","Ortiz","AZ","Dutch",null, new Date(1/1/1800),"RW",50,50,60,40,20,70);
-	Player p3 = new Player(1,"Davy","Klaasen","Ajax","Dutch", null, new Date(1/1/1990),"CB",40,50,60,60,80,70);
-	Player p4 = new Player(3,"Mitchell","Shet","Ado Den Haag","Dutch",null, new Date(2/2/2000),"ST",50,60,60,70,40,60);
-	Player p5 = new Player(5,"Jasper","Cillesen","Ajax","Dutch", null, new Date(5/5/1950),"GK",0,0,0,0,70,70);
+	Player CB = new Player(1,"Davy","Klaasen","Ajax","Eredivisie","Dutch", new Date(1/1/1990),"CB",40,50,60,60,80,70);
+	Player RW = new Player(2,"Celso","Ortiz","AZ","Eredivisie","Dutch",new Date(1/1/1800),"RW",50,50,60,40,20,70);
+	Player CB1 = new Player(1,"Davy","Klaasen","Ajax","Eredivisie","Dutch", new Date(1/1/1990),"CB",40,50,60,60,80,70);
+	Player ST = new Player(3,"Mitchell","Shet","Ado Den Haag","Eredivisie","Dutch",new Date(2/2/2000),"ST",50,60,60,70,40,60);
+	Player GK = new Player(5,"Jasper","Cillesen","Ajax","Eredivisie","Dutch", new Date(5/5/1950),"GK",0,0,0,0,70,70);
+	Player CF = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"CF",40,40,40,40,40,40);
+	Player RB = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"RB",40,40,40,40,40,40);
+	Player LB = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"LB",40,40,40,40,40,40);
+	Player CM = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"CM",40,40,40,40,40,40);
+	Player CDM  = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"CDM",40,40,40,40,40,40);
+	Player CAM  = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"CAM",40,40,40,40,40,40);
+	Player LW = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"LW",40,40,40,40,40,40);
+	Player RM = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"RM",40,40,40,40,40,40);
+	Player LM = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"LM",40,40,40,40,40,40);
+	Player Attacker = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"Attacker",40,40,40,40,40,40);
+	Player Midfielder = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"Midfielder",40,40,40,40,40,40);
+	Player Defender = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"Defender",40,40,40,40,40,40);
+	Player Goalkeeper = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"Goalkeeper",40,40,40,40,40,40);
+	Player NoPos = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"NO",40,40,40,40,40,40);
+
 	
 	/**Constructor Test
 	 * Tests the constructor using few get Methods and comparing them to actual value.
 	 */
 	@Test
 	public void testPlayerIntegerStringStringStringStringDateStringIntIntIntIntIntInt() {
-		assertEquals(p1.getClub(),"Ajax");
-		assertEquals(p1.getFirstName(),"Davy");
-		assertEquals(p2.getLastName(),"Ortiz");
-		assertEquals(p1.getNationality(),"Dutch");
-		assertEquals(p1.getDateOfBirth(), new Date(1/1/1990));
-		assertEquals(p1.getPosition(),"Defender");
-		assertEquals(p1.getPace(),40);
-		assertEquals(p1.getShooting(),50);
-		assertEquals(p1.getPassing(),60);
-		assertEquals(p1.getOffensive(),60);
-		assertEquals(p1.getDefensive(),80);
-		assertEquals(p1.getStamina(),70);
-		assertNotEquals(p1.getFirstName(),"Celso");
+		//assertEquals(CB.getClub(),"Ajax");
+		assertEquals(CB.getFirstName(),"Davy");
+		assertEquals(RW.getLastName(),"Ortiz");
+		assertEquals(CB.getNationality(),"Dutch");
+		assertEquals(CB.getDateOfBirth(), new Date(1/1/1990));
+		assertEquals(CB.getPosition(),"CB");
+		assertEquals(CB.getPace(),40);
+		assertEquals(CB.getShooting(),50);
+		assertEquals(CB.getPassing(),60);
+		assertEquals(CB.getOffensive(),60);
+		assertEquals(CB.getDefensive(),80);
+		assertEquals(CB.getStamina(),70);
+		assertNotEquals(CB.getFirstName(),"Celso");
 	}
 
 	/**Player id test
@@ -53,9 +68,9 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testEqualsObject() {
-		assertEquals(true,p1.equals(p3));
-		assertEquals(false,p1.equals(p4));
-		assertNotEquals(true,p1.equals(p2));
+		assertEquals(true,CB.equals(CB1));
+		assertEquals(false,CB.equals(ST));
+		assertNotEquals(true,CB.equals(RW));
 	}
 
 	/**toString test
@@ -63,71 +78,54 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testToString() {
-		assertEquals(p1.toString(),p3.toString());
-		assertEquals(p1.toString(),("[1 Davy Klaasen: Ajax Dutch " + new Date(1/1/1990) +  " CB " +null + " 40 50 60 60 80 70 0]"));
-		assertNotEquals(p1.toString(),p4.toString());
+		assertEquals(CB.toString(),CB1.toString());
+		assertEquals(CB.toString(),("[1 Davy Klaasen: Ajax Dutch " + new Date(1/1/1990) +  " CB " +null + " 40 50 60 60 80 70 0 0]"));
+		assertNotEquals(CB.toString(),ST.toString());
 		
 	}
-	/**
-	 * sellToTeam test
-	 * Tries to transfer a player to/from different teams with different budgets
-	 */
-	@Test
-	public void testSellToTeam() {
-		Player transfer = new Player(1,"Davy","Klaasen","Ajax","Dutch", null, new Date(1/1/1990),"CB",40,50,60,60,80,70);
-		transfer.setPrice(100);
-		
-		Team a = new Team("FC Lutjebroek");
-		a.setBudget(1000);
-		
-		Team b = new Team("SC Sport88");
-		b.setBudget(500);
-		
-		Team c = new Team("FC Arme Sloebers");
-		c.setBudget(50);
-		
-		a.addPlayer(transfer);
-		int result1 = transfer.sellToTeam(b);
-		int result2 = transfer.sellToTeam(c);
-		int result3 = transfer.sellToTeam(null);
-		
-		assertSame(0, a.getPlayers().size());
-		System.out.println(b.getPlayers().get(0));
-		assertEquals(transfer, b.getPlayers().get(0));
-		assertFalse(a.getPlayers().contains(transfer));
-		assertSame(result1, Player.SOLD_SELLING_SUCCES);
-		assertSame(result2, Player.BUDGET_NOT_SUFFICIENT_SELLING_ERROR);
-		assertSame(result3, Player.TEAM_NULL_SELLING_ERROR);
-	}
+	
 	
 	/**getPosition test
 	 * Create new Players with all the positions. And test them using getPosition method. 
 	 */
 	@Test
 	public void testGetPosition(){
-		Player CF = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"CF",40,40,40,40,40,40);
-		Player RB = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"RB",40,40,40,40,40,40);
-		Player LB = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"LB",40,40,40,40,40,40);
-		Player CM = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"CM",40,40,40,40,40,40);
-		Player CDM  = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"CDM",40,40,40,40,40,40);
-		Player CAM  = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"CAM",40,40,40,40,40,40);
-		Player LW = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"LW",40,40,40,40,40,40);
-		Player RM = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"RM",40,40,40,40,40,40);
-		Player LM = new Player(1,"Test","Test","Ajax","Dutch", null, new Date(1/1/2015),"LM",40,40,40,40,40,40);
-		assertEquals(CF.getPosition(),"Attacker");
-		assertEquals(p4.getPosition(),"Attacker");
-		assertEquals(p2.getPosition(),"Midfielder");
-		assertEquals(CM.getPosition(),"Midfielder");
-		assertEquals(CDM.getPosition(),"Midfielder");
-		assertEquals(CAM.getPosition(),"Midfielder");
-		assertEquals(LW.getPosition(),"Midfielder");
-		assertEquals(RM.getPosition(),"Midfielder");
-		assertEquals(LM.getPosition(),"Midfielder");
-		assertEquals(p5.getPosition(),"Goalkeeper");
-		assertEquals(RB.getPosition(),"Defender");
-		assertEquals(LB.getPosition(),"Defender");
-		assertEquals(p1.getPosition(),"Defender");
+		assertEquals(CF.getPosition(),"CF");
+		assertEquals(ST.getPosition(),"ST");
+		assertEquals(RW.getPosition(),"RW");
+		assertEquals(CM.getPosition(),"CM");
+		assertEquals(CDM.getPosition(),"CDM");
+		assertEquals(CAM.getPosition(),"CAM");
+		assertEquals(LW.getPosition(),"LW");
+		assertEquals(RM.getPosition(),"RM");
+		assertEquals(LM.getPosition(),"LM");
+		assertEquals(GK.getPosition(),"GK");
+		assertEquals(RB.getPosition(),"RB");
+		assertEquals(LB.getPosition(),"LB");
+		assertEquals(CB.getPosition(),"CB");
 		
+	}
+	
+	@Test
+	public void testGetReadablePosition(){
+		assertEquals(CF.getReadablePosition(),"Attacker");
+		assertEquals(ST.getReadablePosition(),"Attacker");
+		assertEquals(RW.getReadablePosition(),"Attacker");
+		assertEquals(CM.getReadablePosition(),"Midfielder");
+		assertEquals(CDM.getReadablePosition(),"Midfielder");
+		assertEquals(CAM.getReadablePosition(),"Midfielder");
+		assertEquals(LW.getReadablePosition(),"Attacker");
+		assertEquals(RM.getReadablePosition(),"Midfielder");
+		assertEquals(LM.getReadablePosition(),"Midfielder");
+		assertEquals(GK.getReadablePosition(),"Goalkeeper");
+		assertEquals(RB.getReadablePosition(),"Defender");
+		assertEquals(LB.getReadablePosition(),"Defender");
+		assertEquals(CB.getReadablePosition(),"Defender");
+		assertEquals(Attacker.getReadablePosition(),"Attacker");
+		assertEquals(Midfielder.getReadablePosition(),"Midfielder");
+		assertEquals(Defender.getReadablePosition(),"Defender");
+		assertEquals(Goalkeeper.getReadablePosition(),"Goalkeeper");
+		assertEquals(NoPos.getReadablePosition(),null);
 	}
 
 	/**setId Test
@@ -135,10 +133,10 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetID(){
-		p1.setId(3);
-		p2.setId(4);
-		assertEquals(p1.getId(),3);
-		assertNotEquals(p2.getId(),10);
+		CB.setId(3);
+		RW.setId(4);
+		assertEquals(CB.getId(),3);
+		assertNotEquals(RW.getId(),10);
 	}
 
 	/**setFirstName Test
@@ -146,10 +144,10 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetFirstName(){
-		p1.setFirstName("Jan");
-		p2.setFirstName("Klaas");
-		assertEquals(p1.getFirstName(),"Jan");
-		assertNotEquals(p2.getFirstName(),"Piet");
+		CB.setFirstName("Jan");
+		RW.setFirstName("Klaas");
+		assertEquals(CB.getFirstName(),"Jan");
+		assertNotEquals(RW.getFirstName(),"Piet");
 	}
 
 	/**setLastName Test
@@ -157,32 +155,34 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetLastName(){
-		p1.setLastName("Jantje");
-		p2.setLastName("Klaasje");
-		assertEquals(p1.getLastName(),"Jantje");
-		assertNotEquals(p2.getLastName(),"Pietje");
+		CB.setLastName("Jantje");
+		RW.setLastName("Klaasje");
+		assertEquals(CB.getLastName(),"Jantje");
+		assertNotEquals(RW.getLastName(),"Pietje");
 	}
 
 	/**setClub Tes
 	 * Use setClub method to change playes club. Use getClub to test.
-	 */
+	 
 	@Test
 	public void testSetClub(){
-		p1.setClub("Feyenoord");
-		p2.setClub("Cambuur");
-		assertEquals(p1.getClub(),"Feyenoord");
-		assertNotEquals(p2.getClub(),"AZ");
+		CB.setClub("Feyenoord");
+		RW.setClub("Cambuur");
+		assertEquals(CB.getClub(),"Feyenoord");
+		
+		assertNotEquals(RW.getClub(),"AZ");
 	}
+	*/
 
 	/**setNationality Test
 	 * setNationality of players. Use getNationality to compare.
 	 */
 	@Test
 	public void testSetNationality(){
-		p1.setNationality("Surinamese");
-		p2.setNationality("Surinamese");
-		assertEquals(p1.getNationality(),"Surinamese");
-		assertNotEquals(p2.getNationality(),"Dutch");
+		CB.setNationality("Surinamese");
+		RW.setNationality("Surinamese");
+		assertEquals(CB.getNationality(),"Surinamese");
+		assertNotEquals(RW.getNationality(),"Dutch");
 	}
 
 	/**setDateOfBirth Test
@@ -190,9 +190,9 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetDateOfBirth(){
-		p1.setDateOfBirth(new Date(1/1/2010));
-		p2.setDateOfBirth(new Date(1/1/2020));
-		assertEquals(p1.getDateOfBirth(),(new Date(1/1/2010)));
+		CB.setDateOfBirth(new Date(1/1/2010));
+		RW.setDateOfBirth(new Date(1/1/2020));
+		assertEquals(CB.getDateOfBirth(),(new Date(1/1/2010)));
 	}
 
 	/**setPosition Test
@@ -200,10 +200,10 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetPosition(){
-		p1.setPosition("CM");
-		p2.setPosition("RM");
-		assertEquals(p1.getPosition(),"Midfielder");
-		assertNotEquals(p2.getPosition(),"Defender");
+		CB.setPosition("CM");
+		RW.setPosition("RM");
+		assertEquals(CB.getPosition(),"CM");
+		assertNotEquals(RW.getPosition(),"RW");
 	}
 
 	/**setPace
@@ -211,10 +211,10 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetPace(){
-		p1.setPace(80);
-		p2.setPace(90);
-		assertEquals(p1.getPace(),80);
-		assertNotEquals(p2.getPace(),70);	
+		CB.setPace(80);
+		RW.setPace(90);
+		assertEquals(CB.getPace(),80);
+		assertNotEquals(RW.getPace(),70);	
 	}
 
 	/**setShooting Test
@@ -222,10 +222,10 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetShooting(){
-		p1.setShooting(80);
-		p2.setShooting(60);
-		assertEquals(p1.getShooting(),80);
-		assertNotEquals(p2.getShooting(),100);
+		CB.setShooting(80);
+		RW.setShooting(60);
+		assertEquals(CB.getShooting(),80);
+		assertNotEquals(RW.getShooting(),100);
 	}
 
 	/**setPassing Test
@@ -233,10 +233,10 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetPassing(){
-		p1.setPassing(80);
-		p2.setPassing(70);
-		assertEquals(p1.getPassing(),80);
-		assertNotEquals(p2.getPassing(),0);
+		CB.setPassing(80);
+		RW.setPassing(70);
+		assertEquals(CB.getPassing(),80);
+		assertNotEquals(RW.getPassing(),0);
 	}
 
 	/**setOffensive Test
@@ -244,10 +244,10 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetOffensive(){
-		p1.setOffensive(80);
-		p2.setOffensive(90);
-		assertEquals(p1.getOffensive(),80);
-		assertNotEquals(p2.getOffensive(),100);
+		CB.setOffensive(80);
+		RW.setOffensive(90);
+		assertEquals(CB.getOffensive(),80);
+		assertNotEquals(RW.getOffensive(),100);
 	}
 	
 	/**setDefensive Test
@@ -255,10 +255,10 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetDefensive(){
-		p1.setDefensive(80);
-		p2.setDefensive(90);
-		assertEquals(p1.getDefensive(),80);
-		assertNotEquals(p2.getDefensive(),100);
+		CB.setDefensive(80);
+		RW.setDefensive(90);
+		assertEquals(CB.getDefensive(),80);
+		assertNotEquals(RW.getDefensive(),100);
 	}
 	
 	/**setStamina Test
@@ -266,11 +266,22 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testSetStaming(){
-		p1.setStamina(80);
-		p2.setStamina(70);
-		assertEquals(p1.getStamina(),80);
-		assertNotEquals(p2.getStamina(),100);
+		CB.setStamina(80);
+		RW.setStamina(70);
+		assertEquals(CB.getStamina(),80);
+		assertNotEquals(RW.getStamina(),100);
 		
+	}
+	
+	/**setLeague Test
+	 * setLeague for new player. Compare with getLeague
+	 */
+	@Test
+	public void testSetLeague(){
+		CB.setLeague("Premier League");
+		RW.setLeague("La Liga");
+		assertEquals(CB.getLeague(),"Premier League");
+		assertNotEquals(RW.getLeague(),"Eredivisie");
 	}
 
 }
