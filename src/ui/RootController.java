@@ -37,7 +37,6 @@ public class RootController implements Initializable, Observer {
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
 		instance = Context.getInstance();
 
 		saveGameButton.setOnAction((event) -> {
@@ -137,8 +136,10 @@ public class RootController implements Initializable, Observer {
 		
 		if (o == instance.getGameState()) {
 			this.gamesPlayed.setText(String.valueOf(instance.getGameState().getRound()));
-			
 		}
+		
+		System.out.println("o CHANGED " + o);
+		System.out.println("arg CHANGED " + arg);
 	}
 
 	/**

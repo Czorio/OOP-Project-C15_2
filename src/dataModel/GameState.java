@@ -26,7 +26,7 @@ public class GameState extends Observable {
 		this.team = team;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 	
 	/**
@@ -53,7 +53,7 @@ public class GameState extends Observable {
 		this.team = gameState.getTeam();
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 	
 	/**
@@ -80,7 +80,7 @@ public class GameState extends Observable {
 		this.team = gameState.getTeam();
 		
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 	
 	/**
@@ -117,7 +117,7 @@ public class GameState extends Observable {
 		this.coachName = coachName;
 		
 		setChanged();
-		notifyObservers(this);
+		notifyObservers(this.coachName);
 	}
 
 	/**
@@ -134,7 +134,7 @@ public class GameState extends Observable {
 		this.round = round;
 		
 		setChanged();
-		notifyObservers(this);
+		notifyObservers(this.round);
 	}
 
 	/**
@@ -151,7 +151,7 @@ public class GameState extends Observable {
 		this.league = league;
 		
 		setChanged();
-		notifyObservers(this);
+		notifyObservers(this.league);
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class GameState extends Observable {
 		this.team = team;
 		
 		setChanged();
-		notifyObservers(this);
+		notifyObservers(this.team);
 	}
 
 	/* (non-Javadoc)

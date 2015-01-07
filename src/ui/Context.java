@@ -3,18 +3,22 @@
  */
 package ui;
 
+import java.util.Observable;
+
 import dataModel.GameState;
 import dataModel.League;
+import dataModel.Player;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
-public class Context {
+public class Context extends Observable {
 	private static final Context instance = new Context();
 	
-	private GameState gameState;
-	private League league;
+	private GameState gameState = null;
+	private League league = null;
+	private Player selectedPlayer = null;
 
 	/**
 	 * @return the instance
@@ -35,6 +39,9 @@ public class Context {
 	 */
 	public void setGameState(GameState gameState) {
 		this.gameState = gameState;
+		
+		setChanged();
+		notifyObservers(this.gameState);
 	}
 
 	/**
@@ -49,6 +56,26 @@ public class Context {
 	 */
 	public void setLeague(League league) {
 		this.league = league;
+		
+		setChanged();
+		notifyObservers(this.league);
+	}
+
+	/**
+	 * @return the selectedPlayer
+	 */
+	public Player getSelectedPlayer() {
+		return selectedPlayer;
+	}
+
+	/**
+	 * @param selectedPlayer the selectedPlayer to set
+	 */
+	public void setSelectedPlayer(Player selectedPlayer) {
+		this.selectedPlayer = selectedPlayer;
+		
+		setChanged();
+		notifyObservers(this.selectedPlayer);
 	}
 	
 	

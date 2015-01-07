@@ -10,11 +10,17 @@ import java.util.Observable;
  * @author Toine Hartman <tjbhartman@gmail.com>
  */
 public class Player extends Observable {
+	public static final int SOLD_SELLING_SUCCES = 1;
+	public static final int BUDGET_NOT_SUFFICIENT_SELLING_ERROR = 0;
+	public static final int TEAM_NULL_SELLING_ERROR = -1;
+	public static final int UNKNOWN_SELLING_ERROR = -8;
+
 	// Properties of a player
 	private int id;
 	private String firstName;
 	private String lastName;
 	private String club;
+	private Team team;
 	private String league;
 	private String nationality;
 	private Date dateOfBirth;
@@ -45,7 +51,7 @@ public class Player extends Observable {
 	 * @param stamina
 	 */
 	public Player(Integer id, String firstname, String lastname, String club, String league, String nationality, Date dateOfBirth, String position,
-				  int pace, int shooting, int passing, int offensive, int defensive, int stamina) {
+			int pace, int shooting, int passing, int offensive, int defensive, int stamina) {
 		this.id = id;
 		this.firstName = firstname;
 		this.lastName = lastname;
@@ -65,7 +71,7 @@ public class Player extends Observable {
 		//this.playedGames = playedGames;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -90,8 +96,39 @@ public class Player extends Observable {
 		this.price = 0;
 		this.playedGames = 0;
 
-		this.setChanged();
-		this.notifyObservers();
+		setChanged();
+		notifyObservers(this);
+	}
+
+	public int sellToTeam(Team buyer) {
+		Team seller;
+		int sum;
+
+		if (buyer == null) {
+			return TEAM_NULL_SELLING_ERROR;
+		} else if (buyer.getBudget() >= 0 && buyer.getBudget() < this.price) {
+			return BUDGET_NOT_SUFFICIENT_SELLING_ERROR;
+		}
+
+		sum = getPrice();
+		seller = this.getTeam();
+		
+		try {
+			seller.removePlayer(this);
+			seller.alterBudget(sum);
+			buyer.alterBudget(-sum);
+			buyer.addPlayer(this);
+			
+			return SOLD_SELLING_SUCCES;
+		} catch (Exception e) {
+			buyer.removePlayer(this);
+			buyer.alterBudget(sum);
+			seller.alterBudget(-sum);
+			seller.addPlayer(this);
+			
+			e.printStackTrace();
+			return UNKNOWN_SELLING_ERROR;
+		}
 	}
 
 	/**
@@ -168,7 +205,7 @@ public class Player extends Observable {
 		this.id = id;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -185,7 +222,7 @@ public class Player extends Observable {
 		this.firstName = firstName;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -202,14 +239,15 @@ public class Player extends Observable {
 		this.lastName = lastName;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
 	 * @return the club
 	 */
 	public String getClub() {
-		return club;
+		return this.getTeam().getTeam();
+//		return club;
 	}
 
 	/**
@@ -219,7 +257,7 @@ public class Player extends Observable {
 		this.club = club;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -236,7 +274,7 @@ public class Player extends Observable {
 		this.nationality = nationality;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -253,7 +291,7 @@ public class Player extends Observable {
 		this.dateOfBirth = dateOfBirth;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -262,7 +300,7 @@ public class Player extends Observable {
 	public String getPosition() {
 		return position;
 	}
-	
+
 	/**
 	 * @return the position as a readable string.
 	 */
@@ -289,7 +327,7 @@ public class Player extends Observable {
 		this.position = position;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -321,7 +359,7 @@ public class Player extends Observable {
 		this.curPosition = curPosition;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 
@@ -339,7 +377,7 @@ public class Player extends Observable {
 		this.pace = pace;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -356,7 +394,7 @@ public class Player extends Observable {
 		this.shooting = shooting;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -373,7 +411,7 @@ public class Player extends Observable {
 		this.passing = passing;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -390,7 +428,7 @@ public class Player extends Observable {
 		this.offensive = offensive;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -407,7 +445,7 @@ public class Player extends Observable {
 		this.defensive = defensive;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -424,7 +462,7 @@ public class Player extends Observable {
 		this.stamina = stamina;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -441,7 +479,7 @@ public class Player extends Observable {
 		this.price = price;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
 
 	/**
@@ -460,9 +498,9 @@ public class Player extends Observable {
 		this.playedGames = playedGames;
 
 		this.setChanged();
-		this.notifyObservers();
+		this.notifyObservers(this);
 	}
-	
+
 	/**
 	 * 
 	 * @return league
@@ -470,13 +508,34 @@ public class Player extends Observable {
 	public String getLeague(){
 		return league;
 	}
-	
+
 	/**
 	 * 
 	 * @param league
 	 */
 	public void setLeague(String league){
 		this.league = league;
+
+		setChanged();
+		notifyObservers(this);
+	}
+
+	/**
+	 * @return the team
+	 */
+	public Team getTeam() {
+		return team;
+	}
+
+	/**
+	 * @param team the team to set
+	 */
+	public void setTeam(Team team) {
+		this.team = team;
+//		setClub(team.getTeam());
+
+		setChanged();
+		notifyObservers(this);
 	}
 
 }

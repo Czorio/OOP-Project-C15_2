@@ -22,9 +22,13 @@ public class Team extends Observable {
 		this.team = team;
 		this.players = players;
 		this.budget = 0;
+		
+		for (Player player : this.players) {
+			player.setTeam(this);
+		}
 
-		this.setChanged();
-		this.notifyObservers();
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**
@@ -33,6 +37,18 @@ public class Team extends Observable {
 	 */
 	public Team(String team) {
 		this(team, new ArrayList<Player>());
+	}
+	
+	public static int sellPlayerToTeam(Player player, Team team) {
+		return player.sellToTeam(team);
+	}
+	
+	/**
+	 * Alters the budget by a given amount
+	 * @param mutation Amount to add (positive number) or subtract (negative number)
+	 */
+	public void alterBudget(int mutation) {
+		setBudget(getBudget() + mutation);
 	}
 	
 	// Just an example
@@ -53,11 +69,14 @@ public class Team extends Observable {
 		boolean bExists = false;
 		for(int i = 0; i < players.size(); i++) {
 			if(players.get(i).getId() == player.getId()) bExists = true;
-			if(players.get(i).getFirstName().equals(player.getFirstName()) && players.get(i).getLastName().equals(player.getLastName())) bExists = true;
+			else if(players.get(i).getFirstName().equals(player.getFirstName()) && players.get(i).getLastName().equals(player.getLastName())) bExists = true;
 		}
 		
 		if(!bExists) {
 			players.add(player);
+			player.setTeam(this);
+			setChanged();
+			notifyObservers(this);
 		}
 		
 		return !bExists;
@@ -79,6 +98,9 @@ public class Team extends Observable {
 		
 		if(bExists) {
 			players.remove(index);
+			player.setTeam(null);
+			setChanged();
+			notifyObservers(this);
 		}
 		
 		return bExists;
@@ -110,6 +132,8 @@ public class Team extends Observable {
 	 */
 	public void setTeam(String team) {
 		this.team = team;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**
@@ -155,6 +179,8 @@ public class Team extends Observable {
 	 */
 	public void setPlayers(ArrayList<Player> players) {
 		this.players = players;
+		setChanged();
+		notifyObservers(this);
 	}
 
 	/**
@@ -169,6 +195,8 @@ public class Team extends Observable {
 	 */
 	public void setBudget(int budget) {
 		this.budget = budget;
+		setChanged();
+		notifyObservers(this);
 	}
 	
 	/**
