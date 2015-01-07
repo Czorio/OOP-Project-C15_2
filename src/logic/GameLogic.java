@@ -12,15 +12,16 @@ import dataModel.Team;
  */
 public class GameLogic {
 
-	private Team home, away;
+	private static Team home, away;
 	private static Random randomNumber = new Random(System.currentTimeMillis());
 
 	public GameLogic(Team home, Team away, GameState gs){
-		this.home = home;
-		this.away = away;
+		GameLogic.home = home;
+		GameLogic.away = away;
 		
 		new TeamLogic(home, gs);
 		new TeamLogic(away, gs);
+		TeamLogic.createAITeam();
 	}
 	
 	/**
@@ -31,7 +32,7 @@ public class GameLogic {
 	 * 
 	 * @return Returns the result of the match.
 	 */
-	public static String game(Team home, Team away){
+	public static String game(){
 		int homeGoals = 0;
 		int awayGoals = 0;
 		int lastGoal = 0; //Minutes since last goal.
@@ -51,14 +52,14 @@ public class GameLogic {
 			System.out.println("Minute: " + i);
 			
 			//TODO Test values
-			if(homeScoreChance + generateRandom(0,70) > 170 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0,20) >= 19) {
+			if(homeScoreChance + generateRandom(0,70) > 110 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0,20) >= 19) {
 				homeGoals++;
 				System.out.println("Team " + home.getTeam() + " scored a goal!");
 				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
 				lastGoal = 0;
 			}
 			
-			if(awayScoreChance + generateRandom(0,70) > 170 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0,20) >= 19) {
+			if(awayScoreChance + generateRandom(0,70) > 110 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0,20) >= 19) {
 				awayGoals++;
 				System.out.println("Team " + away.getTeam() + " scored a goal!");
 				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
@@ -112,7 +113,7 @@ public class GameLogic {
 	 * @param homeTeam the homeTeam to set
 	 */
 	public void setHomeTeam(Team homeTeam) {
-		this.home = homeTeam;
+		GameLogic.home = homeTeam;
 	}
 
 	/**
@@ -126,7 +127,7 @@ public class GameLogic {
 	 * @param awayTeam the awayTeam to set
 	 */
 	public void setAwayTeam(Team awayTeam) {
-		this.away = awayTeam;
+		GameLogic.away = awayTeam;
 	}
 
 	/**

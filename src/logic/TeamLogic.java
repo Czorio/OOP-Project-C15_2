@@ -13,7 +13,7 @@ import dataModel.Player;
 import dataModel.Team;
 
 /**
- * Class to calculate the statistics of a team.
+ * Class used to generate an AI team and calculate the score of a team.
  * @author Steven Meijer <stevenmeijer9@gmail.com>
  *
  */
@@ -28,7 +28,6 @@ public final class TeamLogic {
 	 */
 	public TeamLogic(Team team, GameState gs) {
 		TeamLogic.gs = gs;
-		createAITeam();
 	}
 
 	/**

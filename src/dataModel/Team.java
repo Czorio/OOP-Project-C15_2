@@ -3,13 +3,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
 public class Team extends Observable {
 	private String team;
-	private List<Player> players;
+	private ObservableList<Player> players;
 	private int budget;
 	
 
@@ -20,7 +23,7 @@ public class Team extends Observable {
 	 */
 	public Team(String team, ArrayList<Player> players) {
 		this.team = team;
-		this.players = players;
+		this.players = FXCollections.observableList(players);
 		this.budget = 0;
 		
 		for (Player player : this.players) {
@@ -75,8 +78,9 @@ public class Team extends Observable {
 		if(!bExists) {
 			players.add(player);
 			player.setTeam(this);
+			
 			setChanged();
-			notifyObservers(this);
+			notifyObservers(this.players);
 		}
 		
 		return !bExists;
@@ -99,8 +103,9 @@ public class Team extends Observable {
 		if(bExists) {
 			players.remove(index);
 			player.setTeam(null);
+			
 			setChanged();
-			notifyObservers(this);
+			notifyObservers(this.players);
 		}
 		
 		return bExists;
@@ -178,9 +183,9 @@ public class Team extends Observable {
 	 * @param players the players to set
 	 */
 	public void setPlayers(ArrayList<Player> players) {
-		this.players = players;
+		this.players = FXCollections.observableList(players);
 		setChanged();
-		notifyObservers(this);
+		notifyObservers(this.players);
 	}
 
 	/**

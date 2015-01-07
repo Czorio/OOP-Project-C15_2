@@ -5,15 +5,7 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-
-import logic.GameLogic;
 import org.junit.Test;
-
-import xml.XMLPlayer;
-import dataModel.GameState;
-import dataModel.League;
-import dataModel.Team;
 
 /**
  * @author Steven
@@ -34,23 +26,6 @@ public class GameLogicTest {
 	 */
 	@Test
 	public void testGame() {
-		File in = new File("GameData/Leagues/Eredivisie.xml");
-		XMLPlayer xmlplayer = new XMLPlayer(in);
-		League league = xmlplayer.readFromFile("Eredivisie");
-
-		Team team1 = league.getTeam("Ajax");
-		Team team2 = league.getTeam("FC Groningen");
-		
-		GameState gs = new GameState("Steven", 1, "Eredivisie", "ADO Den Haag");
-		
-		new GameLogic(team1, team2, gs);
-		
-		GameLogic.game(team1, team2);
-		
-		
-		
-		
-		
 		fail("Not yet implemented");
 	}
 
