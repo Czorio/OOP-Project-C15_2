@@ -42,10 +42,6 @@ public class Team extends Observable {
 		this(team, new ArrayList<Player>());
 	}
 	
-	public static int sellPlayerToTeam(Player player, Team team) {
-		return player.sellToTeam(team);
-	}
-	
 	/**
 	 * Alters the budget by a given amount
 	 * @param mutation Amount to add (positive number) or subtract (negative number)

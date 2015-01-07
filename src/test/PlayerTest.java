@@ -68,37 +68,6 @@ public class PlayerTest {
 		assertNotEquals(p1.toString(),p4.toString());
 		
 	}
-	/**
-	 * sellToTeam test
-	 * Tries to transfer a player to/from different teams with different budgets
-	 */
-	@Test
-	public void testSellToTeam() {
-		Player transfer = new Player(1,"Davy","Klaasen","Ajax","Dutch", null, new Date(1/1/1990),"CB",40,50,60,60,80,70);
-		transfer.setPrice(100);
-		
-		Team a = new Team("FC Lutjebroek");
-		a.setBudget(1000);
-		
-		Team b = new Team("SC Sport88");
-		b.setBudget(500);
-		
-		Team c = new Team("FC Arme Sloebers");
-		c.setBudget(50);
-		
-		a.addPlayer(transfer);
-		int result1 = transfer.sellToTeam(b);
-		int result2 = transfer.sellToTeam(c);
-		int result3 = transfer.sellToTeam(null);
-		
-		assertSame(0, a.getPlayers().size());
-		System.out.println(b.getPlayers().get(0));
-		assertEquals(transfer, b.getPlayers().get(0));
-		assertFalse(a.getPlayers().contains(transfer));
-		assertSame(result1, Player.SOLD_SELLING_SUCCES);
-		assertSame(result2, Player.BUDGET_NOT_SUFFICIENT_SELLING_ERROR);
-		assertSame(result3, Player.TEAM_NULL_SELLING_ERROR);
-	}
 	
 	/**getPosition test
 	 * Create new Players with all the positions. And test them using getPosition method. 

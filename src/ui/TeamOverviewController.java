@@ -92,10 +92,6 @@ public class TeamOverviewController implements Initializable, Observer {
 			System.out.println("SELLING " + selectedPlayer);
 			
 			//TODO sell the selected player
-			Team feyenoord = instance.getLeague().getTeam("Feyenoord");
-			selectedPlayer.sellToTeam(feyenoord);
-			
-			System.out.println(feyenoord);
 		});
 		
 		getYourPlayerTableView().setOnMouseClicked((event) -> {
