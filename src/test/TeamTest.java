@@ -1,19 +1,14 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
-import java.awt.List;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
 
-import org.junit.Before;
 import org.junit.Test;
 
+import xml.XMLPlayer;
 import dataModel.League;
 import dataModel.Team;
-import xml.XMLPlayer;
-import org.junit.Test;
 
 public class TeamTest {
 

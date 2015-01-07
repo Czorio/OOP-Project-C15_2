@@ -1,13 +1,13 @@
 package test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.util.Date;
 
 import org.junit.Test;
 
 import dataModel.Player;
-import dataModel.Team;
 
 public class PlayerTest {
 
