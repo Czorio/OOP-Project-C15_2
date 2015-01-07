@@ -48,7 +48,7 @@ public class Match extends Observable {
 		Team away = league.getTeam(awayName);
 		
 		new GameLogic(home, away, gs);
-		GameLogic.game(home, away);
+		GameLogic.game();
 	}
 	
 	/**

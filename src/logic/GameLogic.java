@@ -12,12 +12,12 @@ import dataModel.Team;
  */
 public class GameLogic {
 
-	private Team home, away;
+	private static Team home, away;
 	private static Random randomNumber = new Random(System.currentTimeMillis());
 
 	public GameLogic(Team home, Team away, GameState gs){
-		this.home = home;
-		this.away = away;
+		GameLogic.home = home;
+		GameLogic.away = away;
 		
 		new TeamLogic(home, gs);
 		new TeamLogic(away, gs);
@@ -32,7 +32,7 @@ public class GameLogic {
 	 * 
 	 * @return Returns the result of the match.
 	 */
-	public static String game(Team home, Team away){
+	public static String game(){
 		int homeGoals = 0;
 		int awayGoals = 0;
 		int lastGoal = 0; //Minutes since last goal.
@@ -113,7 +113,7 @@ public class GameLogic {
 	 * @param homeTeam the homeTeam to set
 	 */
 	public void setHomeTeam(Team homeTeam) {
-		this.home = homeTeam;
+		GameLogic.home = homeTeam;
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class GameLogic {
 	 * @param awayTeam the awayTeam to set
 	 */
 	public void setAwayTeam(Team awayTeam) {
-		this.away = awayTeam;
+		GameLogic.away = awayTeam;
 	}
 
 	/**
