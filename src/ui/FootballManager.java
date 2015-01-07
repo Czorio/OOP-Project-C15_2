@@ -31,8 +31,6 @@ public class FootballManager extends Application {
 		FootballManager.stage = stage;
 		FootballManager.stage.setTitle("Football Manager");
 		
-		instance.setLeague(League.readFromFile(PLAYER_DATABASE));
-		
 		try {
 			initRootLayout();
 		} catch (IOException e) {
@@ -47,8 +45,13 @@ public class FootballManager extends Application {
 			e.printStackTrace();
 		}
 		
+		instance.addObserver(rootController);
+		instance.addObserver(teamOverviewController);
+		
+		instance.setLeague(League.readFromFile(PLAYER_DATABASE));
+		
 		instance.setGameState(new GameState(null, 0, null, null));
-		System.out.println(instance.getGameState());
+		
 		instance.getGameState().addObserver(teamOverviewController);
 		instance.getGameState().addObserver(rootController);
 		
@@ -58,9 +61,11 @@ public class FootballManager extends Application {
 		instance.getGameState().setTeam("SC Cambuur");
 		
 		if (GameState.isUseless(instance.getGameState())) {
-			System.out.println("GameState is empty, asking to load one.");
+			System.out.println("GameState is empty, asking to load one...");
 			instance.setGameState(rootController.loadGame(instance.getGameState()));
 		}
+		
+		System.out.println(instance.getGameState());
     }
 	
 	public void initRootLayout() throws IOException {

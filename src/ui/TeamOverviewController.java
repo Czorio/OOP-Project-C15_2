@@ -43,7 +43,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private Label yourPlayerTeamLabel;
 	@FXML private Button sellYourPlayerButton;
 
-	Context instance;
+	Context instance = null;
 
 	/*
 	 * (non-Javadoc)
@@ -54,7 +54,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	public void update(Observable o, Object arg) {
 //		System.out.println("An instance of " + o.getClass().toString() + " has changed! (TeamOverview)");
 
-		if (o == instance.getGameState()) {
+		if (o == instance.getGameState() || arg == instance.getGameState()) {
 			String team = instance.getGameState().getTeam();
 			League l = instance.getLeague();
 			Team t;
@@ -62,7 +62,19 @@ public class TeamOverviewController implements Initializable, Observer {
 				ObservableList<Player> players = FXCollections.observableList(t.getPlayers());
 				yourPlayerTableView.getItems().setAll(players);
 			}
+		} if (o == instance.getSelectedPlayer() || arg == instance.getSelectedPlayer() || (o == instance && instance.getSelectedPlayer() != null)) {
+			System.out.println(instance.getSelectedPlayer());
+			
+			getYourPlayerNameLabel().setText(instance.getSelectedPlayer().getLastName() + ", " + instance.getSelectedPlayer().getFirstName());
+			getYourPlayerPositionLabel().setText(instance.getSelectedPlayer().getPosition());
+			getYourPlayerOffensiveLabel().setText(String.valueOf(instance.getSelectedPlayer().getOffensive()));
+			getYourPlayerDefensiveLabel().setText(String.valueOf(instance.getSelectedPlayer().getDefensive()));
+			getYourPlayerStaminaLabel().setText(String.valueOf(instance.getSelectedPlayer().getStamina()));
+			getYourPlayerPriceLabel().setText(String.valueOf(instance.getSelectedPlayer().getPrice()));
+			getYourPlayerTeamLabel().setText(instance.getSelectedPlayer().getClub());
 		}
+		
+		System.out.println("OBJECT: " + o + "\nARG: " + arg);
 	}
 
 	/*
@@ -75,25 +87,26 @@ public class TeamOverviewController implements Initializable, Observer {
 	public void initialize(URL location, ResourceBundle resources) {
 		instance = Context.getInstance();
 		
-//		System.out.println(sellYourPlayerButton);
-		
 		getSellYourPlayerButton().setOnAction((event) -> {
 			Player selectedPlayer = getYourPlayerTableView().getSelectionModel().getSelectedItem();
-			System.out.println(selectedPlayer);
+			System.out.println("SELLING " + selectedPlayer);
+			
 			//TODO sell the selected player
+			Team feyenoord = instance.getLeague().getTeam("Feyenoord");
+			selectedPlayer.sellToTeam(feyenoord);
+			
+			System.out.println(feyenoord);
 		});
 		
 		getYourPlayerTableView().setOnMouseClicked((event) -> {
-			Player clickedPlayer = getYourPlayerTableView().getSelectionModel().getSelectedItem();
-			System.out.println(clickedPlayer);
+			Player selectedPlayer = getYourPlayerTableView().getSelectionModel().getSelectedItem();
+			Player prevSelPlayer = instance.getSelectedPlayer();
+			if (selectedPlayer != prevSelPlayer) {
+				instance.setSelectedPlayer(selectedPlayer);
+				System.out.println(selectedPlayer);
+				System.out.println(selectedPlayer.getTeam().getTeam());
+			}
 			
-			getYourPlayerNameLabel().setText(clickedPlayer.getLastName() + ", " + clickedPlayer.getFirstName());
-			getYourPlayerPositionLabel().setText(clickedPlayer.getPosition());
-			getYourPlayerOffensiveLabel().setText(String.valueOf(clickedPlayer.getOffensive()));
-			getYourPlayerDefensiveLabel().setText(String.valueOf(clickedPlayer.getDefensive()));
-			getYourPlayerStaminaLabel().setText(String.valueOf(clickedPlayer.getStamina()));
-			getYourPlayerPriceLabel().setText(String.valueOf(clickedPlayer.getPrice()));
-			getYourPlayerTeamLabel().setText(clickedPlayer.getClub());
 		});
 	}
 
