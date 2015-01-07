@@ -47,22 +47,17 @@ public class GameLogic {
 		
 		//Match starts here
 		//TODO: Add injuries, cards, ...?
+		//TODO Test score values.
 		for (int i = 1; i <= (90 + extraTime); i++) {
-			//TODO Implement for player games only
-			System.out.println("Minute: " + i);
-			
-			//TODO Test values
-			if(homeScoreChance + generateRandom(0,70) > 110 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0,20) >= 19) {
+			if(homeScoreChance + generateRandom(0,80) > 235 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0,30) >=29) {
 				homeGoals++;
-				System.out.println("Team " + home.getTeam() + " scored a goal!");
-				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
+				System.out.println(i + ": Team " + home.getTeam() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
 			}
 			
-			if(awayScoreChance + generateRandom(0,70) > 110 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0,20) >= 19) {
+			if(awayScoreChance + generateRandom(0,80) > 235 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0,30) >= 29) {
 				awayGoals++;
-				System.out.println("Team " + away.getTeam() + " scored a goal!");
-				System.out.println("The score is now " + homeGoals + " - " + awayGoals + "!");
+				System.out.println(i + ": Team " + away.getTeam() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
 			}
 			

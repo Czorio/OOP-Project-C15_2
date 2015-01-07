@@ -60,34 +60,22 @@ public final class PlayerLogic {
 		int stamina = player.getStamina(), result = 0;
 
 		if (stamina >= 80) {
-			result = stamina - (3 * player.getPlayedGames());
+			result = stamina - (2 * player.getPlayedGames());
 		}
 
 		else if (stamina < 80 && stamina >= 65) {
-			result = stamina - (4 * player.getPlayedGames());
+			result = stamina - (3 * player.getPlayedGames());
 		}
 
 		else if (stamina < 65 && stamina >= 40) {
-			result = stamina - (5 * player.getPlayedGames());
+			result = stamina - (4 * player.getPlayedGames());
 		}
 
 		else if (stamina < 40) {
-			result = stamina - (6 * player.getPlayedGames());
+			result = stamina - (5 * player.getPlayedGames());
 		}
 
 		return result;
-	}
-
-	/**
-	 * Calculates the amount of games a player has played.
-	 * @param player The player to calculate the number of games for.
-	 */
-	public static final void calculatePlayedGames(Player player) {
-		int playedGames = player.getPlayedGames();
-		
-		if (player.getCurPosition() != null) {
-			player.setPlayedGames(playedGames + 1);
-		}
 	}
 	
 	/**
@@ -95,14 +83,21 @@ public final class PlayerLogic {
 	 * @param player The player to calculate the cost for.
 	 * @return Returns the initial cost of a player.
 	 */
-	public static void calculateInitialPrice(Player player) {
+	public static final int calculatePrice(Player player) {
 		int stats = player.getOffensive() + player.getDefensive();
+		int price = 0;
 		
-		//TODO FInetune initial price
+		//TODO Finetune initial price
 		if (stats > 125) {
-			player.setPrice(5000 * (player.getOffensive() + player.getDefensive() + player.getStamina()));
+			price = 5000 * (player.getOffensive() + player.getDefensive() + player.getStamina());
 		} else {
-			player.setPrice(3000 * (player.getOffensive() + player.getDefensive() + player.getStamina()));
+			price = 3000 * (player.getOffensive() + player.getDefensive() + player.getStamina());
 		}
+		
+		//TODO Add price for each goal a player scored.
+		//price += 50000 * player.getGoals();
+		
+		player.setPrice(price);
+		return price;
 	}
 }

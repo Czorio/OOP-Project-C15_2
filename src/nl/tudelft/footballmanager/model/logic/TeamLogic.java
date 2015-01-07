@@ -35,11 +35,10 @@ public final class TeamLogic {
 	 * @param team The team to calculate the score of.
 	 * @return Returns the total offensive score.
 	 */
-	public final static int calculateTeamOffScore(Team team) {
+	public static final int calculateTeamOffScore(Team team) {
 		int offScore = 0;
 		
 		for (int i = 0; i < playingPlayers.size(); i++) {
-			
 			if (playingPlayers.get(i).getClub().equals(team.getTeam())){
 				offScore += PlayerLogic.calculatePlayerOffScore(playingPlayers.get(i));
 			}
@@ -53,7 +52,7 @@ public final class TeamLogic {
 	 * @param team The team to calculate the score of.
 	 * @return Returns the total defensive score.
 	 */
-	public final static int calculateTeamDefScore(Team team) {
+	public static final int calculateTeamDefScore(Team team) {
 		int defScore = 0;
 
 		for (int i = 0; i < playingPlayers.size(); i++) {
@@ -70,7 +69,7 @@ public final class TeamLogic {
 	 * @param team to calculate score
 	 * @return calculated stamina of whole team
 	 */
-	public final static int calculateTeamStaminaScore(Team team){
+	public static final int calculateTeamStaminaScore(Team team){
 		int stamScore = 0;
 		
 		for (int i = 0; i < playingPlayers.size(); i++){
@@ -87,10 +86,10 @@ public final class TeamLogic {
 	 * @param team The team to calculate the score of.
 	 * @return Returns the total score of a certain team.
 	 */
-	public final static int calculateTeamTotalScore(Team team) {
+	public static final int calculateTeamTotalScore(Team team) {
 		//For now only based on the offensive, defensive and stamina score of a team.
 		//TODO Add parameters to calculate the final score of a team
-		return (calculateTeamOffScore(team) + calculateTeamDefScore(team) + calculateTeamStaminaScore(team))/3;
+		return (calculateTeamOffScore(team) + calculateTeamDefScore(team) + calculateTeamStaminaScore(team));
 	}
 
 	/**
@@ -98,7 +97,7 @@ public final class TeamLogic {
 	 * @param gs The current gamestate.
 	 */
 	public static void createAITeam() {
-		File in = new File("GameData/Leagues/" + gs.getLeague() + ".nl.tudelft.footballmanager.model.xml");
+		File in = new File("GameData/Leagues/" + gs.getLeague() + ".xml");
 		XMLPlayer xmlplayer = new XMLPlayer(in);
 		League league = xmlplayer.readFromFile(gs.getLeague());
 
@@ -118,10 +117,9 @@ public final class TeamLogic {
 	 */
 	public static void createAIActivePlayers(Team team) {
 		String setup = createSetup();
-		System.out.println("The used setup for team " + team.getTeam() + " is " + setup); //TESTCODE
 		Scanner sc = new Scanner(setup);
 		Random random = new Random(System.currentTimeMillis());
-		//playingPlayers = new ArrayList<Player>();
+//		System.out.println("The used setup for team " + team.getTeam() + " is " + setup);
 
 		int nrDefenders = sc.nextInt();
 		int nrMidfielders = sc.nextInt();
@@ -132,11 +130,12 @@ public final class TeamLogic {
 		List<Player> midfielders = team.getByPosition("Midfielder");
 		List<Player> attackers = team.getByPosition("Attacker");
 		
-		System.out.println("Goalkeepers: " + goalkeepers.size());	//TESTCODE
-		System.out.println("Defenders: " + defenders.size());
-		System.out.println("Midfielders: " + midfielders.size());
-		System.out.println("Attackers: " + attackers.size());
+//		System.out.println("Goalkeepers: " + goalkeepers.size());
+//		System.out.println("Defenders: " + defenders.size());
+//		System.out.println("Midfielders: " + midfielders.size());
+//		System.out.println("Attackers: " + attackers.size());
 		
+		//Sets all players current position to "None"
 		for (int i = 0; i < team.getPlayers().size(); i++) {
 			team.getPlayers().get(i).setCurPosition("None");
 		}
@@ -167,7 +166,7 @@ public final class TeamLogic {
 					defenders.get(randomNumber1).setCurPosition("Midfielder");
 					playingPlayers.add(defenders.get(randomNumber1));
 					nrMidfielders--;
-					System.out.println("Too few midfielders, adding defender as midfielder...");
+					System.out.println(team.getTeam() + ": Too few midfielders for setup, adding defender as midfielder...");
 				}
 			}
 			
@@ -189,7 +188,7 @@ public final class TeamLogic {
 					midfielders.get(randomNumber1).setCurPosition("Attacker");
 					playingPlayers.add(midfielders.get(randomNumber1));
 					nrAttackers--;
-					System.out.println("Too few attackers, adding midfielder as attacker...");
+					System.out.println(team.getTeam() + ": Too few attackers for setup, adding midfielder as attacker...");
 				}
 			}
 			
@@ -199,6 +198,12 @@ public final class TeamLogic {
 				nrAttackers--;
 				//System.out.println("Added attacker");
 			}
+		}
+		
+		//TODO Write amount of games to file.
+		//Sets the amount of played games for each playing player to + 1.
+		for(int i = 0; i > playingPlayers.size(); i++) {
+			playingPlayers.get(i).setPlayedGames(playingPlayers.get(i).getPlayedGames() + 1);
 		}
 
 		sc.close();
@@ -220,11 +225,11 @@ public final class TeamLogic {
 		return setup.get(random.nextInt(setup.size()));
 	}
 
-	public final int gamesPlayed() {
+	public static final int gamesPlayed() {
 		return -1;
 	}
 
-	public final int gamesWon() {
+	public static final int gamesWon() {
 		return -1;
 	}
 

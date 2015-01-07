@@ -27,20 +27,20 @@ public class Match extends Observable {
 	
 	//TESTMETHOD
 	public static void main(String args[]) {
-		Scanner sc = new Scanner(System.in);
-		System.out.println("Home team: ");
-		String home = sc.nextLine();
-		System.out.println("Away team: ");
-		String away = sc.nextLine();
+//		Scanner sc = new Scanner(System.in);
+//		System.out.println("Home team: ");
+//		String home = sc.nextLine();
+//		System.out.println("Away team: ");
+//		String away = sc.nextLine();
 		
 		GameState testgs = new GameState("Steven", 1, "Eredivisie", "");
-		match(testgs, home, away);
+		match(testgs, "Ajax", "Feyenoord");
 		
-		sc.close();
+		//sc.close();
 	}
 
 	public static void match(GameState gs, String homeName, String awayName) {		
-		File in = new File("GameData/Leagues/" + gs.getLeague() + ".nl.tudelft.footballmanager.model.xml");
+		File in = new File("GameData/Leagues/" + gs.getLeague() + ".xml");
 		XMLPlayer xmlplayer = new XMLPlayer(in);
 		League league = xmlplayer.readFromFile(gs.getLeague());
 
