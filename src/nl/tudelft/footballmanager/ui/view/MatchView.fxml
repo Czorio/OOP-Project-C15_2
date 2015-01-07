@@ -35,7 +35,7 @@
                             <children>
                                 <ImageView fitHeight="345.0" fitWidth="236.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                     <image>
-                                        <Image url="@../../../img/220px-Soccer_Field_Transparant.svg.png" />
+                                        <Image url="@../../../../../../img/220px-Soccer_Field_Transparant.svg.png" />
                                     </image>
                                 </ImageView>
                                 <Circle fill="#ff1f1f" layoutX="198.0" layoutY="94.0" radius="6.0" stroke="BLACK" strokeType="INSIDE" />
