@@ -8,9 +8,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import nl.tudelft.footballmanager.model.League;
-import nl.tudelft.footballmanager.model.Player;
-import nl.tudelft.footballmanager.model.Team;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -19,6 +16,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import nl.tudelft.footballmanager.model.League;
+import nl.tudelft.footballmanager.model.Player;
+import nl.tudelft.footballmanager.model.Team;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -92,10 +92,6 @@ public class TeamOverviewController implements Initializable, Observer {
 			System.out.println("SELLING " + selectedPlayer);
 			
 			//TODO sell the selected player
-			Team feyenoord = instance.getLeague().getTeam("Feyenoord");
-			selectedPlayer.sellToTeam(feyenoord);
-			
-			System.out.println(feyenoord);
 		});
 		
 		getYourPlayerTableView().setOnMouseClicked((event) -> {

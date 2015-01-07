@@ -9,13 +9,14 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import dataModel.GameState;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import nl.tudelft.footballmanager.FootballManager;
+import nl.tudelft.footballmanager.model.GameState;
 
 /**
  * @author Mathijs de Boer <czorio4@gmail.com>
