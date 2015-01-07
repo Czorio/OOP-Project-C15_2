@@ -9,11 +9,15 @@
 
 <AnchorPane prefHeight="560.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <ImageView fitHeight="586.0" fitWidth="280.0" opacity="0.11" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="-0.7509765625">
-            <image>
-                <Image url="@../../../img/HalfBall.png" />
-            </image>
-        </ImageView>
+      <StackPane layoutY="-1.0" prefHeight="560.0" prefWidth="589.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+              <ImageView cacheHint="QUALITY" fitHeight="560.0" fitWidth="660.0" layoutY="-1.0" opacity="0.11" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="1.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-1.0" StackPane.alignment="CENTER">
+                  <image>
+                      <Image url="@../../../../../../img/1__cover_voetbal.png" />
+                  </image>
+              </ImageView>
+         </children>
+      </StackPane>
         <StackPane prefHeight="150.0" prefWidth="395.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <Label text="Football Manager 2142">

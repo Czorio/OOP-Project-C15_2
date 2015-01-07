@@ -46,7 +46,7 @@
                 </AnchorPane>
                 <AnchorPane maxWidth="144.0" minHeight="0.0" minWidth="144.0" prefHeight="558.0" prefWidth="144.0">
                     <children>
-                        <Button fx:id="doneButton" layoutX="50.0" layoutY="519.0" mnemonicParsing="false" text="Done" />
+                        <Button fx:id="doneButton" layoutX="50.0" layoutY="519.0" mnemonicParsing="false" text="Done" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="49.0" />
                     </children>
                 </AnchorPane>
             </items>
