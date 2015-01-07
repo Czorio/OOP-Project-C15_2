@@ -47,7 +47,7 @@ public class GameLogic {
 		
 		//Match starts here
 		//TODO: Add injuries, cards, ...?
-		//TODO Test score values.
+		//TODO Balance score values.
 		for (int i = 1; i <= (90 + extraTime); i++) {
 			if(homeScoreChance + generateRandom(0,80) > 235 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0,30) >=29) {
 				homeGoals++;

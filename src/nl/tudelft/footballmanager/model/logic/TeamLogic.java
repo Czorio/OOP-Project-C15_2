@@ -38,9 +38,9 @@ public final class TeamLogic {
 	public static final int calculateTeamOffScore(Team team) {
 		int offScore = 0;
 		
-		for (int i = 0; i < playingPlayers.size(); i++) {
-			if (playingPlayers.get(i).getClub().equals(team.getTeam())){
-				offScore += PlayerLogic.calculatePlayerOffScore(playingPlayers.get(i));
+		for (Player p : playingPlayers) {
+			if (p.getClub().equals(team.getTeam())) {
+				offScore += PlayerLogic.calculatePlayerOffScore(p);
 			}
 		}
 		
@@ -54,10 +54,10 @@ public final class TeamLogic {
 	 */
 	public static final int calculateTeamDefScore(Team team) {
 		int defScore = 0;
-
-		for (int i = 0; i < playingPlayers.size(); i++) {
-			if (playingPlayers.get(i).getClub().equals(team.getTeam())){
-				defScore += PlayerLogic.calculatePlayerDefScore(playingPlayers.get(i));
+		
+		for (Player p : playingPlayers) {
+			if (p.getClub().equals(team.getTeam())) {
+				defScore += PlayerLogic.calculatePlayerDefScore(p);
 			}
 		}
 
@@ -72,9 +72,9 @@ public final class TeamLogic {
 	public static final int calculateTeamStaminaScore(Team team){
 		int stamScore = 0;
 		
-		for (int i = 0; i < playingPlayers.size(); i++){
-			if (playingPlayers.get(i).getClub().equals(team.getTeam())){
-				stamScore += PlayerLogic.calculatePlayerStamina(playingPlayers.get(i));
+		for (Player p : playingPlayers) {
+			if (p.getClub().equals(team.getTeam())) {
+				stamScore += PlayerLogic.calculatePlayerStamina(p);
 			}
 		}
 		
@@ -101,12 +101,12 @@ public final class TeamLogic {
 		XMLPlayer xmlplayer = new XMLPlayer(in);
 		League league = xmlplayer.readFromFile(gs.getLeague());
 
-		String playerTeam = gs.getTeam();
-		Team team = league.getTeam(playerTeam);
-
-		for (int i = 0; i < league.getTeams().size(); i++) {
-			if(league.getTeams().get(i) != team) {
-				createAIActivePlayers(league.getTeams().get(i));
+		String pTeam = gs.getTeam();
+		Team playerTeam = league.getTeam(pTeam);
+		
+		for (Team team : league.getTeams()) {
+			if(team != playerTeam) {
+				createAIActivePlayers(team);
 			}
 		}
 	}
@@ -119,7 +119,7 @@ public final class TeamLogic {
 		String setup = createSetup();
 		Scanner sc = new Scanner(setup);
 		Random random = new Random(System.currentTimeMillis());
-//		System.out.println("The used setup for team " + team.getTeam() + " is " + setup);
+		System.out.println("The used setup for team " + team.getTeam() + " is " + setup);
 
 		int nrDefenders = sc.nextInt();
 		int nrMidfielders = sc.nextInt();
@@ -130,14 +130,14 @@ public final class TeamLogic {
 		List<Player> midfielders = team.getByPosition("Midfielder");
 		List<Player> attackers = team.getByPosition("Attacker");
 		
-//		System.out.println("Goalkeepers: " + goalkeepers.size());
-//		System.out.println("Defenders: " + defenders.size());
-//		System.out.println("Midfielders: " + midfielders.size());
-//		System.out.println("Attackers: " + attackers.size());
+		System.out.println("Goalkeepers: " + goalkeepers.size());
+		System.out.println("Defenders: " + defenders.size());
+		System.out.println("Midfielders: " + midfielders.size());
+		System.out.println("Attackers: " + attackers.size());
 		
 		//Sets all players current position to "None"
-		for (int i = 0; i < team.getPlayers().size(); i++) {
-			team.getPlayers().get(i).setCurPosition("None");
+		for (Player p : team.getPlayers()) {
+			p.setCurPosition("None");
 		}
 		
 		int randomKeeper = random.nextInt(goalkeepers.size());
@@ -202,9 +202,9 @@ public final class TeamLogic {
 		
 		//TODO Write amount of games to file.
 		//Sets the amount of played games for each playing player to + 1.
-		for(int i = 0; i > playingPlayers.size(); i++) {
-			playingPlayers.get(i).setPlayedGames(playingPlayers.get(i).getPlayedGames() + 1);
-		}
+//		for(Player p : playingPlayers) {
+//			p.setPlayedGames(p.getPlayedGames() + 1);
+//		}
 
 		sc.close();
 	}
