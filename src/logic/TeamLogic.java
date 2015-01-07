@@ -28,7 +28,6 @@ public final class TeamLogic {
 	 */
 	public TeamLogic(Team team, GameState gs) {
 		TeamLogic.gs = gs;
-		createAITeam();
 	}
 
 	/**

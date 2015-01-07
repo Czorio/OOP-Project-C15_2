@@ -5,15 +5,7 @@ package test;
 
 import static org.junit.Assert.*;
 
-import java.io.File;
-
-import logic.GameLogic;
 import org.junit.Test;
-
-import xml.XMLPlayer;
-import dataModel.GameState;
-import dataModel.League;
-import dataModel.Team;
 
 /**
  * @author Steven
