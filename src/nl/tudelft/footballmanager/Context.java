@@ -1,7 +1,7 @@
 /**
  * 
  */
-package nl.tudelft.footballmanager.ui.controller;
+package nl.tudelft.footballmanager;
 
 import java.util.Observable;
 

@@ -5,11 +5,6 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import nl.tudelft.footballmanager.model.GameState;
-import nl.tudelft.footballmanager.model.League;
-import nl.tudelft.footballmanager.ui.controller.Context;
-import nl.tudelft.footballmanager.ui.controller.RootController;
-import nl.tudelft.footballmanager.ui.controller.TeamOverviewController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,6 +12,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import nl.tudelft.footballmanager.model.GameState;
+import nl.tudelft.footballmanager.model.League;
+import nl.tudelft.footballmanager.ui.controller.RootController;
+import nl.tudelft.footballmanager.ui.controller.TeamOverviewController;
 
 public class FootballManager extends Application {
 	
