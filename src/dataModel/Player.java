@@ -100,37 +100,6 @@ public class Player extends Observable {
 		notifyObservers(this);
 	}
 
-	public int sellToTeam(Team buyer) {
-		Team seller;
-		int sum;
-
-		if (buyer == null) {
-			return TEAM_NULL_SELLING_ERROR;
-		} else if (buyer.getBudget() >= 0 && buyer.getBudget() < this.price) {
-			return BUDGET_NOT_SUFFICIENT_SELLING_ERROR;
-		}
-
-		sum = getPrice();
-		seller = this.getTeam();
-		
-		try {
-			seller.removePlayer(this);
-			seller.alterBudget(sum);
-			buyer.alterBudget(-sum);
-			buyer.addPlayer(this);
-			
-			return SOLD_SELLING_SUCCES;
-		} catch (Exception e) {
-			buyer.removePlayer(this);
-			buyer.alterBudget(sum);
-			seller.alterBudget(-sum);
-			seller.addPlayer(this);
-			
-			e.printStackTrace();
-			return UNKNOWN_SELLING_ERROR;
-		}
-	}
-
 	/**
 	 * Checks if this is equal to other.
 	 */
