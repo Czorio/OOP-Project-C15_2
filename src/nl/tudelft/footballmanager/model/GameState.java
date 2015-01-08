@@ -13,6 +13,7 @@ public class GameState extends Observable {
 
 	private League league;
 	private Team myTeam;
+	private MatchScheme matchScheme;
 
 	/**
 	 * @param coachName
@@ -20,11 +21,12 @@ public class GameState extends Observable {
 	 * @param league
 	 * @param myTeam
 	 */
-	public GameState(String coachName, int gameRound, League league, Team myTeam) {
+	public GameState(String coachName, int gameRound, League league, Team myTeam, MatchScheme matchScheme) {
 		this.coachName = coachName;
 		this.gameRound = gameRound;
 		this.league = league;
 		this.myTeam = myTeam;
+		this.matchScheme = matchScheme;
 
 		this.setChanged();
 		this.notifyObservers(this);
@@ -42,6 +44,17 @@ public class GameState extends Observable {
 		this.gameRound = gameState.getGameRound();
 		this.league = gameState.getLeague();
 		this.myTeam = gameState.getMyTeam();
+		this.matchScheme = gameState.getMatchScheme();
+
+		this.setChanged();
+		this.notifyObservers(this);
+	}
+
+	public GameState(String coachName, int gameRound, League league, Team myTeam) {
+		this.coachName = coachName;
+		this.gameRound = gameRound;
+		this.league = league;
+		this.myTeam = myTeam;
 
 		this.setChanged();
 		this.notifyObservers(this);
@@ -59,6 +72,7 @@ public class GameState extends Observable {
 		this.gameRound = gameState.getGameRound();
 		this.league = gameState.getLeague();
 		this.myTeam = gameState.getMyTeam();
+		this.matchScheme = gameState.getMatchScheme();
 
 		this.setChanged();
 		this.notifyObservers(this);
@@ -187,5 +201,19 @@ public class GameState extends Observable {
 		} else {
 			throw new Exception("LEAGUE NOT SET");
 		}
+	}
+
+	/**
+	 * @return the matchScheme
+	 */
+	public MatchScheme getMatchScheme() {
+		return matchScheme;
+	}
+
+	/**
+	 * @param matchScheme the matchScheme to set
+	 */
+	public void setMatchScheme(MatchScheme matchScheme) {
+		this.matchScheme = matchScheme;
 	}
 }

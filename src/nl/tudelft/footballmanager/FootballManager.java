@@ -28,7 +28,7 @@ public class FootballManager extends Application {
 	private static RootController rootController;
 	private static TeamOverviewController teamOverviewController;
 	
-	static Context instance;
+	static Context instance = Context.getInstance();
 
 	@Override
 	public void start(Stage stage) {
@@ -54,7 +54,7 @@ public class FootballManager extends Application {
 		
 		instance.setLeague(League.readFromFile(PLAYER_DATABASE));
 		
-		instance.setGameState(new GameState(null, 0, null, null));
+		instance.setGameState(new GameState(null, 0, null, null, null));
 		
 		instance.getGameState().addObserver(teamOverviewController);
 		instance.getGameState().addObserver(rootController);
