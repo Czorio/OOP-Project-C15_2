@@ -15,7 +15,8 @@ import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 public class Match extends Observable {
 	private Team home;
 	private Team away;
-	
+	private int round;
+
 	/**
 	 * @param home
 	 * @param away
@@ -24,33 +25,34 @@ public class Match extends Observable {
 		this.home = home;
 		this.away = away;
 	}
-	
+
 	//TESTMETHOD
 	public static void main(String args[]) {
-//		Scanner sc = new Scanner(System.in);
-//		System.out.println("Home team: ");
-//		String home = sc.nextLine();
-//		System.out.println("Away team: ");
-//		String away = sc.nextLine();
-		
-		GameState testgs = new GameState("Steven", 1, "Eredivisie", "");
+		//		Scanner sc = new Scanner(System.in);
+		//		System.out.println("Home team: ");
+		//		String home = sc.nextLine();
+		//		System.out.println("Away team: ");
+		//		String away = sc.nextLine();
+
+		//		GameState testgs = new GameState("Steven", 1, "Eredivisie", "");
+		GameState testgs = new GameState(new File("XML/GameStateTest.xml"));
 		match(testgs, "Ajax", "Feyenoord");
-		
+
 		//sc.close();
 	}
 
-	public static void match(GameState gs, String homeName, String awayName) {		
-		File in = new File("GameData/Leagues/" + gs.getLeague() + ".xml");
+	public static void match(GameState gs, String homeName, String awayName) {
+		File in = new File("GameData/Leagues/" + gs.getLeague().getLeague() + ".xml");
 		XMLPlayer xmlplayer = new XMLPlayer(in);
-		League league = xmlplayer.readFromFile(gs.getLeague());
+		League league = xmlplayer.readFromFile(gs.getLeague().getLeague());
 
 		Team home = league.getTeam(homeName);
 		Team away = league.getTeam(awayName);
-		
+
 		new GameLogic(home, away, gs);
 		GameLogic.game();
 	}
-	
+
 	/**
 	 * @return the home
 	 */
@@ -80,10 +82,33 @@ public class Match extends Observable {
 	 */
 	public void setAway(Team away) {
 		this.away = away;
-		
+
 		this.setChanged();
 		this.notifyObservers();
 	}
-	
-	
+
+	/**
+	 * @return the round
+	 */
+	public int getRound() {
+		return round;
+	}
+
+	/**
+	 * @param round the round to set
+	 */
+	public void setRound(int round) {
+		this.round = round;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "Match [home=" + home.getTeam() + ", away=" + away.getTeam() + ", round=" + round
+				+ "]";
+	}
+
+
 }

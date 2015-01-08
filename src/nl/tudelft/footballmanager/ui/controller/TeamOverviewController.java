@@ -56,10 +56,9 @@ public class TeamOverviewController implements Initializable, Observer {
 //		System.out.println("An instance of " + o.getClass().toString() + " has changed! (TeamOverview)");
 
 		if (o == instance.getGameState() || arg == instance.getGameState()) {
-			String team = instance.getGameState().getTeam();
+			Team t = instance.getGameState().getMyTeam();
 			League l = instance.getLeague();
-			Team t;
-			if (l != null && null != (t = l.getTeam(team))) {
+			if (l != null && t != null) {
 				ObservableList<Player> players = FXCollections.observableList(t.getPlayers());
 				yourPlayerTableView.getItems().setAll(players);
 			}

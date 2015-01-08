@@ -55,15 +55,15 @@ public class XMLConfig extends XML {
 	        rootEle.appendChild(el);
 
 	        el = dom.createElement("round");
-	        el.appendChild(dom.createTextNode(Integer.toString(gameState.getRound())));
+	        el.appendChild(dom.createTextNode(Integer.toString(gameState.getGameRound())));
 	        rootEle.appendChild(el);
 
 	        el = dom.createElement("league");
-	        el.appendChild(dom.createTextNode(gameState.getLeague()));
+	        el.appendChild(dom.createTextNode(gameState.getLeague().getLeague()));
 	        rootEle.appendChild(el);
 
 	        el = dom.createElement("team");
-	        el.appendChild(dom.createTextNode(gameState.getTeam()));
+	        el.appendChild(dom.createTextNode(gameState.getMyTeam().getTeam()));
 	        rootEle.appendChild(el);
 
 	        dom.appendChild(rootEle);

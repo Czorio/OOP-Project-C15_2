@@ -137,7 +137,7 @@ public class RootController implements Initializable, Observer {
 //		System.out.println("An instance of " + o.getClass().toString() + " has changed (Root)!");
 		
 		if (o == instance.getGameState()) {
-			this.gamesPlayed.setText(String.valueOf(instance.getGameState().getRound()));
+			this.gamesPlayed.setText(String.valueOf(instance.getGameState().getGameRound()));
 		}
 		
 		System.out.println("o CHANGED " + o);

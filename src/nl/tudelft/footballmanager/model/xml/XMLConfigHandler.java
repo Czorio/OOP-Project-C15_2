@@ -65,7 +65,7 @@ public class XMLConfigHandler extends DefaultHandler {
 				
 			case "ROUND":
 				//System.out.println(new String(ch, start, length));
-				gameState.setRound(new Integer(new String(ch, start, length)).intValue());
+				gameState.setGameRound(new Integer(new String(ch, start, length)).intValue());
 				break;
 				
 			case "LEAGUE":
@@ -73,7 +73,12 @@ public class XMLConfigHandler extends DefaultHandler {
 				break;
 				
 			case "TEAM":
-				gameState.setTeam(new String(ch, start, length));
+				try {
+					gameState.setMyTeam(new String(ch, start, length));
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 				
 			default:

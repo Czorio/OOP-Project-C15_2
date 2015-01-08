@@ -9,98 +9,93 @@ import nl.tudelft.footballmanager.model.xml.XMLConfig;
  */
 public class GameState extends Observable {
 	private String coachName;
-	private int round;
-	private String league;
-	private String team;	
+	private int gameRound;
+
+	private League league;
+	private Team myTeam;
 
 	/**
 	 * @param coachName
-	 * @param round
+	 * @param gameRound
 	 * @param league
-	 * @param team
+	 * @param myTeam
 	 */
-	public GameState(String coachName, int round, String league, String team) {
+	public GameState(String coachName, int gameRound, League league, Team myTeam) {
 		this.coachName = coachName;
-		this.round = round;
+		this.gameRound = gameRound;
 		this.league = league;
-		this.team = team;
+		this.myTeam = myTeam;
 
 		this.setChanged();
 		this.notifyObservers(this);
 	}
-	
+
 	/**
 	 * @param file XML file to read config from.
 	 */
 	public GameState(File file) {
 		XMLConfig xmlConfig = new XMLConfig(file);
-		
+
 		GameState gameState = xmlConfig.readFromFile();
-		
-//		setCoachName(gameState.getCoachName());
-//		setRound(gameState.getRound());
-//		setLeague(gameState.getLeague());
-//		setTeam(gameState.getTeam());
-		
-		/** 
-		 * Changed this above to below because above methods all call
-		 * the setChanged() method, which triggers all Observers 5 times.
-		 */
-		
+
 		this.coachName = gameState.getCoachName();
-		this.round = gameState.getRound();
+		this.gameRound = gameState.getGameRound();
 		this.league = gameState.getLeague();
-		this.team = gameState.getTeam();
+		this.myTeam = gameState.getMyTeam();
 
 		this.setChanged();
 		this.notifyObservers(this);
 	}
-	
+
 	/**
 	 * @param file XML file to read config from.
 	 */
 	public void loadGameState(File file) {
 		XMLConfig xmlConfig = new XMLConfig(file);
-		
+
 		GameState gameState = xmlConfig.readFromFile();
-		
-//		setCoachName(gameState.getCoachName());
-//		setRound(gameState.getRound());
-//		setLeague(gameState.getLeague());
-//		setTeam(gameState.getTeam());
-		
-		/** 
-		 * Changed this above to below because above methods all call
-		 * the setChanged() method, which triggers all Observers 5 times.
-		 */
-		
+
 		this.coachName = gameState.getCoachName();
-		this.round = gameState.getRound();
+		this.gameRound = gameState.getGameRound();
 		this.league = gameState.getLeague();
-		this.team = gameState.getTeam();
-		
+		this.myTeam = gameState.getMyTeam();
+
 		this.setChanged();
 		this.notifyObservers(this);
 	}
-	
+
 	/**
 	 * @param file XML file to write config to.
 	 */
 	public void saveGameState(File file) {
 		XMLConfig xmlConfig = new XMLConfig(file);
-		
+
 		xmlConfig.writeToFile(this);		
 	}
-	
+
 	public static boolean isUseless(GameState gameState) {
 		return gameState == null
 				|| gameState.getCoachName() == null
 				|| gameState.getLeague() == null
-				|| gameState.getTeam() == null;
+				|| gameState.getMyTeam() == null;
 	}
-	
+
 	public void nextRound() {
-		this.setRound(getRound() + 1);
+		this.setGameRound(getGameRound() + 1);
+	}
+
+	public String getMyTeamName() {
+		return getMyTeam().getTeam();
+	}
+
+	public String getLeagueName() {
+		return getLeague().getLeague();
+	}
+
+	@Override
+	public String toString() {
+		return "GameState [coachName=" + coachName + ", round=" + gameRound
+				+ ", league=" + league + ", team=" + myTeam + "]";
 	}
 
 	/**
@@ -115,68 +110,82 @@ public class GameState extends Observable {
 	 */
 	public void setCoachName(String coachName) {
 		this.coachName = coachName;
-		
+
 		setChanged();
-		notifyObservers(this.coachName);
+		notifyObservers(this);
 	}
 
 	/**
-	 * @return the round
+	 * @return the gameRound
 	 */
-	public int getRound() {
-		return round;
+	public int getGameRound() {
+		return gameRound;
 	}
 
 	/**
-	 * @param round the round to set
+	 * @param gameRound the gameRound to set
 	 */
-	public void setRound(int round) {
-		this.round = round;
-		
+	public void setGameRound(int gameRound) {
+		this.gameRound = gameRound;
+
 		setChanged();
-		notifyObservers(this.round);
+		notifyObservers(this);
 	}
 
 	/**
 	 * @return the league
 	 */
-	public String getLeague() {
+	public League getLeague() {
 		return league;
 	}
 
 	/**
 	 * @param league the league to set
 	 */
-	public void setLeague(String league) {
+	public void setLeague(League league) {
 		this.league = league;
-		
+
 		setChanged();
-		notifyObservers(this.league);
+		notifyObservers(this);
+	}
+
+	public void setLeague(String leagueName) {
+		this.league = League.readFromFile(new File("GameData/Leagues/" + leagueName + ".xml"));
+
+		setChanged();
+		notifyObservers(this);
 	}
 
 	/**
-	 * @return the team
+	 * @return the myTeam
 	 */
-	public String getTeam() {
-		return team;
+	public Team getMyTeam() {
+		return myTeam;
 	}
 
 	/**
-	 * @param team the team to set
+	 * @param myTeam the myTeam to set
 	 */
-	public void setTeam(String team) {
-		this.team = team;
-		
-		setChanged();
-		notifyObservers(this.team);
-	}
+	public void setMyTeam(Team myTeam) {
+		this.myTeam = myTeam;
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+		setChanged();
+		notifyObservers(this);
+	}
+	/**
+	 * Sets team according to name.
+	 * Cannot set team if league is not set
+	 * @param myTeamName
+	 * @throws Exception 
 	 */
-	@Override
-	public String toString() {
-		return "GameState [coachName=" + coachName + ", round=" + round
-				+ ", league=" + league + ", team=" + team + "]";
+	public void setMyTeam(String myTeamName) throws Exception {
+		if(this.league != null) {
+			this.myTeam = this.league.getTeam(myTeamName);
+
+			setChanged();
+			notifyObservers(this);
+		} else {
+			throw new Exception("LEAGUE NOT SET");
+		}
 	}
 }

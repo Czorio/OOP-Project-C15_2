@@ -6,6 +6,7 @@ import java.util.Observable;
 
 
 
+
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
 import org.apache.commons.io.FilenameUtils; // Toevoegen aan build path **Notitie (MdB): Staat in de lib folder als commons-io-2.4.jar**
@@ -161,5 +162,22 @@ public class League extends Observable {
 
 		this.setChanged();
 		this.notifyObservers();
+	}
+
+	/**
+	 * @return
+	 */
+	public ArrayList<SchemableMatch> getPossibleMatches(League league) {
+		ArrayList<SchemableMatch> matches = new ArrayList<SchemableMatch>();
+		
+		for (Team a : league.getTeams()) {
+			for (Team b : league.getTeams()) {
+				if (a.equals(b)) continue;
+
+				matches.add(new SchemableMatch(a, b, true));
+			}
+		}
+		
+		return matches;
 	}	
 }

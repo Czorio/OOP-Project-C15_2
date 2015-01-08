@@ -59,11 +59,6 @@ public class FootballManager extends Application {
 		instance.getGameState().addObserver(teamOverviewController);
 		instance.getGameState().addObserver(rootController);
 		
-		instance.getGameState().setCoachName("Dummy Coach");
-		instance.getGameState().setLeague("Eredivisie");
-		instance.getGameState().setRound(8);
-		instance.getGameState().setTeam("SC Cambuur");
-		
 		if (GameState.isUseless(instance.getGameState())) {
 			System.out.println("GameState is empty, asking to load one...");
 			instance.setGameState(rootController.loadGame(instance.getGameState()));

@@ -97,11 +97,11 @@ public final class TeamLogic {
 	 * @param gs The current gamestate.
 	 */
 	public static void createAITeam() {
-		File in = new File("GameData/Leagues/" + gs.getLeague() + ".xml");
+		File in = new File("GameData/Leagues/" + gs.getLeague().getLeague() + ".xml");
 		XMLPlayer xmlplayer = new XMLPlayer(in);
-		League league = xmlplayer.readFromFile(gs.getLeague());
+		League league = xmlplayer.readFromFile(gs.getLeague().getLeague());
 
-		String pTeam = gs.getTeam();
+		String pTeam = gs.getMyTeam().getTeam();
 		Team playerTeam = league.getTeam(pTeam);
 		
 		for (Team team : league.getTeams()) {
