@@ -14,6 +14,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.League;
+import nl.tudelft.footballmanager.ui.controller.MatchViewController;
 import nl.tudelft.footballmanager.ui.controller.RootController;
 import nl.tudelft.footballmanager.ui.controller.TeamOverviewController;
 
@@ -22,18 +23,20 @@ public class FootballManager extends Application {
 	public final static File PLAYER_DATABASE = new File("GameData/Leagues/Eredivisie.xml");
 	public final static String rootViewFileName = "ui/view/RootView.fxml";
 	public final static String teamOverviewFileName = "ui/view/TeamOverview.fxml";
+	public final static String matchViewFileName = "ui/view/MatchView.fxml";
 	
 	private static Stage stage;
 	private BorderPane rootLayout;
 	private static RootController rootController;
 	private static TeamOverviewController teamOverviewController;
+	private static MatchViewController matchViewController;
 	
 	static Context instance = Context.getInstance();
 
 	@Override
 	public void start(Stage stage) {
 		FootballManager.stage = stage;
-		FootballManager.stage.setTitle("Football Manager");
+		FootballManager.stage.setTitle("Football Manager 2142");
 		
 		try {
 			initRootLayout();
@@ -84,6 +87,15 @@ public class FootballManager extends Application {
 		
 		rootLayout.setCenter(teamOverview);
 		teamOverviewController = l.getController();
+	}
+	
+	public void showMatchView() throws IOException {
+		FXMLLoader l = new FXMLLoader();
+		l.setLocation(FootballManager.class.getResource(matchViewFileName));
+		AnchorPane teamOverview = (AnchorPane) l.load();
+		
+		rootLayout.setCenter(teamOverview);
+		matchViewController = l.getController();
 	}
 
 	public static void main(String[] args) {

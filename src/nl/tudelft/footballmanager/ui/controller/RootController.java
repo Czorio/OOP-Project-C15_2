@@ -57,6 +57,8 @@ public class RootController implements Initializable, Observer {
 		nextRoundButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
 			instance.getGameState().nextRound();
+			
+			//showMatchView();
 		});
 		
 		// Save and Quit application
