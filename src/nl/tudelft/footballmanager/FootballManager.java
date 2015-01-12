@@ -27,6 +27,7 @@ public class FootballManager extends Application {
 	public final static String rootViewFileName = "ui/view/RootView.fxml";
 	public final static String teamOverviewFileName = "ui/view/TeamOverview.fxml";
 	public final static String matchViewFileName = "ui/view/MatchView.fxml";
+	public final static String newGameViewFileName = "ui/view/NewGameView.fxml";
 
 	private static Stage stage;
 	private BorderPane rootLayout;
@@ -122,7 +123,7 @@ public class FootballManager extends Application {
 
 	public void showNewGame() throws IOException {
 		FXMLLoader l = new FXMLLoader();
-		l.setLocation(FootballManager.class.getResource("ui/view/NewGame.fxml"));
+		l.setLocation(FootballManager.class.getResource(newGameViewFileName));
 
 		newGame = (AnchorPane) l.load();
 		stage.setScene(new Scene(newGame));
