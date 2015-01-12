@@ -28,7 +28,7 @@ public class GameStateTest {
 		loadFile2 = new File("XML/GameStateTest2.xml");
 		saveFile = new File("XML/SaveGameStateTest.xml");
 		testGameState1 = new GameState("Karel Janssen", 7, "Eredivisie", "ADO Den Haag");
-		testGameState2 = new GameState("Pjotter Karelson", 1, "Eerste Divisie", "Feyenoord");
+		testGameState2 = new GameState("Pjotter Karelson", 1, "Eredivisie", "Feyenoord");
 		testGameState3 = new GameState(loadFile);
 		testGameState4 = new GameState(loadFile2);
 		testGameState5 = new GameState(saveFile);
@@ -60,8 +60,8 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateStringIntStringStringRound() {
-		assertEquals(7, testGameState1.getRound());
-		assertEquals(1, testGameState2.getRound());
+		assertEquals(7, testGameState1.getGameRound());
+		assertEquals(1, testGameState2.getGameRound());
 	}
 
 	/**
@@ -70,8 +70,8 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateStringIntStringStringLeague() {
-		assertEquals("Eredivisie", testGameState1.getLeague());
-		assertEquals("Eerste Divisie", testGameState2.getLeague());
+		assertEquals("Eredivisie", testGameState1.getLeague().getLeague());
+		assertEquals("Eredivisie", testGameState2.getLeague().getLeague());
 	}
 
 	/**
@@ -80,8 +80,8 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateStringIntStringStringTeam() {
-		assertEquals("ADO Den Haag", testGameState1.getTeam());
-		assertEquals("Feyenoord", testGameState2.getTeam());
+		assertEquals("ADO Den Haag", testGameState1.getMyTeam().getTeam());
+		assertEquals("Feyenoord", testGameState2.getMyTeam().getTeam());
 	}
 
 	/**
@@ -110,8 +110,8 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateFileRound() {
-		assertEquals(4, testGameState3.getRound());
-		assertEquals(5, testGameState4.getRound());
+		assertEquals(4, testGameState3.getGameRound());
+		assertEquals(5, testGameState4.getGameRound());
 	}
 
 	/**
@@ -120,8 +120,8 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateFileLeague() {
-		assertEquals("Eredivisie", testGameState3.getLeague());
-		assertEquals("Eerste Divisie", testGameState4.getLeague());
+		assertEquals("Eredivisie", testGameState3.getLeague().getLeague());
+		assertEquals("Eredivisie", testGameState4.getLeague().getLeague());
 	}
 
 	/**
@@ -130,8 +130,8 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateFileTeam() {
-		assertEquals("Feyenoord", testGameState3.getTeam());
-		assertEquals("Ajax", testGameState4.getTeam());
+		assertEquals("Feyenoord", testGameState3.getMyTeam().getTeam());
+		assertEquals("Ajax", testGameState4.getMyTeam().getTeam());
 	}
 
 	//TODO Test GameState.LoadGameState(file)
@@ -197,7 +197,7 @@ public class GameStateTest {
 	public void testSaveGameStateRound() {
 		testGameState1.saveGameState(saveFile);
 
-		assertEquals(testGameState5.getRound(), testGameState1.getRound());
+		assertEquals(testGameState5.getGameRound(), testGameState1.getGameRound());
 		
 		saveFile.delete();
 	}
@@ -223,7 +223,7 @@ public class GameStateTest {
 	public void testSaveGameStateTeam() {
 		testGameState1.saveGameState(saveFile);
 
-		assertTrue(testGameState5.getTeam().equals(testGameState1.getTeam()));
+		assertTrue(testGameState5.getMyTeam().equals(testGameState1.getMyTeam()));
 		
 		saveFile.delete();
 	}

@@ -1,11 +1,9 @@
 package nl.tudelft.footballmanager.model;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Observable;
 //import java.util.Set;
-
-
-
 
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
@@ -41,7 +39,7 @@ public class League extends Observable {
 		this(league, new ArrayList<Team>());
 	}
 
-	public static League readFromFile(File inFile) {
+	public static League readFromFile(File inFile) throws FileNotFoundException {
 		String leagueName = FilenameUtils.removeExtension(inFile.getName());
 		XMLPlayer xmlplayer = new XMLPlayer(inFile);
 		return xmlplayer.readFromFile(leagueName);

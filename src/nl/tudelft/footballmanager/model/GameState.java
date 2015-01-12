@@ -1,5 +1,6 @@
 package nl.tudelft.footballmanager.model;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.Observable;
 
 import nl.tudelft.footballmanager.model.xml.XMLConfig;
@@ -8,12 +9,12 @@ import nl.tudelft.footballmanager.model.xml.XMLConfig;
  * @author Boris Schrijver <boris@radialcontext.nl>
  */
 public class GameState extends Observable {
-	private String coachName;
-	private int gameRound;
+	private String coachName = null;
+	private int gameRound = -1;
 
-	private League league;
-	private Team myTeam;
-	private MatchScheme matchScheme;
+	private League league = null;
+	private Team myTeam = null;
+	private MatchScheme matchScheme = null;
 
 	/**
 	 * @param coachName
@@ -27,6 +28,28 @@ public class GameState extends Observable {
 		this.league = league;
 		this.myTeam = myTeam;
 		this.matchScheme = matchScheme;
+
+		this.setChanged();
+		this.notifyObservers(this);
+	}
+
+	public GameState(String coachName, int gameRound, String leagueName, String myTeamName) {
+		this.coachName = coachName;
+		this.gameRound = gameRound;
+		this.league = null;
+		
+		if (leagueName != null) {
+			try {
+				this.league = League.readFromFile(new File("GameData/Leagues/" + leagueName + ".xml"));
+				if (myTeamName != null) {
+					this.myTeam = this.league.getTeam(myTeamName);
+				}
+			} catch (FileNotFoundException e) {
+				this.league = null;
+			}
+		}
+		
+		this.matchScheme = new MatchScheme(this.league, 0);
 
 		this.setChanged();
 		this.notifyObservers(this);
@@ -164,7 +187,11 @@ public class GameState extends Observable {
 	}
 
 	public void setLeague(String leagueName) {
-		this.league = League.readFromFile(new File("GameData/Leagues/" + leagueName + ".xml"));
+		try {
+			this.league = League.readFromFile(new File("GameData/Leagues/" + leagueName + ".xml"));
+		} catch (FileNotFoundException e) {
+			this.league = null;
+		}
 
 		setChanged();
 		notifyObservers(this);

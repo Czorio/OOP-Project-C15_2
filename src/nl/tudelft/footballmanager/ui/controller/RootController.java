@@ -1,14 +1,12 @@
 package nl.tudelft.footballmanager.ui.controller;
 
 import java.io.File;
+import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import nl.tudelft.footballmanager.Context;
-import nl.tudelft.footballmanager.FootballManager;
-import nl.tudelft.footballmanager.model.GameState;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,6 +15,9 @@ import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import nl.tudelft.footballmanager.Context;
+import nl.tudelft.footballmanager.FootballManager;
+import nl.tudelft.footballmanager.model.GameState;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -109,7 +110,7 @@ public class RootController implements Initializable, Observer {
 		configureFileChooser(chooser);
 		
 		// file type filter
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.nl.tudelft.footballmanager.model.xml)", "*.nl.tudelft.footballmanager.model.xml");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
 		chooser.getExtensionFilters().add(extFilter);
 
 		File selectedFile = FootballManager.getOpenFile(chooser);

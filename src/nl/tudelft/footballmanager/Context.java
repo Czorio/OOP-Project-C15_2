@@ -3,6 +3,7 @@
  */
 package nl.tudelft.footballmanager;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 import nl.tudelft.footballmanager.model.GameState;
@@ -17,7 +18,8 @@ public class Context extends Observable {
 	private static final Context instance = new Context();
 	
 	private GameState gameState = null;
-	private League league = null;
+	private League myLeague = null;
+	private ArrayList<League> allLeagues;
 	private Player selectedPlayer = null;
 
 	/**
@@ -45,20 +47,20 @@ public class Context extends Observable {
 	}
 
 	/**
-	 * @return the league
+	 * @return the myLeague
 	 */
 	public League getLeague() {
-		return league;
+		return myLeague;
 	}
 
 	/**
-	 * @param league the league to set
+	 * @param myLeague the myLeague to set
 	 */
 	public void setLeague(League league) {
-		this.league = league;
+		this.myLeague = league;
 		
 		setChanged();
-		notifyObservers(this.league);
+		notifyObservers(this.myLeague);
 	}
 
 	/**
@@ -76,6 +78,23 @@ public class Context extends Observable {
 		
 		setChanged();
 		notifyObservers(this.selectedPlayer);
+	}
+
+	/**
+	 * @return the allLeagues
+	 */
+	public ArrayList<League> getAllLeagues() {
+		return allLeagues;
+	}
+
+	/**
+	 * @param allLeagues the allLeagues to set
+	 */
+	public void setAllLeagues(ArrayList<League> allLeagues) {
+		this.allLeagues = allLeagues;
+		
+		setChanged();
+		notifyObservers(this.allLeagues);
 	}
 	
 	

@@ -17,8 +17,24 @@ public class MatchScheme extends Observable {
 	private ArrayList<MatchDay> matchdays;
 
 	public MatchScheme(GameState state, int maxMatchesPerDay) {
+		this(state.getLeague(), maxMatchesPerDay);
+	}
+
+	/**
+	 * @param league
+	 * @param maxMatchesPerDay
+	 */
+	public MatchScheme(League league, int maxMatchesPerDay) {
 		matchdays = new ArrayList<MatchDay>();
-		this.populate(state.getLeague(), maxMatchesPerDay);
+		if (league != null)
+			this.populate(league, maxMatchesPerDay);
+	}
+
+	/**
+	 * @param league
+	 */
+	public MatchScheme() {
+		matchdays = new ArrayList<MatchDay>();
 	}
 
 	public static void main(String[] args) {

@@ -26,7 +26,7 @@ public class XMLConfigHandler extends DefaultHandler {
 		switch(qName.toUpperCase()) {
 		case "GAMESTATE":
 			// Initialize GameState object if null
-			if(gameState == null) gameState = new GameState(null, 0, null, null);
+			if(gameState == null) gameState = new GameState(null, 0, (String)null, (String)null);
 			break;
 			
 		case "COACHNAME":

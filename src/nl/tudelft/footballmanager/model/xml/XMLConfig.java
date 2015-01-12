@@ -112,7 +112,7 @@ public class XMLConfig extends XML {
 		}
 		
 		// Return empty GameState if non found.
-		return new GameState(null, 0, null, null);
+		return new GameState(null, 0, (String)null, (String)null);
 	}
 	
 	/**
