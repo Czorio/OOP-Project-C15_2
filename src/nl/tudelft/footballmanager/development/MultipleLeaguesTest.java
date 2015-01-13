@@ -3,14 +3,10 @@
  */
 package nl.tudelft.footballmanager.development;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 
 import nl.tudelft.footballmanager.model.League;
 import nl.tudelft.footballmanager.model.Team;
-import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -31,7 +27,7 @@ public class MultipleLeaguesTest {
 		System.out.println("Testing reading multiple leagues at once...");
 		System.out.println("Reading all leagues...");
 
-		ArrayList<League> leagues = League.readAll();
+		ArrayList<League> leagues = (ArrayList<League>) League.readAll();
 		System.out.println("Read leagues from file, sorting:");
 		printLeagues(leagues, false);
 	}
