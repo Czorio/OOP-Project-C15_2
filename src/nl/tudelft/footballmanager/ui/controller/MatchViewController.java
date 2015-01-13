@@ -59,7 +59,7 @@ public class MatchViewController implements Initializable, Observer {
 	 */
 	public static void show() {
 		FXMLLoader l = new FXMLLoader();
-		
+		// TODO show the view
 	}
 
 }
