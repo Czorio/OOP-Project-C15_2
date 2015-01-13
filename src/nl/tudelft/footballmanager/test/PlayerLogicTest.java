@@ -17,14 +17,7 @@ public class PlayerLogicTest {
 	
 	Player testPlayer = new Player(206, "Pieter", "van Bergen", "ADO Den Haag", "Nederlands", null, new Date(25/12/1993), "Midfielder", 83, 73, 70, 76, 63, 86);
 
-	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.logic.PlayerLogic#PlayerLogic()}.
-	 */
-	@Test
-	public void testPlayerLogic() {
-		fail("Not yet implemented");
-	}
-
+	
 	/**
 	 * Test method for {@link nl.tudelft.footballmanager.model.logic.PlayerLogic#calculatePlayerOffScore(nl.tudelft.footballmanager.model.Player)}.
 	 * Tests Attacker position.
@@ -93,18 +86,66 @@ public class PlayerLogicTest {
 
 	/**
 	 * Test method for {@link nl.tudelft.footballmanager.model.logic.PlayerLogic#calculatePlayerStamina(nl.tudelft.footballmanager.model.Player)}.
+	 * Stamina > 80
 	 */
 	@Test
 	public void testCalculatePlayerStamina() {
-		fail("Not yet implemented");
+		testPlayer.setStamina(90);
+		assertEquals(testPlayer.getStamina(),PlayerLogic.calculatePlayerStamina(testPlayer));
+	}
+	
+	/**
+	 * Test method for {@link nl.tudelft.footballmanager.model.logic.PlayerLogic#calculatePlayerStamina(nl.tudelft.footballmanager.model.Player)}
+	 * Stamina between 80 and 65
+	 */
+	@Test
+	public void testCalculatePlayerStaminaElseIf(){
+		testPlayer.setStamina(70);
+		assertEquals(testPlayer.getStamina(),PlayerLogic.calculatePlayerStamina(testPlayer));
+	}
+	
+	/**
+	 * Test method for {@link nl.tudelft.footballmanager.model.logic.PlayerLogic#calculatePlayerStamina(nl.tudelft.footballmanager.model.Player)}
+	 * Stamina between 65 and 40
+	 */
+	@Test
+	public void testCalulatePlayerStaminaElseIf2(){
+		testPlayer.setStamina(50);
+		assertEquals(testPlayer.getStamina(),PlayerLogic.calculatePlayerStamina(testPlayer));
+	}
+	
+	/**
+	 * Test method for {@link nl.tudelft.footballmanager.model.logic.PlayerLogic#calculatePlayerStamina(nl.tudelft.footballmanager.model.Player)}
+	 * Stamina below 40
+	 */
+	@Test
+	public void testCalculatePlayerStaminaElse(){
+		testPlayer.setStamina(30);
+		assertEquals(testPlayer.getStamina(),PlayerLogic.calculatePlayerStamina(testPlayer));
 	}
 
 	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.logic.PlayerLogic#calculatePlayedGames(nl.tudelft.footballmanager.model.Player)}.
+	 * Test method for {@link nl.tudelft.footballmanager.model.logic.PlayerLogic#calculatePrice(nl.tudelft.footballmanager.model.Player)}.
+	 * Stats above 125
 	 */
 	@Test
-	public void testCalculatePlayedGames() {
-		fail("Not yet implemented");
+	public void testCalculatePrice() {
+		testPlayer.setDefensive(75);
+		testPlayer.setOffensive(75);
+		testPlayer.setStamina(75);
+		//int stats = (testPlayer.getDefensive() + testPlayer.getOffensive() + testPlayer.getStamina());
+		assertEquals(1125000,PlayerLogic.calculatePrice(testPlayer));
+	}
+	
+	/**
+	 * Test method for {@link nl.tudelft.footballmanager.model.logic.PlayerLogic#calculatePrice(nl.tudelft.footballmanager.model.Player)}. 
+	 */
+	@Test
+	public void testCalculatePriceElse(){
+		testPlayer.setDefensive(10);
+		testPlayer.setOffensive(10);
+		testPlayer.setStamina(10);
+		assertEquals(90000,PlayerLogic.calculatePrice(testPlayer));
 	}
 
 }

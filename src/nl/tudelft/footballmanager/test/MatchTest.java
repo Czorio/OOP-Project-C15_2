@@ -50,5 +50,25 @@ public class MatchTest {
 		assertNotEquals(m1.getAway(),t1);
 		assertNotEquals(m1.getAway(),t4);		
 	}
+	
+	/**setRound Test nl.tudelft.footballmanager.test.
+	 * 
+	 */
+	@Test
+	public void testSetRound(){
+		m1.setRound(4);
+		m2.setRound(7);
+		assertEquals(m1.getRound(),4);
+		assertNotEquals(m2.getRound(),10);
+	}
+	
+	/**toString Test nl.tudelft.footballmanager.test.
+	 * 
+	 */
+	@Test
+	public void testToString(){
+		assertEquals(m1.toString(),m1.toString());
+		assertEquals(m1.toString(),"Match [home=Ajax, away=Feyenoord, round=0]");
+	}
 
 }

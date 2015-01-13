@@ -84,11 +84,11 @@ public final class PlayerLogic {
 	 * @return Returns the initial cost of a player.
 	 */
 	public static final int calculatePrice(Player player) {
-		int stats = player.getOffensive() + player.getDefensive();
+		int stats = player.getOffensive() + player.getDefensive() + player.getStamina();
 		int price = 0;
 		
 		//TODO Finetune initial price
-		if (stats > 125) {
+		if (stats > 185) {
 			price = 5000 * (player.getOffensive() + player.getDefensive() + player.getStamina());
 		} else {
 			price = 3000 * (player.getOffensive() + player.getDefensive() + player.getStamina());
