@@ -1,10 +1,8 @@
 package nl.tudelft.footballmanager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javafx.application.Application;
@@ -15,15 +13,12 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nl.tudelft.footballmanager.model.GameState;
-import nl.tudelft.footballmanager.model.League;
-import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 import nl.tudelft.footballmanager.ui.controller.MatchViewController;
+import nl.tudelft.footballmanager.ui.controller.NewGameViewController;
 import nl.tudelft.footballmanager.ui.controller.RootController;
 import nl.tudelft.footballmanager.ui.controller.TeamOverviewController;
 
 public class FootballManager extends Application {
-
-	public final static File PLAYER_DATABASE = new File("GameData/Leagues/Eredivisie.xml");
 	public final static String rootViewFileName = "ui/view/RootView.fxml";
 	public final static String teamOverviewFileName = "ui/view/TeamOverview.fxml";
 	public final static String matchViewFileName = "ui/view/MatchView.fxml";
@@ -31,10 +26,10 @@ public class FootballManager extends Application {
 
 	private static Stage stage;
 	private BorderPane rootLayout;
-	AnchorPane newGame;
 	private static RootController rootController;
 	private static TeamOverviewController teamOverviewController;
 	private static MatchViewController matchViewController;
+	private static NewGameViewController newGameViewController;
 
 	static Context instance = Context.getInstance();
 
@@ -43,52 +38,59 @@ public class FootballManager extends Application {
 		FootballManager.stage = stage;
 		FootballManager.stage.setTitle("Football Manager 2142");
 
-		try {
-			initRootLayout();
-		} catch (IOException e) {
-			System.err.println("Error loading UI root!");
-			e.printStackTrace();
-		}
+//		try {
+//			initRootLayout();
+//		} catch (IOException e) {
+//			System.err.println("Error loading UI root!");
+//			e.printStackTrace();
+//		}
 
 		//		try {
-		//			showNewGame();
+		//			showMatchView();
 		//		} catch (IOException e1) {
 		//			e1.printStackTrace();
 		//		}
 
 		try {
-			showTeamOverview();
+			showNewGameView();
 		} catch (IOException e) {
-			System.err.println("Error loading UI Team overview");
+			System.out.println("Error loading New Game screen!");
 			e.printStackTrace();
 		}
 
-		instance.addObserver(rootController);
-		instance.addObserver(teamOverviewController);
+//		try {
+//			showTeamOverview();
+//		} catch (IOException e) {
+//			System.err.println("Error loading UI Team overview");
+//			e.printStackTrace();
+//		}
 
-		try {
-			instance.setLeague(League.readFromFile(PLAYER_DATABASE));
+//		instance.addObserver(rootController);
+//		instance.addObserver(teamOverviewController);
 
-			XMLPlayer xml = new XMLPlayer(new File("GameData/Leagues.xml"));
-			ArrayList<String> names = new ArrayList<String>();
-			names.add("Ajax");
-			names.add("Feyenoord");
-			names.add("SC Cambuur");
-			names.add("SC Cambuur");
-			System.out.println(xml.readFromFile(names));
-		} catch (FileNotFoundException e) {
-			System.err.println("Problem loading the league file. It was not found.");
-		}
+//		try {
+//			instance.setLeague(League.readOne("Eredivisie"));
+//
+//			XMLPlayer xml = new XMLPlayer(new File("GameData/Leagues.xml"));
+//			ArrayList<String> names = new ArrayList<String>();
+//			names.add("Ajax");
+//			names.add("Feyenoord");
+//			names.add("SC Cambuur");
+//			names.add("SC Cambuur");
+//			System.out.println(xml.readFromFile(names));
+//		} catch (FileNotFoundException e) {
+//			System.err.println("Problem loading the league file. It was not found.");
+//		}
 
 		instance.setGameState(new GameState(null, 0, null, null, null));
 
-		instance.getGameState().addObserver(teamOverviewController);
-		instance.getGameState().addObserver(rootController);
+//		instance.getGameState().addObserver(teamOverviewController);
+//		instance.getGameState().addObserver(rootController);
 
-		if (GameState.isUseless(instance.getGameState())) {
-			System.out.println("GameState is empty, asking to load one...");
-			instance.setGameState(rootController.loadGame(instance.getGameState()));
-		}
+//		if (GameState.isUseless(instance.getGameState())) {
+//			System.out.println("GameState is empty, asking to load one...");
+//			instance.setGameState(rootController.loadGame(instance.getGameState()));
+//		}
 
 		System.out.println(instance.getGameState());
 	}
@@ -97,10 +99,18 @@ public class FootballManager extends Application {
 		FXMLLoader l = new FXMLLoader();
 		l.setLocation(FootballManager.class.getResource(rootViewFileName));
 		rootLayout = (BorderPane) l.load();
+		rootController = l.getController();
 		stage.setScene(new Scene(rootLayout));
 		stage.show();
+	}
 
-		rootController = l.getController();
+	public void showNewGameView() throws IOException {
+		FXMLLoader l = new FXMLLoader();
+		l.setLocation(FootballManager.class.getResource(newGameViewFileName));
+		AnchorPane newGameLayout = (AnchorPane) l.load();
+		newGameViewController = l.getController();
+		stage.setScene(new Scene(newGameLayout));
+		stage.show();
 	}
 
 	public void showTeamOverview() throws IOException {
@@ -115,19 +125,10 @@ public class FootballManager extends Application {
 	public void showMatchView() throws IOException {
 		FXMLLoader l = new FXMLLoader();
 		l.setLocation(FootballManager.class.getResource(matchViewFileName));
-		AnchorPane teamOverview = (AnchorPane) l.load();
+		AnchorPane matchView = (AnchorPane) l.load();
 
-		rootLayout.setCenter(teamOverview);
+		rootLayout.setCenter(matchView);
 		matchViewController = l.getController();
-	}
-
-	public void showNewGame() throws IOException {
-		FXMLLoader l = new FXMLLoader();
-		l.setLocation(FootballManager.class.getResource(newGameViewFileName));
-
-		newGame = (AnchorPane) l.load();
-		stage.setScene(new Scene(newGame));
-		stage.show();
 	}
 
 	public static void main(String[] args) {
@@ -228,10 +229,17 @@ public class FootballManager extends Application {
 	}
 
 	/**
-	 * @return the playerDatabase
+	 * @return the matchViewController
 	 */
-	public static File getPlayerDatabase() {
-		return PLAYER_DATABASE;
+	public static MatchViewController getMatchViewController() {
+		return matchViewController;
+	}
+
+	/**
+	 * @param matchViewController the matchViewController to set
+	 */
+	public static void setMatchViewController(MatchViewController matchViewController) {
+		FootballManager.matchViewController = matchViewController;
 	}
 
 }

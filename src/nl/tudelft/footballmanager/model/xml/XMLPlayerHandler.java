@@ -81,7 +81,7 @@ public class XMLPlayerHandler extends DefaultHandler {
 				}
 			}
 			
-			if(leagueNames.contains(getValueIgnoreCase(attributes, "NAME")) && !bLeagueExists) {
+			if((leagueNames == null || leagueNames.contains(getValueIgnoreCase(attributes, "NAME"))) && !bLeagueExists) {
 				bInsideCorrectLeague = true;	// Inside the correct league
 				
 				currentLeague = new League(getValueIgnoreCase(attributes, "NAME"));

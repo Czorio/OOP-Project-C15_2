@@ -40,7 +40,7 @@ public class GameState extends Observable {
 		
 		if (leagueName != null) {
 			try {
-				this.league = League.readFromFile(new File("GameData/Leagues/" + leagueName + ".xml"));
+				this.league = League.readOne(leagueName);
 				if (myTeamName != null) {
 					this.myTeam = this.league.getTeam(myTeamName);
 				}
@@ -188,7 +188,7 @@ public class GameState extends Observable {
 
 	public void setLeague(String leagueName) {
 		try {
-			this.league = League.readFromFile(new File("GameData/Leagues/" + leagueName + ".xml"));
+			this.league = League.readOne(leagueName);
 		} catch (FileNotFoundException e) {
 			this.league = null;
 		}

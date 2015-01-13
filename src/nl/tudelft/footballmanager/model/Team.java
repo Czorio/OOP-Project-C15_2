@@ -1,5 +1,6 @@
 package nl.tudelft.footballmanager.model;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Observable;
 
@@ -59,6 +60,15 @@ public class Team extends Observable {
 		
 		return res;
 	}
+	
+	public final static Comparator<Team> NAME_SORTER = new Comparator<Team>() {
+
+		@Override
+		public int compare(Team t1, Team t2) {
+			return t1.getTeam().compareToIgnoreCase(t2.getTeam());
+		}
+		
+	};
 	
 	/**
 	 * Add player to this team, only if their doesn't exist a player with the same id.
