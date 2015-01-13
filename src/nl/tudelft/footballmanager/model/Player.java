@@ -101,6 +101,13 @@ public class Player extends Observable {
 	}
 
 	/**
+	 * 
+	 */
+	public Player() {
+		
+	}
+
+	/**
 	 * Checks if this is equal to other.
 	 */
 	public boolean equals(Object other) {
