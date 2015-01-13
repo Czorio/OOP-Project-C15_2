@@ -105,6 +105,9 @@ public class PlayerTest {
 		
 	}
 	
+	/**getReadablePosition Test 
+	 * 
+	 */
 	@Test
 	public void testGetReadablePosition(){
 		assertEquals(CF.getReadablePosition(),"Attacker");
@@ -125,6 +128,49 @@ public class PlayerTest {
 		assertEquals(Defender.getReadablePosition(),"Defender");
 		assertEquals(Goalkeeper.getReadablePosition(),"Goalkeeper");
 		assertEquals(NoPos.getReadablePosition(),null);
+	}
+	
+	/**getCurPosision Test
+	 * 
+	 */
+	@Test
+	public void testGetCurPosition(){
+		CF.setCurPosition("CF");
+		ST.setCurPosition("ST");
+		RW.setCurPosition("RW");
+		CM.setCurPosition("CM");
+		CDM.setCurPosition("CDM");
+		CAM.setCurPosition("CAM");
+		LW.setCurPosition("LW");
+		RM.setCurPosition("RM");
+		LM.setCurPosition("LM");
+		GK.setCurPosition("GK");
+		RB.setCurPosition("RB");
+		LB.setCurPosition("LB");
+		CB.setCurPosition("CB");
+		NoPos.setCurPosition("NO");
+		Attacker.setCurPosition("Attacker");
+		Defender.setCurPosition("Defender");
+		Midfielder.setCurPosition("Midfielder");
+		Goalkeeper.setCurPosition("Goalkeeper");
+		assertEquals(CF.getCurPosition(),"Attacker");
+		assertEquals(ST.getCurPosition(),"Attacker");
+		assertEquals(RW.getCurPosition(),"Attacker");
+		assertEquals(CM.getCurPosition(),"Midfielder");
+		assertEquals(CDM.getCurPosition(),"Midfielder");
+		assertEquals(CAM.getCurPosition(),"Midfielder");
+		assertEquals(LW.getCurPosition(),"Attacker");
+		assertEquals(RM.getCurPosition(),"Midfielder");
+		assertEquals(LM.getCurPosition(),"Midfielder");
+		assertEquals(GK.getCurPosition(),"Goalkeeper");
+		assertEquals(RB.getCurPosition(),"Defender");
+		assertEquals(LB.getCurPosition(),"Defender");
+		assertEquals(CB.getCurPosition(),"Defender");
+		assertEquals(Attacker.getCurPosition(),"Attacker");
+		assertEquals(Midfielder.getCurPosition(),"Midfielder");
+		assertEquals(Defender.getCurPosition(),"Defender");
+		assertEquals(Goalkeeper.getCurPosition(),"Goalkeeper");
+		assertEquals(NoPos.getCurPosition(),null);
 	}
 
 	/**setId Test
@@ -163,7 +209,7 @@ public class PlayerTest {
 	/**
 	 * setClub Test
 	 * Use setClub method to change playes club. Use getClub to nl.tudelft.footballmanager.test.
-	 */
+	 
 	@Test
 	public void testSetClub(){
 		CB.setClub("Feyenoord");
@@ -172,6 +218,7 @@ public class PlayerTest {
 		
 		assertNotEquals(RW.getClub(),"AZ");
 	}
+	*/
 
 	/**setNationality Test
 	 * setNationality of players. Use getNationality to compare.
