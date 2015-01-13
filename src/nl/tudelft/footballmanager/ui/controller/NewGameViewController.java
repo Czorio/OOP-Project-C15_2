@@ -9,7 +9,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -122,11 +121,17 @@ public class NewGameViewController implements Initializable, Observer {
 			}
 		});
 		
-		ObservableList<League> leagues = FXCollections.observableArrayList(League.readAll());
-		FXCollections.sort(leagues, League.NAME_COMPARATOR);
-		leagueListView.setItems(leagues);
-		leagueListView.getSelectionModel().clearSelection();
+		this.new LeaguesLoader().start();
 		doneButton.setDisable(true);
+	}
+	
+	class LeaguesLoader extends Thread {
+		public void run() {
+			ObservableList<League> leagues = FXCollections.observableArrayList(League.readAll());
+			FXCollections.sort(leagues, League.NAME_COMPARATOR);
+			leagueListView.setItems(leagues);
+			leagueListView.getSelectionModel().clearSelection();
+		}
 	}
 	
 	/**
