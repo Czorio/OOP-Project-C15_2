@@ -84,6 +84,19 @@ public class GameState extends Observable {
 	}
 
 	/**
+	 * 
+	 */
+	public GameState() {
+		this.coachName = "";
+		this.gameRound = -1;
+		this.league = null;
+		this.myTeam = null;
+		
+		this.setChanged();
+		this.notifyObservers(this);
+	}
+
+	/**
 	 * @param file XML file to read config from.
 	 */
 	public void loadGameState(File file) {

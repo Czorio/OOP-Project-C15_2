@@ -3,24 +3,29 @@
  */
 package nl.tudelft.footballmanager.ui.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.util.Callback;
-import nl.tudelft.footballmanager.Context;
+import nl.tudelft.footballmanager.FootballManager;
+import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.League;
 import nl.tudelft.footballmanager.model.Team;
 
@@ -30,20 +35,19 @@ import nl.tudelft.footballmanager.model.Team;
  */
 public class NewGameViewController implements Initializable, Observer {
 	
+	public final static String newGameViewFileName = "ui/view/NewGameView.fxml";
+	
 	@FXML private Button cancelButton;
 	@FXML private Button doneButton;
 	@FXML private ListView<League> leagueListView;
 	@FXML private ListView<Team> teamListView;
 	@FXML private TextField coachNameTextField;
-	
-	Context instance;
 
 	/* (non-Javadoc)
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
 		
 	}
 
@@ -52,16 +56,17 @@ public class NewGameViewController implements Initializable, Observer {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		instance = Context.getInstance();
-		
 		cancelButton.setOnAction((event) -> {
-			System.out.println(event.getSource());
+			TitleScreenController.show();
 		});
 		
 		doneButton.setOnAction((event) -> {
 			League selectedLeague = leagueListView.getSelectionModel().getSelectedItem();
 			Team selectedTeam = teamListView.getSelectionModel().getSelectedItem();
-			System.out.println(selectedTeam.getTeam() + " (" + selectedLeague.getLeague() + ") was selected.");
+			String coachName = coachNameTextField.getText();
+			GameState gs = new GameState(coachName, 0, selectedLeague, selectedTeam);
+			
+			RootController.show(gs);
 		});
 		
 		leagueListView.setCellFactory(new Callback<ListView<League>, ListCell<League>>() {
@@ -106,11 +111,14 @@ public class NewGameViewController implements Initializable, Observer {
 		teamListView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Team>() {
 			@Override
 			public void changed(ObservableValue<? extends Team> observable,	Team oldValue, Team newValue) {
-				if (teamListView.getSelectionModel().getSelectedItem() == null) {
-					doneButton.setDisable(true);
-				} else {
-					doneButton.setDisable(false);
-				}
+				toggleDone();
+			}
+		});
+		
+		coachNameTextField.textProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				toggleDone();
 			}
 		});
 		
@@ -120,5 +128,26 @@ public class NewGameViewController implements Initializable, Observer {
 		leagueListView.getSelectionModel().clearSelection();
 		doneButton.setDisable(true);
 	}
+	
+	/**
+	 * 
+	 */
+	protected void toggleDone() {
+		if (teamListView.getSelectionModel().getSelectedItem() != null && coachNameTextField.getText().length() > 0)
+			doneButton.setDisable(false);
+		else
+			doneButton.setDisable(true);
+	}
 
+	public static void show() {
+		FXMLLoader l = new FXMLLoader();
+		l.setLocation(FootballManager.class.getResource(newGameViewFileName));
+		try {
+			AnchorPane newGameLayout = (AnchorPane) l.load();
+			FootballManager.getStage().setScene(new Scene(newGameLayout));
+			FootballManager.getStage().show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

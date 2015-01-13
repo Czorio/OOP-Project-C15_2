@@ -4,6 +4,7 @@
 package nl.tudelft.footballmanager.ui.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
@@ -11,11 +12,13 @@ import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
-import nl.tudelft.footballmanager.Context;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
 
@@ -25,19 +28,18 @@ import nl.tudelft.footballmanager.model.GameState;
  */
 public class TitleScreenController implements Initializable, Observer {
 	
+	private static final String titleScreenFileName = "ui/view/TitleScreen.fxml";
+	
 	@FXML private Button newGameButton;
 	@FXML private Button loadGameButton;
 	@FXML private Button quitGameButton;
-
-	Context instance;
 	
 	/* (non-Javadoc)
 	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-
+		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
 	}
 
 	/* (non-Javadoc)
@@ -46,16 +48,18 @@ public class TitleScreenController implements Initializable, Observer {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		newGameButton.setOnAction((event) -> {
+			NewGameViewController.show();
+		});
+		
 		loadGameButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
-			instance.setGameState(loadGame(instance.getGameState()));
 		});
 		
 		// Quit application
 		quitGameButton.setOnAction((event) -> {
-			System.out.println(event.getSource());
 			Platform.exit();
-			System.out.println("Game quit!");
+			System.err.println("Game quit!");
 		});
 
 	}
@@ -66,7 +70,7 @@ public class TitleScreenController implements Initializable, Observer {
 		configureFileChooser(chooser);
 		
 		// file type filter
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML", "*.xml");
 		chooser.getExtensionFilters().add(extFilter);
 
 		File selectedFile = FootballManager.getOpenFile(chooser);
@@ -86,6 +90,21 @@ public class TitleScreenController implements Initializable, Observer {
 		// Standard dir is working dir of application
 		fc.setInitialDirectory(new File(System.getProperty("user.dir")));
 		fc.setSelectedExtensionFilter(new ExtensionFilter("XML Game files", ".xml"));
+	}
+
+	/**
+	 * 
+	 */
+	public static void show() {
+		FXMLLoader l = new FXMLLoader();
+		l.setLocation(FootballManager.class.getResource(titleScreenFileName));
+		try {
+			AnchorPane titleScreen = (AnchorPane) l.load();
+			FootballManager.getStage().setScene(new Scene(titleScreen));
+//			FootballManager.getStage().show();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -8,14 +8,15 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import nl.tudelft.footballmanager.model.Player;
-import nl.tudelft.footballmanager.model.logic.TeamSetUp;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import nl.tudelft.footballmanager.model.Player;
+import nl.tudelft.footballmanager.model.logic.TeamSetUp;
 
 /**
  * @author Mathijs de Boer <czorio4@gmail.com>
@@ -51,6 +52,14 @@ public class MatchViewController implements Initializable, Observer {
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
 
+	}
+
+	/**
+	 * 
+	 */
+	public static void show() {
+		FXMLLoader l = new FXMLLoader();
+		
 	}
 
 }

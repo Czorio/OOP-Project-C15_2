@@ -7,18 +7,18 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="200.0" minWidth="200.0" prefHeight="560.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.footballmanager.ui.controller.NewGameViewController">
+<AnchorPane minHeight="300.0" minWidth="300.0" prefHeight="560.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.footballmanager.ui.controller.NewGameViewController">
    <children>
-      <StackPane layoutX="176.0" layoutY="83.0" AnchorPane.leftAnchor="176.0" AnchorPane.rightAnchor="176.0">
+      <StackPane layoutX="176.0" layoutY="83.0" AnchorPane.leftAnchor="124.0" AnchorPane.rightAnchor="124.0">
          <children>
-            <HBox alignment="CENTER" layoutX="176.0" layoutY="83.0" spacing="5.0">
+            <HBox alignment="CENTER" layoutX="176.0" layoutY="83.0" minWidth="289.0" spacing="5.0">
                <children>
-                  <Label layoutX="131.0" layoutY="61.0" text="Your Name:">
+                  <Label layoutX="131.0" layoutY="61.0" minWidth="100.0" prefHeight="20.0" prefWidth="97.0" text="Your Name:">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="coachNameTextField" layoutX="220.0" layoutY="61.0" AnchorPane.topAnchor="61.0" />
+                  <TextField fx:id="coachNameTextField" layoutX="220.0" layoutY="61.0" AnchorPane.topAnchor="61.0" HBox.hgrow="ALWAYS" />
                </children>
             </HBox>
          </children>

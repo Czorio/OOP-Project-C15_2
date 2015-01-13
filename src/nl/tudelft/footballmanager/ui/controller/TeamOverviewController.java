@@ -3,30 +3,37 @@
  */
 package nl.tudelft.footballmanager.ui.controller;
 
-import java.lang.reflect.Field;
+import java.io.IOException;
 import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import javafx.collections.FXCollections;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import nl.tudelft.footballmanager.Context;
-import nl.tudelft.footballmanager.model.League;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
+import nl.tudelft.footballmanager.FootballManager;
+import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Player;
-import nl.tudelft.footballmanager.model.Team;
+import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
 public class TeamOverviewController implements Initializable, Observer {
+
+	public final static String teamOverviewFileName = "ui/view/TeamOverview.fxml";
 
 	@FXML private TableView<Player> yourPlayerTableView;
 	@FXML private TableColumn<Player, String> yourPlayerFirstNameCol;
@@ -45,294 +52,43 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private Label yourPlayerTeamLabel;
 	@FXML private Button sellYourPlayerButton;
 
-	Context instance = null;
+	private Player selectedPlayer = null;
+	private static GameState gameState = new GameState();
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
 	@Override
 	public void update(Observable o, Object arg) {
-//		System.out.println("An instance of " + o.getClass().toString() + " has changed! (TeamOverview)");
-
-		if (o == instance.getGameState() || arg == instance.getGameState()) {
-			Team t = instance.getGameState().getMyTeam();
-			League l = instance.getLeague();
-			if (l != null && t != null) {
-				ObservableList<Player> players = FXCollections.observableList(t.getPlayers());
-				yourPlayerTableView.getItems().setAll(players);
-			}
-		} if (o == instance.getSelectedPlayer() || arg == instance.getSelectedPlayer() || (o == instance && instance.getSelectedPlayer() != null)) {
-			System.out.println(instance.getSelectedPlayer());
-			
-			getYourPlayerNameLabel().setText(instance.getSelectedPlayer().getLastName() + ", " + instance.getSelectedPlayer().getFirstName());
-			getYourPlayerPositionLabel().setText(instance.getSelectedPlayer().getPosition());
-			getYourPlayerOffensiveLabel().setText(String.valueOf(instance.getSelectedPlayer().getOffensive()));
-			getYourPlayerDefensiveLabel().setText(String.valueOf(instance.getSelectedPlayer().getDefensive()));
-			getYourPlayerStaminaLabel().setText(String.valueOf(instance.getSelectedPlayer().getStamina()));
-			getYourPlayerPriceLabel().setText(String.valueOf(instance.getSelectedPlayer().getPrice()));
-			getYourPlayerTeamLabel().setText(instance.getSelectedPlayer().getClub());
-		}
-		
-		System.out.println("OBJECT: " + o + "\nARG: " + arg);
+		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see javafx.fxml.Initializable#initialize(java.net.URL,
-	 * java.util.ResourceBundle)
-	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		instance = Context.getInstance();
-		
-		getSellYourPlayerButton().setOnAction((event) -> {
-			Player selectedPlayer = getYourPlayerTableView().getSelectionModel().getSelectedItem();
-			System.out.println("SELLING " + selectedPlayer);
-			
-			//TODO sell the selected player
+		sellYourPlayerButton.setOnAction((event) -> {
+			boolean res = MarketplaceLogic.transferPlayer(selectedPlayer.getTeam(), null, selectedPlayer, 1);
+			System.out.println("SELLING " + selectedPlayer + (res == true ? " succeeded!" : " failed"));
 		});
-		
-		getYourPlayerTableView().setOnMouseClicked((event) -> {
-			Player selectedPlayer = getYourPlayerTableView().getSelectionModel().getSelectedItem();
-			Player prevSelPlayer = instance.getSelectedPlayer();
-			if (selectedPlayer != prevSelPlayer) {
-				instance.setSelectedPlayer(selectedPlayer);
-				System.out.println(selectedPlayer);
-				System.out.println(selectedPlayer.getTeam().getTeam());
+
+		yourPlayerTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Player>() {
+			@Override
+			public void changed(ObservableValue<? extends Player> observable, Player oldValue, Player newValue) {
+				selectedPlayer = newValue;
 			}
-			
 		});
+		
+		yourPlayerTableView.setItems((ObservableList<Player>) gameState.getMyTeam().getPlayers());
+		selectedPlayer.addObserver(this);
 	}
 
-	/**
-	 * @return the yourPlayerTableView
-	 */
-	public TableView<Player> getYourPlayerTableView() {
-		return yourPlayerTableView;
-	}
-
-	/**
-	 * @param yourPlayerTableView the yourPlayerTableView to set
-	 */
-	public void setYourPlayerTableView(TableView<Player> yourPlayerTableView) {
-		this.yourPlayerTableView = yourPlayerTableView;
-	}
-
-	/**
-	 * @return the yourPlayerFirstNameCol
-	 */
-	public TableColumn<Player, String> getYourPlayerFirstNameCol() {
-		return yourPlayerFirstNameCol;
-	}
-
-	/**
-	 * @param yourPlayerFirstNameCol the yourPlayerFirstNameCol to set
-	 */
-	public void setYourPlayerFirstNameCol(
-			TableColumn<Player, String> yourPlayerFirstNameCol) {
-		this.yourPlayerFirstNameCol = yourPlayerFirstNameCol;
-	}
-
-	/**
-	 * @return the yourPlayerLastNameCol
-	 */
-	public TableColumn<Player, String> getYourPlayerLastNameCol() {
-		return yourPlayerLastNameCol;
-	}
-
-	/**
-	 * @param yourPlayerLastNameCol the yourPlayerLastNameCol to set
-	 */
-	public void setYourPlayerLastNameCol(
-			TableColumn<Player, String> yourPlayerLastNameCol) {
-		this.yourPlayerLastNameCol = yourPlayerLastNameCol;
-	}
-
-	/**
-	 * @return the yourPlayerPositionCol
-	 */
-	public TableColumn<Player, String> getYourPlayerPositionCol() {
-		return yourPlayerPositionCol;
-	}
-
-	/**
-	 * @param yourPlayerPositionCol the yourPlayerPositionCol to set
-	 */
-	public void setYourPlayerPositionCol(
-			TableColumn<Player, String> yourPlayerPositionCol) {
-		this.yourPlayerPositionCol = yourPlayerPositionCol;
-	}
-
-	/**
-	 * @return the yourPlayerOffCol
-	 */
-	public TableColumn<Player, Integer> getYourPlayerOffCol() {
-		return yourPlayerOffCol;
-	}
-
-	/**
-	 * @param yourPlayerOffCol the yourPlayerOffCol to set
-	 */
-	public void setYourPlayerOffCol(TableColumn<Player, Integer> yourPlayerOffCol) {
-		this.yourPlayerOffCol = yourPlayerOffCol;
-	}
-
-	/**
-	 * @return the yourPlayerDefCol
-	 */
-	public TableColumn<Player, Integer> getYourPlayerDefCol() {
-		return yourPlayerDefCol;
-	}
-
-	/**
-	 * @param yourPlayerDefCol the yourPlayerDefCol to set
-	 */
-	public void setYourPlayerDefCol(TableColumn<Player, Integer> yourPlayerDefCol) {
-		this.yourPlayerDefCol = yourPlayerDefCol;
-	}
-
-	/**
-	 * @return the yourPlayerStaminaCol
-	 */
-	public TableColumn<Player, Integer> getYourPlayerStaminaCol() {
-		return yourPlayerStaminaCol;
-	}
-
-	/**
-	 * @param yourPlayerStaminaCol the yourPlayerStaminaCol to set
-	 */
-	public void setYourPlayerStaminaCol(
-			TableColumn<Player, Integer> yourPlayerStaminaCol) {
-		this.yourPlayerStaminaCol = yourPlayerStaminaCol;
-	}
-
-	/**
-	 * @return the yourPlayerPriceCol
-	 */
-	public TableColumn<Player, Integer> getYourPlayerPriceCol() {
-		return yourPlayerPriceCol;
-	}
-
-	/**
-	 * @param yourPlayerPriceCol the yourPlayerPriceCol to set
-	 */
-	public void setYourPlayerPriceCol(
-			TableColumn<Player, Integer> yourPlayerPriceCol) {
-		this.yourPlayerPriceCol = yourPlayerPriceCol;
-	}
-
-	/**
-	 * @return the yourPlayerNameLabel
-	 */
-	public Label getYourPlayerNameLabel() {
-		return yourPlayerNameLabel;
-	}
-
-	/**
-	 * @param yourPlayerNameLabel the yourPlayerNameLabel to set
-	 */
-	public void setYourPlayerNameLabel(Label yourPlayerNameLabel) {
-		this.yourPlayerNameLabel = yourPlayerNameLabel;
-	}
-
-	/**
-	 * @return the yourPlayerPositionLabel
-	 */
-	public Label getYourPlayerPositionLabel() {
-		return yourPlayerPositionLabel;
-	}
-
-	/**
-	 * @param yourPlayerPositionLabel the yourPlayerPositionLabel to set
-	 */
-	public void setYourPlayerPositionLabel(Label yourPlayerPositionLabel) {
-		this.yourPlayerPositionLabel = yourPlayerPositionLabel;
-	}
-
-	/**
-	 * @return the yourPlayerOffensiveLabel
-	 */
-	public Label getYourPlayerOffensiveLabel() {
-		return yourPlayerOffensiveLabel;
-	}
-
-	/**
-	 * @param yourPlayerOffensiveLabel the yourPlayerOffensiveLabel to set
-	 */
-	public void setYourPlayerOffensiveLabel(Label yourPlayerOffensiveLabel) {
-		this.yourPlayerOffensiveLabel = yourPlayerOffensiveLabel;
-	}
-
-	/**
-	 * @return the yourPlayerDefensiveLabel
-	 */
-	public Label getYourPlayerDefensiveLabel() {
-		return yourPlayerDefensiveLabel;
-	}
-
-	/**
-	 * @param yourPlayerDefensiveLabel the yourPlayerDefensiveLabel to set
-	 */
-	public void setYourPlayerDefensiveLabel(Label yourPlayerDefensiveLabel) {
-		this.yourPlayerDefensiveLabel = yourPlayerDefensiveLabel;
-	}
-
-	/**
-	 * @return the yourPlayerStaminaLabel
-	 */
-	public Label getYourPlayerStaminaLabel() {
-		return yourPlayerStaminaLabel;
-	}
-
-	/**
-	 * @param yourPlayerStaminaLabel the yourPlayerStaminaLabel to set
-	 */
-	public void setYourPlayerStaminaLabel(Label yourPlayerStaminaLabel) {
-		this.yourPlayerStaminaLabel = yourPlayerStaminaLabel;
-	}
-
-	/**
-	 * @return the yourPlayerPriceLabel
-	 */
-	public Label getYourPlayerPriceLabel() {
-		return yourPlayerPriceLabel;
-	}
-
-	/**
-	 * @param yourPlayerPriceLabel the yourPlayerPriceLabel to set
-	 */
-	public void setYourPlayerPriceLabel(Label yourPlayerPriceLabel) {
-		this.yourPlayerPriceLabel = yourPlayerPriceLabel;
-	}
-
-	/**
-	 * @return the yourPlayerTeamLabel
-	 */
-	public Label getYourPlayerTeamLabel() {
-		return yourPlayerTeamLabel;
-	}
-
-	/**
-	 * @param yourPlayerTeamLabel the yourPlayerTeamLabel to set
-	 */
-	public void setYourPlayerTeamLabel(Label yourPlayerTeamLabel) {
-		this.yourPlayerTeamLabel = yourPlayerTeamLabel;
-	}
-
-	/**
-	 * @return the sellYourPlayerButton
-	 */
-	public Button getSellYourPlayerButton() {
-		return sellYourPlayerButton;
-	}
-
-	/**
-	 * @param sellYourPlayerButton the sellYourPlayerButton to set
-	 */
-	public void setSellYourPlayerButton(Button sellYourPlayerButton) {
-		this.sellYourPlayerButton = sellYourPlayerButton;
+	public static void show(Pane rootLayout, GameState gs) {
+		gameState = gs;
+		
+		FXMLLoader l = new FXMLLoader();
+		l.setLocation(FootballManager.class.getResource(teamOverviewFileName));
+		try {
+			System.out.println(l);
+			AnchorPane teamOverview = (AnchorPane) l.load();
+			((BorderPane) rootLayout).setCenter(teamOverview);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }
