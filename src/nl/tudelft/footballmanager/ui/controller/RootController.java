@@ -20,6 +20,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
+import nl.tudelft.footballmanager.model.logic.GameLogic;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -63,6 +64,8 @@ public class RootController implements Initializable, Observer {
 			System.out.println("MATCHVIEW");
 			//TODO matchview
 //			MatchViewController.show(rootController.rootController);
+			new GameLogic(gameState);
+			GameLogic.matchDay();
 		});
 		
 		// Save and Quit to Menu

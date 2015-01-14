@@ -92,24 +92,20 @@ public final class TeamLogic {
 		return (calculateTeamOffScore(team) + calculateTeamDefScore(team) + calculateTeamStaminaScore(team));
 	}
 
-	/**
-	 * Creates a team for every club that is not the club the user is playing.
-	 * @param gs The current gamestate.
-	 */
-	public static void createAITeam() {
-		File in = new File("GameData/Leagues/" + gs.getLeague().getLeague() + ".xml");
-		XMLPlayer xmlplayer = new XMLPlayer(in);
-		League league = xmlplayer.readFromFile(gs.getLeague().getLeague());
-
-		String pTeam = gs.getMyTeam().getTeam();
-		Team playerTeam = league.getTeam(pTeam);
-		
-		for (Team team : league.getTeams()) {
-			if(team != playerTeam) {
-				createAIActivePlayers(team);
-			}
-		}
-	}
+//	/**
+//	 * Creates a team for every club that is not the club the user is playing.
+//	 * @param gs The current gamestate.
+//	 */
+//	public static void createAITeam() {;
+//		League league = gs.getLeague();
+//		Team playerTeam = gs.getMyTeam();
+//		
+//		for (Team team : league.getTeams()) {
+//			if(team != playerTeam) {
+//				createAIActivePlayers(team);
+//			}
+//		}
+//	}
 
 	/**
 	 * Creates an AI team. Picks random players and places them on their positions.
@@ -119,7 +115,7 @@ public final class TeamLogic {
 		String setup = createSetup();
 		Scanner sc = new Scanner(setup);
 		Random random = new Random(System.currentTimeMillis());
-		System.out.println("The used setup for team " + team.getTeam() + " is " + setup);
+		System.out.println("\nThe used setup for team " + team.getTeam() + " is " + setup);
 
 		int nrDefenders = sc.nextInt();
 		int nrMidfielders = sc.nextInt();
