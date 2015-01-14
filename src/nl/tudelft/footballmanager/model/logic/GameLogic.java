@@ -5,6 +5,7 @@ import java.util.Random;
 
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Match;
+import nl.tudelft.footballmanager.model.MatchResult;
 import nl.tudelft.footballmanager.model.MatchScheme;
 import nl.tudelft.footballmanager.model.Team;
 
@@ -31,15 +32,25 @@ public class GameLogic {
 		MatchScheme ms = gs.getMatchScheme();
 		int matchDay = gs.getGameRound();
 		
+		// No more rounds
+		if(matchDay >= gs.getMatchScheme().getMatchdays().size()) return;
+		
 		List<Match> todaysMatches = ms.getMatchdays().get(matchDay).getMatches();
 		
+		// Print todays matches.
+		System.out.println("Todays matches are:");
 		for(Match m : todaysMatches) {
-			new TeamLogic(m.getHome(), gs);
+			System.out.println(m.getHome().getTeam() + " - " + m.getAway().getTeam());
+		}
+		
+		
+		for(Match m : todaysMatches) {
+			new TeamLogic(m.getHome(), gs);			
 			TeamLogic.createAIActivePlayers(m.getHome());
 			new TeamLogic(m.getAway(), gs);
 			TeamLogic.createAIActivePlayers(m.getAway());
 			
-			game(m.getHome(), m.getAway());
+			m.setMatchResult(game(m.getHome(), m.getAway()));
 		}
 	}
 	
@@ -53,7 +64,8 @@ public class GameLogic {
 	 * @param away The away team to play.
 	 * @return Returns the result of the match.
 	 */
-	public static void game(Team home, Team away){
+	public static MatchResult game(Team home, Team away){
+		MatchResult matchResult = new MatchResult();
 		int homeGoals = 0;
 		int awayGoals = 0;
 		int lastGoal = 0; //Minutes since last goal.
@@ -74,20 +86,26 @@ public class GameLogic {
 				homeGoals++;
 				System.out.println(i + ": Team " + home.getTeam() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
+				matchResult.addHomeScoreTime(i);
 			}
 			
 			if(awayScoreChance + generateRandom(0, 80) > 215 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0, 30) >= 29) {
 				awayGoals++;
 				System.out.println(i + ": Team " + away.getTeam() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
+				matchResult.addAwayScoreTime(i);
 			}
 			
 			lastGoal++;
 			
 		}
 		//Match ends here
+		matchResult.setHomeScore(homeGoals);
+		matchResult.setAwayScore(awayGoals);
 		
 		System.out.println("\nFinal result: " + home.getTeam() + " " + homeGoals + " - " + awayGoals + " " + away.getTeam());
+		
+		return matchResult;
 	}
 
 	/**

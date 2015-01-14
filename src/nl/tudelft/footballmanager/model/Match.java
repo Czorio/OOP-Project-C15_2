@@ -1,10 +1,6 @@
 package nl.tudelft.footballmanager.model;
 
-import java.io.File;
 import java.util.Observable;
-
-import nl.tudelft.footballmanager.model.logic.GameLogic;
-import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -14,6 +10,7 @@ import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 public class Match extends Observable {
 	private Team home;
 	private Team away;
+	private MatchResult matchResult;
 	private int round;
 
 	/**
@@ -23,6 +20,20 @@ public class Match extends Observable {
 	public Match(Team home, Team away) {
 		this.home = home;
 		this.away = away;
+	}
+	
+	/**
+	 * @param matchResult the matchResult for this game.
+	 */
+	public void setMatchResult(MatchResult matchResult) {
+		this.matchResult = matchResult;
+	}
+	
+	/**
+	 * @return the matchResult for this game.
+	 */
+	public MatchResult getMatchResult() {
+		return matchResult;
 	}
 
 	/**
