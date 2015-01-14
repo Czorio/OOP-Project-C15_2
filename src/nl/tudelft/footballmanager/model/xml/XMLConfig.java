@@ -1,4 +1,5 @@
 package nl.tudelft.footballmanager.model.xml;
+import java.io.Console;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,6 +17,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import nl.tudelft.footballmanager.model.GameState;
+import nl.tudelft.footballmanager.model.League;
+import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -38,7 +41,7 @@ public class XMLConfig extends XML {
 	 * @return true or false based on success.
 	 */
 	public boolean writeToFile(GameState gameState) {
-		Document dom;
+		Document dom = null;
 	    Element el = null;	    
 	    DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 	    
@@ -50,30 +53,35 @@ public class XMLConfig extends XML {
 	        Element rootEle = dom.createElement("GameState");
 	    	
 	        // Create data elements and place them under root
+	        // Add coachName
 	        el = dom.createElement("coachName");
 	        el.appendChild(dom.createTextNode(gameState.getCoachName()));
 	        rootEle.appendChild(el);
 
+	        // Add currentRound
 	        el = dom.createElement("round");
 	        el.appendChild(dom.createTextNode(Integer.toString(gameState.getGameRound())));
 	        rootEle.appendChild(el);
 
-	        el = dom.createElement("league");
-	        el.appendChild(dom.createTextNode(gameState.getLeague().getLeague()));
-	        rootEle.appendChild(el);
-
+	        // Add teamName
 	        el = dom.createElement("team");
 	        el.appendChild(dom.createTextNode(gameState.getMyTeam().getTeam()));
 	        rootEle.appendChild(el);
-
-	        dom.appendChild(rootEle);
 	        
+	        // Add league containing all players
+	        XMLPlayer.addLeagueToDom(dom, rootEle, gameState.getLeague());
+	        
+	        // Add matchScheme
+	        
+	        
+	        dom.appendChild(rootEle);
+	             
 	        try {
 	        	Transformer tr = TransformerFactory.newInstance().newTransformer();
 	        	tr.setOutputProperty(OutputKeys.INDENT, "yes");
-	        	tr.setOutputProperty(OutputKeys.METHOD, "nl.tudelft.footballmanager.model.xml");
+	        	tr.setOutputProperty(OutputKeys.METHOD, "xml");
 	        	tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-	            tr.setOutputProperty("{http://nl.tudelft.footballmanager.model.xml.apache.org/xslt}indent-amount", "4");
+	            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 	            
 	            // Write to file
 	            tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(file)));

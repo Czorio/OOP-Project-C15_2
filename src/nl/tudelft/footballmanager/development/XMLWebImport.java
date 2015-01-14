@@ -55,7 +55,7 @@ public class XMLWebImport {
 		for(int i = 0; i < Leagues.size(); i++) {
 			System.out.println("Beginning: " + Leagues.get(i).getLeague());
 			
-			xmlPlayer.setFile(new File("GameData/Leagues/" + Leagues.get(i).getLeague() + ".nl.tudelft.footballmanager.model.xml"));
+			xmlPlayer.setFile(new File("GameData/Leagues/" + Leagues.get(i).getLeague() + ".xml"));
 			xmlPlayer.writeToFile(Leagues.get(i));
 			
 			System.out.println("Ended: " + Leagues.get(i).getLeague());

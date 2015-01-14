@@ -60,9 +60,9 @@ public class XMLPlayer extends XML {
 			try {
 				Transformer tr = TransformerFactory.newInstance().newTransformer();
 				tr.setOutputProperty(OutputKeys.INDENT, "yes");
-				tr.setOutputProperty(OutputKeys.METHOD, "nl.tudelft.footballmanager.model.xml");
+				tr.setOutputProperty(OutputKeys.METHOD, "xml");
 				tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-				tr.setOutputProperty("{http://nl.tudelft.footballmanager.model.xml.apache.org/xslt}indent-amount", "4");
+				tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
 				// Write to file
 				tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(file)));
@@ -99,9 +99,9 @@ public class XMLPlayer extends XML {
 			try {
 				Transformer tr = TransformerFactory.newInstance().newTransformer();
 				tr.setOutputProperty(OutputKeys.INDENT, "yes");
-				tr.setOutputProperty(OutputKeys.METHOD, "nl.tudelft.footballmanager.model.xml");
+				tr.setOutputProperty(OutputKeys.METHOD, "xml");
 				tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-				tr.setOutputProperty("{http://nl.tudelft.footballmanager.model.xml.apache.org/xslt}indent-amount", "4");
+				tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
 
 				// Write to file
 				tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(file)));
@@ -159,7 +159,7 @@ public class XMLPlayer extends XML {
 		return readFromFile((ArrayList<String>)null);
 	}
 
-	private void addLeagueToDom(Document dom, Element ePlayers, League league) {
+	static protected void addLeagueToDom(Document dom, Element ePlayers, League league) {
 		// Create a league element "League" with given name.
 		Element eLeague = dom.createElement("League");
 		eLeague.setAttribute("Name", league.getLeague());
