@@ -26,21 +26,6 @@ public class Match extends Observable {
 		this.away = away;
 	}
 
-	//TESTMETHOD
-	public static void main(String args[]) {
-		//		Scanner sc = new Scanner(System.in);
-		//		System.out.println("Home team: ");
-		//		String home = sc.nextLine();
-		//		System.out.println("Away team: ");
-		//		String away = sc.nextLine();
-
-		//		GameState testgs = new GameState("Steven", 1, "Eredivisie", "");
-		GameState testgs = new GameState(new File("XML/GameStateTest.xml"));
-		match(testgs, "Ajax", "Feyenoord");
-
-		//sc.close();
-	}
-
 	public static void match(GameState gs, String homeName, String awayName) {
 		File in = new File("GameData/Leagues/" + gs.getLeague().getLeague() + ".xml");
 		XMLPlayer xmlplayer = new XMLPlayer(in);
