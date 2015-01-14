@@ -182,7 +182,7 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testSaveGameStateCoachName() {
-		testGameState1.saveGameState(saveFile);
+		GameState.save(testGameState1, saveFile);
 
 		assertTrue(testGameState5.getCoachName().equals(testGameState1.getCoachName()));
 		
@@ -195,7 +195,7 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testSaveGameStateRound() {
-		testGameState1.saveGameState(saveFile);
+		GameState.save(testGameState1, saveFile);
 
 		assertEquals(testGameState5.getGameRound(), testGameState1.getGameRound());
 		
@@ -208,7 +208,7 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testSaveGameStateLeague() {
-		testGameState1.saveGameState(saveFile);
+		GameState.save(testGameState1, saveFile);
 
 		assertTrue(testGameState5.getLeague().equals(testGameState1.getLeague()));
 		
@@ -221,7 +221,7 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testSaveGameStateTeam() {
-		testGameState1.saveGameState(saveFile);
+		GameState.save(testGameState1, saveFile);
 
 		assertTrue(testGameState5.getMyTeam().equals(testGameState1.getMyTeam()));
 		

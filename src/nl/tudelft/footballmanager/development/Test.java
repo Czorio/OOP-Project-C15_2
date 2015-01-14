@@ -10,14 +10,13 @@ import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 public class Test {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		File in = new File("XML/GameState.xml");
 		GameState gameState = new GameState(in);
 		
 		System.out.println(gameState.getCoachName());
 		
 		File out = new File("XML/out.xml");
-		gameState.saveGameState(out);
+		boolean succeeded = GameState.save(gameState, out);
 		
 		// XMLPlayer can read and write one or multiple leagues at once.
 		// You can therefore input a single String or an ArrayList of Strings.				

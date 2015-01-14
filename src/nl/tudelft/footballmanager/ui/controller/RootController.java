@@ -134,8 +134,7 @@ public class RootController implements Initializable, Observer {
 		File selectedFile = FootballManager.getSaveFile(chooser);
 		if (selectedFile != null) {
 			System.out.println("Save file: " + selectedFile.getAbsolutePath());
-			state.saveGameState(selectedFile);
-			return true;
+			return GameState.save(state, selectedFile);
 		} else {
 			System.err.println("No file selected!");
 			return false;
@@ -152,7 +151,7 @@ public class RootController implements Initializable, Observer {
 		if (selectedFile != null) {
 			System.out.println("Load file: " + selectedFile.getAbsolutePath());
 
-			gamestate.loadGameState(selectedFile);
+			gamestate = GameState.load(selectedFile);
 			System.out.println("GameState: " + gamestate.toString());
 		} else {
 			System.err.println("No file selected!");

@@ -120,9 +120,6 @@ public class XMLPlayer extends XML {
 	 * @return
 	 */
 	public League readFromFile(String league) {
-
-		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
-
 		ArrayList<String> leagueArray = new ArrayList<String>();
 		leagueArray.add(league);
 

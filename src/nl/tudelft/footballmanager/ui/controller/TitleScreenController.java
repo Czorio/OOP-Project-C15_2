@@ -77,7 +77,7 @@ public class TitleScreenController implements Initializable, Observer {
 		if (selectedFile != null) {
 			System.out.println("Load file: " + selectedFile.getAbsolutePath());
 
-			gamestate.loadGameState(selectedFile);
+			gamestate = GameState.load(selectedFile);
 			System.out.println("GameState: " + gamestate.toString());
 		} else {
 			System.err.println("No file selected!");
