@@ -128,7 +128,7 @@ public class RootController implements Initializable, Observer {
 		configureFileChooser(chooser);
 		
 		// file type filter
-		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.nl.tudelft.footballmanager.model.xml)", "*.nl.tudelft.footballmanager.model.xml");
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML", "*.xml");
 		chooser.getExtensionFilters().add(extFilter);
 
 		File selectedFile = FootballManager.getSaveFile(chooser);
