@@ -125,13 +125,41 @@
                                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                     </columnResizePolicy>
                                                     <columns>
-                                                        <TableColumn fx:id="otherPlayersFirstNameCol" prefWidth="75.0" text="First Name" />
-                                                        <TableColumn fx:id="otherPlayersLastNameCol" prefWidth="75.0" text="Surname" />
-                                                        <TableColumn fx:id="otherPlayersPositionCol" prefWidth="75.0" text="Position" />
-                                                        <TableColumn fx:id="otherPlayersOffCol" prefWidth="75.0" text="OFF" />
-                                                        <TableColumn fx:id="otherPlayersDefCol" prefWidth="75.0" text="DEF" />
-                                                        <TableColumn fx:id="otherPlayersStaminaCol" prefWidth="75.0" text="STA" />
-                                                        <TableColumn fx:id="otherPlayersPriceCol" prefWidth="75.0" text="Price" />
+                                                        <TableColumn fx:id="otherPlayersFirstNameCol" prefWidth="75.0" text="First Name">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="firstName" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn fx:id="otherPlayersLastNameCol" prefWidth="75.0" text="Surname">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="lastName" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn fx:id="otherPlayersPositionCol" prefWidth="75.0" text="Position">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="position" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn fx:id="otherPlayersOffCol" prefWidth="75.0" text="OFF">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="offensive" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn fx:id="otherPlayersDefCol" prefWidth="75.0" text="DEF">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="defensive" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn fx:id="otherPlayersStaminaCol" prefWidth="75.0" text="STA">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="stamina" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn fx:id="otherPlayersPriceCol" prefWidth="75.0" text="Price">
+                                                            <cellValueFactory>
+                                                                <PropertyValueFactory property="price" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
                                                     </columns>
                                                 </TableView>
                                             </children>
