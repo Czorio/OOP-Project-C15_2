@@ -150,6 +150,8 @@ public class NewGameViewController implements Initializable, Observer {
 		try {
 			AnchorPane newGameLayout = (AnchorPane) l.load();
 			FootballManager.getStage().setScene(new Scene(newGameLayout));
+			FootballManager.getStage().setMinWidth(300);
+			FootballManager.getStage().setMinHeight(300);
 			FootballManager.getStage().show();
 		} catch (IOException e) {
 			e.printStackTrace();

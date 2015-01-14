@@ -56,12 +56,12 @@
                                                         <Label text="Games Draw:" GridPane.rowIndex="3" />
                                                         <Label text="Total Points:" GridPane.rowIndex="4" />
                                                         <Label text="Position:" GridPane.rowIndex="5" />
-                                                        <Label text="#gamesPlayed" GridPane.columnIndex="1" />
-                                                        <Label text="#GamesWon" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                        <Label text="#GamesLost" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                        <Label text="#GamesDraw" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                        <Label text="#LeaguePoints" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                                        <Label text="#TeamPos" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                        <Label fx:id="gamesPlayed" text="#gamesPlayed" GridPane.columnIndex="1" />
+                                                        <Label fx:id="gamesWon" text="#GamesWon" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                        <Label fx:id="gamesLost" text="#GamesLost" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                        <Label fx:id="gamesDraw" text="#GamesDraw" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                        <Label fx:id="leaguePoints" text="#LeaguePoints" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                        <Label fx:id="teamPos" text="#TeamPos" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                                                     </children>
                                                 </GridPane>
                                             </children>
@@ -92,7 +92,7 @@
                                                     </rowConstraints>
                                                     <children>
                                                         <Label text="Balance:" />
-                                                        <Label text="#Balance" GridPane.columnIndex="1" />
+                                                        <Label fx:id="yourTeamBalanceLabel" text="#Balance" GridPane.columnIndex="1" />
                                                     </children>
                                                 </GridPane>
                                             </children>
@@ -103,11 +103,11 @@
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
-                                                <TableView layoutY="25.0" prefHeight="340.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="leagueTableView" layoutY="25.0" prefHeight="340.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
-                                                        <TableColumn prefWidth="33.000001549720764" text="#" />
-                                                        <TableColumn prefWidth="106.99999237060547" text="Team" />
-                                                        <TableColumn prefWidth="39.0" text="Score" />
+                                                        <TableColumn fx:id="leaguePosTableColumn" prefWidth="33.000001549720764" text="#" />
+                                                        <TableColumn fx:id="leagueTeamTableColumn" prefWidth="106.99999237060547" text="Team" />
+                                                        <TableColumn fx:id="leagueScoreTableColumn" prefWidth="39.0" text="Score" />
                                                     </columns>
                                                 </TableView>
                                             </children>
