@@ -95,32 +95,13 @@ public class GameState extends Observable {
 		this.setChanged();
 		this.notifyObservers(this);
 	}
-
-	/**
-	 * @param file XML file to read config from.
-	 */
-	public void loadGameState(File file) {
-		XMLConfig xmlConfig = new XMLConfig(file);
-
-		GameState gameState = xmlConfig.readFromFile();
-
-		this.coachName = gameState.getCoachName();
-		this.gameRound = gameState.getGameRound();
-		this.league = gameState.getLeague();
-		this.myTeam = gameState.getMyTeam();
-		this.matchScheme = gameState.getMatchScheme();
-
-		this.setChanged();
-		this.notifyObservers(this);
+	
+	public static GameState load(File file) {
+		return new XMLConfig(file).readFromFile();
 	}
-
-	/**
-	 * @param file XML file to write config to.
-	 */
-	public void saveGameState(File file) {
-		XMLConfig xmlConfig = new XMLConfig(file);
-
-		xmlConfig.writeToFile(this);		
+	
+	public static boolean save(GameState gameState, File file) {
+		return new XMLConfig(file).writeToFile(gameState);
 	}
 
 	public static boolean isUseless(GameState gameState) {
