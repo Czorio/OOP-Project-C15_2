@@ -29,11 +29,11 @@ public class GameLogic {
 		int matchDay = gs.getGameRound();
 		
 		List<Match> todaysMatches = ms.getMatchdays().get(matchDay).getMatches();
+		TeamLogic.createAITeam();
 		
 		for(Match m : todaysMatches) {
 			new TeamLogic(m.getHome(), gs);
 			new TeamLogic(m.getAway(), gs);
-			TeamLogic.createAITeam();
 			game(m.getHome(), m.getAway());
 		}
 	}
