@@ -22,12 +22,13 @@ public class GameState extends Observable {
 	 * @param league
 	 * @param myTeam
 	 */
-	public GameState(String coachName, int gameRound, League league, Team myTeam, MatchScheme matchScheme) {
+	public GameState(String coachName, int gameRound, League league, Team myTeam) {
 		this.coachName = coachName;
 		this.gameRound = gameRound;
 		this.league = league;
 		this.myTeam = myTeam;
-		this.matchScheme = matchScheme;
+		
+		this.matchScheme = new MatchScheme(this.league, 0);
 
 		this.setChanged();
 		this.notifyObservers(this);
@@ -68,16 +69,6 @@ public class GameState extends Observable {
 		this.league = gameState.getLeague();
 		this.myTeam = gameState.getMyTeam();
 		this.matchScheme = gameState.getMatchScheme();
-
-		this.setChanged();
-		this.notifyObservers(this);
-	}
-
-	public GameState(String coachName, int gameRound, League league, Team myTeam) {
-		this.coachName = coachName;
-		this.gameRound = gameRound;
-		this.league = league;
-		this.myTeam = myTeam;
 
 		this.setChanged();
 		this.notifyObservers(this);
