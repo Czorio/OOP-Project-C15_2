@@ -130,10 +130,10 @@ public final class TeamLogic {
 		List<Player> midfielders = team.getByPosition("Midfielder");
 		List<Player> attackers = team.getByPosition("Attacker");
 		
-		System.out.println("Goalkeepers: " + goalkeepers.size());
-		System.out.println("Defenders: " + defenders.size());
-		System.out.println("Midfielders: " + midfielders.size());
-		System.out.println("Attackers: " + attackers.size());
+//		System.out.println("Goalkeepers: " + goalkeepers.size());
+//		System.out.println("Defenders: " + defenders.size());
+//		System.out.println("Midfielders: " + midfielders.size());
+//		System.out.println("Attackers: " + attackers.size());
 		
 		//Sets all players current position to "None"
 		for (Player p : team.getPlayers()) {
