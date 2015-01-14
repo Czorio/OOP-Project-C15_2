@@ -1,8 +1,8 @@
 package nl.tudelft.footballmanager.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
+import java.io.File;
 import java.util.Date;
 
 import nl.tudelft.footballmanager.model.Player;
@@ -68,8 +68,12 @@ public class PlayerTest {
 	 */
 	@Test
 	public void testEqualsObject() {
+		RW.setNationality(null);
+		CF.setCurPosition(null);
 		assertEquals(true,CB.equals(CB1));
 		assertEquals(false,CB.equals(ST));
+		assertFalse(RW.equals(ST));
+		assertFalse(CF.equals(ST));
 		assertNotEquals(true,CB.equals(RW));
 	}
 
@@ -149,6 +153,7 @@ public class PlayerTest {
 		LB.setCurPosition("LB");
 		CB.setCurPosition("CB");
 		NoPos.setCurPosition("NO");
+		CB1.setCurPosition("None");
 		Attacker.setCurPosition("Attacker");
 		Defender.setCurPosition("Defender");
 		Midfielder.setCurPosition("Midfielder");
@@ -171,6 +176,7 @@ public class PlayerTest {
 		assertEquals(Defender.getCurPosition(),"Defender");
 		assertEquals(Goalkeeper.getCurPosition(),"Goalkeeper");
 		assertEquals(NoPos.getCurPosition(),null);
+		assertEquals(CB1.getCurPosition(),"None");
 	}
 
 	/**setId Test
@@ -328,6 +334,24 @@ public class PlayerTest {
 		RW.setLeague("La Liga");
 		assertEquals(CB.getLeague(),"Premier League");
 		assertNotEquals(RW.getLeague(),"Eredivisie");
+	}
+	
+	/**
+	 * testPrice 
+	 */
+	@Test
+	public void testPrice(){
+		CB.setPrice(100);
+		assertEquals(CB.getPrice(),100);
+	}
+	
+	/**
+	 * testPlayedGames
+	 */
+	@Test
+	public void testPlayedGames(){
+		CB.setPlayedGames(10);
+		assertEquals(CB.getPlayedGames(),10);
 	}
 
 }

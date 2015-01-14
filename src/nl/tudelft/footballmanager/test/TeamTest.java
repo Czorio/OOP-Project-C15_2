@@ -1,10 +1,14 @@
 package nl.tudelft.footballmanager.test;
 
-import static org.junit.Assert.fail;
+import static org.junit.Assert.*;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import nl.tudelft.footballmanager.model.League;
+import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
@@ -12,90 +16,110 @@ import org.junit.Test;
 
 public class TeamTest {
 
-	@Test
-	public void initialize(){
 	
-	File in = new File("GameData/Eredivisie.xml");
+	File in = new File("GameData/Leagues.xml");
 	XMLPlayer xmlplayer = new XMLPlayer(in);
 	League league = xmlplayer.readFromFile("Eredivisie");
 	
-	Team testTeam = league.getTeam("Ajax");
+	Team ajaxEredivisie = league.getTeam("Ajax");
+	List<Player> ajax = ajaxEredivisie.getPlayers();
+	Team testTeam = new Team ("Ajax", ajax);
 	
-	}
+	Team empTeam  = new Team("Feyenoord", new ArrayList<Player>());
+	Team empTeam2 = new Team("Feyenoord", new ArrayList<Player>());
 	
+	Player testPlayer = new Player(3,"Mitchell","Shet","Ado Den Haag","Eredivisie","Dutch",new Date(2/2/2000),"ST",50,60,60,70,40,60);
+	
+	/**
+	 * Constructor test
+	 */
 	@Test
 	public void testTeamStringArrayListOfPlayer() {
-		fail("Not yet implemented");
+		assertEquals(testTeam.getTeam(),"Ajax");
+		assertNotEquals(testTeam.getPlayer("Stefano","Denswil"),testTeam.getPlayer("Mike", "van der Hoorn"));
+		assertNotEquals(testTeam.getByPosition("Defender"),testTeam.getByPosition("Attacker"));
+		
 	}
 
+	/**
+	 * Empty team constructor test
+	 */
 	@Test
 	public void testTeamString() {
-		fail("Not yet implemented");
+		assertEquals(empTeam,empTeam2);
+		assertNotEquals(empTeam,testTeam);
 	}
 
+	/**
+	 * toString method test
+	 */
 	@Test
 	public void testToString() {
-		fail("Not yet implemented");
+		assertEquals(empTeam.toString(),empTeam2.toString());
+		assertNotEquals(empTeam.toString(),testTeam.toString());
 	}
 
+	/**
+	 * addPlayer Test
+	 */
 	@Test
 	public void testAddPlayer() {
-		fail("Not yet implemented");
+		testTeam.addPlayer(testPlayer);
+		assertEquals(testTeam.getPlayer(3),testPlayer);
 	}
 
+	/**
+	 * removePlayer Test
+	 */
 	@Test
 	public void testRemovePlayer() {
-		fail("Not yet implemented");
+		testTeam.addPlayer(testPlayer);
+		testTeam.removePlayer(testPlayer);
+		assertEquals(testTeam.getPlayers().contains(testPlayer),false);
 	}
 
+	/**
+	 * Equals Test
+	 */
 	@Test
 	public void testEqualsObject() {
-		fail("Not yet implemented");
+		assertTrue(testTeam.equals(testTeam));
+		assertFalse(testTeam.equals(empTeam));
 	}
 
-	@Test
-	public void testGetTeam() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * setTeam Test
+	 */
 	@Test
 	public void testSetTeam() {
-		fail("Not yet implemented");
+		testTeam.setTeam("Feyenoord");
+		assertEquals(testTeam.getTeam(),"Feyenoord");
 	}
 
-	@Test
-	public void testGetPlayerStringString() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPlayerInt() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPlayers() {
-		fail("Not yet implemented");
-	}
-
+	/**
+	 * setPlayers Test
+	 */
 	@Test
 	public void testSetPlayers() {
-		fail("Not yet implemented");
+		empTeam.setPlayers(ajax);
+		assertEquals(empTeam.getPlayers(),testTeam.getPlayers());
 	}
 
+	/**
+	 * getBudget Test
+	 */
 	@Test
 	public void testGetBudget() {
-		fail("Not yet implemented");
+		testTeam.setBudget(1000);
+		assertEquals(testTeam.getBudget(),1000);
 	}
-
+	
+	/**
+	 * alterBudget Test
+	 */
 	@Test
-	public void testSetBudget() {
-		fail("Not yet implemented");
+	public void testAlterBudget(){
+		testTeam.alterBudget(7000);
+		assertEquals(testTeam.getBudget(),7000);
 	}
-
-	@Test
-	public void testGetByPosition() {
-		fail("Not yet implemented");
-	}
-
 }
