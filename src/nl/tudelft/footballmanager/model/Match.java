@@ -2,7 +2,6 @@ package nl.tudelft.footballmanager.model;
 
 import java.io.File;
 import java.util.Observable;
-import java.util.Scanner;
 
 import nl.tudelft.footballmanager.model.logic.GameLogic;
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
