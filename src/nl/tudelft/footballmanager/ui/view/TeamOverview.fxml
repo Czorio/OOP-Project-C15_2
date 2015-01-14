@@ -120,18 +120,18 @@
                                     <items>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                             <children>
-                                                <TableView fx:id="playerTable1" prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <TableView fx:id="otherPlayersTableView" prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnResizePolicy>
                                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                                     </columnResizePolicy>
                                                     <columns>
-                                                        <TableColumn fx:id="firstNameCol1" prefWidth="75.0" text="First Name" />
-                                                        <TableColumn fx:id="lastNameCol1" prefWidth="75.0" text="Surname" />
-                                                        <TableColumn fx:id="positionCol1" prefWidth="75.0" text="Position" />
-                                                        <TableColumn fx:id="offCol1" prefWidth="75.0" text="OFF" />
-                                                        <TableColumn fx:id="defCol1" prefWidth="75.0" text="DEF" />
-                                                        <TableColumn fx:id="staminaCol1" prefWidth="75.0" text="STA" />
-                                                        <TableColumn fx:id="priceCol1" prefWidth="75.0" text="Price" />
+                                                        <TableColumn fx:id="otherPlayersFirstNameCol" prefWidth="75.0" text="First Name" />
+                                                        <TableColumn fx:id="otherPlayersLastNameCol" prefWidth="75.0" text="Surname" />
+                                                        <TableColumn fx:id="otherPlayersPositionCol" prefWidth="75.0" text="Position" />
+                                                        <TableColumn fx:id="otherPlayersOffCol" prefWidth="75.0" text="OFF" />
+                                                        <TableColumn fx:id="otherPlayersDefCol" prefWidth="75.0" text="DEF" />
+                                                        <TableColumn fx:id="otherPlayersStaminaCol" prefWidth="75.0" text="STA" />
+                                                        <TableColumn fx:id="otherPlayersPriceCol" prefWidth="75.0" text="Price" />
                                                     </columns>
                                                 </TableView>
                                             </children>
@@ -160,17 +160,17 @@
                                                         <Label text="Stamina:" GridPane.rowIndex="4" />
                                                         <Label text="Price:" GridPane.rowIndex="5" />
                                                         <Label text="Team:" GridPane.rowIndex="6" />
-                                                        <Label fx:id="playerName1" text="#playerName" GridPane.columnIndex="1" />
-                                                        <Label fx:id="playerPos1" text="#playerPos" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                        <Label fx:id="playerOffensiveScore1" text="#playerOffensiveScore" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                                        <Label fx:id="playerDefensiveScore1" text="#playerDefensiveScore" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                                        <Label fx:id="playerStamina1" text="#playerStamina" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                                        <Label fx:id="playerPrice1" text="#playerPrice" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                                        <Label fx:id="playerTeam1" text="#playerTeam" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                                        <Label fx:id="otherPlayerNameLabel" text="#playerName" GridPane.columnIndex="1" />
+                                                        <Label fx:id="otherPlayerPositionLabel" text="#playerPos" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                        <Label fx:id="otherPlayerOffensiveLabel" text="#playerOffensiveScore" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                        <Label fx:id="otherPlayerDefensiveLabel" text="#playerDefensiveScore" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                                        <Label fx:id="otherPlayerStaminaLabel" text="#playerStamina" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                                        <Label fx:id="otherPlayerPriceLabel" text="#playerPrice" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                                        <Label fx:id="otherPlayerTeamLabel" text="#playerTeam" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                                     </children>
                                                 </GridPane>
                                                 <Separator layoutY="421.0" prefHeight="3.0" prefWidth="146.0" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
-                                                <Button fx:id="buyAPlayerButton" layoutX="38.0" layoutY="464.0" mnemonicParsing="false" text="Buy Player" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="41.0" />
+                                                <Button fx:id="buyOtherPlayerButton" layoutX="38.0" layoutY="464.0" mnemonicParsing="false" text="Buy Player" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="41.0" />
                                             </children>
                                         </AnchorPane>
                                     </items>

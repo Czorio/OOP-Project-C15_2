@@ -45,6 +45,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private TableColumn<Player, Integer> yourPlayerDefCol;
 	@FXML private TableColumn<Player, Integer> yourPlayerStaminaCol;
 	@FXML private TableColumn<Player, Integer> yourPlayerPriceCol;
+
 	@FXML private Label yourPlayerNameLabel;
 	@FXML private Label yourPlayerPositionLabel;
 	@FXML private Label yourPlayerOffensiveLabel;
@@ -62,42 +63,125 @@ public class TeamOverviewController implements Initializable, Observer {
 	SimpleIntegerProperty price;
 	SimpleStringProperty team;
 
-	private Player selectedPlayer = new Player();
+	@FXML private TableView<Player> otherPlayersTableView;
+	@FXML private TableColumn<Player, String> otherPlayersFirstNameCol;
+	@FXML private TableColumn<Player, String> otherPlayersLastNameCol;
+	@FXML private TableColumn<Player, String> otherPlayersPositionCol;
+	@FXML private TableColumn<Player, Integer> otherPlayersOffCol;
+	@FXML private TableColumn<Player, Integer> otherPlayersDefCol;
+	@FXML private TableColumn<Player, Integer> otherPlayersStaminaCol;
+	@FXML private TableColumn<Player, Integer> otherPlayersPriceCol;
+
+	@FXML private Label otherPlayerNameLabel;
+	@FXML private Label otherPlayerPositionLabel;
+	@FXML private Label otherPlayerOffensiveLabel;
+	@FXML private Label otherPlayerDefensiveLabel;
+	@FXML private Label otherPlayerStaminaLabel;
+	@FXML private Label otherPlayerPriceLabel;
+	@FXML private Label otherPlayerTeamLabel;
+	@FXML private Button buyOtherPlayerButton;
+
+	SimpleStringProperty otherName;
+	SimpleStringProperty otherPosition;
+	SimpleIntegerProperty otherOff;
+	SimpleIntegerProperty otherDef;
+	SimpleIntegerProperty otherStamina;
+	SimpleIntegerProperty otherPrice;
+	SimpleStringProperty otherTeam;	
+
+	private Player yourSelectedPlayer = new Player();
+	private Player otherSelectedPlayer = new Player();
 	private static GameState gameState = new GameState();
 
 	@Override
 	public void update(Observable o, Object arg) {
 		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
 
-		if (selectedPlayer == o) {
+		if (yourSelectedPlayer == o) {
 			try {
-				name.set(selectedPlayer.getFirstName().concat(" ").concat(selectedPlayer.getLastName()));
-				position.set(selectedPlayer.getReadablePosition());
-				off.set(selectedPlayer.getOffensive());
-				def.set(selectedPlayer.getDefensive());
-				stamina.set(selectedPlayer.getStamina());
-				price.set(selectedPlayer.getPrice());
-				team.set(selectedPlayer.getClub());
-			} catch (NullPointerException e) {}
+				name.set(yourSelectedPlayer.getFirstName().concat(" ").concat(yourSelectedPlayer.getLastName()));
+				position.set(yourSelectedPlayer.getReadablePosition());
+				off.set(yourSelectedPlayer.getOffensive());
+				def.set(yourSelectedPlayer.getDefensive());
+				stamina.set(yourSelectedPlayer.getStamina());
+				price.set(yourSelectedPlayer.getPrice());
+				team.set(yourSelectedPlayer.getClub());
+			} catch (NullPointerException e) {
+				name.set(null);
+				position.set(yourSelectedPlayer.getReadablePosition());
+				off.set(yourSelectedPlayer.getOffensive());
+				def.set(yourSelectedPlayer.getDefensive());
+				stamina.set(yourSelectedPlayer.getStamina());
+				price.set(yourSelectedPlayer.getPrice());
+				team.set(yourSelectedPlayer.getClub());
+			}
+		} else if (otherSelectedPlayer == o) {
+			try {
+				otherName.set(otherSelectedPlayer.getFirstName().concat(" ").concat(otherSelectedPlayer.getLastName()));
+				otherPosition.set(otherSelectedPlayer.getReadablePosition());
+				otherOff.set(otherSelectedPlayer.getOffensive());
+				otherDef.set(otherSelectedPlayer.getDefensive());
+				otherStamina.set(otherSelectedPlayer.getStamina());
+				otherPrice.set(otherSelectedPlayer.getPrice());
+				otherTeam.set(otherSelectedPlayer.getClub());
+			} catch (NullPointerException e) {
+				otherName.set(null);
+				otherPosition.set(null);
+				otherOff.set(0);
+				otherDef.set(0);
+				otherStamina.set(0);
+				otherPrice.set(0);
+				otherTeam.set(null);
+			}
 		}
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		sellYourPlayerButton.setOnAction((event) -> {
-			String p = selectedPlayer.getFirstName() + " " + selectedPlayer.getLastName();
-			boolean res = MarketplaceLogic.transferPlayer(selectedPlayer.getTeam(), gameState.getLeague().getTeams().get(3), selectedPlayer, 1);
+			String p = yourSelectedPlayer.getFirstName() + " " + yourSelectedPlayer.getLastName();
+			boolean res = MarketplaceLogic.transferPlayer(yourSelectedPlayer.getTeam(), gameState.getLeague().getTeams().get(3), yourSelectedPlayer, 1);
 			System.out.println("SELLING " + p + (res == true ? " succeeded!" : " failed"));
 		});
 
 		yourPlayerTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Player>() {
 			@Override
 			public void changed(ObservableValue<? extends Player> observable, Player oldValue, Player newValue) {
-				selectedPlayer = newValue;
-				update(selectedPlayer, null);
+				yourSelectedPlayer = newValue;
+				update(yourSelectedPlayer, null);
 			}
 		});
+		
+		bindYourPlayerStats();
+		bindOtherPlayerStats();
 
+		yourPlayerTableView.setItems((ObservableList<Player>) gameState.getMyTeam().getPlayers());
+		gameState.addObserver(this);
+		yourSelectedPlayer.addObserver(this);
+	}
+
+	/**
+	 * 
+	 */
+	private void bindOtherPlayerStats() {
+		otherName = new SimpleStringProperty();
+		otherPlayerNameLabel.textProperty().bind(otherName);
+		otherPosition = new SimpleStringProperty();
+		otherPlayerNameLabel.textProperty().bind(otherPosition);
+		otherOff = new SimpleIntegerProperty();
+		otherPlayerNameLabel.textProperty().bind(otherOff.asString());
+		otherDef = new SimpleIntegerProperty();
+		otherPlayerNameLabel.textProperty().bind(otherDef.asString());
+		otherStamina = new SimpleIntegerProperty();
+		otherPlayerNameLabel.textProperty().bind(otherStamina.asString());
+		otherPrice = new SimpleIntegerProperty();
+		otherPlayerNameLabel.textProperty().bind(otherPrice.asString());
+	}
+
+	/**
+	 * 
+	 */
+	private void bindYourPlayerStats() {
 		name = new SimpleStringProperty();
 		yourPlayerNameLabel.textProperty().bind(name);
 		position = new SimpleStringProperty();
@@ -112,10 +196,6 @@ public class TeamOverviewController implements Initializable, Observer {
 		yourPlayerPriceLabel.textProperty().bind(price.asString());
 		team = new SimpleStringProperty();
 		yourPlayerTeamLabel.textProperty().bind(team);
-
-		yourPlayerTableView.setItems((ObservableList<Player>) gameState.getMyTeam().getPlayers());
-		gameState.addObserver(this);
-		selectedPlayer.addObserver(this);
 	}
 
 	public static void show(Pane rootLayout, GameState gs) {
@@ -133,10 +213,10 @@ public class TeamOverviewController implements Initializable, Observer {
 	}
 
 	/**
-	 * @return the selectedPlayer
+	 * @return the yourSelectedPlayer
 	 */
 	public Player getSelectedPlayer() {
-		return selectedPlayer;
+		return yourSelectedPlayer;
 	}
 
 	/**
