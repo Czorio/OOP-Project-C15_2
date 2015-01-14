@@ -5,6 +5,7 @@ package nl.tudelft.footballmanager.ui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -13,6 +14,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +29,7 @@ import javafx.scene.layout.Pane;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Player;
+import nl.tudelft.footballmanager.model.Team;
 import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
 
 /**
@@ -116,7 +119,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				team.set(yourSelectedPlayer.getClub());
 			}
 		} else if (otherSelectedPlayer == o) {
-			try {
+//			try {
 				otherName.set(otherSelectedPlayer.getFirstName().concat(" ").concat(otherSelectedPlayer.getLastName()));
 				otherPosition.set(otherSelectedPlayer.getReadablePosition());
 				otherOff.set(otherSelectedPlayer.getOffensive());
@@ -124,15 +127,15 @@ public class TeamOverviewController implements Initializable, Observer {
 				otherStamina.set(otherSelectedPlayer.getStamina());
 				otherPrice.set(otherSelectedPlayer.getPrice());
 				otherTeam.set(otherSelectedPlayer.getClub());
-			} catch (NullPointerException e) {
-				otherName.set(null);
-				otherPosition.set(null);
-				otherOff.set(0);
-				otherDef.set(0);
-				otherStamina.set(0);
-				otherPrice.set(0);
-				otherTeam.set(null);
-			}
+//			} catch (NullPointerException e) {
+//				otherName.set(null);
+//				otherPosition.set(null);
+//				otherOff.set(0);
+//				otherDef.set(0);
+//				otherStamina.set(0);
+//				otherPrice.set(0);
+//				otherTeam.set(null);
+//			}
 		}
 	}
 
@@ -152,12 +155,29 @@ public class TeamOverviewController implements Initializable, Observer {
 			}
 		});
 		
+		otherPlayersTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Player>() {
+			@Override
+			public void changed(ObservableValue<? extends Player> observable, Player oldValue, Player newValue) {
+				otherSelectedPlayer = newValue;
+				update(otherSelectedPlayer, null);
+			}
+		});;
+		
 		bindYourPlayerStats();
 		bindOtherPlayerStats();
 
 		yourPlayerTableView.setItems((ObservableList<Player>) gameState.getMyTeam().getPlayers());
 		gameState.addObserver(this);
 		yourSelectedPlayer.addObserver(this);
+		
+		ObservableList<Player> otherPlayers = FXCollections.observableList(new ArrayList<Player>());
+		for (Team t : gameState.getLeague().getTeams()) {
+			if (t == gameState.getMyTeam()) continue;
+			otherPlayers.addAll(t.getPlayers());
+		}
+		
+		otherPlayersTableView.setItems(otherPlayers);
+//		System.out.println(otherPlayers);
 	}
 
 	/**
@@ -176,6 +196,8 @@ public class TeamOverviewController implements Initializable, Observer {
 		otherPlayerNameLabel.textProperty().bind(otherStamina.asString());
 		otherPrice = new SimpleIntegerProperty();
 		otherPlayerNameLabel.textProperty().bind(otherPrice.asString());
+		otherTeam = new SimpleStringProperty();
+		otherPlayerTeamLabel.textProperty().bind(otherTeam);
 	}
 
 	/**
