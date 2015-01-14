@@ -8,13 +8,9 @@ import javafx.application.Application;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nl.tudelft.footballmanager.ui.controller.SplashScreen;
-import nl.tudelft.footballmanager.ui.controller.TitleScreenController;
 
 public class FootballManager extends Application {
 	private static Stage stage;
-	
-	// Switch to disable splashscreen
-	private boolean bSplashScreen = false;
 
 	@Override
 	public void start(Stage stage) {
@@ -24,16 +20,10 @@ public class FootballManager extends Application {
 		FootballManager.stage.setMinHeight(600);
 		FootballManager.stage.centerOnScreen();
 		FootballManager.stage.show();
-		
-		// Splashscreen
-		if(bSplashScreen) {
-			SplashScreen ss= new SplashScreen(stage, "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv");
-			ss.show();
-		}
-		else {
-			TitleScreenController.show();
-		}
-		
+
+		SplashScreen ss= new SplashScreen(stage, "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv");
+		ss.show();
+
 	}
 
 	public static void main(String[] args) {
