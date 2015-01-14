@@ -16,8 +16,10 @@ public class FootballManager extends Application {
 	public void start(Stage stage) {
 		FootballManager.stage = stage;
 		FootballManager.stage.setTitle("Football Manager 2142");
-		FootballManager.stage.show();
+		FootballManager.stage.setMinWidth(800);
+		FootballManager.stage.setMinHeight(600);
 		FootballManager.stage.centerOnScreen();
+		FootballManager.stage.show();
 
 		TitleScreenController.show();
 	}
