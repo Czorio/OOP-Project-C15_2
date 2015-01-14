@@ -33,13 +33,16 @@ public class RootController implements Initializable, Observer {
 	@FXML private Button loadGameButton;
 	@FXML private Label gamesPlayed;
 	@FXML private Button nextRoundButton;
-	@FXML private MenuItem quitMenuButton;
-	@FXML private MenuItem saveAndQuitMenuButton;
+	@FXML private MenuItem saveAndQuitDesktopMenuItem;
+	@FXML private MenuItem saveAndQuitMenuItem;
+	@FXML private MenuItem quitMenuMenuItem;
+	@FXML private MenuItem quitDesktopMenuItem;
 	
 	private static GameState gameState = null;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
+		
 		saveGameButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
 			boolean result = saveGame(gameState);
@@ -62,23 +65,44 @@ public class RootController implements Initializable, Observer {
 //			MatchViewController.show(rootController.rootController);
 		});
 		
-		// Save and Quit application
-		saveAndQuitMenuButton.setOnAction((event) -> {
+		// Save and Quit to Menu
+		saveAndQuitMenuItem.setOnAction((event) -> {
+			System.out.println(event.getSource());
+			boolean result = saveGame(gameState);
+			if (!result) {
+				System.err.println("Game not saved!");
+			} else {
+				TitleScreenController.show();
+				System.out.println("Saved and Returned to Menu!");
+			}
+		});
+		
+		// Save and Quit to Desktop
+		saveAndQuitDesktopMenuItem.setOnAction((event) -> {
 			System.out.println(event.getSource());
 			boolean result = saveGame(gameState);
 			if (!result) {
 				System.err.println("Game not saved!");
 			} else {
 				Platform.exit();
+				System.out.println("Saved and Quit!");
 			}
 		});
 		
 		
-		// Quit application
-		quitMenuButton.setOnAction((event) -> {
+		// Quit to Menu
+		quitMenuMenuItem.setOnAction((event) -> {
+			System.out.println(event.getSource());
+			TitleScreenController.show();
+			System.out.println("Returned to Menu!");
+		});
+		
+		
+		// Quit to Desktop
+		quitDesktopMenuItem.setOnAction((event) -> {
 			System.out.println(event.getSource());
 			Platform.exit();
-			System.out.println("Game quit!");
+			System.out.println("Quit to Desktop!");
 		});
 	}
 	
