@@ -3,6 +3,8 @@ import java.io.Console;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -18,6 +20,7 @@ import javax.xml.transform.stream.StreamResult;
 
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.League;
+import nl.tudelft.footballmanager.model.MatchScheme;
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
 import org.w3c.dom.Document;
@@ -72,7 +75,7 @@ public class XMLConfig extends XML {
 	        XMLPlayer.addLeagueToDom(dom, rootEle, gameState.getLeague());
 	        
 	        // Add matchScheme
-	        
+	        addGameScheme(dom, rootEle, gameState.getMatchScheme());        
 	        
 	        dom.appendChild(rootEle);
 	             
@@ -94,6 +97,42 @@ public class XMLConfig extends XML {
 	    }
 		
 		return true;
+	}
+	
+	/**
+	 * @param dom
+	 * @param rootEle
+	 */
+	private void addGameScheme(Document dom, Element rootEle, MatchScheme matchScheme) {
+		// Create a league element "League" with given name.
+		Element eMatchScheme = dom.createElement("matchScheme");
+
+		Element eMatchDay = null;
+		Element eMatch = null;
+		Element eMatchElement = null;
+
+		for(int i = 0; i < matchScheme.getMatchdays().size(); i++) {
+			eMatchDay = dom.createElement("matchDay");
+			eMatchDay.setAttribute("round", Integer.toString(matchScheme.getMatchdays().get(i).getRound()));
+
+			for(int j = 0; j < matchScheme.getMatchdays().get(i).getMatchCount(); j++) {
+				eMatch = dom.createElement("match");
+
+				eMatchElement = dom.createElement("homeTeam");
+				eMatchElement.appendChild(dom.createTextNode(matchScheme.getMatchdays().get(i).getMatches().get(j).getHome().getTeam()));
+				eMatch.appendChild(eMatchElement);
+				
+				eMatchElement = dom.createElement("awayTeam");
+				eMatchElement.appendChild(dom.createTextNode(matchScheme.getMatchdays().get(i).getMatches().get(j).getAway().getTeam()));
+				eMatch.appendChild(eMatchElement);				
+				
+				eMatchDay.appendChild(eMatch);
+			}
+			
+			eMatchScheme.appendChild(eMatchDay);
+		}
+
+		rootEle.appendChild(eMatchScheme);
 	}
 	
 	/**
