@@ -25,18 +25,6 @@ public class Match extends Observable {
 		this.away = away;
 	}
 
-	public static void match(GameState gs, String homeName, String awayName) {
-		File in = new File("GameData/Leagues/" + gs.getLeague().getLeague() + ".xml");
-		XMLPlayer xmlplayer = new XMLPlayer(in);
-		League league = xmlplayer.readFromFile(gs.getLeague().getLeague());
-
-		Team home = league.getTeam(homeName);
-		Team away = league.getTeam(awayName);
-
-		new GameLogic(home, away, gs);
-		GameLogic.game();
-	}
-
 	/**
 	 * @return the home
 	 */
