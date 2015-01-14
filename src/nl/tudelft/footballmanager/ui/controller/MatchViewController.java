@@ -16,7 +16,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import nl.tudelft.footballmanager.model.Player;
-import nl.tudelft.footballmanager.model.logic.TeamSetUp;
 
 /**
  * @author Mathijs de Boer <czorio4@gmail.com>
@@ -30,8 +29,6 @@ public class MatchViewController implements Initializable, Observer {
 	@FXML private TableColumn<Player, Integer> offCol;
 	@FXML private TableColumn<Player, Integer> defCol;
 	@FXML private TableColumn<Player, Integer> staminaCol;
-	
-	@FXML private ComboBox<TeamSetUp> formationComboBox;
 	
 	@FXML private Button playButton;
 	@FXML private Button cancelButton;
