@@ -1,27 +1,41 @@
 package nl.tudelft.footballmanager.model.logic;
 
+import java.util.List;
 import java.util.Random;
 
 import nl.tudelft.footballmanager.model.GameState;
+import nl.tudelft.footballmanager.model.Match;
+import nl.tudelft.footballmanager.model.MatchScheme;
 import nl.tudelft.footballmanager.model.Team;
 
 /**
- * Logic used to determine the winner of a game.
+ * Logic used to play a gameday, games are played between a home team and an away team, based on the current matchscheme.
  * @author Steven Meijer <stevenmeijer9@gmail.com>
  *
  */
 public class GameLogic {
 
-	private static Team home, away;
-	private static Random randomNumber = new Random(System.currentTimeMillis());
+	private static GameState gs;
 
-	public GameLogic(Team home, Team away, GameState gs){
-		GameLogic.home = home;
-		GameLogic.away = away;
+	public GameLogic(GameState gs){
+		GameLogic.gs = gs;
+	}
+	
+	/**
+	 * Plays all the games that should be played on the current matchday.
+	 */
+	public static void matchDay() {
+		MatchScheme ms = gs.getMatchScheme();
+		int matchDay = gs.getGameRound();
 		
-		new TeamLogic(home, gs);
-		new TeamLogic(away, gs);
+		List<Match> todaysMatches = ms.getMatchdays().get(matchDay).getMatches();
 		TeamLogic.createAITeam();
+		
+		for(Match m : todaysMatches) {
+			new TeamLogic(m.getHome(), gs);
+			new TeamLogic(m.getAway(), gs);
+			game(m.getHome(), m.getAway());
+		}
 	}
 	
 	/**
@@ -30,14 +44,16 @@ public class GameLogic {
 	 * 
 	 * Every match takes 90 + 0-6 minutes.
 	 * 
+	 * @param home The home team to play.
+	 * @param away The away team to play.
 	 * @return Returns the result of the match.
 	 */
-	public static String game(){
+	public static void game(Team home, Team away){
 		int homeGoals = 0;
 		int awayGoals = 0;
 		int lastGoal = 0; //Minutes since last goal.
-		int randomInterval = generateRandom(2, 8); //Interval where no goals can be scored.
-		int extraTime = generateRandom(0, 6); //Extra game time.
+		int randomInterval = generateRandom(System.currentTimeMillis(), 2, 8); //Interval where no goals can be scored.
+		int extraTime = generateRandom(System.currentTimeMillis(), 0, 6); //Extra game time.
 		int homeScoreChance = TeamLogic.calculateTeamTotalScore(home);
 		int awayScoreChance = TeamLogic.calculateTeamTotalScore(away);
 		
@@ -49,13 +65,19 @@ public class GameLogic {
 		//TODO: Add injuries, cards, ...?
 		//TODO Balance score values.
 		for (int i = 1; i <= (90 + extraTime); i++) {
-			if(homeScoreChance + generateRandom(0,80) > 235 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0,30) >=29) {
+			if(homeScoreChance + generateRandom(System.currentTimeMillis(), 0, 80) > 235 
+					&& homeGoals < 10 
+					&& lastGoal >= randomInterval 
+					&& generateRandom(System.currentTimeMillis(), 0, 30) >= 29) {
 				homeGoals++;
 				System.out.println(i + ": Team " + home.getTeam() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
 			}
 			
-			if(awayScoreChance + generateRandom(0,80) > 235 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0,30) >= 29) {
+			if(awayScoreChance + generateRandom(System.currentTimeMillis(), 0, 80) > 235 
+					&& awayGoals < 10 
+					&& lastGoal >= randomInterval 
+					&& generateRandom(System.currentTimeMillis(), 0, 30) >= 29) {
 				awayGoals++;
 				System.out.println(i + ": Team " + away.getTeam() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
@@ -68,7 +90,7 @@ public class GameLogic {
 		
 		System.out.println("\nFinal result: " + home.getTeam() + " " + homeGoals + " - " + awayGoals + " " + away.getTeam());
 		
-		return homeGoals + " - " + awayGoals;
+//		return homeGoals + " - " + awayGoals;
 	}
 
 	/**
@@ -80,63 +102,9 @@ public class GameLogic {
 	 * @return Returns a semi-random number.
 	 * @see java.util.Random#nextInt(int)
 	 */
-	public int generateRandomWithSeed(long seed, int min, int max){
+	public static int generateRandom(long seed, int min, int max){
 		Random generator = new Random(seed);
 		return generator.nextInt((max - min) + 1) + min;
-	}
-
-	/**
-	 * Generates a pseudo-random random number between min and max, inclusive.
-	 * 
-	 * @param min The minimum value.
-	 * @param max The maximum value. Must be larger than min.
-	 * @return Returns a random number.
-	 * @see java.util.Random#nextInt(int)
-	 */
-	public static int generateRandom(int min, int max){
-		return randomNumber.nextInt((max - min) + 1) + min;
-	}
-
-	/**
-	 * @return the homeTeam
-	 */
-	public Team getHomeTeam() {
-		return home;
-	}
-
-	/**
-	 * @param homeTeam the homeTeam to set
-	 */
-	public void setHomeTeam(Team homeTeam) {
-		GameLogic.home = homeTeam;
-	}
-
-	/**
-	 * @return the awayTeam
-	 */
-	public Team getAwayTeam() {
-		return away;
-	}
-
-	/**
-	 * @param awayTeam the awayTeam to set
-	 */
-	public void setAwayTeam(Team awayTeam) {
-		GameLogic.away = awayTeam;
-	}
-
-	/**
-	 * @return the randomNumber
-	 */
-	public Random getRandomNumber() {
-		return randomNumber;
-	}
-
-	/**
-	 * @param randomNumber the randomNumber to set
-	 */
-	public void setRandomNumber(Random randomNumber) {
-		GameLogic.randomNumber = randomNumber;
 	}
 
 }
