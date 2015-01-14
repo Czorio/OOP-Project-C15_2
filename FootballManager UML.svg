@@ -492,21 +492,7 @@
       <text x="2" y="198" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+isUseless(gameState : GameState) : boolean</text>
       <line x1="2" x2="223" y1="200" style="clip-path:url(#clipPath9); fill:none;" y2="200" />
       <text x="2" y="213" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+nextRound() : void</text>
-      <text x="2" y="228" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+getMyTeamName() : String</text>
-      <text x="2" y="243" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+getLeagueName() : String</text>
-      <text x="2" y="258" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+toString() : String</text>
-      <text x="2" y="273" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+getCoachName() : String</text>
-      <text x="2" y="288" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+setCoachName(coachName : String) : void</text>
-      <text x="2" y="303" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+getGameRound() : int</text>
-      <text x="2" y="318" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+setGameRound(gameRound : int) : void</text>
-      <text x="2" y="333" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+getLeague() : League</text>
-      <text x="2" y="348" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+setLeague(league : League) : void</text>
-      <text x="2" y="363" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+setLeague(leagueName : String) : void</text>
-      <text x="2" y="378" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+getMyTeam() : Team</text>
-      <text x="2" y="393" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+setMyTeam(myTeam : Team) : void</text>
-      <text x="2" y="408" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+setMyTeam(myTeamName : String) : void</text>
-      <text x="2" y="423" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+getMatchScheme() : MatchScheme</text>
-      <text x="2" y="438" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+setMatchScheme(matchScheme : MatchScheme) : void</text>
+      <text x="2" y="228" style="clip-path:url(#clipPath9); stroke:none;" xml:space="preserve">+toString() : String</text>
     </g>
     <g transform="translate(3962,2475)" style="text-rendering:geometricPrecision; font-size:11; font-weight:bold; font-family:sans-serif;">
       <text x="265" y="12" style="clip-path:url(#clipPath10); stroke:none;" xml:space="preserve">GameState</text>
@@ -536,17 +522,9 @@
       <line x1="2" x2="229" y1="140" style="clip-path:url(#clipPath12); fill:none;" y2="140" />
       <text x="2" y="153" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+readAll() : List</text>
       <line x1="2" x2="76" y1="155" style="clip-path:url(#clipPath12); fill:none;" y2="155" />
-      <text x="2" y="168" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">-getLeagueFile(leagueName : String) : File</text>
-      <line x1="2" x2="202" y1="170" style="clip-path:url(#clipPath12); fill:none;" y2="170" />
-      <text x="2" y="183" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+addTeam(team : Team) : void</text>
-      <text x="2" y="198" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+removeTeam(team : Team) : void</text>
-      <text x="2" y="213" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+equals(other : Object) : boolean</text>
-      <text x="2" y="228" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+getLeague() : String</text>
-      <text x="2" y="243" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+setLeague(league : String) : void</text>
-      <text x="2" y="258" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+getTeam(name : String) : Team</text>
-      <text x="2" y="273" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+getTeams() : ArrayList</text>
-      <text x="2" y="288" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+setTeams(teams : ArrayList) : void</text>
-      <text x="2" y="303" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+getPossibleMatches(league : League) : ArrayList</text>
+      <text x="2" y="168" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+addTeam(team : Team) : void</text>
+      <text x="2" y="183" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+removeTeam(team : Team) : void</text>
+      <text x="2" y="198" style="clip-path:url(#clipPath12); stroke:none;" xml:space="preserve">+equals(other : Object) : boolean</text>
     </g>
     <g transform="translate(3632,3142)" style="text-rendering:geometricPrecision; font-size:11; font-weight:bold; font-family:sans-serif;">
       <text x="110" y="12" style="clip-path:url(#clipPath13); stroke:none;" xml:space="preserve">League</text>
@@ -592,13 +570,7 @@
       <text x="2" y="63" style="clip-path:url(#clipPath20); stroke:none;" xml:space="preserve">+Match(home : Team, away : Team)</text>
       <text x="2" y="78" style="clip-path:url(#clipPath20); stroke:none;" xml:space="preserve">+match(gs : GameState, homeName : String, awayName : String) : void</text>
       <line x1="2" x2="342" y1="80" style="clip-path:url(#clipPath20); fill:none;" y2="80" />
-      <text x="2" y="93" style="clip-path:url(#clipPath20); stroke:none;" xml:space="preserve">+getHome() : Team</text>
-      <text x="2" y="108" style="clip-path:url(#clipPath20); stroke:none;" xml:space="preserve">+setHome(home : Team) : void</text>
-      <text x="2" y="123" style="clip-path:url(#clipPath20); stroke:none;" xml:space="preserve">+getAway() : Team</text>
-      <text x="2" y="138" style="clip-path:url(#clipPath20); stroke:none;" xml:space="preserve">+setAway(away : Team) : void</text>
-      <text x="2" y="153" style="clip-path:url(#clipPath20); stroke:none;" xml:space="preserve">+getRound() : int</text>
-      <text x="2" y="168" style="clip-path:url(#clipPath20); stroke:none;" xml:space="preserve">+setRound(round : int) : void</text>
-      <text x="2" y="183" style="clip-path:url(#clipPath20); stroke:none;" xml:space="preserve">+toString() : String</text>
+      <text x="2" y="93" style="clip-path:url(#clipPath20); stroke:none;" xml:space="preserve">+toString() : String</text>
     </g>
     <g transform="translate(4732,1855)" style="text-rendering:geometricPrecision; font-size:11; font-weight:bold; font-family:sans-serif;">
       <text x="164" y="12" style="clip-path:url(#clipPath21); stroke:none;" xml:space="preserve">Match</text>
@@ -616,16 +588,10 @@
       <line x1="0" x2="250" y1="34" style="stroke-linecap:butt; clip-path:url(#clipPath23); fill:none; stroke-linejoin:bevel; stroke-miterlimit:0;" y2="34" />
       <text x="2" y="48" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+MatchDay(round : int, matches : ArrayList)</text>
       <text x="2" y="63" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+MatchDay(round : int)</text>
-      <text x="2" y="78" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+getTodaysTeams() : ArrayList</text>
-      <text x="2" y="93" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+teamCanPlayToday(t : Team) : boolean</text>
-      <text x="2" y="108" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+matchCanBePlayedToday(m : Match) : boolean</text>
-      <text x="2" y="123" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+getMatches() : ArrayList</text>
-      <text x="2" y="138" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+setMatches(matches : ArrayList) : void</text>
-      <text x="2" y="153" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+addMatch(m : Match) : void</text>
-      <text x="2" y="168" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+getRound() : int</text>
-      <text x="2" y="183" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+setRound(round : int) : void</text>
-      <text x="2" y="198" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+toString() : String</text>
-      <text x="2" y="213" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+getMatchCount() : int</text>
+      <text x="2" y="78" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+teamCanPlayToday(t : Team) : boolean</text>
+      <text x="2" y="93" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+matchCanBePlayedToday(m : Match) : boolean</text>
+      <text x="2" y="108" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+addMatch(m : Match) : void</text>
+      <text x="2" y="123" style="clip-path:url(#clipPath23); stroke:none;" xml:space="preserve">+toString() : String</text>
     </g>
     <g transform="translate(5982,2845)" style="text-rendering:geometricPrecision; font-size:11; font-weight:bold; font-family:sans-serif;">
       <text x="99" y="12" style="clip-path:url(#clipPath24); stroke:none;" xml:space="preserve">MatchDay</text>
@@ -670,43 +636,6 @@
       <text x="2" y="378" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+Player()</text>
       <text x="2" y="393" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+equals(other : Object) : boolean</text>
       <text x="2" y="408" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+toString() : String</text>
-      <text x="2" y="423" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getId() : int</text>
-      <text x="2" y="438" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setId(id : int) : void</text>
-      <text x="2" y="453" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getFirstName() : String</text>
-      <text x="2" y="468" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setFirstName(firstName : String) : void</text>
-      <text x="2" y="483" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getLastName() : String</text>
-      <text x="2" y="498" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setLastName(lastName : String) : void</text>
-      <text x="2" y="513" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getClub() : String</text>
-      <text x="2" y="528" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setClub(club : String) : void</text>
-      <text x="2" y="543" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getNationality() : String</text>
-      <text x="2" y="558" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setNationality(nationality : String) : void</text>
-      <text x="2" y="573" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getDateOfBirth() : Date</text>
-      <text x="2" y="588" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setDateOfBirth(dateOfBirth : Date) : void</text>
-      <text x="2" y="603" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getPosition() : String</text>
-      <text x="2" y="618" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getReadablePosition() : String</text>
-      <text x="2" y="633" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setPosition(position : String) : void</text>
-      <text x="2" y="648" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getCurPosition() : String</text>
-      <text x="2" y="663" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setCurPosition(curPosition : String) : void</text>
-      <text x="2" y="678" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getPace() : int</text>
-      <text x="2" y="693" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setPace(pace : int) : void</text>
-      <text x="2" y="708" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getShooting() : int</text>
-      <text x="2" y="723" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setShooting(shooting : int) : void</text>
-      <text x="2" y="738" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getPassing() : int</text>
-      <text x="2" y="753" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setPassing(passing : int) : void</text>
-      <text x="2" y="768" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getOffensive() : int</text>
-      <text x="2" y="783" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setOffensive(offensive : int) : void</text>
-      <text x="2" y="798" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getDefensive() : int</text>
-      <text x="2" y="813" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setDefensive(defensive : int) : void</text>
-      <text x="2" y="828" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getStamina() : int</text>
-      <text x="2" y="843" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setStamina(stamina : int) : void</text>
-      <text x="2" y="858" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getPrice() : int</text>
-      <text x="2" y="873" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setPrice(price : int) : void</text>
-      <text x="2" y="888" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getPlayedGames() : int</text>
-      <text x="2" y="903" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setPlayedGames(playedGames : int) : void</text>
-      <text x="2" y="918" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getLeague() : String</text>
-      <text x="2" y="933" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setLeague(league : String) : void</text>
-      <text x="2" y="948" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+getTeam() : Team</text>
-      <text x="2" y="963" style="clip-path:url(#clipPath26); stroke:none;" xml:space="preserve">+setTeam(team : Team) : void</text>
     </g>
     <g transform="translate(5162,915)" style="text-rendering:geometricPrecision; font-size:11; font-weight:bold; font-family:sans-serif;">
       <text x="527" y="12" style="clip-path:url(#clipPath27); stroke:none;" xml:space="preserve">Player</text>
@@ -749,15 +678,6 @@
       <text x="2" y="138" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+addPlayer(player : Player) : boolean</text>
       <text x="2" y="153" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+removePlayer(player : Player) : boolean</text>
       <text x="2" y="168" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+equals(other : Object) : boolean</text>
-      <text x="2" y="183" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+getTeam() : String</text>
-      <text x="2" y="198" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+setTeam(team : String) : void</text>
-      <text x="2" y="213" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+getPlayer(firstName : String, lastName : String) : Player</text>
-      <text x="2" y="228" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+getPlayer(id : int) : Player</text>
-      <text x="2" y="243" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+getPlayers() : List</text>
-      <text x="2" y="258" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+setPlayers(players : ArrayList) : void</text>
-      <text x="2" y="273" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+getBudget() : int</text>
-      <text x="2" y="288" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+setBudget(budget : int) : void</text>
-      <text x="2" y="303" style="clip-path:url(#clipPath32); stroke:none;" xml:space="preserve">+getByPosition(position : String) : List</text>
     </g>
     <g transform="translate(5562,2145)" style="text-rendering:geometricPrecision; font-size:11; font-weight:bold; font-family:sans-serif;">
       <text x="130" y="12" style="clip-path:url(#clipPath33); stroke:none;" xml:space="preserve">Team</text>
@@ -814,14 +734,6 @@
       <line x1="0" x2="350" y1="64" style="stroke-linecap:butt; clip-path:url(#clipPath39); fill:none; stroke-linejoin:bevel; stroke-miterlimit:0;" y2="64" />
       <text x="2" y="78" style="clip-path:url(#clipPath39); stroke:none;" xml:space="preserve">+GameEvent(minute : int, player : Player, card : String, injury : String)</text>
       <text x="2" y="93" style="clip-path:url(#clipPath39); stroke:none;" xml:space="preserve">+equals(obj : Object) : boolean</text>
-      <text x="2" y="108" style="clip-path:url(#clipPath39); stroke:none;" xml:space="preserve">+getMinute() : int</text>
-      <text x="2" y="123" style="clip-path:url(#clipPath39); stroke:none;" xml:space="preserve">+setMinute(minute : int) : void</text>
-      <text x="2" y="138" style="clip-path:url(#clipPath39); stroke:none;" xml:space="preserve">+getPlayer() : Player</text>
-      <text x="2" y="153" style="clip-path:url(#clipPath39); stroke:none;" xml:space="preserve">+setPlayer(player : Player) : void</text>
-      <text x="2" y="168" style="clip-path:url(#clipPath39); stroke:none;" xml:space="preserve">+getCard() : String</text>
-      <text x="2" y="183" style="clip-path:url(#clipPath39); stroke:none;" xml:space="preserve">+setCard(card : String) : void</text>
-      <text x="2" y="198" style="clip-path:url(#clipPath39); stroke:none;" xml:space="preserve">+getInjury() : String</text>
-      <text x="2" y="213" style="clip-path:url(#clipPath39); stroke:none;" xml:space="preserve">+setInjury(injury : String) : void</text>
     </g>
     <g transform="translate(6430,1845)" style="text-rendering:geometricPrecision; font-size:11; font-weight:bold; font-family:sans-serif;">
       <text x="144" y="12" style="clip-path:url(#clipPath30); stroke:none;" xml:space="preserve">GameEvent</text>
@@ -847,12 +759,6 @@
       <text x="2" y="93" style="clip-path:url(#clipPath41); stroke:none;" xml:space="preserve">+generateRandomWithSeed(seed : long, min : int, max : int) : int</text>
       <text x="2" y="108" style="clip-path:url(#clipPath41); stroke:none;" xml:space="preserve">+generateRandom(min : int, max : int) : int</text>
       <line x1="2" x2="200" y1="110" style="clip-path:url(#clipPath41); fill:none;" y2="110" />
-      <text x="2" y="123" style="clip-path:url(#clipPath41); stroke:none;" xml:space="preserve">+getHomeTeam() : Team</text>
-      <text x="2" y="138" style="clip-path:url(#clipPath41); stroke:none;" xml:space="preserve">+setHomeTeam(homeTeam : Team) : void</text>
-      <text x="2" y="153" style="clip-path:url(#clipPath41); stroke:none;" xml:space="preserve">+getAwayTeam() : Team</text>
-      <text x="2" y="168" style="clip-path:url(#clipPath41); stroke:none;" xml:space="preserve">+setAwayTeam(awayTeam : Team) : void</text>
-      <text x="2" y="183" style="clip-path:url(#clipPath41); stroke:none;" xml:space="preserve">+getRandomNumber() : Random</text>
-      <text x="2" y="198" style="clip-path:url(#clipPath41); stroke:none;" xml:space="preserve">+setRandomNumber(randomNumber : Random) : void</text>
     </g>
     <g transform="translate(6450,2195)" style="text-rendering:geometricPrecision; font-size:11; font-weight:bold; font-family:sans-serif;">
       <text x="130" y="12" style="clip-path:url(#clipPath42); stroke:none;" xml:space="preserve">GameLogic</text>
