@@ -101,9 +101,7 @@ public class TitleScreenController implements Initializable, Observer {
 		try {
 			AnchorPane titleScreen = (AnchorPane) l.load();
 			FootballManager.getStage().setScene(new Scene(titleScreen));
-			FootballManager.getStage().setMinWidth(800);
-			FootballManager.getStage().setMinHeight(600);
-			FootballManager.getStage().show();
+			//FootballManager.getStage().show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
