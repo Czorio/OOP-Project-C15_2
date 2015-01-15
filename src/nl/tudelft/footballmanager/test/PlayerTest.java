@@ -3,9 +3,11 @@ package nl.tudelft.footballmanager.test;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 
 import nl.tudelft.footballmanager.model.Player;
+import nl.tudelft.footballmanager.model.Team;
 
 import org.junit.*;
 
@@ -30,6 +32,8 @@ public class PlayerTest {
 	Player Defender = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"Defender",40,40,40,40,40,40);
 	Player Goalkeeper = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"Goalkeeper",40,40,40,40,40,40);
 	Player NoPos = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"NO",40,40,40,40,40,40);
+	
+	Team empTeam = new Team("Ajax", new ArrayList<Player>());
 
 	
 	/**Constructor Test
@@ -70,11 +74,21 @@ public class PlayerTest {
 	public void testEqualsObject() {
 		RW.setNationality(null);
 		CF.setCurPosition(null);
+		assertFalse(CB.equals(empTeam));
 		assertEquals(true,CB.equals(CB1));
 		assertEquals(false,CB.equals(ST));
 		assertFalse(RW.equals(ST));
 		assertFalse(CF.equals(ST));
 		assertNotEquals(true,CB.equals(RW));
+		CB.setClub("Ajax");
+		CB1.setClub("Feyenoord");
+		assertEquals(CB.equals(CB1),false);
+		CB1.setFirstName("Dave");
+		assertFalse(CB.equals(CB1));
+		CB1.setFirstName("Davy");
+		CB1.setLastName("Zien");
+		CB1.setPosition("RW");
+		assertFalse(CB.equals(CB1));
 	}
 
 	/**toString nl.tudelft.footballmanager.test

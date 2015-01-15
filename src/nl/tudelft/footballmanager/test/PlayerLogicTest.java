@@ -16,7 +16,7 @@ import org.junit.Test;
 public class PlayerLogicTest {
 	
 	Player testPlayer = new Player(206, "Pieter", "van Bergen", "ADO Den Haag", "Nederlands", null, new Date(25/12/1993), "Midfielder", 83, 73, 70, 76, 63, 86);
-
+    Player testPlayer2 = new Player(5,"Jasper","Cillesen","Ajax","Eredivisie","Dutch", new Date(5/5/1950),"GK",0,0,0,0,70,70);
 	
 	/**
 	 * Test method for {@link nl.tudelft.footballmanager.model.logic.PlayerLogic#calculatePlayerOffScore(nl.tudelft.footballmanager.model.Player)}.
@@ -102,6 +102,9 @@ public class PlayerLogicTest {
 	public void testCalculatePlayerStaminaElseIf(){
 		testPlayer.setStamina(70);
 		assertEquals(testPlayer.getStamina(),PlayerLogic.calculatePlayerStamina(testPlayer));
+		testPlayer.setStamina(30);
+		testPlayer2.setStamina(85);
+		assertNotEquals(testPlayer.getStamina(),PlayerLogic.calculatePlayerStamina(testPlayer2));
 	}
 	
 	/**
@@ -121,7 +124,8 @@ public class PlayerLogicTest {
 	@Test
 	public void testCalculatePlayerStaminaElse(){
 		testPlayer.setStamina(30);
-		assertEquals(testPlayer.getStamina(),PlayerLogic.calculatePlayerStamina(testPlayer));
+		testPlayer2.setStamina(30);
+		assertEquals(PlayerLogic.calculatePlayerStamina(testPlayer2),PlayerLogic.calculatePlayerStamina(testPlayer));
 	}
 
 	/**

@@ -22,14 +22,17 @@ public class TeamTest {
 	League league = xmlplayer.readFromFile("Eredivisie");
 	
 	Team ajaxEredivisie = league.getTeam("Ajax");
+	Team feyenoordEredivisie = league.getTeam("Feyenoord");
 	List<Player> ajax = ajaxEredivisie.getPlayers();
+	List<Player> feyenoord = feyenoordEredivisie.getPlayers();
 	Team testTeam = new Team ("Ajax", ajax);
+	Team testTeam2 = new Team ("Feyenoord", feyenoord);
 	
 	Team empTeam  = new Team("Feyenoord", new ArrayList<Player>());
 	Team empTeam2 = new Team("Feyenoord", new ArrayList<Player>());
 	
 	Player testPlayer = new Player(3,"Mitchell","Shet","Ado Den Haag","Eredivisie","Dutch",new Date(2/2/2000),"ST",50,60,60,70,40,60);
-	
+	Player testPlayer2 = new Player(1,"Davy","Klaasen","Ajax","Eredivisie","Dutch", new Date(1/1/1990),"CB",40,50,60,60,80,70);
 	/**
 	 * Constructor test
 	 */
@@ -83,8 +86,13 @@ public class TeamTest {
 	 */
 	@Test
 	public void testEqualsObject() {
+		assertNotEquals(testTeam.equals(testPlayer),true);
 		assertTrue(testTeam.equals(testTeam));
 		assertFalse(testTeam.equals(empTeam));
+		testTeam.addPlayer(testPlayer);
+		assertNotEquals(testTeam.equals(testTeam2),true);
+		testTeam2.addPlayer(testPlayer);
+		assertEquals(testTeam.equals(testTeam2),false);
 	}
 
 	/**
