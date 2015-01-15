@@ -2,6 +2,7 @@ package nl.tudelft.footballmanager.test;
 
 import static org.junit.Assert.*;
 import nl.tudelft.footballmanager.model.Match;
+import nl.tudelft.footballmanager.model.MatchResult;
 import nl.tudelft.footballmanager.model.Team;
 
 import org.junit.Test;
@@ -14,6 +15,10 @@ public class MatchTest {
 	Team t4 = new Team("AZ Alkmaar");
 	Match m1 = new Match(t1,t2);
 	Match m2 = new Match(t1,t4);
+	
+	MatchResult testResult = new MatchResult();
+	
+	
 	
 	/**Constructor Match nl.tudelft.footballmanager.test
 	 * Test the constructor with getters.
@@ -69,6 +74,14 @@ public class MatchTest {
 	public void testToString(){
 		assertEquals(m1.toString(),m1.toString());
 		assertEquals(m1.toString(),"Match [home=Ajax, away=Feyenoord, round=0]");
+	}
+	
+	@Test
+	public void testSetMatchResult(){
+		testResult.setHomeScore(2);
+		testResult.setAwayScore(3);
+		m1.setMatchResult(testResult);
+		assertEquals(m1.getMatchResult().getAwayScore(),3);
 	}
 
 }
