@@ -21,13 +21,18 @@ public class LeagueTest {
 	League league2 = xmlplayer.readFromFile("Barclays Premier League");
 	
 	Team ajaxEredivisie = league.getTeam("Ajax");
+	Team feyenoordEredivisie = league.getTeam("Feyenoord");
 	List<Player> ajax = ajaxEredivisie.getPlayers();
+	List<Player> feyenoord = feyenoordEredivisie.getPlayers();
 	Team testTeam = new Team ("Ajax", ajax);
+	Team testTeam2 = new Team("Feyenoord", feyenoord );
 	
 	
 	
 	League testLeague = new League("Eredivisie", league.getTeams());
 	League testLeague2 = new League("Barclays Premier League", league2.getTeams());
+	League testLeague3 = new League("Eredivisie", league.getTeams());
+	League testLeague4 = new League("Eredivisie", league2.getTeams());
 	
 	/**
 	 * League constructor Test
@@ -44,6 +49,8 @@ public class LeagueTest {
 	public void testAddTeam() {
 		testLeague2.addTeam(testTeam);
 		assertEquals(testLeague.getTeam("Ajax"),testTeam);
+		testLeague2.addTeam(testTeam);
+		assertNotEquals(testLeague2.getTeam("Ajax"),testTeam2);
 	}
 
 	/**
@@ -53,6 +60,8 @@ public class LeagueTest {
 	public void testRemoveTeam() {
 		testLeague.removeTeam(testTeam);
 		assertEquals(testLeague.getTeam("Ajax"),null);
+		testLeague.removeTeam(testTeam);
+		assertNotEquals(testLeague.getTeam("Ajax"),testTeam2);
 	}
 
 	/**
@@ -60,7 +69,10 @@ public class LeagueTest {
 	 */
 	@Test
 	public void testEqualsObject() {
+		assertEquals(testLeague,testLeague3);
 		assertNotEquals(testLeague,testLeague2);
+		assertNotEquals(testLeague,testTeam);
+		assertNotEquals(testLeague,testLeague4);       
 	}
 
 	/**
