@@ -7,7 +7,7 @@ import java.util.Date;
 import javafx.application.Application;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import nl.tudelft.footballmanager.ui.controller.SplashScreen;
+import nl.tudelft.footballmanager.ui.controller.NewGameViewController;
 
 public class FootballManager extends Application {
 	private static Stage stage;
@@ -21,8 +21,10 @@ public class FootballManager extends Application {
 		FootballManager.stage.centerOnScreen();
 		FootballManager.stage.show();
 
-		SplashScreen ss= new SplashScreen(stage, "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv");
-		ss.show();
+//		SplashScreen ss= new SplashScreen(stage, "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv");
+//		ss.show();
+		
+		NewGameViewController.show();
 
 	}
 
