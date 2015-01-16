@@ -20,7 +20,10 @@ public class GameLogic {
 	private static long seed = System.currentTimeMillis();
 	private static Random random = new Random(seed);
 	
-
+	/**
+	 * Creates and initializes a GameLogic instance.
+	 * @param gs The current gamestate to use.
+	 */
 	public GameLogic(GameState gs){
 		GameLogic.gs = gs;
 	}
@@ -43,15 +46,14 @@ public class GameLogic {
 			System.out.println(m.getHome().getTeam() + " - " + m.getAway().getTeam());
 		}
 		
-		
-		for(Match m : todaysMatches) {
-			new TeamLogic(m.getHome(), gs);			
+		for(Match m : todaysMatches) {		
 			TeamLogic.createAIActivePlayers(m.getHome());
-			new TeamLogic(m.getAway(), gs);
 			TeamLogic.createAIActivePlayers(m.getAway());
 			
 			m.setMatchResult(game(m.getHome(), m.getAway()));
 		}
+		
+		TeamLogic.clearPlayers();
 	}
 	
 	/**
@@ -69,7 +71,7 @@ public class GameLogic {
 		int homeGoals = 0;
 		int awayGoals = 0;
 		int lastGoal = 0; //Minutes since last goal.
-		int randomInterval = generateRandom(2, 8); //Interval where no goals can be scored.
+		int randomInterval = generateRandom(5, 12); //Interval where no goals can be scored.
 		int extraTime = generateRandom(0, 6); //Extra game time.
 		int homeScoreChance = TeamLogic.calculateTeamTotalScore(home);
 		int awayScoreChance = TeamLogic.calculateTeamTotalScore(away);
@@ -82,14 +84,14 @@ public class GameLogic {
 		//TODO: Add injuries, cards, ...?
 		//TODO Balance score values.
 		for (int i = 1; i <= (90 + extraTime); i++) {
-			if(homeScoreChance + generateRandom(0, 80) > 215 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0, 30) >= 29) {
+			if(homeScoreChance + generateRandom(0, 80) > 220 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0, 30) == 29) {
 				homeGoals++;
 				System.out.println(i + ": Team " + home.getTeam() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
 				matchResult.addHomeScoreTime(i);
 			}
 			
-			if(awayScoreChance + generateRandom(0, 80) > 215 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0, 30) >= 29) {
+			if(awayScoreChance + generateRandom(0, 80) > 220 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0, 30) == 29) {
 				awayGoals++;
 				System.out.println(i + ": Team " + away.getTeam() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
@@ -103,7 +105,7 @@ public class GameLogic {
 		matchResult.setHomeScore(homeGoals);
 		matchResult.setAwayScore(awayGoals);
 		
-		System.out.println("\nFinal result: " + home.getTeam() + " " + homeGoals + " - " + awayGoals + " " + away.getTeam());
+		System.out.println("Final result: " + home.getTeam() + " " + homeGoals + " - " + awayGoals + " " + away.getTeam() + "\n");
 		
 		return matchResult;
 	}
@@ -120,6 +122,14 @@ public class GameLogic {
 		return random.nextInt((max - min) + 1) + min;
 	}
 	
-	//TODO set seed
+	/**
+	 * Set the seed used in the random number generator.
+	 * 
+	 * This method should only be used for testing purposed.
+	 * @param seed The seed to be used
+	 */
+	public static void setSeed(long seed) {
+		GameLogic.seed = seed;
+	}
 
 }

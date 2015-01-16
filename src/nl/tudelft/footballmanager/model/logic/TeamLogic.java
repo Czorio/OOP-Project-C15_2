@@ -1,16 +1,13 @@
 package nl.tudelft.footballmanager.model.logic;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 import nl.tudelft.footballmanager.model.GameState;
-import nl.tudelft.footballmanager.model.League;
 import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
-import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
 /**
  * Class used to generate an AI team and calculate the score of a team.
@@ -20,13 +17,16 @@ import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 public final class TeamLogic {
 
 	private static List<Player> playingPlayers = new ArrayList<Player>();
-	private static GameState gs;
+	private static GameState gs; //Will be used to get players own team
+	private static Team team;
+	private static String teamSetup;
 
 	/**
 	 * Constructs and initializes a playing team.
 	 * @param team All the players of a team.
 	 */
 	public TeamLogic(Team team, GameState gs) {
+		TeamLogic.team = team;
 		TeamLogic.gs = gs;
 	}
 
@@ -38,10 +38,8 @@ public final class TeamLogic {
 	public static final int calculateTeamOffScore(Team team) {
 		int offScore = 0;
 		
-		for (Player p : playingPlayers) {
-			if (p.getClub().equals(team.getTeam())) {
-				offScore += PlayerLogic.calculatePlayerOffScore(p);
-			}
+		for (Player p : getPlayersPerTeam(team)) {
+			offScore += PlayerLogic.calculatePlayerOffScore(p);
 		}
 		
 		return Math.round(offScore/11);
@@ -55,10 +53,8 @@ public final class TeamLogic {
 	public static final int calculateTeamDefScore(Team team) {
 		int defScore = 0;
 		
-		for (Player p : playingPlayers) {
-			if (p.getClub().equals(team.getTeam())) {
-				defScore += PlayerLogic.calculatePlayerDefScore(p);
-			}
+		for (Player p : getPlayersPerTeam(team)) {
+			defScore += PlayerLogic.calculatePlayerDefScore(p);
 		}
 
 		return Math.round(defScore/11);
@@ -72,10 +68,8 @@ public final class TeamLogic {
 	public static final int calculateTeamStaminaScore(Team team){
 		int stamScore = 0;
 		
-		for (Player p : playingPlayers) {
-			if (p.getClub().equals(team.getTeam())) {
-				stamScore += PlayerLogic.calculatePlayerStamina(p);
-			}
+		for (Player p : getPlayersPerTeam(team)) {
+			stamScore += PlayerLogic.calculatePlayerStamina(p);
 		}
 		
 		return Math.round(stamScore/11);
@@ -92,34 +86,23 @@ public final class TeamLogic {
 		return (calculateTeamOffScore(team) + calculateTeamDefScore(team) + calculateTeamStaminaScore(team));
 	}
 
-//	/**
-//	 * Creates a team for every club that is not the club the user is playing.
-//	 * @param gs The current gamestate.
-//	 */
-//	public static void createAITeam() {;
-//		League league = gs.getLeague();
-//		Team playerTeam = gs.getMyTeam();
-//		
-//		for (Team team : league.getTeams()) {
-//			if(team != playerTeam) {
-//				createAIActivePlayers(team);
-//			}
-//		}
-//	}
-
 	/**
 	 * Creates an AI team. Picks random players and places them on their positions.
 	 * @param team The team to create.
 	 */
 	public static void createAIActivePlayers(Team team) {
-		String setup = createSetup();
-		Scanner sc = new Scanner(setup);
+		createSetup();
+		Scanner sc = new Scanner(teamSetup);
+		System.out.println("The used setup for team " + team.getTeam() + " is " + teamSetup);
 		Random random = new Random(System.currentTimeMillis());
-		System.out.println("\nThe used setup for team " + team.getTeam() + " is " + setup);
-
+		
 		int nrDefenders = sc.nextInt();
 		int nrMidfielders = sc.nextInt();
 		int nrAttackers = sc.nextInt();
+		int counter;
+		int maxCounter = 30;
+		
+		sc.close();
 
 		List<Player> goalkeepers = team.getByPosition("Goalkeeper");
 		List<Player> defenders = team.getByPosition("Defender");
@@ -136,33 +119,39 @@ public final class TeamLogic {
 			p.setCurPosition("None");
 		}
 		
+		//TODO Rewrite setting up AI team
+		
 		int randomKeeper = random.nextInt(goalkeepers.size());
 		goalkeepers.get(randomKeeper).setCurPosition("Goalkeeper");
 		playingPlayers.add(goalkeepers.get(randomKeeper));
-		//System.out.println("Added goalkeeper");
 
-		while (nrDefenders != 0) {
+		counter = 0;
+		while (nrDefenders != 0 && counter < maxCounter) {
 			int randomNumber = random.nextInt(defenders.size());
 
 			if (defenders.get(randomNumber).getCurPosition().equals("None")) {
 				defenders.get(randomNumber).setCurPosition("Defender");
 				playingPlayers.add(defenders.get(randomNumber));
 				nrDefenders--;
-				//System.out.println("Added defender");
 			}
+			
+			counter++;
 		}
 
-		while (nrMidfielders != 0) {
+		counter = 0;
+		while (nrMidfielders != 0 && counter < maxCounter) {
 			int randomNumber = random.nextInt(midfielders.size());
 			
 			//Failsafe if the amount of midfielders needed is greater that the amount of midfielders.
-			while (nrMidfielders > midfielders.size()) {
+			while (nrMidfielders > midfielders.size() && counter < maxCounter) {
 				int randomNumber1 =  random.nextInt(defenders.size());
 				if (defenders.get(randomNumber1).getCurPosition().equals("None")) {
 					defenders.get(randomNumber1).setCurPosition("Midfielder");
 					playingPlayers.add(defenders.get(randomNumber1));
-					nrMidfielders--;
 					System.out.println(team.getTeam() + ": Too few midfielders for setup, adding defender as midfielder...");
+					
+					nrMidfielders--;
+					counter++;
 				}
 			}
 			
@@ -170,21 +159,25 @@ public final class TeamLogic {
 				midfielders.get(randomNumber).setCurPosition("Midfielder");
 				playingPlayers.add(midfielders.get(randomNumber));
 				nrMidfielders--;
-				//System.out.println("Added midfielder");
 			}
+			
+			counter++;
 		}
 
-		while (nrAttackers != 0) {
+		counter = 0;
+		while (nrAttackers != 0 && counter < maxCounter) {
 			int randomNumber = random.nextInt(attackers.size());
 			
 			//Failsafe if the amount of attackers needed is greater that the amount of attackers.
-			while (nrAttackers > attackers.size()) {
+			while (nrAttackers > attackers.size() && counter < maxCounter) {
 				int randomNumber1 = random.nextInt(midfielders.size());
 				if (midfielders.get(randomNumber1).getCurPosition().equals("None")) {
 					midfielders.get(randomNumber1).setCurPosition("Attacker");
 					playingPlayers.add(midfielders.get(randomNumber1));
-					nrAttackers--;
 					System.out.println(team.getTeam() + ": Too few attackers for setup, adding midfielder as attacker...");
+					
+					nrAttackers--;
+					counter++;
 				}
 			}
 			
@@ -192,24 +185,24 @@ public final class TeamLogic {
 				attackers.get(randomNumber).setCurPosition("Attacker");
 				playingPlayers.add(attackers.get(randomNumber));
 				nrAttackers--;
-				//System.out.println("Added attacker");
 			}
+			
+			counter++;
 		}
 		
-		//TODO Write amount of games to file.
+		//TODO Implement player choosing his own players
+		//TODO implement stamina
 		//Sets the amount of played games for each playing player to + 1.
 //		for(Player p : playingPlayers) {
 //			p.setPlayedGames(p.getPlayedGames() + 1);
 //		}
-
-		sc.close();
 	}
 
 	/**
 	 * Creates a random setup for AI games.
 	 * @return Returns a random setup from the list.
 	 */
-	public static String createSetup() {
+	public static void createSetup() {
 		List<String> setup = new ArrayList<String>();
 		setup.add("4 3 3");
 		setup.add("4 4 2");
@@ -218,22 +211,38 @@ public final class TeamLogic {
 		setup.add("4 5 1");
 
 		Random random = new Random();
-		return setup.get(random.nextInt(setup.size()));
+		teamSetup = setup.get(random.nextInt(setup.size()));
+	}
+	
+	public static List<Player> getPlayersPerTeam(Team team) {
+		List<Player> players = new ArrayList<Player>(); 
+		
+		for (Player p : playingPlayers) {
+			if (p.getClub().equals(team.getTeam())) {
+				players.add(p);
+			}
+		 }
+		
+		return players;
+	}
+	
+	public static void clearPlayers() {
+		playingPlayers.clear();
 	}
 
-	public static final int gamesPlayed() {
+	public static final int gamesPlayed(Team team) {
 		return -1;
 	}
 
-	public static final int gamesWon() {
+	public static final int gamesWon(Team team) {
 		return -1;
 	}
 
-	public static final int gamesLost() {
+	public static final int gamesLost(Team team) {
 		return -1;
 	}
 
-	public static final int gamesDraw() {
+	public static final int gamesDraw(Team team) {
 		return -1;
 	}
 }
