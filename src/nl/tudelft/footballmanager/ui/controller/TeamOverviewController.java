@@ -187,15 +187,15 @@ public class TeamOverviewController implements Initializable, Observer {
 		otherName = new SimpleStringProperty();
 		otherPlayerNameLabel.textProperty().bind(otherName);
 		otherPosition = new SimpleStringProperty();
-		otherPlayerNameLabel.textProperty().bind(otherPosition);
+		otherPlayerPositionLabel.textProperty().bind(otherPosition);
 		otherOff = new SimpleIntegerProperty();
-		otherPlayerNameLabel.textProperty().bind(otherOff.asString());
+		otherPlayerOffensiveLabel.textProperty().bind(otherOff.asString());
 		otherDef = new SimpleIntegerProperty();
-		otherPlayerNameLabel.textProperty().bind(otherDef.asString());
+		otherPlayerDefensiveLabel.textProperty().bind(otherDef.asString());
 		otherStamina = new SimpleIntegerProperty();
-		otherPlayerNameLabel.textProperty().bind(otherStamina.asString());
+		otherPlayerStaminaLabel.textProperty().bind(otherStamina.asString());
 		otherPrice = new SimpleIntegerProperty();
-		otherPlayerNameLabel.textProperty().bind(otherPrice.asString());
+		otherPlayerPriceLabel.textProperty().bind(otherPrice.asString());
 		otherTeam = new SimpleStringProperty();
 		otherPlayerTeamLabel.textProperty().bind(otherTeam);
 	}
