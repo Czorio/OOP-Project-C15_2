@@ -66,7 +66,7 @@ public class NewGameViewController implements Initializable, Observer {
 			String coachName = coachNameTextField.getText();
 			GameState gs = new GameState(coachName, 0, selectedLeague, selectedTeam);
 			
-			RootController.show(gs);
+			RootViewController.show(gs);
 		});
 		
 		leagueListView.setCellFactory(new Callback<ListView<League>, ListCell<League>>() {

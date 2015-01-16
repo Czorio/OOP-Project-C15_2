@@ -26,7 +26,7 @@ import nl.tudelft.footballmanager.model.logic.GameLogic;
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
-public class RootController implements Initializable, Observer {
+public class RootViewController implements Initializable, Observer {
 	
 	public final static String rootViewFileName = "ui/view/RootView.fxml";
 
