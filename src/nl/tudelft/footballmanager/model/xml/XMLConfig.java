@@ -68,7 +68,7 @@ public class XMLConfig extends XML {
 
 	        // Add teamName
 	        el = dom.createElement("team");
-	        el.appendChild(dom.createTextNode(gameState.getMyTeam().getTeam()));
+	        el.appendChild(dom.createTextNode(gameState.getMyTeam().getName()));
 	        rootEle.appendChild(el);
 	        
 	        // Add league containing all players
@@ -119,11 +119,11 @@ public class XMLConfig extends XML {
 				eMatch = dom.createElement("match");
 
 				eMatchElement = dom.createElement("homeTeam");
-				eMatchElement.appendChild(dom.createTextNode(matchScheme.getMatchdays().get(i).getMatches().get(j).getHome().getTeam()));
+				eMatchElement.appendChild(dom.createTextNode(matchScheme.getMatchdays().get(i).getMatches().get(j).getHome().getName()));
 				eMatch.appendChild(eMatchElement);
 				
 				eMatchElement = dom.createElement("awayTeam");
-				eMatchElement.appendChild(dom.createTextNode(matchScheme.getMatchdays().get(i).getMatches().get(j).getAway().getTeam()));
+				eMatchElement.appendChild(dom.createTextNode(matchScheme.getMatchdays().get(i).getMatches().get(j).getAway().getName()));
 				eMatch.appendChild(eMatchElement);				
 				
 				eMatchDay.appendChild(eMatch);

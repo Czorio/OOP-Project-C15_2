@@ -19,7 +19,7 @@ import nl.tudelft.footballmanager.model.xml.XMLPlayer;
  *
  */
 public class League extends Observable {
-	private String league;
+	private String name;
 	private ArrayList<Team> teams; // Wellicht handig om een Set te maken, elementen zijn tenslotte distinct
 
 	private static final String LEAGUES_FOLDER_NAME = "GameData/Leagues/";
@@ -27,12 +27,12 @@ public class League extends Observable {
 	
 
 	/**
-	 * Construct a league with given name and teamlist.
-	 * @param league
+	 * Construct a name with given name and teamlist.
+	 * @param name
 	 * @param teams
 	 */
-	public League(String league, ArrayList<Team> teams) {
-		this.league = league;
+	public League(String name, ArrayList<Team> teams) {
+		this.name = name;
 		this.teams = teams;
 	}
 
@@ -40,8 +40,8 @@ public class League extends Observable {
 	 * Construct an empty League
 	 * @param League Name of the League
 	 */
-	public League(String league) {
-		this(league, new ArrayList<Team>());
+	public League(String name) {
+		this(name, new ArrayList<Team>());
 	}
 
 	public static League readOne(String leagueName) throws FileNotFoundException {
@@ -67,7 +67,7 @@ public class League extends Observable {
 	
 	public static final Comparator<League> NAME_COMPARATOR = new Comparator<League>() {
 		public int compare(League l1, League l2) {
-			return l1.getLeague().compareToIgnoreCase(l2.getLeague());
+			return l1.getName().compareToIgnoreCase(l2.getName());
 		}
 	};
 	
@@ -76,13 +76,13 @@ public class League extends Observable {
 	}
 
 	/**
-	 * Add team to this league, only if their doesn't exist a team with the same name.
+	 * Add team to this name, only if their doesn't exist a team with the same name.
 	 * @param team
 	 */
 	public void addTeam(Team team) {
 		boolean bExists = false;
 		for(Team t : this.teams) {
-			if(team.getTeam().equals(t.getTeam())) {
+			if(team.getName().equals(t.getName())) {
 				bExists = true;  
 				break;
 			}
@@ -109,7 +109,7 @@ public class League extends Observable {
 		boolean bExists = false;
 		int index = 0;
 		for(int i = 0; i < teams.size(); i++) {
-			if(teams.get(i).getTeam().equals(team.getTeam())) {
+			if(teams.get(i).getName().equals(team.getName())) {
 				bExists = true;
 				index = i;
 			}
@@ -136,7 +136,7 @@ public class League extends Observable {
 		if(other instanceof League) {
 			League that = (League)other;
 
-			return this.league.equals(that.league) &&
+			return this.name.equals(that.name) &&
 					this.teams.equals(that.teams);
 		}
 
@@ -144,17 +144,17 @@ public class League extends Observable {
 	}
 
 	/**
-	 * @return the league name
+	 * @return the name name
 	 */
-	public String getLeague() {
-		return league;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param league the league name to set
+	 * @param name the name name to set
 	 */
-	public void setLeague(String league) {
-		this.league = league;
+	public void setName(String name) {
+		this.name = name;
 
 		this.setChanged();
 		this.notifyObservers();
@@ -167,7 +167,7 @@ public class League extends Observable {
 	 */
 	public Team getTeam(String name) {
 		for(int i = 0; i < teams.size(); i++) {
-			if(teams.get(i).getTeam().equals(name)) {
+			if(teams.get(i).getName().equals(name)) {
 				return teams.get(i);
 			}
 		}

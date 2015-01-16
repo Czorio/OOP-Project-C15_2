@@ -89,7 +89,7 @@ public class Match extends Observable {
 	 */
 	@Override
 	public String toString() {
-		return "Match [home=" + home.getTeam() + ", away=" + away.getTeam() + ", round=" + round
+		return "Match [home=" + home.getName() + ", away=" + away.getName() + ", round=" + round
 				+ "]";
 	}
 

@@ -74,7 +74,7 @@ public class NewGameViewController implements Initializable, Observer {
 				ListCell<League> cell = new ListCell<League>() {
 					protected void updateItem(League l, boolean empty) {
 						super.updateItem(l, empty);
-						if (l != null) setText(l.getLeague());
+						if (l != null) setText(l.getName());
 						else setText(null);
 					}
 				};
@@ -99,7 +99,7 @@ public class NewGameViewController implements Initializable, Observer {
 				ListCell<Team> cell = new ListCell<Team>() {
 					protected void updateItem(Team t, boolean empty) {
 						super.updateItem(t, empty);
-						if (t != null) setText(t.getTeam());
+						if (t != null) setText(t.getName());
 						else setText(null);
 					}
 				};

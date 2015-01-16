@@ -75,7 +75,7 @@ public class XMLPlayerHandler extends DefaultHandler {
 			boolean bLeagueExists = false;
 			
 			for(int i = 0; i < leagueObjects.size(); i++) {
-				if(leagueObjects.get(i).getLeague().equals(getValueIgnoreCase(attributes, "NAME"))) {
+				if(leagueObjects.get(i).getName().equals(getValueIgnoreCase(attributes, "NAME"))) {
 					bLeagueExists = true;
 					System.out.println("XMLPlayerHandler: XML File contains multiple leagues with shared names.");
 				}
@@ -230,7 +230,7 @@ public class XMLPlayerHandler extends DefaultHandler {
 		// Exit from player nodelist.
 		if(bInsidePlayer && qName.equalsIgnoreCase("PLAYER")) {
 			
-			currentPlayer.setClub(currentTeam.getTeam());
+			currentPlayer.setClub(currentTeam.getName());
 			currentTeam.addPlayer(currentPlayer);
 			currentPlayer = null;
 			

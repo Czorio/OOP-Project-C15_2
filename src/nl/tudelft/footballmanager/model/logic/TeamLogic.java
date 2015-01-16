@@ -93,7 +93,7 @@ public final class TeamLogic {
 	public static void createAIActivePlayers(Team team) {
 		createSetup();
 		Scanner sc = new Scanner(teamSetup);
-		System.out.println("The used setup for team " + team.getTeam() + " is " + teamSetup);
+		System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
 		Random random = new Random(System.currentTimeMillis());
 		
 		int nrDefenders = sc.nextInt();
@@ -148,7 +148,7 @@ public final class TeamLogic {
 				if (defenders.get(randomNumber1).getCurPosition().equals("None")) {
 					defenders.get(randomNumber1).setCurPosition("Midfielder");
 					playingPlayers.add(defenders.get(randomNumber1));
-					System.out.println(team.getTeam() + ": Too few midfielders for setup, adding defender as midfielder...");
+					System.out.println(team.getName() + ": Too few midfielders for setup, adding defender as midfielder...");
 					
 					nrMidfielders--;
 					counter++;
@@ -174,7 +174,7 @@ public final class TeamLogic {
 				if (midfielders.get(randomNumber1).getCurPosition().equals("None")) {
 					midfielders.get(randomNumber1).setCurPosition("Attacker");
 					playingPlayers.add(midfielders.get(randomNumber1));
-					System.out.println(team.getTeam() + ": Too few attackers for setup, adding midfielder as attacker...");
+					System.out.println(team.getName() + ": Too few attackers for setup, adding midfielder as attacker...");
 					
 					nrAttackers--;
 					counter++;
@@ -218,7 +218,7 @@ public final class TeamLogic {
 		List<Player> players = new ArrayList<Player>(); 
 		
 		for (Player p : playingPlayers) {
-			if (p.getClub().equals(team.getTeam())) {
+			if (p.getClub().equals(team.getName())) {
 				players.add(p);
 			}
 		 }

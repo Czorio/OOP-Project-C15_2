@@ -44,7 +44,7 @@ public class Test {
 
 		DateFormat df = new SimpleDateFormat("dd-MM-yyy");
 		
-		System.out.println(league.getLeague());
+		System.out.println(league.getName());
 		System.out.println(league.getTeam("Feyenoord").getPlayer(1).getFirstName());
 		System.out.println(league.getTeam("Feyenoord").getPlayer(1).getLastName());
 		System.out.println(league.getTeam("Feyenoord").getPlayer(1).getPosition());
@@ -59,7 +59,7 @@ public class Test {
 		
 		System.out.println();
 		
-		System.out.println(leagues.get(0).getLeague());
+		System.out.println(leagues.get(0).getName());
 		System.out.println(leagues.get(0).getTeam("Feyenoord").getPlayer(2).getFirstName());
 		System.out.println(leagues.get(0).getTeam("Feyenoord").getPlayer(2).getLastName());
 		System.out.println(leagues.get(0).getTeam("Feyenoord").getPlayer(2).getPosition());
