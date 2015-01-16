@@ -98,7 +98,7 @@ public class TeamOverviewController implements Initializable, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
+//		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
 
 		if (yourSelectedPlayer == o) {
 			try {
@@ -226,7 +226,6 @@ public class TeamOverviewController implements Initializable, Observer {
 		FXMLLoader l = new FXMLLoader();
 		l.setLocation(FootballManager.class.getResource(teamOverviewFileName));
 		try {
-			System.out.println(l);
 			AnchorPane teamOverview = (AnchorPane) l.load();
 			((BorderPane) rootLayout).setCenter(teamOverview);
 		} catch (IOException e) {
