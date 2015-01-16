@@ -93,7 +93,7 @@ public final class TeamLogic {
 	public static void createAIActivePlayers(Team team) {
 		createSetup();
 		Scanner sc = new Scanner(teamSetup);
-		System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
+//		System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
 		Random random = new Random(System.currentTimeMillis());
 		
 		int nrDefenders = sc.nextInt();

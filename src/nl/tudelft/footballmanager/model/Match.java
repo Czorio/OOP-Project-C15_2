@@ -27,6 +27,9 @@ public class Match extends Observable {
 	 */
 	public void setMatchResult(MatchResult matchResult) {
 		this.matchResult = matchResult;
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -82,6 +85,9 @@ public class Match extends Observable {
 	 */
 	public void setRound(int round) {
 		this.round = round;
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/* (non-Javadoc)

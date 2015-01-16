@@ -8,6 +8,8 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,7 +22,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
-import nl.tudelft.footballmanager.model.logic.GameLogic;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -61,11 +62,8 @@ public class RootViewController implements Initializable, Observer {
 			System.out.println(event.getSource());
 			gameState.nextRound();
 			
-			System.out.println("MATCHVIEW");
 			//TODO matchview
-//			MatchViewController.show(rootController.rootController);
-			new GameLogic(gameState);
-			GameLogic.matchDay();
+			PostMatchViewController.show(gameState);
 		});
 		
 		// Save and Quit to Menu
@@ -107,6 +105,10 @@ public class RootViewController implements Initializable, Observer {
 			Platform.exit();
 			System.out.println("Quit to Desktop!");
 		});
+		
+		gameState.addObserver(this);
+		SimpleIntegerProperty round = new SimpleIntegerProperty(gameState.getGameRound());
+		gamesPlayed.textProperty().bind(round.asString());
 	}
 	
 	public static void show(GameState gs) {
@@ -117,7 +119,7 @@ public class RootViewController implements Initializable, Observer {
 		try {
 			BorderPane rootLayout = (BorderPane) l.load();
 			FootballManager.getStage().setScene(new Scene(rootLayout));
-//			FootballManager.getStage().show();
+			FootballManager.getStage().show();
 			
 			TeamOverviewController.show(rootLayout, gameState);
 		} catch (IOException e) {
@@ -172,6 +174,6 @@ public class RootViewController implements Initializable, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
+		
 	}
 }

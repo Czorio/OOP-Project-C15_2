@@ -1,13 +1,14 @@
 package nl.tudelft.footballmanager.model;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>
  * 
  * Match result and score
  */
-public class MatchResult {
+public class MatchResult  extends Observable {
 	private int homeScore;
 	private int awayScore;	
 	private ArrayList<Integer> homeScoreTimes;
@@ -25,6 +26,9 @@ public class MatchResult {
 	 */
 	public void addHomeScoreTime(int time) {
 		homeScoreTimes.add(time);
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 	
 	/**
@@ -32,6 +36,9 @@ public class MatchResult {
 	 */
 	public void addAwayScoreTime(int time) {
 		awayScoreTimes.add(time);
+		
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -46,6 +53,9 @@ public class MatchResult {
 	 */
 	public void setHomeScore(int homeScore) {
 		this.homeScore = homeScore;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -60,6 +70,9 @@ public class MatchResult {
 	 */
 	public void setAwayScore(int awayScore) {
 		this.awayScore = awayScore;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -74,6 +87,9 @@ public class MatchResult {
 	 */
 	public void setHomeScoreTimes(ArrayList<Integer> homeScoreTimes) {
 		this.homeScoreTimes = homeScoreTimes;
+
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	/**
@@ -88,6 +104,13 @@ public class MatchResult {
 	 */
 	public void setAwayScoreTimes(ArrayList<Integer> awayScoreTimes) {
 		this.awayScoreTimes = awayScoreTimes;
+
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	public String getReadableScore() {
+		return String.format("%d - %d", this.homeScore, this.awayScore);
 	}
 	
 		
