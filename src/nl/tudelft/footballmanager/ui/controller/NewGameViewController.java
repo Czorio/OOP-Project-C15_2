@@ -26,7 +26,9 @@ import javafx.util.Callback;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.League;
+import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
+import nl.tudelft.footballmanager.model.logic.PlayerLogic;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -129,6 +131,15 @@ public class NewGameViewController implements Initializable, Observer {
 		public void run() {
 			ObservableList<League> leagues = FXCollections.observableArrayList(League.readAll());
 			FXCollections.sort(leagues, League.NAME_COMPARATOR);
+
+			for (League l : leagues) {
+				for (Team t : l.getTeams()) {
+					for (Player p : t.getPlayers()) {
+						PlayerLogic.calculatePrice(p);
+					}
+				}
+			}
+
 			leagueListView.setItems(leagues);
 			leagueListView.getSelectionModel().clearSelection();
 		}
