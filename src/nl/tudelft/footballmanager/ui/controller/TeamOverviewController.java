@@ -119,7 +119,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				team.set(yourSelectedPlayer.getClub());
 			}
 		} else if (otherSelectedPlayer == o) {
-//			try {
+			try {
 				otherName.set(otherSelectedPlayer.getFirstName().concat(" ").concat(otherSelectedPlayer.getLastName()));
 				otherPosition.set(otherSelectedPlayer.getReadablePosition());
 				otherOff.set(otherSelectedPlayer.getOffensive());
@@ -127,15 +127,15 @@ public class TeamOverviewController implements Initializable, Observer {
 				otherStamina.set(otherSelectedPlayer.getStamina());
 				otherPrice.set(otherSelectedPlayer.getPrice());
 				otherTeam.set(otherSelectedPlayer.getClub());
-//			} catch (NullPointerException e) {
-//				otherName.set(null);
-//				otherPosition.set(null);
-//				otherOff.set(0);
-//				otherDef.set(0);
-//				otherStamina.set(0);
-//				otherPrice.set(0);
-//				otherTeam.set(null);
-//			}
+			} catch (NullPointerException e) {
+				otherName.set(null);
+				otherPosition.set(null);
+				otherOff.set(0);
+				otherDef.set(0);
+				otherStamina.set(0);
+				otherPrice.set(0);
+				otherTeam.set(null);
+			}
 		}
 	}
 
