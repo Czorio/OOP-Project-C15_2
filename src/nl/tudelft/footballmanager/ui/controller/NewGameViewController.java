@@ -5,6 +5,7 @@ package nl.tudelft.footballmanager.ui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -26,9 +27,7 @@ import javafx.util.Callback;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.League;
-import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
-import nl.tudelft.footballmanager.model.logic.PlayerLogic;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -92,6 +91,8 @@ public class NewGameViewController implements Initializable, Observer {
 				
 				if (teams != null) teamListView.setItems(teams);
 				teamListView.getSelectionModel().clearSelection();
+//				System.out.println(String.format("%s has %d teams", newValue.getName(), newValue.getTeams().size()));
+//				if (newValue.getTeams().size() < 2) System.out.println("Less than 2 teams");
 			}
 		});
 		
@@ -113,6 +114,10 @@ public class NewGameViewController implements Initializable, Observer {
 			@Override
 			public void changed(ObservableValue<? extends Team> observable,	Team oldValue, Team newValue) {
 				toggleDone();
+				if (newValue != null) {
+//					System.out.println(String.format("%s has %d players", newValue.getName(), newValue.getPlayers().size()));
+//					if (newValue.getPlayers().size() < 11) System.out.println("Less than 11 players");
+				}
 			}
 		});
 		
@@ -129,18 +134,12 @@ public class NewGameViewController implements Initializable, Observer {
 	
 	class LeaguesLoader extends Thread {
 		public void run() {
-			ObservableList<League> leagues = FXCollections.observableArrayList(League.readAll());
-			FXCollections.sort(leagues, League.NAME_COMPARATOR);
+			List<League> leagues = League.readAll();
+			
+			ObservableList<League> checkedLeagues = FXCollections.observableArrayList(League.checkNumbersAndAddPrice(leagues, 2, 11));
+			FXCollections.sort(checkedLeagues, League.NAME_COMPARATOR);
 
-			for (League l : leagues) {
-				for (Team t : l.getTeams()) {
-					for (Player p : t.getPlayers()) {
-						PlayerLogic.calculatePrice(p);
-					}
-				}
-			}
-
-			leagueListView.setItems(leagues);
+			leagueListView.setItems(checkedLeagues);
 			leagueListView.getSelectionModel().clearSelection();
 		}
 	}

@@ -9,6 +9,8 @@ import java.util.Observable;
 //import java.util.Set;
 
 
+
+import nl.tudelft.footballmanager.model.logic.PlayerLogic;
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 // Toevoegen aan build path **Notitie (MdB): Staat in de lib folder als commons-io-2.4.jar**
 
@@ -207,5 +209,72 @@ public class League extends Observable {
 		}
 		
 		return matches;
-	}	
+	}
+	
+	public static List<League> checkNumbersAndAddPrice(List<League> leagues, int minTeams, int minPlayers) {
+		List<League> checkedLeagues = new ArrayList<League>();
+		int[] numOfPlayersOnIndex = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		
+		for (League l : leagues) {
+			League lCopy = new League(l.getName());
+			for (Team t : l.getTeams()) {
+				for (Player p : t.getPlayers()) {
+					PlayerLogic.calculatePrice(p);
+				}
+				if (t.getPlayers().size() < 11) {
+//					System.out.println(String.format("Team %s has %d players and is therefore ignored", t.getName(), t.getPlayers().size()));
+					numOfPlayersOnIndex[t.getPlayers().size()] += 1;
+					continue;
+				}
+				lCopy.addTeam(t);
+			}
+			if (lCopy.getTeams().size() < 2) {
+//				System.out.println(String.format("League %s has %d teams and is therefore ignored", lCopy.getName(), lCopy.getTeams().size()));
+				continue;
+			}
+			checkedLeagues.add(lCopy);
+		}
+		
+		for (int i = 0; i < numOfPlayersOnIndex.length; i++) {
+			System.out.println(String.format("%d teams have %d players", numOfPlayersOnIndex[i], i));
+		}
+		
+		System.out.println("\nStats before/after check:");
+		System.out.println(String.format("Number of leagues: %d / %d", leagues.size(), checkedLeagues.size()));
+		System.out.println(String.format("Number of teams: %d / %d", League.getTeamCount(leagues), League.getTeamCount(checkedLeagues)));
+		System.out.println(String.format("Number of players: %d / %d", League.getPlayerCount(leagues), League.getPlayerCount(checkedLeagues)));
+		
+		return checkedLeagues;
+	}
+	
+	public int getTeamCount() {
+		return this.getTeams().size();
+	}
+	
+	public int getPlayerCount() {
+		int playerCount = 0;
+		for (Team t : this.getTeams()) {
+			playerCount += t.getPlayerCount();
+		}
+		
+		return playerCount;
+	}
+	
+	public static int getPlayerCount(List<League> leagues) {
+		int playerCount = 0;
+		for (League l : leagues) {
+			playerCount += l.getPlayerCount();
+		}
+		
+		return playerCount;
+	}
+	
+	public static int getTeamCount(List<League> leagues) {
+		int teamCount = 0;
+		for (League l : leagues) {
+			teamCount += l.getTeamCount();
+		}
+		
+		return teamCount;
+	}
 }

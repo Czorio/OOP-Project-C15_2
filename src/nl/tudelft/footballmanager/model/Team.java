@@ -247,4 +247,8 @@ public class Team extends Observable {
 
 		return certainPosition;
 	}
+	
+	public int getPlayerCount() {
+		return this.getPlayers().size();
+	}
 }
