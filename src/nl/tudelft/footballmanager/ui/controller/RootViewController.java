@@ -54,7 +54,7 @@ public class RootViewController implements Initializable, Observer {
 
 		loadGameButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
-			loadGame(gameState);
+			gameState = loadGame();
 		});
 		
 		nextRoundButton.setOnAction((event) -> {
@@ -125,7 +125,7 @@ public class RootViewController implements Initializable, Observer {
 		}
 	}
 
-	public boolean saveGame(GameState state) {
+	public static boolean saveGame(GameState state) {
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Save game");
 		configureFileChooser(chooser);
@@ -145,8 +145,9 @@ public class RootViewController implements Initializable, Observer {
 
 	}
 
-	public GameState loadGame(GameState gamestate) {
+	public static GameState loadGame() {
 		FileChooser chooser = new FileChooser();
+		GameState gameState = new GameState();
 		chooser.setTitle("Load game");
 		configureFileChooser(chooser);
 
@@ -154,16 +155,16 @@ public class RootViewController implements Initializable, Observer {
 		if (selectedFile != null) {
 			System.out.println("Load file: " + selectedFile.getAbsolutePath());
 
-			gamestate = GameState.load(selectedFile);
-			System.out.println("GameState: " + gamestate.toString());
+			gameState = GameState.load(selectedFile);
+//			System.out.println("GameState: " + gameState.toString());
 		} else {
 			System.err.println("No file selected!");
 		}
 
-		return gamestate;
+		return gameState;
 	}
 
-	public void configureFileChooser(FileChooser fc) {
+	private static void configureFileChooser(FileChooser fc) {
 		// Standard dir is working dir of application
 		fc.setInitialDirectory(new File(System.getProperty("user.dir")));
 		fc.setSelectedExtensionFilter(new ExtensionFilter("XML", "*.xml"));
