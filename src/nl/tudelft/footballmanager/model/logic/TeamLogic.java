@@ -95,12 +95,14 @@ public final class TeamLogic {
 		createSetup();
 		Scanner sc = new Scanner(teamSetup);
 
-//		System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
-//		Random random = new Random(System.currentTimeMillis());
+		//System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
+		Random random = new Random(System.currentTimeMillis());
 		
+		int nrGoalkeepers = 1;
 		int nrDefenders = sc.nextInt();
 		int nrMidfielders = sc.nextInt();
 		int nrAttackers = sc.nextInt();
+		int missingPlayers = 0;
 		
 		sc.close();
 
@@ -108,19 +110,19 @@ public final class TeamLogic {
 		List<Player> defenders = team.getByPosition("Defender");
 		List<Player> midfielders = team.getByPosition("Midfielder");
 		List<Player> attackers = team.getByPosition("Attacker");
-		
-//		System.out.println("Goalkeepers: " + goalkeepers.size());
-//		System.out.println("Defenders: " + defenders.size());
-//		System.out.println("Midfielders: " + midfielders.size());
-//		System.out.println("Attackers: " + attackers.size());
+		List<Player> allPlayers = team.getPlayers();
 		
 		//Sets all players current position to "None"
 		for (Player p : team.getPlayers()) {
 			p.setCurPosition("None");
 		}
 		
-		//Add a goalkeeper to the team.
 		Collections.shuffle(goalkeepers);
+		Collections.shuffle(defenders);
+		Collections.shuffle(midfielders);
+		Collections.shuffle(attackers);
+		
+		//Add a goalkeeper to the team.
 		try {
 			Player gk = goalkeepers.get(0);
 			gk.setCurPosition("Goalkeeper");
@@ -128,11 +130,12 @@ public final class TeamLogic {
 		}
 		
 		catch (IndexOutOfBoundsException a) {
-			System.out.println("");
+			System.out.println("No goalkeeper available for team " + team.getName());
+			missingPlayers++;
+			
 		}
 		
 		//Add defenders to the team.
-		Collections.shuffle(defenders);
 		for(int i = 0; i < nrDefenders; i++) {
 			try {
 				Player def = defenders.get(i);
@@ -141,13 +144,12 @@ public final class TeamLogic {
 			} 
 			
 			catch (IndexOutOfBoundsException a) {
-				System.out.println("Not enough defenders!");
-				//TODO Handle exception
+				System.out.println("Not enough defenders available for team " + team.getName());
+				missingPlayers++;
 			}
 		}
 		
 		//Add midfielders to the team.
-		Collections.shuffle(midfielders);
 		for(int i = 0; i < nrMidfielders; i++) {
 			try {
 				Player mid = midfielders.get(i);
@@ -156,13 +158,12 @@ public final class TeamLogic {
 			} 
 			
 			catch (IndexOutOfBoundsException a) {
-				System.out.println("Not enough midfielders!");
-				//TODO Handle exception
+				System.out.println("Not enough midfielders available for team " + team.getName());
+				missingPlayers++;
 			}
 		}
 		
 		//Add attackers to the team.
-		Collections.shuffle(attackers);
 		for(int i = 0; i < nrAttackers; i++) {
 			try {
 				Player at = attackers.get(i);
@@ -171,81 +172,47 @@ public final class TeamLogic {
 			} 
 			
 			catch (IndexOutOfBoundsException a) {
-				System.out.println("Not enough attackers!");
-				//TODO Handle exception
+				System.out.println("Not enough attackers available for team " + team.getName());
+				missingPlayers++;
 			}
 		}
-
-		////////OLD
-//		int randomKeeper = random.nextInt(goalkeepers.size());
-//		goalkeepers.get(randomKeeper).setCurPosition("Goalkeeper");
-//		playingPlayers.add(goalkeepers.get(randomKeeper));
-//
-//		counter = 0;
-//		while (nrDefenders != 0 && counter < maxCounter) {
-//			int randomNumber = random.nextInt(defenders.size());
-//
-//			if (defenders.get(randomNumber).getCurPosition().equals("None")) {
-//				defenders.get(randomNumber).setCurPosition("Defender");
-//				playingPlayers.add(defenders.get(randomNumber));
-//				nrDefenders--;
-//			}
-//			
-//			counter++;
-//		}
-//
-//		counter = 0;
-//		while (nrMidfielders != 0 && counter < maxCounter) {
-//			int randomNumber = random.nextInt(midfielders.size());
-//			
-//			//Failsafe if the amount of midfielders needed is greater that the amount of midfielders.
-//			while (nrMidfielders > midfielders.size() && counter < maxCounter) {
-//				int randomNumber1 =  random.nextInt(defenders.size());
-//				if (defenders.get(randomNumber1).getCurPosition().equals("None")) {
-//					defenders.get(randomNumber1).setCurPosition("Midfielder");
-//					playingPlayers.add(defenders.get(randomNumber1));
-//					System.out.println(team.getTeam() + ": Too few midfielders for setup, adding defender as midfielder...");
-//					
-//					nrMidfielders--;
-//					counter++;
-//				}
-//			}
-//			
-//			if (midfielders.get(randomNumber).getCurPosition().equals("None")) {
-//				midfielders.get(randomNumber).setCurPosition("Midfielder");
-//				playingPlayers.add(midfielders.get(randomNumber));
-//				nrMidfielders--;
-//			}
-//			
-//			counter++;
-//		}
-//
-//		counter = 0;
-//		while (nrAttackers != 0 && counter < maxCounter) {
-//			int randomNumber = random.nextInt(attackers.size());
-//			
-//			//Failsafe if the amount of attackers needed is greater that the amount of attackers.
-//			while (nrAttackers > attackers.size() && counter < maxCounter) {
-//				int randomNumber1 = random.nextInt(midfielders.size());
-//				if (midfielders.get(randomNumber1).getCurPosition().equals("None")) {
-//					midfielders.get(randomNumber1).setCurPosition("Attacker");
-//					playingPlayers.add(midfielders.get(randomNumber1));
-//					System.out.println(team.getTeam() + ": Too few attackers for setup, adding midfielder as attacker...");
-//					
-//					nrAttackers--;
-//					counter++;
-//				}
-//			}
-//			
-//			if (attackers.get(randomNumber).getCurPosition().equals("None")) {
-//				attackers.get(randomNumber).setCurPosition("Attacker");
-//				playingPlayers.add(attackers.get(randomNumber));
-//				nrAttackers--;
-//			}
-//			
-//			counter++;
-//		}
-		//////////END OF OLD
+		
+		//Fills team as needed.
+		for (int i = 0; i < missingPlayers; i++) {
+			int randomNumber = random.nextInt(allPlayers.size());
+			Player batlik = allPlayers.get(randomNumber);
+			
+			if (batlik.getCurPosition() != "None") {
+				if (nrGoalkeepers - goalkeepers.size() > 0) {
+					batlik.setCurPosition("Goalkeeper");
+					System.out.println("Added gk");
+					nrGoalkeepers++;
+				}
+				
+				else if (nrDefenders - defenders.size() > 0) {
+					batlik.setCurPosition("Defender");
+					System.out.println("Added def");
+					nrDefenders++;
+				}
+				
+				else if (nrMidfielders - midfielders.size() > 0) {
+					batlik.setCurPosition("Midfielder");
+					System.out.println("Added mid");
+					nrMidfielders++;
+				}
+				
+				else if (nrAttackers - attackers.size() > 0) {
+					batlik.setCurPosition("Attacker");
+					System.out.println("Added att");
+					nrAttackers++;
+				}
+			}
+			
+			else {
+				System.out.println("Still missing players");
+				i--;
+			}
+		}
 		
 		//TODO Implement player choosing his own players
 		//TODO implement stamina
@@ -271,6 +238,11 @@ public final class TeamLogic {
 		teamSetup = setup.get(random.nextInt(setup.size()));
 	}
 	
+	/**
+	 * Gets all the playing players for a certain team.
+	 * @param team The team to check for.
+	 * @return Returns a list of playing players for a certain team.
+	 */
 	public static List<Player> getPlayersPerTeam(Team team) {
 		List<Player> players = new ArrayList<Player>(); 
 		
@@ -283,6 +255,9 @@ public final class TeamLogic {
 		return players;
 	}
 	
+	/**
+	 * Clears the playingPlayer list for next game round.
+	 */
 	public static void clearPlayers() {
 		playingPlayers.clear();
 	}
