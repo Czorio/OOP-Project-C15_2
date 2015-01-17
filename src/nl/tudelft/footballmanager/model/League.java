@@ -9,6 +9,8 @@ import java.util.Observable;
 //import java.util.Set;
 
 
+
+import nl.tudelft.footballmanager.model.logic.PlayerLogic;
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 // Toevoegen aan build path **Notitie (MdB): Staat in de lib folder als commons-io-2.4.jar**
 
@@ -19,7 +21,7 @@ import nl.tudelft.footballmanager.model.xml.XMLPlayer;
  *
  */
 public class League extends Observable {
-	private String league;
+	private String name;
 	private ArrayList<Team> teams; // Wellicht handig om een Set te maken, elementen zijn tenslotte distinct
 
 	private static final String LEAGUES_FOLDER_NAME = "GameData/Leagues/";
@@ -27,12 +29,12 @@ public class League extends Observable {
 	
 
 	/**
-	 * Construct a league with given name and teamlist.
-	 * @param league
+	 * Construct a name with given name and teamlist.
+	 * @param name
 	 * @param teams
 	 */
-	public League(String league, ArrayList<Team> teams) {
-		this.league = league;
+	public League(String name, ArrayList<Team> teams) {
+		this.name = name;
 		this.teams = teams;
 	}
 
@@ -40,8 +42,8 @@ public class League extends Observable {
 	 * Construct an empty League
 	 * @param League Name of the League
 	 */
-	public League(String league) {
-		this(league, new ArrayList<Team>());
+	public League(String name) {
+		this(name, new ArrayList<Team>());
 	}
 
 	public static League readOne(String leagueName) throws FileNotFoundException {
@@ -67,7 +69,7 @@ public class League extends Observable {
 	
 	public static final Comparator<League> NAME_COMPARATOR = new Comparator<League>() {
 		public int compare(League l1, League l2) {
-			return l1.getLeague().compareToIgnoreCase(l2.getLeague());
+			return l1.getName().compareToIgnoreCase(l2.getName());
 		}
 	};
 	
@@ -76,13 +78,13 @@ public class League extends Observable {
 	}
 
 	/**
-	 * Add team to this league, only if their doesn't exist a team with the same name.
+	 * Add team to this name, only if their doesn't exist a team with the same name.
 	 * @param team
 	 */
 	public void addTeam(Team team) {
 		boolean bExists = false;
 		for(Team t : this.teams) {
-			if(team.getTeam().equals(t.getTeam())) {
+			if(team.getName().equals(t.getName())) {
 				bExists = true;  
 				break;
 			}
@@ -109,7 +111,7 @@ public class League extends Observable {
 		boolean bExists = false;
 		int index = 0;
 		for(int i = 0; i < teams.size(); i++) {
-			if(teams.get(i).getTeam().equals(team.getTeam())) {
+			if(teams.get(i).getName().equals(team.getName())) {
 				bExists = true;
 				index = i;
 			}
@@ -136,7 +138,7 @@ public class League extends Observable {
 		if(other instanceof League) {
 			League that = (League)other;
 
-			return this.league.equals(that.league) &&
+			return this.name.equals(that.name) &&
 					this.teams.equals(that.teams);
 		}
 
@@ -144,17 +146,17 @@ public class League extends Observable {
 	}
 
 	/**
-	 * @return the league name
+	 * @return the name name
 	 */
-	public String getLeague() {
-		return league;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param league the league name to set
+	 * @param name the name name to set
 	 */
-	public void setLeague(String league) {
-		this.league = league;
+	public void setName(String name) {
+		this.name = name;
 
 		this.setChanged();
 		this.notifyObservers();
@@ -167,7 +169,7 @@ public class League extends Observable {
 	 */
 	public Team getTeam(String name) {
 		for(int i = 0; i < teams.size(); i++) {
-			if(teams.get(i).getTeam().equals(name)) {
+			if(teams.get(i).getName().equals(name)) {
 				return teams.get(i);
 			}
 		}
@@ -207,5 +209,72 @@ public class League extends Observable {
 		}
 		
 		return matches;
-	}	
+	}
+	
+	public static List<League> checkNumbersAndAddPrice(List<League> leagues, int minTeams, int minPlayers) {
+		List<League> checkedLeagues = new ArrayList<League>();
+		int[] numOfPlayersOnIndex = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+		
+		for (League l : leagues) {
+			League lCopy = new League(l.getName());
+			for (Team t : l.getTeams()) {
+				for (Player p : t.getPlayers()) {
+					PlayerLogic.calculatePrice(p);
+				}
+				if (t.getPlayers().size() < 11) {
+//					System.out.println(String.format("Team %s has %d players and is therefore ignored", t.getName(), t.getPlayers().size()));
+					numOfPlayersOnIndex[t.getPlayers().size()] += 1;
+					continue;
+				}
+				lCopy.addTeam(t);
+			}
+			if (lCopy.getTeams().size() < 2) {
+//				System.out.println(String.format("League %s has %d teams and is therefore ignored", lCopy.getName(), lCopy.getTeams().size()));
+				continue;
+			}
+			checkedLeagues.add(lCopy);
+		}
+		
+		for (int i = 0; i < numOfPlayersOnIndex.length; i++) {
+			System.out.println(String.format("%d teams have %d players", numOfPlayersOnIndex[i], i));
+		}
+		
+		System.out.println("\nStats before/after check:");
+		System.out.println(String.format("Number of leagues: %d / %d", leagues.size(), checkedLeagues.size()));
+		System.out.println(String.format("Number of teams: %d / %d", League.getTeamCount(leagues), League.getTeamCount(checkedLeagues)));
+		System.out.println(String.format("Number of players: %d / %d", League.getPlayerCount(leagues), League.getPlayerCount(checkedLeagues)));
+		
+		return checkedLeagues;
+	}
+	
+	public int getTeamCount() {
+		return this.getTeams().size();
+	}
+	
+	public int getPlayerCount() {
+		int playerCount = 0;
+		for (Team t : this.getTeams()) {
+			playerCount += t.getPlayerCount();
+		}
+		
+		return playerCount;
+	}
+	
+	public static int getPlayerCount(List<League> leagues) {
+		int playerCount = 0;
+		for (League l : leagues) {
+			playerCount += l.getPlayerCount();
+		}
+		
+		return playerCount;
+	}
+	
+	public static int getTeamCount(List<League> leagues) {
+		int teamCount = 0;
+		for (League l : leagues) {
+			teamCount += l.getTeamCount();
+		}
+		
+		return teamCount;
+	}
 }

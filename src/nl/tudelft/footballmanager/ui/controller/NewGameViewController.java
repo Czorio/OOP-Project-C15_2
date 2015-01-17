@@ -5,6 +5,7 @@ package nl.tudelft.footballmanager.ui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
@@ -65,7 +66,7 @@ public class NewGameViewController implements Initializable, Observer {
 			String coachName = coachNameTextField.getText();
 			GameState gs = new GameState(coachName, 0, selectedLeague, selectedTeam);
 			
-			RootController.show(gs);
+			RootViewController.show(gs);
 		});
 		
 		leagueListView.setCellFactory(new Callback<ListView<League>, ListCell<League>>() {
@@ -74,7 +75,7 @@ public class NewGameViewController implements Initializable, Observer {
 				ListCell<League> cell = new ListCell<League>() {
 					protected void updateItem(League l, boolean empty) {
 						super.updateItem(l, empty);
-						if (l != null) setText(l.getLeague());
+						if (l != null) setText(l.getName());
 						else setText(null);
 					}
 				};
@@ -90,6 +91,8 @@ public class NewGameViewController implements Initializable, Observer {
 				
 				if (teams != null) teamListView.setItems(teams);
 				teamListView.getSelectionModel().clearSelection();
+//				System.out.println(String.format("%s has %d teams", newValue.getName(), newValue.getTeams().size()));
+//				if (newValue.getTeams().size() < 2) System.out.println("Less than 2 teams");
 			}
 		});
 		
@@ -99,7 +102,7 @@ public class NewGameViewController implements Initializable, Observer {
 				ListCell<Team> cell = new ListCell<Team>() {
 					protected void updateItem(Team t, boolean empty) {
 						super.updateItem(t, empty);
-						if (t != null) setText(t.getTeam());
+						if (t != null) setText(t.getName());
 						else setText(null);
 					}
 				};
@@ -111,6 +114,10 @@ public class NewGameViewController implements Initializable, Observer {
 			@Override
 			public void changed(ObservableValue<? extends Team> observable,	Team oldValue, Team newValue) {
 				toggleDone();
+				if (newValue != null) {
+//					System.out.println(String.format("%s has %d players", newValue.getName(), newValue.getPlayers().size()));
+//					if (newValue.getPlayers().size() < 11) System.out.println("Less than 11 players");
+				}
 			}
 		});
 		
@@ -127,9 +134,12 @@ public class NewGameViewController implements Initializable, Observer {
 	
 	class LeaguesLoader extends Thread {
 		public void run() {
-			ObservableList<League> leagues = FXCollections.observableArrayList(League.readAll());
-			FXCollections.sort(leagues, League.NAME_COMPARATOR);
-			leagueListView.setItems(leagues);
+			List<League> leagues = League.readAll();
+			
+			ObservableList<League> checkedLeagues = FXCollections.observableArrayList(League.checkNumbersAndAddPrice(leagues, 2, 11));
+			FXCollections.sort(checkedLeagues, League.NAME_COMPARATOR);
+
+			leagueListView.setItems(checkedLeagues);
 			leagueListView.getSelectionModel().clearSelection();
 		}
 	}

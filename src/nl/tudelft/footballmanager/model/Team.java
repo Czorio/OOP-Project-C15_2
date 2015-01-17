@@ -13,18 +13,18 @@ import javafx.collections.ObservableList;
  *
  */
 public class Team extends Observable {
-	private String team;
+	private String name;
 	private ObservableList<Player> players;
 	private int budget;
 
 	/**
-	 * Construct a team with given name and playerlist.
+	 * Construct a name with given name and playerlist.
 	 * 
-	 * @param team
+	 * @param name
 	 * @param players
 	 */
-	public Team(String team, List<Player> players) {
-		this.team = team;
+	public Team(String name, List<Player> players) {
+		this.name = name;
 		this.players = FXCollections.observableList(players);
 		this.budget = 0;
 
@@ -39,11 +39,11 @@ public class Team extends Observable {
 	/**
 	 * Construct an empty Team
 	 * 
-	 * @param team
+	 * @param name
 	 *            Name of the Team
 	 */
-	public Team(String team) {
-		this(team, new ArrayList<Player>());
+	public Team(String name) {
+		this(name, new ArrayList<Player>());
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class Team extends Observable {
 
 	// Just an example
 	public String toString() {
-		String res = this.getTeam() + " (" + this.getBudget() + ") " + "\n";
+		String res = this.getName() + " (" + this.getBudget() + ") " + "\n";
 		for (Player p : this.getPlayers()) {
 			res += p.getFirstName() + " " + p.getLastName() + "\n";
 		}
@@ -70,13 +70,13 @@ public class Team extends Observable {
 
 		@Override
 		public int compare(Team t1, Team t2) {
-			return t1.getTeam().compareToIgnoreCase(t2.getTeam());
+			return t1.getName().compareToIgnoreCase(t2.getName());
 		}
 
 	};
 
 	/**
-	 * Add player to this team, only if their doesn't exist a player with the
+	 * Add player to this name, only if their doesn't exist a player with the
 	 * same id.
 	 * 
 	 * @param player
@@ -137,7 +137,7 @@ public class Team extends Observable {
 		if (other instanceof Team) {
 			Team that = (Team) other;
 
-			return this.team.equals(that.team)
+			return this.name.equals(that.name)
 					&& this.players.equals(that.players);
 		}
 
@@ -145,18 +145,18 @@ public class Team extends Observable {
 	}
 
 	/**
-	 * @return the team
+	 * @return the name
 	 */
-	public String getTeam() {
-		return team;
+	public String getName() {
+		return name;
 	}
 
 	/**
-	 * @param team
-	 *            the team to set
+	 * @param name
+	 *            the name to set
 	 */
-	public void setTeam(String team) {
-		this.team = team;
+	public void setName(String team) {
+		this.name = team;
 		setChanged();
 		notifyObservers(this);
 	}
@@ -246,5 +246,9 @@ public class Team extends Observable {
 		}
 
 		return certainPosition;
+	}
+	
+	public int getPlayerCount() {
+		return this.getPlayers().size();
 	}
 }

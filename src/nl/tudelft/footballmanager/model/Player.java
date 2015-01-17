@@ -222,7 +222,7 @@ public class Player extends Observable {
 	 * @return the club
 	 */
 	public String getClub() {
-		return this.getTeam().getTeam();
+		return this.getTeam().getName();
 //		return club;
 	}
 

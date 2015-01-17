@@ -8,6 +8,8 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,13 +22,12 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
-import nl.tudelft.footballmanager.model.logic.GameLogic;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
-public class RootController implements Initializable, Observer {
+public class RootViewController implements Initializable, Observer {
 	
 	public final static String rootViewFileName = "ui/view/RootView.fxml";
 
@@ -54,18 +55,15 @@ public class RootController implements Initializable, Observer {
 
 		loadGameButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
-			loadGame(gameState);
+			gameState = loadGame();
 		});
 		
 		nextRoundButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
 			gameState.nextRound();
 			
-			System.out.println("MATCHVIEW");
 			//TODO matchview
-//			MatchViewController.show(rootController.rootController);
-			new GameLogic(gameState);
-			GameLogic.matchDay();
+			PostMatchViewController.show(gameState);
 		});
 		
 		// Save and Quit to Menu
@@ -107,6 +105,10 @@ public class RootController implements Initializable, Observer {
 			Platform.exit();
 			System.out.println("Quit to Desktop!");
 		});
+		
+		gameState.addObserver(this);
+		SimpleIntegerProperty round = new SimpleIntegerProperty(gameState.getGameRound());
+		gamesPlayed.textProperty().bind(round.asString());
 	}
 	
 	public static void show(GameState gs) {
@@ -117,7 +119,7 @@ public class RootController implements Initializable, Observer {
 		try {
 			BorderPane rootLayout = (BorderPane) l.load();
 			FootballManager.getStage().setScene(new Scene(rootLayout));
-//			FootballManager.getStage().show();
+			FootballManager.getStage().show();
 			
 			TeamOverviewController.show(rootLayout, gameState);
 		} catch (IOException e) {
@@ -125,7 +127,7 @@ public class RootController implements Initializable, Observer {
 		}
 	}
 
-	public boolean saveGame(GameState state) {
+	public static boolean saveGame(GameState state) {
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Save game");
 		configureFileChooser(chooser);
@@ -145,8 +147,9 @@ public class RootController implements Initializable, Observer {
 
 	}
 
-	public GameState loadGame(GameState gamestate) {
+	public static GameState loadGame() {
 		FileChooser chooser = new FileChooser();
+		GameState gameState = new GameState();
 		chooser.setTitle("Load game");
 		configureFileChooser(chooser);
 
@@ -154,16 +157,16 @@ public class RootController implements Initializable, Observer {
 		if (selectedFile != null) {
 			System.out.println("Load file: " + selectedFile.getAbsolutePath());
 
-			gamestate = GameState.load(selectedFile);
-			System.out.println("GameState: " + gamestate.toString());
+			gameState = GameState.load(selectedFile);
+//			System.out.println("GameState: " + gameState.toString());
 		} else {
 			System.err.println("No file selected!");
 		}
 
-		return gamestate;
+		return gameState;
 	}
 
-	public void configureFileChooser(FileChooser fc) {
+	private static void configureFileChooser(FileChooser fc) {
 		// Standard dir is working dir of application
 		fc.setInitialDirectory(new File(System.getProperty("user.dir")));
 		fc.setSelectedExtensionFilter(new ExtensionFilter("XML", "*.xml"));
@@ -171,6 +174,6 @@ public class RootController implements Initializable, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
+		
 	}
 }

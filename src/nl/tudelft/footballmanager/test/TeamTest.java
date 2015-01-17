@@ -38,7 +38,7 @@ public class TeamTest {
 	 */
 	@Test
 	public void testTeamStringArrayListOfPlayer() {
-		assertEquals(testTeam.getTeam(),"Ajax");
+		assertEquals(testTeam.getName(),"Ajax");
 		assertNotEquals(testTeam.getPlayer("Stefano","Denswil"),testTeam.getPlayer("Mike", "van der Hoorn"));
 		assertNotEquals(testTeam.getByPosition("Defender"),testTeam.getByPosition("Attacker"));
 		
@@ -100,8 +100,8 @@ public class TeamTest {
 	 */
 	@Test
 	public void testSetTeam() {
-		testTeam.setTeam("Feyenoord");
-		assertEquals(testTeam.getTeam(),"Feyenoord");
+		testTeam.setName("Feyenoord");
+		assertEquals(testTeam.getName(),"Feyenoord");
 	}
 
 	/**

@@ -53,7 +53,8 @@ public class TitleScreenController implements Initializable, Observer {
 		});
 		
 		loadGameButton.setOnAction((event) -> {
-			System.out.println(event.getSource());
+			GameState gameState = RootViewController.loadGame();
+			RootViewController.show(gameState);
 		});
 		
 		// Quit application

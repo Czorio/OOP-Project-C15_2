@@ -34,10 +34,10 @@ public class MultipleLeaguesTest {
 
 	private static void printLeagues(ArrayList<League> leagues, boolean recurse) {
 		for (League l : leagues) {
-			System.out.println("\t" + l.getLeague());
+			System.out.println("\t" + l.getName());
 			if (recurse) {
 				for (Team t : l.getTeams()) {
-					System.out.println("\t\t" + t.getTeam());
+					System.out.println("\t\t" + t.getName());
 				}
 			}
 		}

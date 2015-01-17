@@ -53,12 +53,12 @@ public class XMLWebImport {
 		xmlPlayer.writeToFile(Leagues);
 
 		for(int i = 0; i < Leagues.size(); i++) {
-			System.out.println("Beginning: " + Leagues.get(i).getLeague());
+			System.out.println("Beginning: " + Leagues.get(i).getName());
 			
-			xmlPlayer.setFile(new File("GameData/Leagues/" + Leagues.get(i).getLeague() + ".xml"));
+			xmlPlayer.setFile(new File("GameData/Leagues/" + Leagues.get(i).getName() + ".xml"));
 			xmlPlayer.writeToFile(Leagues.get(i));
 			
-			System.out.println("Ended: " + Leagues.get(i).getLeague());
+			System.out.println("Ended: " + Leagues.get(i).getName());
 		}
 	}
 	
@@ -148,14 +148,14 @@ public class XMLWebImport {
 		for(int i = 0; i < Leagues.size(); i++) {
 			
 			// If an equal name is found, enter that league
-			if(Leagues.get(i).getLeague().equals(player.getLeague())) {
+			if(Leagues.get(i).getName().equals(player.getLeague())) {
 				bExistingLeague = true;
 				
 				// Search all teams in this specific league for equal names.
 				for(int j = 0; j < Leagues.get(i).getTeams().size(); j++) {
 										
 					// If found add player.
-					if(Leagues.get(i).getTeams().get(j).getTeam().equals(player.getClub())) {
+					if(Leagues.get(i).getTeams().get(j).getName().equals(player.getClub())) {
 						bExistingTeam = true;
 						Leagues.get(i).getTeams().get(j).addPlayer(player);
 					}
@@ -176,7 +176,7 @@ public class XMLWebImport {
 			Team team = new Team(player.getClub());
 			team.addPlayer(player);
 			for(int i = 0; i < Leagues.size(); i++) {
-				if(Leagues.get(i).getLeague().equals(player.getLeague())) {
+				if(Leagues.get(i).getName().equals(player.getLeague())) {
 					Leagues.get(i).getTeams().add(team);
 				}
 			}

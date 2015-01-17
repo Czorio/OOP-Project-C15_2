@@ -94,8 +94,9 @@ public final class TeamLogic {
 	public static void createAIActivePlayers(Team team) {
 		createSetup();
 		Scanner sc = new Scanner(teamSetup);
-		System.out.println("The used setup for team " + team.getTeam() + " is " + teamSetup);
-		//Random random = new Random(System.currentTimeMillis());
+
+//		System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
+//		Random random = new Random(System.currentTimeMillis());
 		
 		int nrDefenders = sc.nextInt();
 		int nrMidfielders = sc.nextInt();
@@ -175,8 +176,6 @@ public final class TeamLogic {
 			}
 		}
 
-		
-		
 		////////OLD
 //		int randomKeeper = random.nextInt(goalkeepers.size());
 //		goalkeepers.get(randomKeeper).setCurPosition("Goalkeeper");
@@ -276,7 +275,7 @@ public final class TeamLogic {
 		List<Player> players = new ArrayList<Player>(); 
 		
 		for (Player p : playingPlayers) {
-			if (p.getClub().equals(team.getTeam())) {
+			if (p.getClub().equals(team.getName())) {
 				players.add(p);
 			}
 		 }

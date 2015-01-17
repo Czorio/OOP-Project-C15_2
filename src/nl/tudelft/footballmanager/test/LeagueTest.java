@@ -80,8 +80,8 @@ public class LeagueTest {
 	 */
 	@Test
 	public void testSetLeague() {
-		testLeague.setLeague("Premier League");
-		assertEquals(testLeague.getLeague(),"Premier League");
+		testLeague.setName("Premier League");
+		assertEquals(testLeague.getName(),"Premier League");
 	}
 
 	/**

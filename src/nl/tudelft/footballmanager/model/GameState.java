@@ -107,11 +107,11 @@ public class GameState extends Observable {
 	}
 
 	public String getMyTeamName() {
-		return getMyTeam().getTeam();
+		return getMyTeam().getName();
 	}
 
 	public String getLeagueName() {
-		return getLeague().getLeague();
+		return getLeague().getName();
 	}
 
 	@Override

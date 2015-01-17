@@ -162,7 +162,7 @@ public class XMLPlayer extends XML {
 	static protected void addLeagueToDom(Document dom, Element ePlayers, League league) {
 		// Create a league element "League" with given name.
 		Element eLeague = dom.createElement("League");
-		eLeague.setAttribute("Name", league.getLeague());
+		eLeague.setAttribute("Name", league.getName());
 
 		Element eTeam = null;
 		Element ePlayer = null;
@@ -172,7 +172,7 @@ public class XMLPlayer extends XML {
 
 		for(int i = 0; i < league.getTeams().size(); i++) {
 			eTeam = dom.createElement("Team");
-			eTeam.setAttribute("Name", league.getTeams().get(i).getTeam());
+			eTeam.setAttribute("Name", league.getTeams().get(i).getName());
 
 			for(int j = 0; j < league.getTeams().get(i).getPlayers().size(); j++) {
 				ePlayer = dom.createElement("Player");

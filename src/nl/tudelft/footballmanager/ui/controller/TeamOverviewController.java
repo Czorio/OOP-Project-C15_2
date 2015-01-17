@@ -98,7 +98,7 @@ public class TeamOverviewController implements Initializable, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
+//		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
 
 		if (yourSelectedPlayer == o) {
 			try {
@@ -119,7 +119,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				team.set(yourSelectedPlayer.getClub());
 			}
 		} else if (otherSelectedPlayer == o) {
-//			try {
+			try {
 				otherName.set(otherSelectedPlayer.getFirstName().concat(" ").concat(otherSelectedPlayer.getLastName()));
 				otherPosition.set(otherSelectedPlayer.getReadablePosition());
 				otherOff.set(otherSelectedPlayer.getOffensive());
@@ -127,15 +127,15 @@ public class TeamOverviewController implements Initializable, Observer {
 				otherStamina.set(otherSelectedPlayer.getStamina());
 				otherPrice.set(otherSelectedPlayer.getPrice());
 				otherTeam.set(otherSelectedPlayer.getClub());
-//			} catch (NullPointerException e) {
-//				otherName.set(null);
-//				otherPosition.set(null);
-//				otherOff.set(0);
-//				otherDef.set(0);
-//				otherStamina.set(0);
-//				otherPrice.set(0);
-//				otherTeam.set(null);
-//			}
+			} catch (NullPointerException e) {
+				otherName.set(null);
+				otherPosition.set(null);
+				otherOff.set(0);
+				otherDef.set(0);
+				otherStamina.set(0);
+				otherPrice.set(0);
+				otherTeam.set(null);
+			}
 		}
 	}
 
@@ -187,15 +187,15 @@ public class TeamOverviewController implements Initializable, Observer {
 		otherName = new SimpleStringProperty();
 		otherPlayerNameLabel.textProperty().bind(otherName);
 		otherPosition = new SimpleStringProperty();
-		otherPlayerNameLabel.textProperty().bind(otherPosition);
+		otherPlayerPositionLabel.textProperty().bind(otherPosition);
 		otherOff = new SimpleIntegerProperty();
-		otherPlayerNameLabel.textProperty().bind(otherOff.asString());
+		otherPlayerOffensiveLabel.textProperty().bind(otherOff.asString());
 		otherDef = new SimpleIntegerProperty();
-		otherPlayerNameLabel.textProperty().bind(otherDef.asString());
+		otherPlayerDefensiveLabel.textProperty().bind(otherDef.asString());
 		otherStamina = new SimpleIntegerProperty();
-		otherPlayerNameLabel.textProperty().bind(otherStamina.asString());
+		otherPlayerStaminaLabel.textProperty().bind(otherStamina.asString());
 		otherPrice = new SimpleIntegerProperty();
-		otherPlayerNameLabel.textProperty().bind(otherPrice.asString());
+		otherPlayerPriceLabel.textProperty().bind(otherPrice.asString());
 		otherTeam = new SimpleStringProperty();
 		otherPlayerTeamLabel.textProperty().bind(otherTeam);
 	}
@@ -226,7 +226,6 @@ public class TeamOverviewController implements Initializable, Observer {
 		FXMLLoader l = new FXMLLoader();
 		l.setLocation(FootballManager.class.getResource(teamOverviewFileName));
 		try {
-			System.out.println(l);
 			AnchorPane teamOverview = (AnchorPane) l.load();
 			((BorderPane) rootLayout).setCenter(teamOverview);
 		} catch (IOException e) {
