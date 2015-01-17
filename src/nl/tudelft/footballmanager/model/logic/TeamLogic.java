@@ -1,6 +1,7 @@
 package nl.tudelft.footballmanager.model.logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
@@ -18,7 +19,6 @@ public final class TeamLogic {
 
 	private static List<Player> playingPlayers = new ArrayList<Player>();
 	private static GameState gs; //Will be used to get players own team
-	private static Team team;
 	private static String teamSetup;
 
 	/**
@@ -26,7 +26,6 @@ public final class TeamLogic {
 	 * @param team All the players of a team.
 	 */
 	public TeamLogic(Team team, GameState gs) {
-		TeamLogic.team = team;
 		TeamLogic.gs = gs;
 	}
 
@@ -88,19 +87,19 @@ public final class TeamLogic {
 
 	/**
 	 * Creates an AI team. Picks random players and places them on their positions.
+	 * 
+	 * Requirements: Team should have at least 1 goalkeeper and a total of 11 players.
 	 * @param team The team to create.
 	 */
 	public static void createAIActivePlayers(Team team) {
 		createSetup();
 		Scanner sc = new Scanner(teamSetup);
 		System.out.println("The used setup for team " + team.getTeam() + " is " + teamSetup);
-		Random random = new Random(System.currentTimeMillis());
+		//Random random = new Random(System.currentTimeMillis());
 		
 		int nrDefenders = sc.nextInt();
 		int nrMidfielders = sc.nextInt();
 		int nrAttackers = sc.nextInt();
-		int counter;
-		int maxCounter = 30;
 		
 		sc.close();
 
@@ -119,76 +118,135 @@ public final class TeamLogic {
 			p.setCurPosition("None");
 		}
 		
-		//TODO Rewrite setting up AI team
+		//Add a goalkeeper to the team.
+		Collections.shuffle(goalkeepers);
+		try {
+			Player gk = goalkeepers.get(0);
+			gk.setCurPosition("Goalkeeper");
+			playingPlayers.add(gk);
+		}
 		
-		int randomKeeper = random.nextInt(goalkeepers.size());
-		goalkeepers.get(randomKeeper).setCurPosition("Goalkeeper");
-		playingPlayers.add(goalkeepers.get(randomKeeper));
-
-		counter = 0;
-		while (nrDefenders != 0 && counter < maxCounter) {
-			int randomNumber = random.nextInt(defenders.size());
-
-			if (defenders.get(randomNumber).getCurPosition().equals("None")) {
-				defenders.get(randomNumber).setCurPosition("Defender");
-				playingPlayers.add(defenders.get(randomNumber));
-				nrDefenders--;
-			}
+		catch (IndexOutOfBoundsException a) {
+			System.out.println("");
+		}
+		
+		//Add defenders to the team.
+		Collections.shuffle(defenders);
+		for(int i = 0; i < nrDefenders; i++) {
+			try {
+				Player def = defenders.get(i);
+				def.setCurPosition("Defender");
+				playingPlayers.add(def);
+			} 
 			
-			counter++;
+			catch (IndexOutOfBoundsException a) {
+				System.out.println("Not enough defenders!");
+				//TODO Handle exception
+			}
+		}
+		
+		//Add midfielders to the team.
+		Collections.shuffle(midfielders);
+		for(int i = 0; i < nrMidfielders; i++) {
+			try {
+				Player mid = midfielders.get(i);
+				mid.setCurPosition("Midfielder");
+				playingPlayers.add(mid);
+			} 
+			
+			catch (IndexOutOfBoundsException a) {
+				System.out.println("Not enough midfielders!");
+				//TODO Handle exception
+			}
+		}
+		
+		//Add attackers to the team.
+		Collections.shuffle(attackers);
+		for(int i = 0; i < nrAttackers; i++) {
+			try {
+				Player at = attackers.get(i);
+				at.setCurPosition("Attackers");
+				playingPlayers.add(at);
+			} 
+			
+			catch (IndexOutOfBoundsException a) {
+				System.out.println("Not enough attackers!");
+				//TODO Handle exception
+			}
 		}
 
-		counter = 0;
-		while (nrMidfielders != 0 && counter < maxCounter) {
-			int randomNumber = random.nextInt(midfielders.size());
-			
-			//Failsafe if the amount of midfielders needed is greater that the amount of midfielders.
-			while (nrMidfielders > midfielders.size() && counter < maxCounter) {
-				int randomNumber1 =  random.nextInt(defenders.size());
-				if (defenders.get(randomNumber1).getCurPosition().equals("None")) {
-					defenders.get(randomNumber1).setCurPosition("Midfielder");
-					playingPlayers.add(defenders.get(randomNumber1));
-					System.out.println(team.getTeam() + ": Too few midfielders for setup, adding defender as midfielder...");
-					
-					nrMidfielders--;
-					counter++;
-				}
-			}
-			
-			if (midfielders.get(randomNumber).getCurPosition().equals("None")) {
-				midfielders.get(randomNumber).setCurPosition("Midfielder");
-				playingPlayers.add(midfielders.get(randomNumber));
-				nrMidfielders--;
-			}
-			
-			counter++;
-		}
-
-		counter = 0;
-		while (nrAttackers != 0 && counter < maxCounter) {
-			int randomNumber = random.nextInt(attackers.size());
-			
-			//Failsafe if the amount of attackers needed is greater that the amount of attackers.
-			while (nrAttackers > attackers.size() && counter < maxCounter) {
-				int randomNumber1 = random.nextInt(midfielders.size());
-				if (midfielders.get(randomNumber1).getCurPosition().equals("None")) {
-					midfielders.get(randomNumber1).setCurPosition("Attacker");
-					playingPlayers.add(midfielders.get(randomNumber1));
-					System.out.println(team.getTeam() + ": Too few attackers for setup, adding midfielder as attacker...");
-					
-					nrAttackers--;
-					counter++;
-				}
-			}
-			
-			if (attackers.get(randomNumber).getCurPosition().equals("None")) {
-				attackers.get(randomNumber).setCurPosition("Attacker");
-				playingPlayers.add(attackers.get(randomNumber));
-				nrAttackers--;
-			}
-			
-			counter++;
-		}
+		
+		
+		////////OLD
+//		int randomKeeper = random.nextInt(goalkeepers.size());
+//		goalkeepers.get(randomKeeper).setCurPosition("Goalkeeper");
+//		playingPlayers.add(goalkeepers.get(randomKeeper));
+//
+//		counter = 0;
+//		while (nrDefenders != 0 && counter < maxCounter) {
+//			int randomNumber = random.nextInt(defenders.size());
+//
+//			if (defenders.get(randomNumber).getCurPosition().equals("None")) {
+//				defenders.get(randomNumber).setCurPosition("Defender");
+//				playingPlayers.add(defenders.get(randomNumber));
+//				nrDefenders--;
+//			}
+//			
+//			counter++;
+//		}
+//
+//		counter = 0;
+//		while (nrMidfielders != 0 && counter < maxCounter) {
+//			int randomNumber = random.nextInt(midfielders.size());
+//			
+//			//Failsafe if the amount of midfielders needed is greater that the amount of midfielders.
+//			while (nrMidfielders > midfielders.size() && counter < maxCounter) {
+//				int randomNumber1 =  random.nextInt(defenders.size());
+//				if (defenders.get(randomNumber1).getCurPosition().equals("None")) {
+//					defenders.get(randomNumber1).setCurPosition("Midfielder");
+//					playingPlayers.add(defenders.get(randomNumber1));
+//					System.out.println(team.getTeam() + ": Too few midfielders for setup, adding defender as midfielder...");
+//					
+//					nrMidfielders--;
+//					counter++;
+//				}
+//			}
+//			
+//			if (midfielders.get(randomNumber).getCurPosition().equals("None")) {
+//				midfielders.get(randomNumber).setCurPosition("Midfielder");
+//				playingPlayers.add(midfielders.get(randomNumber));
+//				nrMidfielders--;
+//			}
+//			
+//			counter++;
+//		}
+//
+//		counter = 0;
+//		while (nrAttackers != 0 && counter < maxCounter) {
+//			int randomNumber = random.nextInt(attackers.size());
+//			
+//			//Failsafe if the amount of attackers needed is greater that the amount of attackers.
+//			while (nrAttackers > attackers.size() && counter < maxCounter) {
+//				int randomNumber1 = random.nextInt(midfielders.size());
+//				if (midfielders.get(randomNumber1).getCurPosition().equals("None")) {
+//					midfielders.get(randomNumber1).setCurPosition("Attacker");
+//					playingPlayers.add(midfielders.get(randomNumber1));
+//					System.out.println(team.getTeam() + ": Too few attackers for setup, adding midfielder as attacker...");
+//					
+//					nrAttackers--;
+//					counter++;
+//				}
+//			}
+//			
+//			if (attackers.get(randomNumber).getCurPosition().equals("None")) {
+//				attackers.get(randomNumber).setCurPosition("Attacker");
+//				playingPlayers.add(attackers.get(randomNumber));
+//				nrAttackers--;
+//			}
+//			
+//			counter++;
+//		}
+		//////////END OF OLD
 		
 		//TODO Implement player choosing his own players
 		//TODO implement stamina
