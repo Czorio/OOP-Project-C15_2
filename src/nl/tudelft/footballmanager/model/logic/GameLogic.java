@@ -61,6 +61,7 @@ public class GameLogic {
 		}
 
 		TeamLogic.clearPlayers();
+		gs.nextRound();
 	}
 
 	/**

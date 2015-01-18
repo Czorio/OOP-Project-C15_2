@@ -32,8 +32,8 @@
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                                  </columnResizePolicy>
                                  <columns>
-                                    <TableColumn fx:id="playedMatchesTeam1TableColumn" prefWidth="75.0" text="Team 1" />
-                                   <TableColumn fx:id="playedMatchesTeam2TableColumn" prefWidth="75.0" text="Team 2" />
+                                    <TableColumn fx:id="playedMatchesTeam1TableColumn" prefWidth="75.0" text="Home" />
+                                   <TableColumn fx:id="playedMatchesTeam2TableColumn" prefWidth="75.0" text="Away" />
                                    <TableColumn fx:id="playedMatchesScoreTableColumn" minWidth="20.0" prefWidth="60.0" text="Score (T1 - T2)" />
                                 </columns>
                              </TableView>

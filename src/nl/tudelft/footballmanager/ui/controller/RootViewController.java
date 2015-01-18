@@ -59,7 +59,6 @@ public class RootViewController implements Initializable, Observer {
 		
 		nextRoundButton.setOnAction((event) -> {
 			System.out.println(event.getSource());
-			gameState.nextRound();
 			
 			//TODO matchview
 			PostMatchViewController.show(gameState);
