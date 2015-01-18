@@ -97,19 +97,64 @@ public class TeamLogicTest {
 	}
 	
 	/**
-	 * Tests invalid amound of goalkeepers.
+	 * Tests invalid amount of goalkeepers.
 	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createAIActivePlayers(nl.tudelft.footballmanager.model.Team)}.
 	 */
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void testCreateAIInvalidGK() {
-		System.out.println(ajax.getByPosition("Goalkeeper"));
-		Player player1 = ajax.getPlayer(1053);
-		Player player2 = ajax.getPlayer(2958);
-		Player player3 = ajax.getPlayer(5646);
+		ajax.removePlayer(ajax.getPlayer(1053));
+		ajax.removePlayer(ajax.getPlayer(2958));
+		ajax.removePlayer(ajax.getPlayer(5646));
 		
-		ajax.removePlayer(player1);
-		ajax.removePlayer(player2);
-		ajax.removePlayer(player3);
+		TeamLogic.createAIActivePlayers(ajax);
+	}
+	
+	/**
+	 * Tests invalid amount of defenders.
+	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createAIActivePlayers(nl.tudelft.footballmanager.model.Team)}.
+	 */
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testCreateAIInvalidDef() {
+		ajax.removePlayer(ajax.getPlayer(213));
+		ajax.removePlayer(ajax.getPlayer(215));
+		ajax.removePlayer(ajax.getPlayer(9341));
+		ajax.removePlayer(ajax.getPlayer(11487));
+		ajax.removePlayer(ajax.getPlayer(12047));
+		ajax.removePlayer(ajax.getPlayer(12587));
+		
+		TeamLogic.createAIActivePlayers(ajax);
+	}
+	
+	/**
+	 * Tests invalid amount of midfielders.
+	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createAIActivePlayers(nl.tudelft.footballmanager.model.Team)}.
+	 */
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testCreateAIInvalidMid() {
+		ajax.removePlayer(ajax.getPlayer(339));
+		ajax.removePlayer(ajax.getPlayer(5121));
+		ajax.removePlayer(ajax.getPlayer(6145));
+		ajax.removePlayer(ajax.getPlayer(12048));
+		ajax.removePlayer(ajax.getPlayer(12483));
+		
+		TeamLogic.createAIActivePlayers(ajax);
+	}
+	
+	/**
+	 * Tests invalid amount of attackers.
+	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createAIActivePlayers(nl.tudelft.footballmanager.model.Team)}.
+	 */
+	@Test(expected=IndexOutOfBoundsException.class)
+	public void testCreateAIInvalidAtt() {
+		System.out.println(ajax.getByPosition("Attacker"));
+		ajax.removePlayer(ajax.getPlayer(1398));
+		ajax.removePlayer(ajax.getPlayer(1580));
+		ajax.removePlayer(ajax.getPlayer(4639));
+		ajax.removePlayer(ajax.getPlayer(7741));
+		ajax.removePlayer(ajax.getPlayer(11481));
+		ajax.removePlayer(ajax.getPlayer(12467));
+		ajax.removePlayer(ajax.getPlayer(12607));
+		ajax.removePlayer(ajax.getPlayer(12783));
 		
 		TeamLogic.createAIActivePlayers(ajax);
 	}

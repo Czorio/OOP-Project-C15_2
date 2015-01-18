@@ -176,8 +176,6 @@ public final class TeamLogic {
 			int randomNumber = random.nextInt(allPlayers.size());
 			Player batlik = allPlayers.get(randomNumber);
 			
-			System.out.println(batlik);
-			
 			if (batlik.getCurPosition() != "None") {
 				if (nrGoalkeepers - goalkeepers.size() > 0) {
 					batlik.setCurPosition("Goalkeeper");
