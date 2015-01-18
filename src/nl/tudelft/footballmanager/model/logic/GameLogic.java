@@ -7,6 +7,7 @@ import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Match;
 import nl.tudelft.footballmanager.model.MatchResult;
 import nl.tudelft.footballmanager.model.MatchScheme;
+import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
 
 /**
@@ -19,7 +20,8 @@ public class GameLogic {
 	private static GameState gs;
 	private static long seed = System.currentTimeMillis();
 	private static Random random = new Random(seed);
-	
+	private static List<Player> playingPlayers = TeamLogic.getPlayingPlayers();
+
 	/**
 	 * Creates and initializes a GameLogic instance.
 	 * @param gs The current gamestate to use.
@@ -27,35 +29,39 @@ public class GameLogic {
 	public GameLogic(GameState gs){
 		GameLogic.gs = gs;
 	}
-	
+
 	/**
 	 * Plays all the games that should be played on the current matchday.
 	 */
 	public static void matchDay() {
 		MatchScheme ms = gs.getMatchScheme();
 		int matchDay = gs.getGameRound();
-		
+
 		// No more rounds
 		if(matchDay >= gs.getMatchScheme().getMatchdays().size()) return;
-		
+
 		List<Match> todaysMatches = ms.getMatchdays().get(matchDay).getMatches();
-		
-		// Print todays matches.
-//		System.out.println("Todays matches are:");
-//		for(Match m : todaysMatches) {
-//			System.out.println(m.getHome().getName() + " - " + m.getAway().getName());
-//		}
-		
+
 		for(Match m : todaysMatches) {		
 			TeamLogic.createAIActivePlayers(m.getHome());
 			TeamLogic.createAIActivePlayers(m.getAway());
-			
+
 			m.setMatchResult(game(m.getHome(), m.getAway()));
 		}
-		
+
+		//Sets the amount of played games for each playing player to + 1.
+		//Resets every 9th playing day to keep scoring possible for AI.
+		for(Player p : playingPlayers) {
+			if(gs.getGameRound() % 9 == 0) {
+				p.setPlayedGames(0);
+			} else {
+				p.setPlayedGames(p.getPlayedGames() + 1);
+			}
+		}
+
 		TeamLogic.clearPlayers();
 	}
-	
+
 	/**
 	 * Logic for the game itself. Determines when a team scores and the outcome of a match.
 	 * A goal can only be scored every 2-8 minutes. A maximum of 10 goals per team can be scored.
@@ -68,6 +74,7 @@ public class GameLogic {
 	 */
 	public static MatchResult game(Team home, Team away){
 		MatchResult matchResult = new MatchResult();
+
 		int homeGoals = 0;
 		int awayGoals = 0;
 		int lastGoal = 0; //Minutes since last goal.
@@ -75,38 +82,38 @@ public class GameLogic {
 		int extraTime = generateRandom(0, 6); //Extra game time.
 		int homeScoreChance = TeamLogic.calculateTeamTotalScore(home);
 		int awayScoreChance = TeamLogic.calculateTeamTotalScore(away);
-		
-//		System.out.println("\nHome total score: " + homeScoreChance); //TESTCODE
-//		System.out.println("Away total score: " + awayScoreChance);
-//		System.out.println("\nPlay game!");
-		
+
+		System.out.println("\n" + home.getName() + " total score: " + homeScoreChance); //TESTCODE
+		System.out.println(away.getName() + " total score: " + awayScoreChance);
+
 		//Match starts here
 		//TODO: Add injuries, cards, ...?
 		//TODO Balance score values.
 		for (int i = 1; i <= (90 + extraTime); i++) {
 			if(homeScoreChance + generateRandom(0, 80) > 220 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0, 30) == 29) {
 				homeGoals++;
-//				System.out.println(i + ": Team " + home.getName() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
+				System.out.println(i + ": Team " + home.getName() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
 				matchResult.addHomeScoreTime(i);
 			}
-			
+
 			if(awayScoreChance + generateRandom(0, 80) > 220 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0, 30) == 29) {
 				awayGoals++;
-//				System.out.println(i + ": Team " + away.getName() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
+				System.out.println(i + ": Team " + away.getName() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
 				matchResult.addAwayScoreTime(i);
 			}
-			
+
 			lastGoal++;
-			
+
 		}
 		//Match ends here
+
 		matchResult.setHomeScore(homeGoals);
 		matchResult.setAwayScore(awayGoals);
-		
-//		System.out.println("Final result: " + home.getName() + " " + homeGoals + " - " + awayGoals + " " + away.getName() + "\n");
-		
+
+		//		System.out.println("Final result: " + home.getName() + " " + homeGoals + " - " + awayGoals + " " + away.getName() + "\n");
+
 		return matchResult;
 	}
 
@@ -121,7 +128,15 @@ public class GameLogic {
 	public static int generateRandom(int min, int max){
 		return random.nextInt((max - min) + 1) + min;
 	}
-	
+
+	/**
+	 * Returns the used seed.
+	 * @return The seed used.
+	 */
+	public static long getSeed() {
+		return seed;
+	}
+
 	/**
 	 * Set the seed used in the random number generator.
 	 * 

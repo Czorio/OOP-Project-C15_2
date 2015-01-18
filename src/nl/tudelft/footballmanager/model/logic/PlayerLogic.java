@@ -60,26 +60,22 @@ public final class PlayerLogic {
 		int stamina = player.getStamina(), result = 0;
 
 		if (stamina >= 80) {
-			result = stamina - (2 * player.getPlayedGames());
+			result = (int) Math.round(stamina - (0.2 * player.getPlayedGames()));
 		}
 
 		else if (stamina < 80 && stamina >= 65) {
-			result = stamina - (3 * player.getPlayedGames());
+			result = (int) Math.round(stamina - (0.3 * player.getPlayedGames()));
 		}
 
-		else if (stamina < 65 && stamina >= 40) {
-			result = stamina - (4 * player.getPlayedGames());
-		}
-
-		else if (stamina < 40) {
-			result = stamina - (5 * player.getPlayedGames());
+		else if (stamina < 65) {
+			result = (int) Math.round(stamina - (0.4 * player.getPlayedGames()));
 		}
 
 		return result;
 	}
 	
 	/**
-	 * Calculates the initial cost for a player.
+	 * Calculates the cost for a player.
 	 * @param player The player to calculate the cost for.
 	 * @return Returns the initial cost of a player.
 	 */

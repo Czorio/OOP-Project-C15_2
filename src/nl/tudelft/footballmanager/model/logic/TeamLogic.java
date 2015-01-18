@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
 
@@ -18,16 +17,11 @@ import nl.tudelft.footballmanager.model.Team;
 public final class TeamLogic {
 
 	private static List<Player> playingPlayers = new ArrayList<Player>();
-	private static GameState gs; //Will be used to get players own team
 	private static String teamSetup;
+	private static long seed = System.currentTimeMillis();
+	private static Random random = new Random(seed);
 
-	/**
-	 * Constructs and initializes a playing team.
-	 * @param team All the players of a team.
-	 */
-	public TeamLogic(Team team, GameState gs) {
-		TeamLogic.gs = gs;
-	}
+	public TeamLogic() { }
 
 	/**
 	 * Calculates the offensive score of a team.
@@ -75,7 +69,7 @@ public final class TeamLogic {
 	}
 
 	/**
-	 * Calculates the total score of a Team.
+	 * Calculates the total score of a team.
 	 * @param team The team to calculate the score of.
 	 * @return Returns the total score of a certain team.
 	 */
@@ -95,8 +89,7 @@ public final class TeamLogic {
 		createSetup();
 		Scanner sc = new Scanner(teamSetup);
 
-		//System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
-		Random random = new Random(System.currentTimeMillis());
+//		System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
 		
 		int nrGoalkeepers = 1;
 		int nrDefenders = sc.nextInt();
@@ -132,7 +125,6 @@ public final class TeamLogic {
 		catch (IndexOutOfBoundsException a) {
 			System.out.println("No goalkeeper available for team " + team.getName());
 			missingPlayers++;
-			
 		}
 		
 		//Add defenders to the team.
@@ -213,13 +205,6 @@ public final class TeamLogic {
 				i--;
 			}
 		}
-		
-		//TODO Implement player choosing his own players
-		//TODO implement stamina
-		//Sets the amount of played games for each playing player to + 1.
-//		for(Player p : playingPlayers) {
-//			p.setPlayedGames(p.getPlayedGames() + 1);
-//		}
 	}
 
 	/**
@@ -234,7 +219,6 @@ public final class TeamLogic {
 		setup.add("3 4 3");
 		setup.add("4 5 1");
 
-		Random random = new Random();
 		teamSetup = setup.get(random.nextInt(setup.size()));
 	}
 	
@@ -251,7 +235,6 @@ public final class TeamLogic {
 				players.add(p);
 			}
 		 }
-		
 		return players;
 	}
 	
@@ -262,19 +245,51 @@ public final class TeamLogic {
 		playingPlayers.clear();
 	}
 
-	public static final int gamesPlayed(Team team) {
-		return -1;
+	/**
+	 * Gets the playingPlayers list.
+	 * @return playingPlayers.
+	 */
+	public static List<Player> getPlayingPlayers() {
+		return playingPlayers;
 	}
 
-	public static final int gamesWon(Team team) {
-		return -1;
+	/**
+	 * Sets the playingPlayers list.
+	 * @param playingPlayers The players to be set.
+	 */
+	public static void setPlayingPlayers(List<Player> playingPlayers) {
+		TeamLogic.playingPlayers = playingPlayers;
 	}
 
-	public static final int gamesLost(Team team) {
-		return -1;
+	/**
+	 * Gets the setup used for a team.
+	 * @return Returns the used setup.
+	 */
+	public static String getTeamSetup() {
+		return teamSetup;
 	}
 
-	public static final int gamesDraw(Team team) {
-		return -1;
+	/**
+	 * Sets the setup to be used by a team.
+	 * @param teamSetup The setup to use.
+	 */
+	public static void setTeamSetup(String teamSetup) {
+		TeamLogic.teamSetup = teamSetup;
+	}
+	
+	/**
+	 * Gets the used seed.
+	 * @return The used seed.
+	 */
+	public static long getSeed() {
+		return seed;
+	}
+
+	/**
+	 * Sets the seed to be used.
+	 * @param seed The seed to use.
+	 */
+	public static void setSeed(long seed) {
+		TeamLogic.seed = seed;
 	}
 }
