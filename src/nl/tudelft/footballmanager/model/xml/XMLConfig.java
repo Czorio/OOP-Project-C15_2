@@ -1,11 +1,7 @@
 package nl.tudelft.footballmanager.model.xml;
-import java.io.Console;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -19,7 +15,6 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import nl.tudelft.footballmanager.model.GameState;
-import nl.tudelft.footballmanager.model.League;
 import nl.tudelft.footballmanager.model.MatchScheme;
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 

@@ -1,5 +1,6 @@
 package nl.tudelft.footballmanager.model.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -82,6 +83,9 @@ public class GameLogic {
 		int extraTime = generateRandom(0, 6); //Extra game time.
 		int homeScoreChance = TeamLogic.calculateTeamTotalScore(home);
 		int awayScoreChance = TeamLogic.calculateTeamTotalScore(away);
+		
+		List<Player> playersHome = TeamLogic.getPlayingPlayersPerTeam(home);
+		List<Player> playersAway = TeamLogic.getPlayingPlayersPerTeam(away);
 
 //		System.out.println("\n" + home.getName() + " total score: " + homeScoreChance); //TESTCODE
 //		System.out.println(away.getName() + " total score: " + awayScoreChance);
@@ -109,6 +113,22 @@ public class GameLogic {
 				lastGoal = 0;
 				matchResult.addAwayScoreTime(i);
 			}
+			
+			//Generates a random injury and gives it to a random player.
+			int injuryChance = generateRandom(0,10000);
+			if (injuryChance == 990) {
+				String injury = generateInjury();
+				Player p = playersHome.get(random.nextInt(playersHome.size()));
+				
+				p.setInjury(injury);
+			}
+			
+			else if (injuryChance == 991) {
+				String injury = generateInjury();
+				Player p = playersAway.get(random.nextInt(playersAway.size()));
+				
+				p.setInjury(injury);
+			}
 
 			lastGoal++;
 
@@ -121,6 +141,33 @@ public class GameLogic {
 //		System.out.println("Final result: " + home.getName() + " " + homeGoals + " - " + awayGoals + " " + away.getName() + "\n");
 
 		return matchResult;
+	}
+	
+	/**
+	 * Generates a random injury.
+	 * @return Returns a random injury.
+	 */
+	public static String generateInjury() {
+		List<String> injuries = new ArrayList<String>();
+		injuries.add("Achilles Tendon Rupture");
+		injuries.add("Sprained Ankle");
+		injuries.add("Back Muscle Pain");
+		injuries.add("Bursitis Knee");
+		injuries.add("Dislocated Shoulder");
+		injuries.add("Hamstring Strain");
+		injuries.add("High Ankle Sprain");
+		injuries.add("Knee Arthritis");
+		injuries.add("Meniscus Tear");
+		injuries.add("Pinched Nerve");
+		injuries.add("Shin Splints");
+		injuries.add("Shoulder Impingement");
+		injuries.add("Thigh Strain");
+		injuries.add("Stress Fracture");
+		injuries.add("Wry Neck");
+		injuries.add("Ruptured left testicle");
+		injuries.add("Broken back");
+		
+		return injuries.get(random.nextInt(injuries.size()));
 	}
 
 	/**
