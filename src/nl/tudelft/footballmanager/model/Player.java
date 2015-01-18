@@ -115,6 +115,7 @@ public class Player extends Observable {
 	 * @param other The player to check against.
 	 * @return Returns if the two players are equal.
 	 */
+	@Override
 	public boolean equals(Object other) {
 		if (other instanceof Player) {
 			Player that = (Player)other;
@@ -132,7 +133,8 @@ public class Player extends Observable {
 					this.defensive == that.defensive &&
 					this.stamina == that.stamina &&
 					this.price == that.price &&
-					this.playedGames == that.playedGames;
+					this.playedGames == that.playedGames &&
+					this.injury == that.injury;
 			
 			if (this.nationality != null) {
 				if (that.nationality != null) {
