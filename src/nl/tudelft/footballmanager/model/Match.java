@@ -12,6 +12,7 @@ public class Match extends Observable {
 	private Team away;
 	private MatchResult matchResult;
 	private int round;
+	private boolean played;
 
 	/**
 	 * @param home
@@ -20,6 +21,21 @@ public class Match extends Observable {
 	public Match(Team home, Team away) {
 		this.home = home;
 		this.away = away;
+		this.played = false;
+	}
+	
+	/**
+	 * @param played, set if game is played.
+	 */
+	public void setPlayed(boolean played) {
+		this.played = played;
+	}
+	
+	/**
+	 * @return true if the game is played.
+	 */
+	public boolean getPlayed() {
+		return this.played;
 	}
 	
 	/**
@@ -27,6 +43,7 @@ public class Match extends Observable {
 	 */
 	public void setMatchResult(MatchResult matchResult) {
 		this.matchResult = matchResult;
+		this.played = true;
 		
 		this.setChanged();
 		this.notifyObservers();
