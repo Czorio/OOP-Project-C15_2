@@ -20,6 +20,7 @@ public final class TeamLogic {
 	private static String teamSetup;
 	private static long seed = System.currentTimeMillis();
 	private static Random random = new Random(seed);
+	private static boolean isTesting = false;
 
 	public TeamLogic() { }
 
@@ -86,11 +87,23 @@ public final class TeamLogic {
 	 * @param team The team to create.
 	 */
 	public static void createAIActivePlayers(Team team) {
-		createSetup();
+		List<Player> goalkeepers = team.getByPosition("Goalkeeper");
+		List<Player> defenders = team.getByPosition("Defender");
+		List<Player> midfielders = team.getByPosition("Midfielder");
+		List<Player> attackers = team.getByPosition("Attacker");
+		List<Player> allPlayers = team.getPlayers();
+		
+		if(!isTesting) {
+			createSetup();
+//			System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
+			Collections.shuffle(goalkeepers);
+			Collections.shuffle(defenders);
+			Collections.shuffle(midfielders);
+			Collections.shuffle(attackers);
+		}
+		
 		Scanner sc = new Scanner(teamSetup);
 
-//		System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
-		
 		int nrGoalkeepers = 1;
 		int nrDefenders = sc.nextInt();
 		int nrMidfielders = sc.nextInt();
@@ -99,21 +112,10 @@ public final class TeamLogic {
 		
 		sc.close();
 
-		List<Player> goalkeepers = team.getByPosition("Goalkeeper");
-		List<Player> defenders = team.getByPosition("Defender");
-		List<Player> midfielders = team.getByPosition("Midfielder");
-		List<Player> attackers = team.getByPosition("Attacker");
-		List<Player> allPlayers = team.getPlayers();
-		
 		//Sets all players current position to "None"
 		for (Player p : team.getPlayers()) {
 			p.setCurPosition("None");
 		}
-		
-		Collections.shuffle(goalkeepers);
-		Collections.shuffle(defenders);
-		Collections.shuffle(midfielders);
-		Collections.shuffle(attackers);
 		
 		//Add a goalkeeper to the team.
 		try {
@@ -173,6 +175,8 @@ public final class TeamLogic {
 		for (int i = 0; i < missingPlayers; i++) {
 			int randomNumber = random.nextInt(allPlayers.size());
 			Player batlik = allPlayers.get(randomNumber);
+			
+			System.out.println(batlik);
 			
 			if (batlik.getCurPosition() != "None") {
 				if (nrGoalkeepers - goalkeepers.size() > 0) {
@@ -291,5 +295,21 @@ public final class TeamLogic {
 	 */
 	public static void setSeed(long seed) {
 		TeamLogic.seed = seed;
+	}
+	
+	/**
+	 * Gets the isTesting value.
+	 * @return If we are testing.
+	 */
+	public static boolean getIsTesting() {
+		return isTesting;
+	}
+
+	/**
+	 * Sets the isTesting value.
+	 * @param seed The seed to use.
+	 */
+	public static void setIsTesting(boolean testing) {
+		TeamLogic.isTesting = testing;
 	}
 }
