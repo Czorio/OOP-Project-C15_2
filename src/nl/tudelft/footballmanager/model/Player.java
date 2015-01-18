@@ -34,21 +34,23 @@ public class Player extends Observable {
 	private int stamina;
 	private int price; // Will be based on his stats.
 	private int playedGames;
+	private String injury;
 
 	/**
-	 * @param id
-	 * @param firstname
-	 * @param lastname
-	 * @param club
-	 * @param nationality
-	 * @param dateOfBirth
-	 * @param position
-	 * @param pace
-	 * @param shooting
-	 * @param passing
-	 * @param offensive
-	 * @param defensive
-	 * @param stamina
+	 * Creates and initializes a Player object.
+	 * @param id The id of a player.
+	 * @param firstname The first name of a player.
+	 * @param lastname The last name of a player.
+	 * @param club The club of a player.
+	 * @param nationality The nationality of a player.
+	 * @param dateOfBirth The date of birth of a player.
+	 * @param position The position of a player.
+	 * @param pace The pace stats of a player.
+	 * @param shooting The shooting stats of a player.
+	 * @param passing The passing stats of a player.
+	 * @param offensive The offensive stats of a player.
+	 * @param defensive The defensive stats of a player.
+	 * @param stamina The stamina of a player.
 	 */
 	public Player(Integer id, String firstname, String lastname, String club, String league, String nationality, Date dateOfBirth, String position,
 			int pace, int shooting, int passing, int offensive, int defensive, int stamina) {
@@ -75,8 +77,8 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * Create en empty Player object.
-	 * @param id
+	 * Create an empty Player object.
+	 * @param id The id of the player.
 	 */
 	public Player(Integer id) {
 		this.id = id;
@@ -95,20 +97,23 @@ public class Player extends Observable {
 		this.stamina = 0;
 		this.price = 0;
 		this.playedGames = 0;
+		this.injury = null;
 
 		setChanged();
 		notifyObservers(this);
 	}
 
 	/**
-	 * 
+	 * A completely empty Player object.
 	 */
 	public Player() {
 		
 	}
 
 	/**
-	 * Checks if this is equal to other.
+	 * Compares two players to see if they are equal.
+	 * @param other The player to check against.
+	 * @return Returns if the two players are equal.
 	 */
 	public boolean equals(Object other) {
 		if (other instanceof Player) {
@@ -151,8 +156,10 @@ public class Player extends Observable {
 
 
 	/**
+	 * Represent a player as a string.
 	 * @return This Player object as a String.
 	 */
+	@Override
 	public String toString() {
 		return "[" + this.id + " " + this.firstName + " " + this.lastName + ": "
 				+ this.club + " "
@@ -171,12 +178,17 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the id
+	 * Gets the id.
+	 * @return The id.
 	 */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Sets the id of a player.
+	 * @param id The id to set.
+	 */
 	public void setId(int id) {
 		this.id = id;
 
@@ -185,14 +197,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the firstname
+	 * Gets the first name.
+	 * @return The first name.
 	 */
 	public String getFirstName() {
 		return firstName;
 	}
 
 	/**
-	 * @param firstname the firstname to set
+	 * Sets the first name.
+	 * @param firstname The first name to set.
 	 */
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
@@ -202,14 +216,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the lastname
+	 * Gets the last name.
+	 * @return The last name.
 	 */
 	public String getLastName() {
 		return lastName;
 	}
 
 	/**
-	 * @param lastname the lastname to set
+	 * Sets the last name.
+	 * @param lastname The last name to set.
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
@@ -219,15 +235,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the club
+	 * Gets the club.
+	 * @return The club.
 	 */
 	public String getClub() {
 		return this.getTeam().getName();
-//		return club;
 	}
 
 	/**
-	 * @param club the club to set
+	 * Sets the club.
+	 * @param club The club to set.
 	 */
 	public void setClub(String club) {
 		this.club = club;
@@ -237,14 +254,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the nationality
+	 * Gets the nationality.
+	 * @return The nationality.
 	 */
 	public String getNationality() {
 		return nationality;
 	}
 
 	/**
-	 * @param nationality the nationality to set
+	 * Sets the nationality.
+	 * @param nationality The nationality to set.
 	 */
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
@@ -254,14 +273,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the dateOfBirth
+	 * Gets the date of birth.
+	 * @return The date of birth.
 	 */
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
 	/**
-	 * @param dateOfBirth the dateOfBirth to set
+	 * Sets the date of birth.
+	 * @param dateOfBirth The date of birth to set.
 	 */
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
@@ -271,14 +292,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the position
+	 * Gets the raw position of a player.
+	 * @return The position.
 	 */
 	public String getPosition() {
 		return position;
 	}
 
 	/**
-	 * @return the position as a readable string.
+	 * Gets the position in a readable way.
+	 * @return The position as a readable string.
 	 */
 	public String getReadablePosition() {
 		if (position.equals("ST") || position.equals("CF") || position.equals("LW") || position.equals("RW") || position.equals("Attacker")) {
@@ -297,7 +320,8 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @param position the position to set
+	 * Sets the position.
+	 * @param position The position to set.
 	 */
 	public void setPosition(String position) {
 		this.position = position;
@@ -307,7 +331,8 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @param the current position
+	 * Gets the current position.
+	 * @return The current position.
 	 */
 	public String getCurPosition(){
 		if (curPosition.equals("ST") || curPosition.equals("CF") || curPosition.equals("LW") || curPosition.equals("RW") || curPosition.equals("Attacker")) {
@@ -329,7 +354,8 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @param set current position
+	 * Sets the current position.
+	 * @param curPosition The current position to set.
 	 */
 	public void setCurPosition(String curPosition) {
 		this.curPosition = curPosition;
@@ -340,14 +366,16 @@ public class Player extends Observable {
 
 
 	/**
-	 * @return the pace
+	 * Gets the pace stat.
+	 * @return The pace stat.
 	 */
 	public int getPace() {
 		return pace;
 	}
 
 	/**
-	 * @param pace the pace to set
+	 * Sets the pace stat.
+	 * @param pace The pace stat to set.
 	 */
 	public void setPace(int pace) {
 		this.pace = pace;
@@ -357,14 +385,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the shooting
+	 * Gets the shooting stat.
+	 * @return The shooting stat.
 	 */
 	public int getShooting() {
 		return shooting;
 	}
 
 	/**
-	 * @param shooting the shooting to set
+	 * Sets the shooting stat.
+	 * @param shooting The shooting stat to set.
 	 */
 	public void setShooting(int shooting) {
 		this.shooting = shooting;
@@ -374,14 +404,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the passing
+	 * Gets the passing stat.
+	 * @return The passing stat.
 	 */
 	public int getPassing() {
 		return passing;
 	}
 
 	/**
-	 * @param passing the passing to set
+	 * Sets the passing stat.
+	 * @param passing The passing stats to set.
 	 */
 	public void setPassing(int passing) {
 		this.passing = passing;
@@ -391,14 +423,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the offensive
+	 * Gets the offensive stat.
+	 * @return The offensive stat.
 	 */
 	public int getOffensive() {
 		return offensive;
 	}
 
 	/**
-	 * @param offensive the offensive to set
+	 * Sets the offensive stat.
+	 * @param offensive The offensive stat to set.
 	 */
 	public void setOffensive(int offensive) {
 		this.offensive = offensive;
@@ -408,14 +442,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the defensive
+	 * Gets the defensive stat.
+	 * @return The defensive stat.
 	 */
 	public int getDefensive() {
 		return defensive;
 	}
 
 	/**
-	 * @param defensive the defensive to set
+	 * Sets the defensive stat.
+	 * @param defensive The defensive stat to set.
 	 */
 	public void setDefensive(int defensive) {
 		this.defensive = defensive;
@@ -425,14 +461,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the stamina
+	 * Gets the stamina.
+	 * @return The stamina.
 	 */
 	public int getStamina() {
 		return stamina;
 	}
 
 	/**
-	 * @param stamina the stamina to set
+	 * Sets the stamina.
+	 * @param stamina The stamina to set.
 	 */
 	public void setStamina(int stamina) {
 		this.stamina = stamina;
@@ -442,14 +480,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the price
+	 * Gets the price.
+	 * @return The price.
 	 */
 	public int getPrice() {
 		return price;
 	}
 
 	/**
-	 * @param price the price to set
+	 * Sets the price.
+	 * @param price The price to set.
 	 */
 	public void setPrice(int price) {
 		this.price = price;
@@ -459,16 +499,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 *
-	 * @return playedGames
+	 * Gets the amount of played games.
+	 * @return The number of played games.
 	 */
 	public int getPlayedGames(){
 		return playedGames;
 	}
 
 	/**
-	 *
-	 * @param playedGames
+	 * Sets the amount of played games.
+	 * @param playedGames The amount of games.
 	 */
 	public void setPlayedGames(int playedGames){
 		this.playedGames = playedGames;
@@ -478,16 +518,16 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * 
-	 * @return league
+	 * Gets the league of this player.
+	 * @return The league of this player.
 	 */
 	public String getLeague(){
 		return league;
 	}
 
 	/**
-	 * 
-	 * @param league
+	 * Sets the league.
+	 * @param league The league to set.
 	 */
 	public void setLeague(String league){
 		this.league = league;
@@ -497,19 +537,40 @@ public class Player extends Observable {
 	}
 
 	/**
-	 * @return the team
+	 * Gets the current players' team.
+	 * @return The team the player is in.
 	 */
 	public Team getTeam() {
 		return team;
 	}
 
 	/**
-	 * @param team the team to set
+	 * Sets the team.
+	 * @param team The team to set.
 	 */
 	public void setTeam(Team team) {
 		this.team = team;
 //		setClub(team.getTeam());
 
+		setChanged();
+		notifyObservers(this);
+	}
+	
+	/**
+	 * Gets the injury of a player.
+	 * @return
+	 */
+	public String getInjury() {
+		return this.injury;
+	}
+	
+	/**
+	 * Sets an injury to a player.
+	 * @param injury The injury to set.
+	 */
+	public void setInjury(String injury) {
+		this.injury = injury;
+		
 		setChanged();
 		notifyObservers(this);
 	}

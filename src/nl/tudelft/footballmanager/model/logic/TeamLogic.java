@@ -31,7 +31,7 @@ public final class TeamLogic {
 	public static final int calculateTeamOffScore(Team team) {
 		int offScore = 0;
 		
-		for (Player p : getPlayersPerTeam(team)) {
+		for (Player p : getPlayingPlayersPerTeam(team)) {
 			offScore += PlayerLogic.calculatePlayerOffScore(p);
 		}
 		
@@ -46,7 +46,7 @@ public final class TeamLogic {
 	public static final int calculateTeamDefScore(Team team) {
 		int defScore = 0;
 		
-		for (Player p : getPlayersPerTeam(team)) {
+		for (Player p : getPlayingPlayersPerTeam(team)) {
 			defScore += PlayerLogic.calculatePlayerDefScore(p);
 		}
 
@@ -61,7 +61,7 @@ public final class TeamLogic {
 	public static final int calculateTeamStaminaScore(Team team){
 		int stamScore = 0;
 		
-		for (Player p : getPlayersPerTeam(team)) {
+		for (Player p : getPlayingPlayersPerTeam(team)) {
 			stamScore += PlayerLogic.calculatePlayerStamina(p);
 		}
 		
@@ -227,7 +227,7 @@ public final class TeamLogic {
 	 * @param team The team to check for.
 	 * @return Returns a list of playing players for a certain team.
 	 */
-	public static List<Player> getPlayersPerTeam(Team team) {
+	public static List<Player> getPlayingPlayersPerTeam(Team team) {
 		List<Player> players = new ArrayList<Player>(); 
 		
 		for (Player p : playingPlayers) {
