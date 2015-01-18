@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import nl.tudelft.footballmanager.model.League;
@@ -49,7 +48,7 @@ public class TeamLogicTest {
 	 */
 	@Test
 	public void testTeamLogic() {
-		assertNull(new TeamLogic());
+		assertNotNull(new TeamLogic());
 	}
 
 	/**
@@ -86,14 +85,6 @@ public class TeamLogicTest {
 	public void testCalculateTeamTotalScore() {
 		TeamLogic.createAIActivePlayers(ajax);
 		assertEquals(170, TeamLogic.calculateTeamTotalScore(ajax));
-	}
-
-	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createAIActivePlayers(nl.tudelft.footballmanager.model.Team)}.
-	 */
-	@Test
-	public void testCreateAIActivePlayers() {
-		fail("Not yet implemented");
 	}
 	
 	/**
@@ -146,7 +137,6 @@ public class TeamLogicTest {
 	 */
 	@Test(expected=IndexOutOfBoundsException.class)
 	public void testCreateAIInvalidAtt() {
-		System.out.println(ajax.getByPosition("Attacker"));
 		ajax.removePlayer(ajax.getPlayer(1398));
 		ajax.removePlayer(ajax.getPlayer(1580));
 		ajax.removePlayer(ajax.getPlayer(4639));
@@ -160,27 +150,13 @@ public class TeamLogicTest {
 	}
 
 	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createSetup()}.
-	 */
-	@Test
-	public void testCreateSetup() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#getPlayingPlayersPerTeam(nl.tudelft.footballmanager.model.Team)}.
-	 */
-	@Test
-	public void testGetPlayingPlayersPerTeam() {
-		fail("Not yet implemented");
-	}
-
-	/**
 	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#clearPlayers()}.
 	 */
 	@Test
 	public void testClearPlayers() {
-		fail("Not yet implemented");
+		TeamLogic.createAIActivePlayers(ajax);
+		TeamLogic.clearPlayers();
+		assertEquals(new ArrayList<Player>(), TeamLogic.getPlayingPlayers());
 	}
 
 	/**
@@ -188,15 +164,8 @@ public class TeamLogicTest {
 	 */
 	@Test
 	public void testGetPlayingPlayers() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#setPlayingPlayers(java.util.List)}.
-	 */
-	@Test
-	public void testSetPlayingPlayers() {
-		fail("Not yet implemented");
+		TeamLogic.setPlayingPlayers(ajaxPlayers);
+		assertEquals(ajaxPlayers, TeamLogic.getPlayingPlayers());
 	}
 
 	/**
@@ -204,15 +173,15 @@ public class TeamLogicTest {
 	 */
 	@Test
 	public void testGetTeamSetup() {
-		fail("Not yet implemented");
+		assertEquals("4 3 3", TeamLogic.getTeamSetup());
 	}
-
+	
 	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#setTeamSetup(java.lang.String)}.
+	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#getIsTesting()}.
 	 */
 	@Test
-	public void testSetTeamSetup() {
-		fail("Not yet implemented");
+	public void testGetIsTesting() {
+		assertEquals(true, TeamLogic.getIsTesting());
 	}
 
 	/**
@@ -220,15 +189,7 @@ public class TeamLogicTest {
 	 */
 	@Test
 	public void testGetSeed() {
-		fail("Not yet implemented");
-	}
-
-	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#setSeed(long)}.
-	 */
-	@Test
-	public void testSetSeed() {
-		fail("Not yet implemented");
+		assertEquals(1, TeamLogic.getSeed());
 	}
 
 }
