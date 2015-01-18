@@ -66,11 +66,11 @@ public class XMLConfig extends XML {
 	        el.appendChild(dom.createTextNode(gameState.getMyTeam().getName()));
 	        rootEle.appendChild(el);
 	        
-	        // Add league containing all players
-	        XMLPlayer.addLeagueToDom(dom, rootEle, gameState.getLeague());
-	        
 	        // Add matchScheme
-	        addGameScheme(dom, rootEle, gameState.getMatchScheme());        
+	        addGameScheme(dom, rootEle, gameState.getMatchScheme());  
+	        
+	        // Add league containing all players
+	        XMLPlayer.addLeagueToDom(dom, rootEle, gameState.getLeague());      
 	        
 	        dom.appendChild(rootEle);
 	             
@@ -112,6 +112,7 @@ public class XMLConfig extends XML {
 
 			for(int j = 0; j < matchScheme.getMatchdays().get(i).getMatchCount(); j++) {
 				eMatch = dom.createElement("match");
+				eMatch.setAttribute("played", String.valueOf(matchScheme.getMatchdays().get(i).getMatches().get(j).getPlayed()));
 
 				eMatchElement = dom.createElement("homeTeam");
 				eMatchElement.appendChild(dom.createTextNode(matchScheme.getMatchdays().get(i).getMatches().get(j).getHome().getName()));
@@ -119,7 +120,17 @@ public class XMLConfig extends XML {
 				
 				eMatchElement = dom.createElement("awayTeam");
 				eMatchElement.appendChild(dom.createTextNode(matchScheme.getMatchdays().get(i).getMatches().get(j).getAway().getName()));
-				eMatch.appendChild(eMatchElement);				
+				eMatch.appendChild(eMatchElement);
+				
+				if(matchScheme.getMatchdays().get(i).getMatches().get(j).getPlayed()) {
+					eMatchElement = dom.createElement("homeScore");
+					eMatchElement.appendChild(dom.createTextNode(String.valueOf(matchScheme.getMatchdays().get(i).getMatches().get(j).getMatchResult().getHomeScore())));
+					eMatch.appendChild(eMatchElement);
+					
+					eMatchElement = dom.createElement("awayScore");
+					eMatchElement.appendChild(dom.createTextNode(String.valueOf(matchScheme.getMatchdays().get(i).getMatches().get(j).getMatchResult().getAwayScore())));
+					eMatch.appendChild(eMatchElement);
+				}
 				
 				eMatchDay.appendChild(eMatch);
 			}
