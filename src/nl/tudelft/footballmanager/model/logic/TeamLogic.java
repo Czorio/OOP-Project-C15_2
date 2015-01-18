@@ -18,7 +18,7 @@ public final class TeamLogic {
 
 	private static List<Player> playingPlayers = new ArrayList<Player>();
 	private static String teamSetup;
-	private static long seed = System.currentTimeMillis();
+	private static long seed = System.nanoTime();
 	private static Random random = new Random(seed);
 	private static boolean isTesting = false;
 
