@@ -64,7 +64,7 @@ public class GameLogic {
 
 	/**
 	 * Logic for the game itself. Determines when a team scores and the outcome of a match.
-	 * A goal can only be scored every 2-8 minutes. A maximum of 10 goals per team can be scored.
+	 * A goal can only be scored every 5-12 minutes. A maximum of 10 goals per team can be scored.
 	 * 
 	 * Every match takes 90 + 0-6 minutes.
 	 * 
@@ -83,23 +83,29 @@ public class GameLogic {
 		int homeScoreChance = TeamLogic.calculateTeamTotalScore(home);
 		int awayScoreChance = TeamLogic.calculateTeamTotalScore(away);
 
-		System.out.println("\n" + home.getName() + " total score: " + homeScoreChance); //TESTCODE
-		System.out.println(away.getName() + " total score: " + awayScoreChance);
+//		System.out.println("\n" + home.getName() + " total score: " + homeScoreChance); //TESTCODE
+//		System.out.println(away.getName() + " total score: " + awayScoreChance);
 
 		//Match starts here
 		//TODO: Add injuries, cards, ...?
 		//TODO Balance score values.
 		for (int i = 1; i <= (90 + extraTime); i++) {
-			if(homeScoreChance + generateRandom(0, 80) > 220 && homeGoals < 10 && lastGoal >= randomInterval && generateRandom(0, 30) == 29) {
+			if ((homeScoreChance - awayScoreChance) + generateRandom(100, 200) > homeScoreChance 
+					&& homeGoals < 10 
+					&& lastGoal >= randomInterval 
+					&& generateRandom(0, 30) == 9) {
 				homeGoals++;
-				System.out.println(i + ": Team " + home.getName() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
+//				System.out.println(i + ": Team " + home.getName() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
 				matchResult.addHomeScoreTime(i);
 			}
 
-			if(awayScoreChance + generateRandom(0, 80) > 220 && awayGoals < 10 && lastGoal >= randomInterval && generateRandom(0, 30) == 29) {
+			if ((awayScoreChance - homeScoreChance) + generateRandom(100, 200) > awayScoreChance 
+					&& awayGoals < 10 
+					&& lastGoal >= randomInterval 
+					&& generateRandom(0, 30) == 9) {
 				awayGoals++;
-				System.out.println(i + ": Team " + away.getName() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
+//				System.out.println(i + ": Team " + away.getName() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
 				matchResult.addAwayScoreTime(i);
 			}
@@ -112,7 +118,7 @@ public class GameLogic {
 		matchResult.setHomeScore(homeGoals);
 		matchResult.setAwayScore(awayGoals);
 
-		//		System.out.println("Final result: " + home.getName() + " " + homeGoals + " - " + awayGoals + " " + away.getName() + "\n");
+//		System.out.println("Final result: " + home.getName() + " " + homeGoals + " - " + awayGoals + " " + away.getName() + "\n");
 
 		return matchResult;
 	}

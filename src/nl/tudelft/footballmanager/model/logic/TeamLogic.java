@@ -82,7 +82,7 @@ public final class TeamLogic {
 	/**
 	 * Creates an AI team. Picks random players and places them on their positions.
 	 * 
-	 * Requirements: Team should have at least 1 goalkeeper and a total of 11 players.
+	 * Requirements: Team should have at least a total of 11 players.
 	 * @param team The team to create.
 	 */
 	public static void createAIActivePlayers(Team team) {
