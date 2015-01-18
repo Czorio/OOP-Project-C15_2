@@ -17,6 +17,8 @@ public class LeagueTest {
 	File in = new File("GameData/Leagues.xml");
 	XMLPlayer xmlplayer = new XMLPlayer(in);
 	
+	List<League> testList = xmlplayer.readFromFile();
+	List<League> testList2 = xmlplayer.readFromFile();
 	League league = xmlplayer.readFromFile("Eredivisie");
 	League league2 = xmlplayer.readFromFile("Barclays Premier League");
 	
@@ -100,5 +102,52 @@ public class LeagueTest {
 	public void testGetPossibleMatches() {
 		assertNotEquals(testLeague.getPossibleMatches(league),testLeague2.getPossibleMatches(league2));
 	}
+	
+	/**
+	 * getTeamCount Test 
+	 */
+	@Test
+	public void testGetTeamCount(){
+		assertEquals(testLeague.getTeamCount(),18);
+	}
+	
+	/**
+	 * getPlayerCount test
+	 */
+	@Test
+	public void testGetPlayerCount(){
+		assertEquals(testLeague.getPlayerCount(),358);
+	}
+	
+	/**
+	 * GetTeamCountList test (List)
+	 */
+	@Test
+	public void testGetTeamCountList(){
+		assertEquals(League.getTeamCount(testList),797);
+	}
+	
+	/**
+	 * getPlayerCount Test (List)
+	 */
+	@Test
+	public void testGetPlayerCountList(){
+		assertEquals(League.getPlayerCount(testList),10658);
+	}
 
+	/**
+	 * getMaxGamesToPlay Test
+	 */
+	@Test
+	public void testGetMaxGamesToPlay(){
+		assertEquals(testLeague.getMaxGamesToPlay(),34);
+	}
+	
+	/**
+	 * checkNumberAndAddPrice Test
+	 */
+	@Test
+	public void testCheckNumberAndAddPrice(){
+		assertEquals(League.checkNumbersAndAddPrice(testList, 2, 11),League.checkNumbersAndAddPrice(testList2,2,11));
+	}
 }
