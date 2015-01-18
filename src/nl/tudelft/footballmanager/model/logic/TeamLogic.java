@@ -113,7 +113,7 @@ public final class TeamLogic {
 		sc.close();
 
 		//Sets all players current position to "None"
-		for (Player p : team.getPlayers()) {
+		for (Player p : allPlayers) {
 			p.setCurPosition("None");
 		}
 		
