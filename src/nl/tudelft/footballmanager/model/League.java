@@ -23,6 +23,7 @@ import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 public class League extends Observable {
 	private String name;
 	private ArrayList<Team> teams; // Wellicht handig om een Set te maken, elementen zijn tenslotte distinct
+	private int maxGamesToPlay;
 
 	private static final String LEAGUES_FOLDER_NAME = "GameData/Leagues/";
 	private static final File LEAGUES_FILE = new File("GameData/Leagues.xml");
@@ -36,6 +37,7 @@ public class League extends Observable {
 	public League(String name, ArrayList<Team> teams) {
 		this.name = name;
 		this.teams = teams;
+		this.maxGamesToPlay = (teams.size() - 1) * 2;
 	}
 
 	/**
@@ -276,5 +278,13 @@ public class League extends Observable {
 		}
 		
 		return teamCount;
+	}
+
+	public int getMaxGamesToPlay() {
+		return maxGamesToPlay;
+	}
+
+	public void setMaxGamesToPlay(int maxGamesToPlay) {
+		this.maxGamesToPlay = maxGamesToPlay;
 	}
 }

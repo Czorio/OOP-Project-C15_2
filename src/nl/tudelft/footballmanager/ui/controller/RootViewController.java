@@ -9,7 +9,6 @@ import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -175,5 +174,11 @@ public class RootViewController implements Initializable, Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 		
+		// TODO check if last game has been played, if so, goto PostLeagueView
+		if(gameState.getGameRound() <= gameState.getLeague().getMaxGamesToPlay()) {
+			// TODO Show PostLeagueView
+		}
 	}
+	
+	
 }
