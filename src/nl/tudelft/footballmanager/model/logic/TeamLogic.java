@@ -79,6 +79,18 @@ public final class TeamLogic {
 		//TODO Add parameters to calculate the final score of a team
 		return (calculateTeamOffScore(team) + calculateTeamDefScore(team) + calculateTeamStaminaScore(team));
 	}
+	
+	/**
+	 * Creates a team for the user currently playing.
+	 * @param team The team the user is playing.
+	 */
+	public static void createActivePlayers(Team team) {
+		for (Player p : team.getPlayers()) {
+			if (p.getCurPosition() != "None") {
+				playingPlayers.add(p);
+			}
+		}
+	}
 
 	/**
 	 * Creates an AI team. Picks random players and places them on their positions.
@@ -111,11 +123,6 @@ public final class TeamLogic {
 		int missingPlayers = 0;
 		
 		sc.close();
-
-		//Sets all players current position to "None"
-		for (Player p : allPlayers) {
-			p.setCurPosition("None");
-		}
 		
 		//Add a goalkeeper to the team.
 		try {

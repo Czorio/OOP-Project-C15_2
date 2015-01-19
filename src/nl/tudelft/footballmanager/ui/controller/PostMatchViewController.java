@@ -27,7 +27,9 @@ import javafx.util.Callback;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Match;
+import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.logic.GameLogic;
+import nl.tudelft.footballmanager.model.logic.TeamLogic;
 
 /**
  * @author Mathijs de Boer <czorio4@gmail.com>
@@ -87,6 +89,11 @@ public class PostMatchViewController implements Initializable, Observer {
 
 		new GameLogic(gameState);
 		GameLogic.matchDay();
+		
+		//Sets all players current position to "None"
+		for (Player p : TeamLogic.getPlayingPlayers()) {
+			p.setCurPosition("None");
+		}
 
 		System.out.println("Initializing " + this.getClass() + " finished");
 	}
