@@ -11,6 +11,7 @@ import java.util.Observer;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -45,6 +46,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private TableColumn<Player, String> yourPlayerFirstNameCol;
 	@FXML private TableColumn<Player, String> yourPlayerLastNameCol;
 	@FXML private TableColumn<Player, String> yourPlayerPositionCol;
+	@FXML private TableColumn<Player, String> yourPlayerCurPositionCol;
 	@FXML private TableColumn<Player, Integer> yourPlayerOffCol;
 	@FXML private TableColumn<Player, Integer> yourPlayerDefCol;
 	@FXML private TableColumn<Player, Integer> yourPlayerStaminaCol;
@@ -56,7 +58,6 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private Label yourPlayerDefensiveLabel;
 	@FXML private Label yourPlayerStaminaLabel;
 	@FXML private Label yourPlayerPriceLabel;
-	@FXML private Label yourPlayerTeamLabel;
 	@FXML private Button sellYourPlayerButton;
 
 	SimpleStringProperty name;
@@ -65,9 +66,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	SimpleIntegerProperty def;
 	SimpleIntegerProperty stamina;
 	SimpleIntegerProperty price;
-	SimpleStringProperty team;
-	
-	@FXML private ChoiceBox curPosChoiceBox;
+
+	@FXML private ChoiceBox<String> curPosChoiceBox;
 	@FXML private Label placedPlayersLabel;
 
 	@FXML private TableView<Player> otherPlayersTableView;
@@ -99,10 +99,11 @@ public class TeamOverviewController implements Initializable, Observer {
 	private Player yourSelectedPlayer = new Player();
 	private Player otherSelectedPlayer = new Player();
 	private static GameState gameState = new GameState();
+	
+	SimpleListProperty<Player> yourPlayers = null;
 
 	@Override
 	public void update(Observable o, Object arg) {
-//		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
 
 		if (yourSelectedPlayer == o) {
 			try {
@@ -112,15 +113,13 @@ public class TeamOverviewController implements Initializable, Observer {
 				def.set(yourSelectedPlayer.getDefensive());
 				stamina.set(yourSelectedPlayer.getStamina());
 				price.set(yourSelectedPlayer.getPrice());
-				team.set(yourSelectedPlayer.getClub());
 			} catch (NullPointerException e) {
 				name.set(null);
-				position.set(yourSelectedPlayer.getReadablePosition());
-				off.set(yourSelectedPlayer.getOffensive());
-				def.set(yourSelectedPlayer.getDefensive());
-				stamina.set(yourSelectedPlayer.getStamina());
-				price.set(yourSelectedPlayer.getPrice());
-				//team.set(yourSelectedPlayer.getClub());
+				position.set(null);
+				off.set(0);
+				def.set(0);
+				stamina.set(0);
+				price.set(0);
 			}
 		} else if (otherSelectedPlayer == o) {
 			try {
@@ -145,8 +144,28 @@ public class TeamOverviewController implements Initializable, Observer {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		yourPlayers = new SimpleListProperty<Player>(FXCollections.observableList(gameState.getMyTeam().getPlayers()));
+
+		curPosChoiceBox.setItems(FXCollections.observableArrayList(
+				"Goalkeeper",
+				"Attacker",
+				"Midfielder",
+				"Defender"));
+		
+		curPosChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
+				yourPlayerTableView.getSelectionModel().getSelectedItem().setCurPosition(newValue);
+				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
+			}
+		});
+
 		sellYourPlayerButton.setOnAction((event) -> {
 			String p = yourSelectedPlayer.getFirstName() + " " + yourSelectedPlayer.getLastName();
+			
+			// TODO implement selling player, sells to 3rd team in league now
 			boolean res = MarketplaceLogic.transferPlayer(yourSelectedPlayer.getTeam(), gameState.getLeague().getTeams().get(3), yourSelectedPlayer, 1);
 			System.out.println("SELLING " + p + (res == true ? " succeeded!" : " failed"));
 		});
@@ -158,7 +177,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				update(yourSelectedPlayer, null);
 			}
 		});
-		
+
 		otherPlayersTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Player>() {
 			@Override
 			public void changed(ObservableValue<? extends Player> observable, Player oldValue, Player newValue) {
@@ -166,22 +185,23 @@ public class TeamOverviewController implements Initializable, Observer {
 				update(otherSelectedPlayer, null);
 			}
 		});;
-		
+
 		bindYourPlayerStats();
 		bindOtherPlayerStats();
 
-		yourPlayerTableView.setItems((ObservableList<Player>) gameState.getMyTeam().getPlayers());
+		yourPlayerTableView.itemsProperty().bind(yourPlayers);
+//		yourPlayerTableView.setItems(FXCollections.observableList(gameState.getMyTeam().getPlayers()));
 		gameState.addObserver(this);
 		yourSelectedPlayer.addObserver(this);
-		
+
 		ObservableList<Player> otherPlayers = FXCollections.observableList(new ArrayList<Player>());
 		for (Team t : gameState.getLeague().getTeams()) {
 			if (t == gameState.getMyTeam()) continue;
 			otherPlayers.addAll(t.getPlayers());
 		}
-		
+
 		otherPlayersTableView.setItems(otherPlayers);
-//		System.out.println(otherPlayers);
+		//		System.out.println(otherPlayers);
 	}
 
 	/**
@@ -220,10 +240,6 @@ public class TeamOverviewController implements Initializable, Observer {
 		yourPlayerStaminaLabel.textProperty().bind(stamina.asString());
 		price = new SimpleIntegerProperty();
 		yourPlayerPriceLabel.textProperty().bind(price.asString());
-		
-		// I hope the player knows what team he is running :\
-		/*team = new SimpleStringProperty();
-		yourPlayerTeamLabel.textProperty().bind(team);*/
 	}
 
 	public static void show(Pane rootLayout, GameState gs) {

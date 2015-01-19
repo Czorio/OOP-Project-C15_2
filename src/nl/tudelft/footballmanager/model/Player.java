@@ -25,7 +25,7 @@ public class Player extends Observable {
 	private String nationality;
 	private Date dateOfBirth;
 	private String position;
-	public String curPosition;
+	private String curPosition;
 	private int pace;
 	private int shooting;
 	private int passing;
