@@ -44,8 +44,16 @@ public class GameLogic {
 		List<Match> todaysMatches = ms.getMatchdays().get(matchDay).getMatches();
 
 		for(Match m : todaysMatches) {		
-			TeamLogic.createAIActivePlayers(m.getHome());
-			TeamLogic.createAIActivePlayers(m.getAway());
+			if(m.getHome().equals(gs.getMyTeam())) {
+				TeamLogic.createAIActivePlayers(m.getHome()); //TODO Seperate appproach for playerteam
+				TeamLogic.createAIActivePlayers(m.getAway());
+			} else if (m.getAway().equals(gs.getMyTeam())) {
+				TeamLogic.createAIActivePlayers(m.getHome());
+				TeamLogic.createAIActivePlayers(m.getAway()); //TODO seperate approach for playerteam
+			} else {
+				TeamLogic.createAIActivePlayers(m.getHome());
+				TeamLogic.createAIActivePlayers(m.getAway());
+			}
 
 			m.setMatchResult(game(m.getHome(), m.getAway()));
 		}
@@ -88,11 +96,10 @@ public class GameLogic {
 		List<Player> playersHome = TeamLogic.getPlayingPlayersPerTeam(home);
 		List<Player> playersAway = TeamLogic.getPlayingPlayersPerTeam(away);
 
-//		System.out.println("\n" + home.getName() + " total score: " + homeScoreChance); //TESTCODE
+//		System.out.println("\n" + home.getName() + " total score: " + homeScoreChance);
 //		System.out.println(away.getName() + " total score: " + awayScoreChance);
 
 		//Match starts here
-		//TODO Balance score values.
 		for (int i = 1; i <= (90 + extraTime); i++) {
 			if ((homeScoreChance - awayScoreChance) + generateRandom(100, 200) > homeScoreChance 
 					&& homeGoals < 10 
@@ -117,13 +124,16 @@ public class GameLogic {
 			if (injuryChance == 990) {
 				String injury = generateInjury();
 				Player p = playersHome.get(random.nextInt(playersHome.size()));
+				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
 				
 				p.setInjury(injury);
+				p.setDisabled(true);
 			}
 			
 			else if (injuryChance == 991) {
 				String injury = generateInjury();
 				Player p = playersAway.get(random.nextInt(playersAway.size()));
+				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
 				
 				p.setInjury(injury);
 				p.setDisabled(true);
