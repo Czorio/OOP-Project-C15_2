@@ -96,6 +96,47 @@ public class MatchScheme extends Observable {
 		setChanged();
 		notifyObservers(this);
 	}
+	
+	/**
+	 * Add a single match day to the list.
+	 * @param matchDay
+	 * @return
+	 */
+	public boolean addMatchDay(MatchDay matchDay) {
+		for(MatchDay m : matchdays) {
+			if(m.getRound() == matchDay.getRound())
+				return false;				
+		}
+		
+		this.matchdays.add(matchDay);
+		return true;
+	}
+	
+	/**
+	 * Return a single matchday if it exists
+	 * @param round
+	 * @return
+	 */
+	public MatchDay getMatchDay(int round) {
+		for(MatchDay m : matchdays) {
+			if(m.getRound() == round)
+				return m;				
+		}
+		return null;
+	}
+	
+	/**
+	 * Check if matchday exists.
+	 * @param matchDay
+	 * @return
+	 */
+	public boolean matchDayExists(int round) {
+		for(MatchDay m : matchdays) {
+			if(m.getRound() == round)
+				return true;				
+		}
+		return false;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
