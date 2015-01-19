@@ -57,13 +57,17 @@ public class Team extends Observable {
 	}
 
 	// Just an example
+//	public String toString() {
+//		String res = this.getName() + " (" + this.getBudget() + ") " + "\n";
+//		for (Player p : this.getPlayers()) {
+//			res += p.getFirstName() + " " + p.getLastName() + "\n";
+//		}
+//
+//		return res;
+//	}
+	
 	public String toString() {
-		String res = this.getName() + " (" + this.getBudget() + ") " + "\n";
-		for (Player p : this.getPlayers()) {
-			res += p.getFirstName() + " " + p.getLastName() + "\n";
-		}
-
-		return res;
+		return this.name;
 	}
 
 	public final static Comparator<Team> NAME_SORTER = new Comparator<Team>() {
