@@ -100,7 +100,7 @@ public class GameLogic {
 					&& generateRandom(0, 30) == 9) {
 				homeGoals++;
 				lastGoal = 0;
-				matchResult.addHomeGoal(i, playersHome.get(generateRandom(0, playersHome.size())));
+				matchResult.addHomeGoal(i, playersHome.get(generateRandom(0, playersHome.size() - 1)));
 			}
 
 			if ((awayScoreChance - homeScoreChance) + generateRandom(100, 200) > awayScoreChance 
@@ -109,7 +109,7 @@ public class GameLogic {
 					&& generateRandom(0, 30) == 9) {
 				awayGoals++;
 				lastGoal = 0;
-				matchResult.addAwayGoal(i, playersAway.get(generateRandom(0, playersAway.size())));
+				matchResult.addAwayGoal(i, playersAway.get(generateRandom(0, playersAway.size() - 1)));
 			}
 			
 			//Generates a random injury and gives it to a random player.
@@ -197,6 +197,22 @@ public class GameLogic {
 	 */
 	public static void setSeed(long seed) {
 		GameLogic.seed = seed;
+	}
+	
+	/**
+	 * Gets the current gamestate.
+	 * @return Returns the gameState.
+	 */
+	public static GameState getGameState() {
+		return GameLogic.gs;
+	}
+	
+	/**
+	 * Sets the currens gamestate.
+	 * @param gs The gamestate to set.
+	 */
+	public static void setGameState(GameState gs) {
+		GameLogic.gs = gs;
 	}
 
 }
