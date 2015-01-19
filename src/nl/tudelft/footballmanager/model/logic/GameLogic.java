@@ -129,6 +129,7 @@ public class GameLogic {
 				Player p = playersAway.get(random.nextInt(playersAway.size()));
 				
 				p.setInjury(injury);
+				p.setDisabled(true);
 			}
 
 			lastGoal++;
