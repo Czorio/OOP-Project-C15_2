@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="560.0" prefWidth="598.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView fx:id="yourPlayerTableView" layoutX="12.0" layoutY="121.0" prefHeight="360.0" prefWidth="575.0" AnchorPane.bottomAnchor="79.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="11.0" AnchorPane.topAnchor="121.0">
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+         <columns>
+            <TableColumn fx:id="yourPlayerLastNameCol" prefWidth="75.0" text="Surname">
+               <cellValueFactory>
+                  <PropertyValueFactory property="lastName" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="yourPlayerPositionCol" prefWidth="78.0" text="Position">
+               <cellValueFactory>
+                  <PropertyValueFactory property="position" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="yourPlayerOffCol" prefWidth="113.0" text="OFF">
+               <cellValueFactory>
+                  <PropertyValueFactory property="offensive" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="yourPlayerDefCol" prefWidth="75.0" text="DEF">
+               <cellValueFactory>
+                  <PropertyValueFactory property="defensive" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="yourPlayerStaminaCol" prefWidth="75.0" text="STA">
+               <cellValueFactory>
+                  <PropertyValueFactory property="stamina" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="yourPlayerCurrPosCol" prefWidth="75.0" text="Current Position" />
+         </columns>
+      </TableView>
+      <StackPane layoutX="188.0" layoutY="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
+         <children>
+            <VBox alignment="CENTER" spacing="10.0" StackPane.alignment="CENTER">
+               <children>
+                  <Label layoutX="188.0" layoutY="14.0" text="Set Up Your Team">
+                     <font>
+                        <Font size="28.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="teamSetUpChoiceBox" prefWidth="150.0" />
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+      <Button fx:id="continueButton" layoutX="520.0" layoutY="521.0" mnemonicParsing="false" text="Continue" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="13.0" />
+      <Button fx:id="cancelButton" layoutX="14.0" layoutY="521.0" mnemonicParsing="false" text="Cancel" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" />
+   </children>
+</AnchorPane>
