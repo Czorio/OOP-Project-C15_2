@@ -71,7 +71,7 @@
                                         </AnchorPane>
                                         <AnchorPane maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="160.0" prefWidth="150.0" SplitPane.resizableWithParent="false">
                                             <children>
-                                                <GridPane layoutX="-34.0" layoutY="176.0" prefHeight="345.0" prefWidth="150.0" AnchorPane.bottomAnchor="184.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                <GridPane layoutX="-34.0" layoutY="176.0" prefHeight="316.0" prefWidth="150.0" AnchorPane.bottomAnchor="213.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columnConstraints>
                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -105,6 +105,12 @@
                                        <children>
                                           <Label layoutX="33.0" layoutY="366.0" text="Current Position" />
                                           <ChoiceBox fx:id="curPosChoiceBox" layoutX="19.0" layoutY="383.0" prefHeight="25.0" prefWidth="113.0" AnchorPane.bottomAnchor="121.0" AnchorPane.leftAnchor="19.0" AnchorPane.rightAnchor="18.0" />
+                                          <VBox alignment="CENTER" spacing="1.0">
+                                             <children>
+                                                <Label fx:id="placedPlayersLabel" text="#" />
+                                                <Label text="/11" />
+                                             </children>
+                                          </VBox>
                                        </children>
                                     </VBox>
                                             </children>
