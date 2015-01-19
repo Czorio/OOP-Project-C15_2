@@ -20,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -65,6 +66,9 @@ public class TeamOverviewController implements Initializable, Observer {
 	SimpleIntegerProperty stamina;
 	SimpleIntegerProperty price;
 	SimpleStringProperty team;
+	
+	@FXML private ChoiceBox curPosChoiceBox;
+	@FXML private Label placedPlayersLabel;
 
 	@FXML private TableView<Player> otherPlayersTableView;
 	@FXML private TableColumn<Player, String> otherPlayersFirstNameCol;
@@ -116,7 +120,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				def.set(yourSelectedPlayer.getDefensive());
 				stamina.set(yourSelectedPlayer.getStamina());
 				price.set(yourSelectedPlayer.getPrice());
-				team.set(yourSelectedPlayer.getClub());
+				//team.set(yourSelectedPlayer.getClub());
 			}
 		} else if (otherSelectedPlayer == o) {
 			try {
@@ -216,8 +220,10 @@ public class TeamOverviewController implements Initializable, Observer {
 		yourPlayerStaminaLabel.textProperty().bind(stamina.asString());
 		price = new SimpleIntegerProperty();
 		yourPlayerPriceLabel.textProperty().bind(price.asString());
-		team = new SimpleStringProperty();
-		yourPlayerTeamLabel.textProperty().bind(team);
+		
+		// I hope the player knows what team he is running :\
+		/*team = new SimpleStringProperty();
+		yourPlayerTeamLabel.textProperty().bind(team);*/
 	}
 
 	public static void show(Pane rootLayout, GameState gs) {
