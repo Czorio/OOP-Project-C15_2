@@ -25,7 +25,7 @@ public class Player extends Observable {
 	private String nationality;
 	private Date dateOfBirth;
 	private String position;
-	private String curPosition;
+	public String curPosition;
 	private int pace;
 	private int shooting;
 	private int passing;
@@ -342,7 +342,9 @@ public class Player extends Observable {
 	 * @return The current position.
 	 */
 	public String getCurPosition(){
-		if (curPosition.equals("ST") || curPosition.equals("CF") || curPosition.equals("LW") || curPosition.equals("RW") || curPosition.equals("Attacker")) {
+		if (curPosition == null) {
+			return null;
+		} else if (curPosition.equals("ST") || curPosition.equals("CF") || curPosition.equals("LW") || curPosition.equals("RW") || curPosition.equals("Attacker")) {
 			return "Attacker";
 		} else if (curPosition.equals("CM") || curPosition.equals("CDM") || curPosition.equals("CAM")
 				|| curPosition.equals("RM")
