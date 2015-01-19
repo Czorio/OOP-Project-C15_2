@@ -12,6 +12,8 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import nl.tudelft.footballmanager.model.xml.XML;
+
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>
  */
@@ -75,16 +77,16 @@ public class XMLPlayerHandler extends DefaultHandler {
 			boolean bLeagueExists = false;
 			
 			for(int i = 0; i < leagueObjects.size(); i++) {
-				if(leagueObjects.get(i).getName().equals(getValueIgnoreCase(attributes, "NAME"))) {
+				if(leagueObjects.get(i).getName().equals(XML.getValueIgnoreCase(attributes, "NAME"))) {
 					bLeagueExists = true;
 					System.out.println("XMLPlayerHandler: XML File contains multiple leagues with shared names.");
 				}
 			}
 			
-			if((leagueNames == null || leagueNames.contains(getValueIgnoreCase(attributes, "NAME"))) && !bLeagueExists) {
+			if((leagueNames == null || leagueNames.contains(XML.getValueIgnoreCase(attributes, "NAME"))) && !bLeagueExists) {
 				bInsideCorrectLeague = true;	// Inside the correct league
 				
-				currentLeague = new League(getValueIgnoreCase(attributes, "NAME"));
+				currentLeague = new League(XML.getValueIgnoreCase(attributes, "NAME"));
 			}
 			return;
 		}
@@ -93,7 +95,7 @@ public class XMLPlayerHandler extends DefaultHandler {
 		if(bInsideCorrectLeague && !bInsideTeam && qName.equalsIgnoreCase("TEAM")) {
 			bInsideTeam = true;
 			
-			currentTeam = new Team(getValueIgnoreCase(attributes, "NAME"));
+			currentTeam = new Team(XML.getValueIgnoreCase(attributes, "NAME"));
 			return;			
 		}
 		
@@ -101,7 +103,7 @@ public class XMLPlayerHandler extends DefaultHandler {
 		if(bInsideTeam && !bInsidePlayer && qName.equalsIgnoreCase("PLAYER")) {
 			bInsidePlayer = true;
 			
-			currentPlayer = new Player(Integer.parseInt(getValueIgnoreCase(attributes, "ID")));
+			currentPlayer = new Player(Integer.parseInt(XML.getValueIgnoreCase(attributes, "ID")));
 			return;
 		}
 		
@@ -260,21 +262,5 @@ public class XMLPlayerHandler extends DefaultHandler {
 		list.add("DATEOFBIRTH");
 		
 		return list;
-	}
-	
-	/**
-	 * @param attributes
-	 * @param qName
-	 * @return
-	 */
-	private String getValueIgnoreCase(Attributes attributes, String qName){
-		String qn = null;
-	    for(int i = 0; i < attributes.getLength(); i++){
-	        qn = attributes.getQName(i);
-	        if(qn.equalsIgnoreCase(qName)){
-	            return attributes.getValue(i);
-	        }
-	    }
-	    return null;
 	}
 }
