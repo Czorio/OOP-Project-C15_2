@@ -1,8 +1,10 @@
 package nl.tudelft.footballmanager.model;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Map;
 import java.util.Observable;
 
+import javafx.collections.FXCollections;
 import nl.tudelft.footballmanager.model.xml.XMLConfig;
 
 /**
@@ -27,7 +29,7 @@ public class GameState extends Observable {
 		this.gameRound = gameRound;
 		this.league = league;
 		this.myTeam = myTeam;
-		
+
 		this.matchScheme = new MatchScheme(this.league, 0);
 
 		this.setChanged();
@@ -38,7 +40,7 @@ public class GameState extends Observable {
 		this.coachName = coachName;
 		this.gameRound = gameRound;
 		this.league = null;
-		
+
 		if (leagueName != null) {
 			try {
 				this.league = League.readOne(leagueName);
@@ -49,7 +51,7 @@ public class GameState extends Observable {
 				this.league = null;
 			}
 		}
-		
+
 		this.matchScheme = new MatchScheme(this.league, 0);
 
 		this.setChanged();
@@ -82,15 +84,15 @@ public class GameState extends Observable {
 		this.gameRound = -1;
 		this.league = null;
 		this.myTeam = null;
-		
+
 		this.setChanged();
 		this.notifyObservers(this);
 	}
-	
+
 	public static GameState load(File file) {
 		return new XMLConfig(file).readFromFile();
 	}
-	
+
 	public static boolean save(GameState gameState, File file) {
 		return new XMLConfig(file).writeToFile(gameState);
 	}
@@ -104,6 +106,40 @@ public class GameState extends Observable {
 
 	public void nextRound() {
 		this.setGameRound(getGameRound() + 1);
+	}
+
+	public Map<Team, Integer> getOverallScores() {
+		Map<Team, Integer> points = FXCollections.observableHashMap();
+
+		for (MatchDay md : this.matchScheme.getMatchdays()) {
+			for (Match m : md.getMatches()) {
+				MatchResult mr = m.getMatchResult();
+				if (mr == null) continue;
+				if (mr.getHomeScore() == mr.getAwayScore()) {
+					Integer currentHomeScore = points.get(m.getHome());
+					Integer currentAwayScore = points.get(m.getAway());
+					
+					if (currentHomeScore == null) currentHomeScore = 0;
+					if(currentAwayScore == null) currentAwayScore = 0;
+					
+					currentHomeScore += 1; // Points for a draw
+					currentAwayScore += 1;
+					
+					points.put(m.getHome(), currentHomeScore);
+					points.put(m.getAway(), currentAwayScore);
+				} else {
+					Team winner = (mr.getHomeScore() > mr.getAwayScore() ? m.getHome() : m.getAway());
+					Integer currentScore = points.get(winner);
+
+					if (currentScore == null) currentScore = 0;
+
+					currentScore += 3; // Points for won game
+					points.put(winner, currentScore);
+				}
+			}
+		}
+		
+		return points;
 	}
 
 	public String getMyTeamName() {
