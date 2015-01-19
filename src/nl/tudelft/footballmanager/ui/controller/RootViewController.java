@@ -118,7 +118,7 @@ public class RootViewController implements Initializable, Observer {
 		teamBalanceLabel.textProperty().bind(balance.asString());
 
 		Map<Team, Integer> scores = gameState.getOverallScores();
-		System.out.println(scores);
+		System.out.println("Scores: " + scores);
 		
 		
 	}
