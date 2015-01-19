@@ -83,15 +83,19 @@ public final class PlayerLogic {
 		int stats = player.getOffensive() + player.getDefensive() + player.getStamina();
 		int price = 0;
 		
-		//TODO Finetune initial price
-		if (stats > 185) {
-			price = 5000 * (player.getOffensive() + player.getDefensive() + player.getStamina());
-		} else {
-			price = 3000 * (player.getOffensive() + player.getDefensive() + player.getStamina());
+		if (player.getPosition().equals("GK")) {
+			price += 600000;
 		}
 		
-		//TODO Add price for each goal a player scored.
-		//price += 50000 * player.getGoals();
+		//TODO Finetune initial price
+		if (stats > 185) {
+			price += 6000 * (player.getOffensive() + player.getDefensive() + player.getStamina());
+		} else if (stats <= 185 && stats > 165){
+			price += 5500 * (player.getOffensive() + player.getDefensive() + player.getStamina());
+		} else {
+			price += 4500 * (player.getOffensive() + player.getDefensive() + player.getStamina());
+		}
+		
 		
 		player.setPrice(price);
 		return price;

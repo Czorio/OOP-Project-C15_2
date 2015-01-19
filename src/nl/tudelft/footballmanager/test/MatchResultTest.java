@@ -2,9 +2,12 @@ package nl.tudelft.footballmanager.test;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import nl.tudelft.footballmanager.model.MatchResult;
+import nl.tudelft.footballmanager.model.Player;
 
 import org.junit.Test;
 
@@ -12,22 +15,23 @@ public class MatchResultTest {
 
 	MatchResult testResult = new MatchResult();
 	MatchResult testResult2 = new MatchResult();
-	ArrayList<Integer> homeScoreTimes = new ArrayList<Integer>(20);
-	ArrayList<Integer> awayScoreTimes = new ArrayList<Integer>(30);
+	Player nick = new Player(1,"Davy","Klaasen","Ajax","Eredivisie","Dutch", new Date(1/1/1990),"CB",40,50,60,60,80,70);
+	Map<Integer, Player> homeGoals = new HashMap<Integer, Player>();
+	Map<Integer, Player> awayGoals = new HashMap<Integer, Player>();
 	
 	
 	@Test
-	public void testAddHomeScoreTime() {
-		testResult.addHomeScoreTime(20);
-		testResult2.addHomeScoreTime(20);
-		assertEquals(testResult.getHomeScoreTimes(),testResult2.getHomeScoreTimes());
+	public void testAddHomeGoal() {
+		testResult.addHomeGoal(20, nick);
+		testResult2.addHomeGoal(20, nick);
+		assertEquals(testResult.getHomeGoals(),testResult2.getHomeGoals());
 	}
 
 	@Test
-	public void testAddAwayScoreTime() {
-		testResult.addAwayScoreTime(20);
-		testResult2.addAwayScoreTime(20);
-		assertEquals(testResult.getAwayScoreTimes(),testResult2.getAwayScoreTimes());
+	public void testAddAwayGoal() {
+		testResult.addAwayGoal(20, nick);
+		testResult2.addAwayGoal(20, nick);
+		assertEquals(testResult.getAwayGoals(),testResult2.getAwayGoals());
 	}
 
 	@Test
@@ -43,17 +47,24 @@ public class MatchResultTest {
 	}
 
 	@Test
-	public void testSetHomeScoreTimes() {
-		testResult.setHomeScoreTimes(homeScoreTimes);
-		testResult2.setHomeScoreTimes(homeScoreTimes);
-		assertEquals(testResult2.getHomeScoreTimes(),testResult.getHomeScoreTimes());
+	public void testSetHomeGoals() {
+		testResult.setHomeGoals(homeGoals);
+		testResult2.setHomeGoals(awayGoals);
+		assertEquals(testResult2.getHomeGoals(),testResult.getHomeGoals());
 	}
 
 	@Test
-	public void testSetAwayScoreTimes() {
-		testResult.setAwayScoreTimes(awayScoreTimes);
-		testResult2.setAwayScoreTimes(awayScoreTimes);
-		assertEquals(testResult.getAwayScoreTimes(),testResult2.getAwayScoreTimes());
+	public void testSetAwayGoals() {
+		testResult.setAwayGoals(awayGoals);
+		testResult2.setAwayGoals(awayGoals);
+		assertEquals(testResult.getAwayGoals(),testResult2.getAwayGoals());
+	}
+	
+	@Test
+	public void testGetReadableScore() {
+		testResult.setHomeScore(1);
+		testResult.setAwayScore(3);
+		assertEquals("1 - 3", testResult.getReadableScore());
 	}
 
 }

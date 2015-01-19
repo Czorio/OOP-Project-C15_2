@@ -92,7 +92,6 @@ public class GameLogic {
 //		System.out.println(away.getName() + " total score: " + awayScoreChance);
 
 		//Match starts here
-		//TODO: Add injuries, cards, ...?
 		//TODO Balance score values.
 		for (int i = 1; i <= (90 + extraTime); i++) {
 			if ((homeScoreChance - awayScoreChance) + generateRandom(100, 200) > homeScoreChance 
@@ -100,9 +99,8 @@ public class GameLogic {
 					&& lastGoal >= randomInterval 
 					&& generateRandom(0, 30) == 9) {
 				homeGoals++;
-//				System.out.println(i + ": Team " + home.getName() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
-				matchResult.addHomeScoreTime(i);
+				matchResult.addHomeGoal(i, playersHome.get(generateRandom(0, playersHome.size())));
 			}
 
 			if ((awayScoreChance - homeScoreChance) + generateRandom(100, 200) > awayScoreChance 
@@ -110,13 +108,12 @@ public class GameLogic {
 					&& lastGoal >= randomInterval 
 					&& generateRandom(0, 30) == 9) {
 				awayGoals++;
-//				System.out.println(i + ": Team " + away.getName() + " scored a goal! (" + homeGoals + " - " + awayGoals + ")");
 				lastGoal = 0;
-				matchResult.addAwayScoreTime(i);
+				matchResult.addAwayGoal(i, playersAway.get(generateRandom(0, playersAway.size())));
 			}
 			
 			//Generates a random injury and gives it to a random player.
-			int injuryChance = generateRandom(0,10000);
+			int injuryChance = generateRandom(0, 10000);
 			if (injuryChance == 990) {
 				String injury = generateInjury();
 				Player p = playersHome.get(random.nextInt(playersHome.size()));

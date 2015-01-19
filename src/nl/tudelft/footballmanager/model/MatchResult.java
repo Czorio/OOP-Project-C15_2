@@ -1,6 +1,7 @@
 package nl.tudelft.footballmanager.model;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 
 /**
@@ -11,21 +12,21 @@ import java.util.Observable;
 public class MatchResult  extends Observable {
 	private int homeScore;
 	private int awayScore;	
-	private ArrayList<Integer> homeScoreTimes;
-	private ArrayList<Integer> awayScoreTimes;
+	private Map<Integer, Player> homeGoals;
+	private Map<Integer, Player> awayGoals;
 	
 	public MatchResult() {
 		homeScore = 0;
 		awayScore = 0;
-		homeScoreTimes = new ArrayList<Integer>();
-		awayScoreTimes = new ArrayList<Integer>();
+		homeGoals = new HashMap<Integer, Player>();
+		awayGoals = new HashMap<Integer, Player>();	
 	}
 	
 	/**
 	 * @param time to add to the homeScoreTimes
 	 */
-	public void addHomeScoreTime(int time) {
-		homeScoreTimes.add(time);
+	public void addHomeGoal(Integer time, Player player) {
+		homeGoals.put(time, player);
 		
 		this.setChanged();
 		this.notifyObservers();
@@ -34,8 +35,8 @@ public class MatchResult  extends Observable {
 	/**
 	 * @param time to add to the awayScoreTimes
 	 */
-	public void addAwayScoreTime(int time) {
-		awayScoreTimes.add(time);
+	public void addAwayGoal(Integer time, Player player) {
+		awayGoals.put(time, player);
 		
 		this.setChanged();
 		this.notifyObservers();
@@ -74,41 +75,49 @@ public class MatchResult  extends Observable {
 		this.setChanged();
 		this.notifyObservers();
 	}
-
+	
 	/**
-	 * @return the homeScoreTimes
+	 * Gets the home goals.
+	 * @return Returns the home goals.
 	 */
-	public ArrayList<Integer> getHomeScoreTimes() {
-		return homeScoreTimes;
+	public Map<Integer, Player> getHomeGoals() {
+		return this.homeGoals;
 	}
-
+	
 	/**
-	 * @param homeScoreTimes the homeScoreTimes to set
+	 * Sets the home goals.
+	 * @param homeGoals The goals to set.
 	 */
-	public void setHomeScoreTimes(ArrayList<Integer> homeScoreTimes) {
-		this.homeScoreTimes = homeScoreTimes;
-
-		this.setChanged();
-		this.notifyObservers();
-	}
-
-	/**
-	 * @return the awayScoreTimes
-	 */
-	public ArrayList<Integer> getAwayScoreTimes() {
-		return awayScoreTimes;
-	}
-
-	/**
-	 * @param awayScoreTimes the awayScoreTimes to set
-	 */
-	public void setAwayScoreTimes(ArrayList<Integer> awayScoreTimes) {
-		this.awayScoreTimes = awayScoreTimes;
-
+	public void setHomeGoals(Map<Integer, Player> homeGoals) {
+		this.homeGoals = homeGoals;
+		
 		this.setChanged();
 		this.notifyObservers();
 	}
 	
+	/**
+	 * Gets the away goals.
+	 * @return Returns the away goals.
+	 */
+	public Map<Integer, Player> getAwayGoals() {
+		return this.awayGoals;
+	}
+	
+	/**
+	 * Sets the away goals.
+	 * @param awayGoals The goals to set.
+	 */
+	public void setAwayGoals(Map<Integer, Player> awayGoals) {
+		this.awayGoals = awayGoals;
+		
+		this.setChanged();
+		this.notifyObservers();
+	}
+	
+	/**
+	 * Gets the output of a match, in a readable way.
+	 * @return Returns the output.
+	 */
 	public String getReadableScore() {
 		return String.format("%d - %d", this.homeScore, this.awayScore);
 	}
