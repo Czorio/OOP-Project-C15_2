@@ -8,11 +8,11 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import nl.tudelft.footballmanager.model.GameState;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import nl.tudelft.footballmanager.model.GameState;
 
 /**
  * @author Mathijs de Boer <czorio4@gmail.com>
@@ -21,10 +21,11 @@ import javafx.scene.control.Label;
 public class PostLeagueViewController implements Initializable, Observer {
 	
 	public final static String PostLeaugeViewFileName = "ui/view/PostLeagueView.fxml";
-	private static GameState gameState = new GameState();
 	
 	@FXML private Button doneButton;
 	@FXML private Label teamPosLabel;
+	
+	private static GameState gameState = null;
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
@@ -42,5 +43,12 @@ public class PostLeagueViewController implements Initializable, Observer {
 			System.out.println("Returned to Menu!");
 		});
 		
+	}
+
+	/**
+	 * @param gameState2
+	 */
+	public static void show(GameState gs) {
+		gameState = gs;
 	}
 }
