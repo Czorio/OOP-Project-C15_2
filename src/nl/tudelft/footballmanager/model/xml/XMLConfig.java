@@ -2,6 +2,7 @@ package nl.tudelft.footballmanager.model.xml;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -15,6 +16,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import nl.tudelft.footballmanager.model.GameState;
+import nl.tudelft.footballmanager.model.League;
 import nl.tudelft.footballmanager.model.MatchScheme;
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
@@ -62,15 +64,17 @@ public class XMLConfig extends XML {
 	        rootEle.appendChild(el);
 
 	        // Add teamName
-	        el = dom.createElement("team");
+	        el = dom.createElement("myTeam");
 	        el.appendChild(dom.createTextNode(gameState.getMyTeam().getName()));
 	        rootEle.appendChild(el);
 	        
 	        // Add matchScheme
-	        addGameScheme(dom, rootEle, gameState.getMatchScheme());  
+	        addGameScheme(dom, rootEle, gameState.getMatchScheme());
 	        
 	        // Add league containing all players
-	        XMLPlayer.addLeagueToDom(dom, rootEle, gameState.getLeague());      
+	        el = dom.createElement("players");
+	        XMLPlayer.addLeagueToDom(dom, el, gameState.getLeague()); 
+	        rootEle.appendChild(el);
 	        
 	        dom.appendChild(rootEle);
 	             
@@ -148,10 +152,12 @@ public class XMLConfig extends XML {
 		
 		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
 		
+		League league = new XMLPlayer(file).readFromFile().get(0);
+		
 		try {
 			// Setup the SAX XML Parser and assign the handler
 			SAXParser saxParser = saxParserFactory.newSAXParser();
-			XMLConfigHandler handler = new XMLConfigHandler();
+			XMLConfigHandler handler = new XMLConfigHandler(league);
 			
 			// Parse the document
 			saxParser.parse(file, handler);
