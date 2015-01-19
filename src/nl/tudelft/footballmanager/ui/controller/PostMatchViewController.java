@@ -54,13 +54,17 @@ public class PostMatchViewController implements Initializable, Observer {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Initializing " + this.getClass());
-		
+
 		int gameRound = gameState.getGameRound();
-		List<Match> matches = gameState.getMatchScheme().getMatchdays().get(gameRound).getMatches();
+		try {
+			List<Match> matches = gameState.getMatchScheme().getMatchdays().get(gameRound).getMatches();
+			playedMatchesTableView.setItems(FXCollections.observableList(matches));
+		} catch (IndexOutOfBoundsException e) {
+			PostLeagueViewController.show(gameState);
+		}
 
 		continueButton.setOnAction((event) -> {
 			RootViewController.show(gameState);
-			System.out.println(event);
 		});
 
 		playedMatchesTeam1TableColumn.setCellValueFactory(new Callback<CellDataFeatures<Match, String>, ObservableValue<String>>() {
@@ -68,24 +72,22 @@ public class PostMatchViewController implements Initializable, Observer {
 				return new SimpleStringProperty(p.getValue().getHome().getName());
 			}
 		});
-		
+
 		playedMatchesTeam2TableColumn.setCellValueFactory(new Callback<CellDataFeatures<Match, String>, ObservableValue<String>>() {
 			public ObservableStringValue call(CellDataFeatures<Match, String> p) {
 				return new SimpleStringProperty(p.getValue().getAway().getName());
 			}
 		});
-		
+
 		playedMatchesScoreTableColumn.setCellValueFactory(new Callback<CellDataFeatures<Match, String>, ObservableValue<String>>() {
 			public ObservableStringValue call(CellDataFeatures<Match, String> p) {
 				return new SimpleStringProperty(p.getValue().getMatchResult().getReadableScore());
 			}
 		});
 
-		playedMatchesTableView.setItems(FXCollections.observableList(matches));
-		
 		new GameLogic(gameState);
 		GameLogic.matchDay();
-		
+
 		System.out.println("Initializing " + this.getClass() + " finished");
 	}
 
