@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.cell.*?>
+<?import fxmltableview.*?>
+<?import nl.tudelft.footballmanager.model.*?>
+
+<AnchorPane minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.footballmanager.ui.controller.PreMatchViewController">
+ <children>
+  <TableView fx:id="playerTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="8.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="8.0">
+    <columns>
+      <TableColumn fx:id="nameCol" minWidth="-Infinity" prefWidth="150.0" text="Name">
+        <cellValueFactory>
+          <PropertyValueFactory property="lastName" />
+        </cellValueFactory>
+      </TableColumn>
+      <TableColumn fx:id="offCol" minWidth="-Infinity" prefWidth="150.0" text="Offensive">
+        <cellValueFactory>
+          <PropertyValueFactory property="offensive" />
+        </cellValueFactory>
+      </TableColumn>
+      <TableColumn fx:id="defCol" minWidth="-Infinity" prefWidth="150.0" text="Defensive">
+        <cellValueFactory>
+          <PropertyValueFactory property="defensive" />
+        </cellValueFactory>
+      </TableColumn>
+      <TableColumn fx:id="staminaCol" minWidth="-Infinity" prefWidth="150.0" text="Stamina">
+        <cellValueFactory>
+          <PropertyValueFactory property="stamina" />
+        </cellValueFactory>
+      </TableColumn>
+      <TableColumn fx:id="positionCol" minWidth="-Infinity" prefWidth="150.0" text="Position" />
+    </columns>
+  </TableView>
+</children>
+</AnchorPane>
