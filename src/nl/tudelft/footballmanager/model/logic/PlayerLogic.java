@@ -67,7 +67,7 @@ public final class PlayerLogic {
 			result = (int) Math.round(stamina - (0.3 * player.getPlayedGames()));
 		}
 
-		else if (stamina < 65) {
+		else {
 			result = (int) Math.round(stamina - (0.4 * player.getPlayedGames()));
 		}
 
