@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.cell.*?>
+<?import fxmltableview.*?>
+<?import nl.tudelft.footballmanager.model.*?>
 
 <BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.footballmanager.ui.controller.RootViewController">
     <top>
@@ -26,13 +32,13 @@
         </ToolBar>
     </top>
     <right>
-        <SplitPane dividerPositions="0.7508960573476703" orientation="VERTICAL" prefHeight="560.0" prefWidth="204.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.7509" orientation="VERTICAL" prefHeight="560.0" prefWidth="250.0" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <children>
                         <Accordion prefHeight="276.0" prefWidth="158.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <panes>
-                                <TitledPane text="Statistics">
+                                <TitledPane expanded="false" text="Statistics">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
@@ -69,7 +75,7 @@
                                         </AnchorPane>
                                     </content>
                                 </TitledPane>
-                                <TitledPane text="Finances">
+                                <TitledPane expanded="false" text="Finances">
                                     <content>
                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                             <children>
@@ -106,9 +112,12 @@
                                             <children>
                                                 <TableView fx:id="leagueScoreboardTableView" layoutY="25.0" prefHeight="340.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
-                                                        <TableColumn fx:id="leaguePosTableColumn" prefWidth="33.000001549720764" text="#" />
-                                                        <TableColumn fx:id="leagueTeamTableColumn" prefWidth="106.99999237060547" text="Team" />
-                                                        <TableColumn fx:id="leagieScoreTableColumn" prefWidth="39.0" text="Score" />
+                                                        <TableColumn fx:id="leagueTeamTableColumn" minWidth="120.0" prefWidth="200.0" text="Team">
+                                                        <cellValueFactory>
+                                                                <PropertyValueFactory property="name" />
+                                                            </cellValueFactory>
+                                                        </TableColumn>
+                                                        <TableColumn fx:id="leagueScoreTableColumn" minWidth="20.0" prefWidth="20.0" text="Score" />
                                                     </columns>
                                        <columnResizePolicy>
                                           <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -4,12 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -18,10 +23,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Callback;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Team;
@@ -47,7 +54,7 @@ public class RootViewController implements Initializable, Observer {
 	@FXML private MenuItem quitMenuMenuItem;
 	@FXML private MenuItem quitDesktopMenuItem;
 	@FXML private TableView<Team> leagueScoreboardTableView;
-	@FXML private TableColumn<Team, Integer> leaguePosTableColumn;
+//	@FXML private TableColumn<Team, Integer> leaguePosTableColumn;
 	@FXML private TableColumn<Team, String> leagueTeamTableColumn;
 	@FXML private TableColumn<Team, Integer> leagueScoreTableColumn;
 
@@ -123,8 +130,36 @@ public class RootViewController implements Initializable, Observer {
 
 		Map<Team, Integer> scores = gameState.getOverallScores();
 		System.out.println("Scores: " + scores);
+//		Set<Entry<Team, Integer>> scoreSet = scores.entrySet();
+//		System.out.println("Scores: " + scoreSet);
+		leagueScoreboardTableView.setItems(FXCollections.observableList(gameState.getLeague().getTeams()));
 		
+		leagueScoreTableColumn.setCellValueFactory(new Callback<CellDataFeatures<Team, Integer>, ObservableValue<Integer>>() {
+
+			@Override
+			public ObservableValue<Integer> call(CellDataFeatures<Team, Integer> param) {
+				Integer score = scores.get(param.getValue());
+				if (score == null)
+					return new SimpleIntegerProperty(0).asObject();
+				return new SimpleIntegerProperty(score).asObject();
+			}
+			
+		});
 		
+//		leagueScoreboardTableView.setSortPolicy(new Callback<TableView<Team>, Boolean>() {
+//			@Override
+//			public Boolean call(TableView<Team> tableView) {
+//				List<Team> items = tableView.getItems();
+//				for (int i = 1; i < items.size(); i++) {
+//					Integer score2 = (scores.get(items.get(i)) != null ? scores.get(items.get(i)) : 0);
+//					Integer score1 = (scores.get(items.get(i - 1)) != null ? scores.get(items.get(i - 1)) : 0);
+//					if (score2 < score1) {
+//						Team.swap(items.get(i), items.get(i - 1));
+//					}
+//				}
+//				return true;
+//			}
+//		});
 	}
 
 	public static void show(GameState gs) {

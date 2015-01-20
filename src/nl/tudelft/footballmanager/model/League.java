@@ -31,11 +31,11 @@ public class League extends Observable {
 	/**
 	 * Construct a name with given name and teamlist.
 	 * @param name
-	 * @param teams
+	 * @param list
 	 */
-	public League(String name, ArrayList<Team> teams) {
+	public League(String name, List<Team> list) {
 		this.name = name;
-		this.teams = teams;
+		this.teams = (ArrayList<Team>) list;
 	}
 
 	/**
@@ -180,15 +180,15 @@ public class League extends Observable {
 	/**
 	 * @return the teams
 	 */
-	public ArrayList<Team> getTeams() {
+	public List<Team> getTeams() {
 		return teams;
 	}
 
 	/**
-	 * @param teams the teams to set
+	 * @param list the teams to set
 	 */
-	public void setTeams(ArrayList<Team> teams) {
-		this.teams = teams;
+	public void setTeams(List<Team> list) {
+		this.teams = (ArrayList<Team>) list;
 
 		this.setChanged();
 		this.notifyObservers();
