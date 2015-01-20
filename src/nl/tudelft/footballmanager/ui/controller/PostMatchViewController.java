@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -45,6 +46,7 @@ public class PostMatchViewController implements Initializable, Observer {
 	@FXML private TableColumn<Match, String> playedMatchesTeam2TableColumn;
 	@FXML private TableColumn<Match, String> playedMatchesScoreTableColumn;
 
+	@FXML private Label incomeLabel;
 	@FXML private Button continueButton;
 
 	private static GameState gameState = null;

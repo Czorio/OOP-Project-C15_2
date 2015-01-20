@@ -21,6 +21,8 @@ public class FootballManager extends Application {
 		FootballManager.stage.centerOnScreen();
 		FootballManager.stage.show();
 
+		
+		// TODO don't forget to re-enable this for the demo, if the intro video is done.
 //		SplashScreen ss= new SplashScreen(stage, "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv");
 //		ss.show();
 		

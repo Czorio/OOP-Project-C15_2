@@ -46,7 +46,7 @@ public class PostLeagueViewController implements Initializable, Observer {
 	}
 
 	/**
-	 * @param gameState2
+	 * @param gameState
 	 */
 	public static void show(GameState gs) {
 		gameState = gs;
