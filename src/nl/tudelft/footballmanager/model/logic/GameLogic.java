@@ -62,12 +62,15 @@ public class GameLogic {
 		//Resets every 9th playing day to keep scoring possible for AI.
 		//Also resets a players' current position.
 		for(Player p : playingPlayers) {
-			if(gs.getGameRound() % 9 == 0) {
-				p.setCurPosition("None");
-				p.setPlayedGames(0);
+			if(p.getTeam() == gs.getMyTeam()) {
+				p.setPlayedGames(p.getPlayedGames() + 1);
 			} else {
 				p.setCurPosition("None");
 				p.setPlayedGames(p.getPlayedGames() + 1);
+			}
+			
+			if(gs.getGameRound() % 9 == 0) {
+				p.setPlayedGames(0);
 			}
 		}
 		
