@@ -86,7 +86,7 @@ public final class TeamLogic {
 	 */
 	public static void createActivePlayers(Team team) {
 		for (Player p : team.getPlayers()) {
-			if (p.getCurPosition() != "None") {
+			if (p.getCurPosition() != "None"  && p.getCurPosition() != null) {
 				playingPlayers.add(p);
 			}
 		}

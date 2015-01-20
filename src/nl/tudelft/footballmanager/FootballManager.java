@@ -7,6 +7,7 @@ import java.util.Date;
 import javafx.application.Application;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import nl.tudelft.footballmanager.ui.controller.SplashScreen;
 import nl.tudelft.footballmanager.ui.controller.TitleScreenController;
 
 public class FootballManager extends Application {
@@ -23,7 +24,7 @@ public class FootballManager extends Application {
 
 		
 		// TODO don't forget to re-enable this for the demo, if the intro video is done.
-//		SplashScreen ss= new SplashScreen(stage, "http://download.oracle.com/otndocs/products/javafx/oow2010-2.flv");
+//		SplashScreen ss = new SplashScreen(stage, "vid/intro.mp4");
 //		ss.show();
 		
 		TitleScreenController.show();
