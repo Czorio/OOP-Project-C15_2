@@ -21,6 +21,7 @@
                         <MenuItem fx:id="quitDesktopMenuItem" mnemonicParsing="false" text="Quit to Desktop" />
                     </items>
                 </MenuButton>
+            <Label fx:id="yourTeamNameLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="514.0" text="#YourTeamName" />
             </items>
         </ToolBar>
     </top>
