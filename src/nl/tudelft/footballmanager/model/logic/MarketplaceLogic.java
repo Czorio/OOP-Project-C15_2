@@ -85,11 +85,13 @@ public final class MarketplaceLogic {
 				// Select the player.
 				player = GameLogic.generateRandom(0, league.getTeams().get(fromTeam).getPlayers().size()-1);
 				
+				boolean bSuccess = transferPlayer(league.getTeams().get(fromTeam), league.getTeams().get(toTeam), league.getTeams().get(fromTeam).getPlayers().get(player), currentRound);
+				
 				System.out.println("[Transfering " + league.getTeams().get(fromTeam).getPlayers().get(player).getFirstName() + " "
 						+ league.getTeams().get(fromTeam).getPlayers().get(player).getLastName()
 						+ " from " + league.getTeams().get(fromTeam).getName() + " to "
-						+ league.getTeams().get(toTeam).getName() + "]");
-				transferPlayer(league.getTeams().get(fromTeam), league.getTeams().get(toTeam), league.getTeams().get(fromTeam).getPlayers().get(player), currentRound);				
+						+ league.getTeams().get(toTeam).getName() + " -> SUCCESS: " + bSuccess);
+								
 			}
 		}		
 	}
