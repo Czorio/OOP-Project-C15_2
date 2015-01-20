@@ -41,8 +41,7 @@ public class DuringMatchViewController implements Initializable, Observer {
 	 */
 	@Override
 	public void update(Observable o, Object arg) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	/* (non-Javadoc)
@@ -50,8 +49,7 @@ public class DuringMatchViewController implements Initializable, Observer {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 }

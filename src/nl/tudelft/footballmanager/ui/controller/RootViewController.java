@@ -65,7 +65,6 @@ public class RootViewController implements Initializable, Observer {
 		});
 
 		nextRoundButton.setOnAction((event) -> {
-			//TODO PreMatchview
 			PostMatchViewController.show(gameState);
 		});
 
@@ -189,7 +188,7 @@ public class RootViewController implements Initializable, Observer {
 
 		// TODO check if last game has been played, if so, goto PostLeagueView
 		if(gameState.getGameRound() <= gameState.getLeague().getMaxGamesToPlay()) {
-			// TODO Show PostLeagueView
+			PostLeagueViewController.show(gameState);
 		}
 	}
 
