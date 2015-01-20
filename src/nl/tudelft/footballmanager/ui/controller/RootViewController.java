@@ -139,7 +139,7 @@ public class RootViewController implements Initializable, Observer {
 		}
 	}
 
-	public static boolean saveGame(GameState state) {
+	public static boolean saveGame(GameState gs) {
 		FileChooser chooser = new FileChooser();
 		chooser.setTitle("Save game");
 		configureFileChooser(chooser);
@@ -151,7 +151,7 @@ public class RootViewController implements Initializable, Observer {
 		File selectedFile = FootballManager.getSaveFile(chooser);
 		if (selectedFile != null) {
 			System.out.println("Save file: " + selectedFile.getAbsolutePath());
-			return GameState.save(state, selectedFile);
+			return GameState.save(gs, selectedFile);
 		} else {
 			System.err.println("No file selected!");
 			return false;
@@ -161,7 +161,7 @@ public class RootViewController implements Initializable, Observer {
 
 	public static GameState loadGame() {
 		FileChooser chooser = new FileChooser();
-		GameState gameState = new GameState();
+		GameState gs = new GameState();
 		chooser.setTitle("Load game");
 		configureFileChooser(chooser);
 
@@ -169,13 +169,13 @@ public class RootViewController implements Initializable, Observer {
 		if (selectedFile != null) {
 			System.out.println("Load file: " + selectedFile.getAbsolutePath());
 
-			gameState = GameState.load(selectedFile);
-			//			System.out.println("GameState: " + gameState.toString());
+			gs = GameState.load(selectedFile);
+			RootViewController.show(gs);
 		} else {
 			System.err.println("No file selected!");
 		}
 
-		return gameState;
+		return gs;
 	}
 
 	private static void configureFileChooser(FileChooser fc) {
