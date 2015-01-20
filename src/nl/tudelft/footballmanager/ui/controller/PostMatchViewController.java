@@ -97,11 +97,6 @@ public class PostMatchViewController implements Initializable, Observer {
 
 		new GameLogic(gameState);
 		GameLogic.matchDay();
-		
-		//Sets all players current position to "None"
-		for (Player p : TeamLogic.getPlayingPlayers()) {
-			p.setCurPosition("None");
-		}
 
 		System.out.println("Initializing " + this.getClass() + " finished");
 	}
