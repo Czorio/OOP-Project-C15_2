@@ -29,6 +29,7 @@ import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Match;
 import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.logic.GameLogic;
+import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
 import nl.tudelft.footballmanager.model.logic.TeamLogic;
 
 /**
@@ -66,7 +67,12 @@ public class PostMatchViewController implements Initializable, Observer {
 		}
 
 		continueButton.setOnAction((event) -> {
+			// After the match, players will be trasfered, so they will be visible when the RootViewController is showed.
+			MarketplaceLogic.RandomPlayerTransfer(gameState.getGameRound(), gameState.getLeague(), gameState.getMyTeam());
+			
 			RootViewController.show(gameState);
+			
+
 		});
 
 		playedMatchesTeam1TableColumn.setCellValueFactory(new Callback<CellDataFeatures<Match, String>, ObservableValue<String>>() {
