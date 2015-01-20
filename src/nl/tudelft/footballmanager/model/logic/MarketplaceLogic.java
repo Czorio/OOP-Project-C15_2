@@ -53,7 +53,7 @@ public final class MarketplaceLogic {
 	 * @param league		The league object.
 	 * @param myTeam		The team you're coaching.
 	 */
-	public static final void RoundOffer(int currentRound, League league, Team myTeam) {
+	public static final void RandomPlayerTransfer(int currentRound, League league, Team myTeam) {
 		if(isTransferWindow(currentRound)) {
 			
 			int fromTeam;
