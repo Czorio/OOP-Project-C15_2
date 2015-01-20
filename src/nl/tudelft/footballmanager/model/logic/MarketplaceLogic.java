@@ -65,7 +65,7 @@ public final class MarketplaceLogic {
 				
 				// Select the from team.
 				do {
-					int x = GameLogic.generateRandom(0, league.getTeams().size());
+					int x = GameLogic.generateRandom(0, league.getTeams().size()-1);
 					if(!league.getTeams().get(x).getName().equals(myTeam.getName())) {
 						fromTeam = x;
 						break;
@@ -74,7 +74,7 @@ public final class MarketplaceLogic {
 				
 				// Select the to team.
 				do {
-					int y = GameLogic.generateRandom(0, league.getTeams().size());
+					int y = GameLogic.generateRandom(0, league.getTeams().size()-1);
 					if(!league.getTeams().get(y).getName().equals(myTeam.getName()) && 
 							!league.getTeams().get(y).getName().equals(league.getTeams().get(fromTeam).getName())) {
 						toTeam = y;
@@ -83,12 +83,18 @@ public final class MarketplaceLogic {
 				} while (true);
 				
 				// Select the player.
-				player = GameLogic.generateRandom(0, league.getTeams().get(fromTeam).getPlayers().size());
+				player = GameLogic.generateRandom(0, league.getTeams().get(fromTeam).getPlayers().size()-1);
 				
+				System.out.println("[Transfering " + league.getTeams().get(fromTeam).getPlayers().get(player).getFirstName() + " "
+						+ league.getTeams().get(fromTeam).getPlayers().get(player).getLastName()
+						+ " from " + league.getTeams().get(fromTeam).getName() + " to "
+						+ league.getTeams().get(toTeam).getName() + "]");
 				transferPlayer(league.getTeams().get(fromTeam), league.getTeams().get(toTeam), league.getTeams().get(fromTeam).getPlayers().get(player), currentRound);				
 			}
 		}		
 	}
+	
+	
 	
 	public static final boolean isTransferWindow(int currentRound) {
 		// Transfermarkt is open van 1 juli tot en met 31 augustus,
