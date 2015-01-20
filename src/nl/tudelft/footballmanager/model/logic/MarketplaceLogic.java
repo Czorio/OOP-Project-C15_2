@@ -55,7 +55,38 @@ public final class MarketplaceLogic {
 	 */
 	public static final void RoundOffer(int currentRound, League league, Team myTeam) {
 		if(isTransferWindow(currentRound)) {
-			// Add random player transfer function between teams
+			
+			int fromTeam;
+			int toTeam;
+			int player;
+			
+			// On a single day, anywhere between 0 and 60 players can be transfered.
+			for (int i = 0; i < GameLogic.generateRandom(0, 60); i++) {
+				
+				// Select the from team.
+				do {
+					int x = GameLogic.generateRandom(0, league.getTeams().size());
+					if(!league.getTeams().get(x).getName().equals(myTeam.getName())) {
+						fromTeam = x;
+						break;
+					}
+				} while (true);
+				
+				// Select the to team.
+				do {
+					int y = GameLogic.generateRandom(0, league.getTeams().size());
+					if(!league.getTeams().get(y).getName().equals(myTeam.getName()) && 
+							!league.getTeams().get(y).getName().equals(league.getTeams().get(fromTeam).getName())) {
+						toTeam = y;
+						break;
+					}
+				} while (true);
+				
+				// Select the player.
+				player = GameLogic.generateRandom(0, league.getTeams().get(fromTeam).getPlayers().size());
+				
+				transferPlayer(league.getTeams().get(fromTeam), league.getTeams().get(toTeam), league.getTeams().get(fromTeam).getPlayers().get(player), currentRound);				
+			}
 		}		
 	}
 	
