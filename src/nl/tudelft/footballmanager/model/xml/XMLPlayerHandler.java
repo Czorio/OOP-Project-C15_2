@@ -170,6 +170,10 @@ public class XMLPlayerHandler extends DefaultHandler {
 				currentPlayer.setDateOfBirth(date);
 				break;
 				
+			case "INJURED":
+				currentPlayer.setDisabledFor(Integer.parseInt(new String(ch, start, length)));
+				break;
+				
 			default:
 				//System.out.println("XML: Unkown element in GameState XML file. --> XMLConfigHandler.characters()");
 				break;
@@ -260,6 +264,7 @@ public class XMLPlayerHandler extends DefaultHandler {
 		list.add("STAMINA");
 		list.add("CLUB");
 		list.add("DATEOFBIRTH");
+		list.add("INJURED");
 		
 		return list;
 	}

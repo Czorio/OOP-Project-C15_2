@@ -221,7 +221,11 @@ public class XMLPlayer extends XML {
 				ePlayerElement = dom.createElement("DateOfBirth");
 				ePlayerElement.appendChild(dom.createTextNode(df.format(league.getTeams().get(i).getPlayers().get(j).getDateOfBirth())));
 				ePlayer.appendChild(ePlayerElement);
-
+				
+				ePlayerElement = dom.createElement("Injured");
+				ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getDisabledFor())));
+				ePlayer.appendChild(ePlayerElement);				
+				
 				eTeam.appendChild(ePlayer);
 			}
 
