@@ -6,6 +6,7 @@ package nl.tudelft.footballmanager.test;
 import static org.junit.Assert.*;
 
 import java.io.File;
+import java.io.IOException;
 
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.League;
@@ -55,8 +56,21 @@ public class GameStateTest {
 	}
 	
 	@Test
+	public void testSetLeagueString() {
+		testGameState7.setLeague("Eredivisie");
+		assertEquals("Eredivisie", testGameState7.getLeagueName());
+		testGameState7.setLeague("Eredivisiee");
+		assertEquals(null, testGameState7.getLeagueName());
+	}
+	
+	@Test
+	public void testSetMyTeamMyTeam() {
+		testGameState7.setMyTeam(testTeam1);
+	}
+	
+	@Test
 	public void testIsUselessGamestate() {
-		assertFalse(GameState.isUseless(testGameState1));
+		assertFalse(GameState.isUseless(testGameState6));
 	}
 	
 	@Test
@@ -79,6 +93,18 @@ public class GameStateTest {
 		assertEquals("Pjotter Karelson", testGameState2.getCoachName());
 	}
 
+	@Test
+	public void testGameStateStringIntStringStringTeamName() {
+		assertEquals("ADO Den Haag", testGameState1.getMyTeamName());
+		assertEquals("Feyenoord", testGameState2.getMyTeamName());
+	}
+
+	@Test
+	public void testGameStateStringIntStringStringLeagueName() {
+		assertEquals("Eredivisie", testGameState1.getLeagueName());
+		assertEquals("Eredivisie", testGameState2.getLeagueName());
+	}
+	
 	/**
 	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#GameState(java.lang.String, int, java.lang.String, java.lang.String)}.
 	 * Tests Round number.
@@ -89,6 +115,13 @@ public class GameStateTest {
 		assertEquals(1, testGameState2.getGameRound());
 	}
 
+	@Test
+	public void testNextRound() {
+		assertEquals(1, testGameState2.getGameRound());
+		testGameState2.nextRound();
+		assertEquals(2, testGameState2.getGameRound());
+	}
+	
 	/**
 	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#GameState(java.lang.String, int, java.lang.String, java.lang.String)}.
 	 * Tests League.
@@ -162,7 +195,7 @@ public class GameStateTest {
 
 	@Test
 	public void testLoadFile() {
-		assertNotNull(testGameState3.load(loadFile));
+		assertNotNull(GameState.load(loadFile));
 	}
 	
 	@Test
