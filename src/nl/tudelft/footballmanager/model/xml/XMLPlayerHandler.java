@@ -12,6 +12,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import nl.tudelft.footballmanager.model.logic.PlayerLogic;
 import nl.tudelft.footballmanager.model.xml.XML;
 
 /**
@@ -237,6 +238,7 @@ public class XMLPlayerHandler extends DefaultHandler {
 		if(bInsidePlayer && qName.equalsIgnoreCase("PLAYER")) {
 			
 			currentPlayer.setClub(currentTeam.getName());
+			PlayerLogic.calculatePrice(currentPlayer);
 			currentTeam.addPlayer(currentPlayer);
 			currentPlayer = null;
 			
