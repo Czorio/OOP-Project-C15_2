@@ -60,7 +60,7 @@ public class GameLogic {
 
 		//Sets the amount of played games for each playing player to + 1.
 		//Resets every 9th playing day to keep scoring possible for AI.
-		//Also resets a players' current position.
+		//Also resets a players' current position, and updates a players' disabled status.
 		for(Player p : playingPlayers) {
 			if(p.getTeam() == gs.getMyTeam()) {
 				p.setPlayedGames(p.getPlayedGames() + 1);
@@ -71,6 +71,10 @@ public class GameLogic {
 			
 			if(gs.getGameRound() % 9 == 0) {
 				p.setPlayedGames(0);
+			}
+			
+			if(p.getDisabledFor() > 0) {
+				p.setDisabledFor(p.getDisabledFor() - 1);
 			}
 		}
 		

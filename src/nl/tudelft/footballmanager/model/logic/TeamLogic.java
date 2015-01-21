@@ -168,7 +168,7 @@ public final class TeamLogic {
 		for(int i = 0; i < nrAttackers; i++) {
 			try {
 				Player at = attackers.get(i);
-				at.setCurPosition("Attackers");
+				at.setCurPosition("Attacker");
 				playingPlayers.add(at);
 			} 
 			
