@@ -25,9 +25,10 @@ public class FootballManager extends Application {
 
 		FootballManager.stage = stage;
 		FootballManager.stage.setTitle("Football Manager 2142");
-
+		
+		// 16:9, bitches
 		FootballManager.stage.setHeight(screenDimensions.getHeight() - 100);
-		FootballManager.stage.setWidth(screenDimensions.getWidth() - 50);
+		FootballManager.stage.setWidth(((screenDimensions.getHeight() - 100)/9)*16);
 
 		FootballManager.stage.centerOnScreen();
 		FootballManager.stage.show();
