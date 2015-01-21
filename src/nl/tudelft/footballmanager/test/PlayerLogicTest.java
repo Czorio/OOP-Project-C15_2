@@ -125,7 +125,7 @@ public class PlayerLogicTest {
 	@Test
 	public void testCalculatePriceGK() {
 		testPlayer2.setStamina(75);
-		assertEquals(1252500,PlayerLogic.calculatePrice(testPlayer2));
+		assertEquals(1546000,PlayerLogic.calculatePrice(testPlayer2));
 	}
 	
 	/**
@@ -137,7 +137,7 @@ public class PlayerLogicTest {
 		testPlayer.setDefensive(75);
 		testPlayer.setOffensive(75);
 		testPlayer.setStamina(75);
-		assertEquals(1350000,PlayerLogic.calculatePrice(testPlayer));
+		assertEquals(1462500,PlayerLogic.calculatePrice(testPlayer));
 	}
 	
 	/**
@@ -160,7 +160,7 @@ public class PlayerLogicTest {
 		testPlayer.setDefensive(10);
 		testPlayer.setOffensive(10);
 		testPlayer.setStamina(10);
-		assertEquals(135000, PlayerLogic.calculatePrice(testPlayer));
+		assertEquals(144000, PlayerLogic.calculatePrice(testPlayer));
 	}
 
 }

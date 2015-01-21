@@ -22,9 +22,7 @@ public final class PlayerLogic {
 
 		if (curPosition == "Attacker") {
 			playerOff = (int) Math.round(player.getOffensive() * 1.25);
-		}
-
-		else if (curPosition == "Defender") {
+		} else if (curPosition == "Defender") {
 			playerOff = (int) Math.round(player.getOffensive() * 0.75);
 		}
 
@@ -42,9 +40,7 @@ public final class PlayerLogic {
 
 		if (curPosition == "Attacker") {
 			playerDef = (int) Math.round(player.getDefensive() * 0.75);
-		}
-
-		else if (curPosition == "Defender") {
+		} else if (curPosition == "Defender") {
 			playerDef = (int) Math.round(player.getDefensive() * 1.25);
 		}
 
@@ -61,13 +57,9 @@ public final class PlayerLogic {
 
 		if (stamina >= 80) {
 			result = (int) Math.round(stamina - (0.2 * player.getPlayedGames()));
-		}
-
-		else if (stamina < 80 && stamina >= 65) {
+		} else if (stamina < 80 && stamina >= 65) {
 			result = (int) Math.round(stamina - (0.3 * player.getPlayedGames()));
-		}
-
-		else {
+		} else {
 			result = (int) Math.round(stamina - (0.4 * player.getPlayedGames()));
 		}
 
@@ -84,18 +76,16 @@ public final class PlayerLogic {
 		int price = 0;
 		
 		if (player.getPosition().equals("GK")) {
-			price += 600000;
+			price += 850000;
 		}
 		
-		//TODO Finetune initial price
 		if (stats > 185) {
-			price += 6000 * (player.getOffensive() + player.getDefensive() + player.getStamina());
+			price += 6500 * (player.getOffensive() + player.getDefensive() + player.getStamina());
 		} else if (stats <= 185 && stats > 165){
 			price += 5500 * (player.getOffensive() + player.getDefensive() + player.getStamina());
 		} else {
-			price += 4500 * (player.getOffensive() + player.getDefensive() + player.getStamina());
+			price += 4800 * (player.getOffensive() + player.getDefensive() + player.getStamina());
 		}
-		
 		
 		player.setPrice(price);
 		return price;
