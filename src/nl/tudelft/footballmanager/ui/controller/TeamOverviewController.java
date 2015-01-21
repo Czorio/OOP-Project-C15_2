@@ -10,6 +10,8 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
+import com.sun.org.apache.bcel.internal.generic.RETURN;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -78,6 +80,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private TableColumn<Player, Integer> otherPlayersDefCol;
 	@FXML private TableColumn<Player, Integer> otherPlayersStaminaCol;
 	@FXML private TableColumn<Player, Integer> otherPlayersPriceCol;
+	@FXML private TableColumn<Player, String> otherPlayersTeamCol;
 
 	@FXML private Label otherPlayerNameLabel;
 	@FXML private Label otherPlayerPositionLabel;
@@ -186,7 +189,11 @@ public class TeamOverviewController implements Initializable, Observer {
 				otherSelectedPlayer = newValue;
 				update(otherSelectedPlayer, null);
 			}
-		});;
+		});
+		
+		otherPlayersTeamCol.setCellValueFactory((param) -> {
+			return new SimpleStringProperty(param.getValue().getClub());
+		}); 
 
 		bindYourPlayerStats();
 		bindOtherPlayerStats();
