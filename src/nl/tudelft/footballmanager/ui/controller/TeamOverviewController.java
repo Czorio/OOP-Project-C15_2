@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 
 import com.sun.org.apache.bcel.internal.generic.RETURN;
 
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -63,6 +64,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private Label yourPlayerDefensiveLabel;
 	@FXML private Label yourPlayerStaminaLabel;
 	@FXML private Label yourPlayerPriceLabel;
+	@FXML private Label transferWindowLabel;
 	@FXML private Button sellYourPlayerButton;
 
 	SimpleStringProperty name;
@@ -110,7 +112,6 @@ public class TeamOverviewController implements Initializable, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		
 		
 		// TODO update your own fielded players upon change
 		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
@@ -162,6 +163,16 @@ public class TeamOverviewController implements Initializable, Observer {
 		
 		SimpleIntegerProperty inField = new SimpleIntegerProperty(fielded);
 		placedPlayersLabel.textProperty().bind(inField.asString());
+		
+		
+		SimpleStringProperty isTransfer = null;
+		if(MarketplaceLogic.isTransferWindow(gameState.getGameRound())) {
+			isTransfer = new SimpleStringProperty("Open");
+		} else {
+			isTransfer = new SimpleStringProperty("Closed");
+		}
+		
+		transferWindowLabel.textProperty().bind(isTransfer);;
 		
 		
 		sellYourPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));

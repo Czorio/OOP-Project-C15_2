@@ -35,12 +35,10 @@ public class FootballManager extends Application {
 
 		// Gewoon lekker niet op een Mac
 		if(bShowSplash && !System.getProperty("os.name").equals("Mac OS X")) {		
-			// TODO don't forget to re-enable this for the demo, if the intro video is done.
 			SplashScreen ss = null;
 			try {
 				ss = new SplashScreen(stage, new File("vid/intro.mp4").toURI().toURL().toString());
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			ss.show();

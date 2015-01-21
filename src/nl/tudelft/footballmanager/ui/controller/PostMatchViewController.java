@@ -65,6 +65,7 @@ public class PostMatchViewController implements Initializable, Observer {
 					} else if (teamName.equals(gameState.getMyTeamName())) {
 						this.setText(teamName);
 						this.setTextFill(Color.BLUE);
+						this.setStyle("-fx-font-weight: bold");
 					} else {
 						this.setText(teamName);
 						this.setTextFill(Color.BLACK);

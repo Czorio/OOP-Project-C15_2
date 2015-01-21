@@ -118,6 +118,16 @@
 														</VBox>
 													</children>
 												</VBox>
+                                    <StackPane layoutX="61.0" layoutY="434.0" AnchorPane.bottomAnchor="78.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <children>
+                                          <HBox alignment="CENTER" layoutX="61.0" layoutY="434.0" spacing="3.0">
+                                             <children>
+                                                <Label layoutX="61.0" layoutY="434.0" text="Transfer window is" />
+                                                <Label fx:id="transferWindowLabel" layoutX="160.0" layoutY="434.0" text="#TransferWindow" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </StackPane>
 											</children>
 										</AnchorPane>
 									</items>
