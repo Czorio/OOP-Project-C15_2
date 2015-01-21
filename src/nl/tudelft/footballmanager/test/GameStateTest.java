@@ -8,6 +8,8 @@ import static org.junit.Assert.*;
 import java.io.File;
 
 import nl.tudelft.footballmanager.model.GameState;
+import nl.tudelft.footballmanager.model.League;
+import nl.tudelft.footballmanager.model.Team;
 
 import org.junit.After;
 import org.junit.Before;
@@ -20,18 +22,26 @@ import org.junit.Test;
 public class GameStateTest {
 
 	File loadFile, loadFile2, saveFile;
-	GameState testGameState1, testGameState2, testGameState3, testGameState4, testGameState5;
+	GameState testGameState1, testGameState2, testGameState3, testGameState4, testGameState5, testGameState6, testGameState7;
+	Team testTeam1;
+	League testLeague1;
 	
 	@Before 
 	public void initialize() {
 		loadFile = new File("XML/GameStateTest.xml");
 		loadFile2 = new File("XML/GameStateTest2.xml");
 		saveFile = new File("XML/SaveGameStateTest.xml");
+		
+		testTeam1 = new Team("Teamname");
+		testLeague1 = new League("LeagueName");
+		
 		testGameState1 = new GameState("Karel Janssen", 7, "Eredivisie", "ADO Den Haag");
 		testGameState2 = new GameState("Pjotter Karelson", 1, "Eredivisie", "Feyenoord");
 		testGameState3 = new GameState(loadFile);
 		testGameState4 = new GameState(loadFile2);
-		testGameState5 = new GameState(saveFile);
+//		testGameState5 = new GameState(saveFile);
+		testGameState6 = new GameState("Jans Janssen", 2, testLeague1, testTeam1);
+		testGameState7 = new GameState();
 	}
 
 	/**
@@ -42,6 +52,21 @@ public class GameStateTest {
 	public void testGameStateStringIntStringStringConstructor() {
 		assertNotNull(testGameState1);
 		assertNotNull(testGameState2);
+	}
+	
+	@Test
+	public void testIsUselessGamestate() {
+		assertFalse(GameState.isUseless(testGameState1));
+	}
+	
+	@Test
+	public void testGameState() {
+		assertNotNull(testGameState7);
+	}
+	
+	@Test
+	public void testGameStateStringIntLeagueTeamConstructor() {
+		assertNotNull(testGameState6);
 	}
 
 	/**
@@ -90,6 +115,7 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateFileContructor() {
+		System.out.println(testGameState3.toString());
 		assertNotNull(testGameState3);	
 		assertNotNull(testGameState4);
 	}
@@ -100,8 +126,8 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateFileCoachName() {
-		assertEquals("Steven Meijer", testGameState3.getCoachName());
-		assertEquals("Boris Schrijver", testGameState4.getCoachName());
+		assertEquals("gjfhjgf", testGameState3.getCoachName());
+		assertEquals("Jan Janssen", testGameState4.getCoachName());
 	}
 
 	/**
@@ -110,8 +136,8 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateFileRound() {
-		assertEquals(4, testGameState3.getGameRound());
-		assertEquals(5, testGameState4.getGameRound());
+		assertEquals(1, testGameState3.getGameRound());
+		assertEquals(3, testGameState4.getGameRound());
 	}
 
 	/**
@@ -120,8 +146,8 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateFileLeague() {
-		assertEquals("Eredivisie", testGameState3.getLeague().getName());
-		assertEquals("Eredivisie", testGameState4.getLeague().getName());
+		assertEquals("Bundesliga 2", testGameState3.getLeague().getName());
+		assertEquals("Belgium Pro League", testGameState4.getLeague().getName());
 	}
 
 	/**
@@ -130,10 +156,19 @@ public class GameStateTest {
 	 */
 	@Test
 	public void testGameStateFileTeam() {
-		assertEquals("Feyenoord", testGameState3.getMyTeam().getName());
-		assertEquals("Ajax", testGameState4.getMyTeam().getName());
+		assertEquals("FC Erzgebirge Aue", testGameState3.getMyTeam().getName());
+		assertEquals("KV Kortrijk", testGameState4.getMyTeam().getName());
 	}
 
+	@Test
+	public void testLoadFile() {
+		assertNotNull(testGameState3.load(loadFile));
+	}
+	
+	@Test
+	public void testSaveFile() {
+		assertNotNull(GameState.save(testGameState3, saveFile));
+	}
 	//TODO Test GameState.LoadGameState(file)
 //	/**
 //	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#loadGameState(java.io.File)}.
@@ -180,7 +215,7 @@ public class GameStateTest {
 	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#saveGameState(java.io.File)}.
 	 * Tests saving of Coach name
 	 */
-	@Test
+/*	@Test
 	public void testSaveGameStateCoachName() {
 		GameState.save(testGameState1, saveFile);
 
@@ -193,7 +228,7 @@ public class GameStateTest {
 	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#saveGameState(java.io.File)}.
 	 * Tests saving of Round number
 	 */
-	@Test
+/*	@Test
 	public void testSaveGameStateRound() {
 		GameState.save(testGameState1, saveFile);
 
@@ -206,7 +241,7 @@ public class GameStateTest {
 	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#saveGameState(java.io.File)}.
 	 * Tests saving of League
 	 */
-	@Test
+/*	@Test
 	public void testSaveGameStateLeague() {
 		GameState.save(testGameState1, saveFile);
 
@@ -219,7 +254,7 @@ public class GameStateTest {
 	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#saveGameState(java.io.File)}.
 	 * Tests saving of Team name
 	 */
-	@Test
+/*	@Test
 	public void testSaveGameStateTeam() {
 		GameState.save(testGameState1, saveFile);
 
@@ -233,5 +268,5 @@ public class GameStateTest {
 	public void deleteOutput() {
 		saveFile.delete();
 	}
-
+*/
 }
