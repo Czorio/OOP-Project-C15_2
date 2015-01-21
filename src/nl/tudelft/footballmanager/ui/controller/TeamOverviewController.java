@@ -144,6 +144,8 @@ public class TeamOverviewController implements Initializable, Observer {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		sellYourPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
+		buyOtherPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
 		
 		yourPlayers = new SimpleListProperty<Player>(FXCollections.observableList(gameState.getMyTeam().getPlayers()));
 
