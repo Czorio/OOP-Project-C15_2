@@ -1,5 +1,6 @@
 package nl.tudelft.footballmanager.model.xml;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -57,20 +58,9 @@ public class XMLPlayer extends XML {
 
 			dom.appendChild(ePlayers);
 
-			try {
-				Transformer tr = TransformerFactory.newInstance().newTransformer();
-				tr.setOutputProperty(OutputKeys.INDENT, "yes");
-				tr.setOutputProperty(OutputKeys.METHOD, "xml");
-				tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-				tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+			setTransformer(dom);
 
-				// Write to file
-				tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(file)));
-			} catch(TransformerException | IOException e) {
-				e.printStackTrace();
-			}
-
-		} catch(ParserConfigurationException e) {
+		} catch(ParserConfigurationException | TransformerException | IOException e) {
 			e.printStackTrace();
 		}
 	}
@@ -96,22 +86,27 @@ public class XMLPlayer extends XML {
 
 			dom.appendChild(ePlayers);
 
-			try {
-				Transformer tr = TransformerFactory.newInstance().newTransformer();
-				tr.setOutputProperty(OutputKeys.INDENT, "yes");
-				tr.setOutputProperty(OutputKeys.METHOD, "xml");
-				tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-				tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+			setTransformer(dom);
 
-				// Write to file
-				tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(file)));
-			} catch(TransformerException | IOException e) {
-				e.printStackTrace();
-			}
-
-		} catch(ParserConfigurationException e) {
+		} catch(ParserConfigurationException | TransformerException | IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * @param dom
+	 * @throws TransformerException
+	 * @throws FileNotFoundException
+	 */
+	private void setTransformer(Document dom) throws TransformerException, FileNotFoundException{ 
+		Transformer tr = TransformerFactory.newInstance().newTransformer();
+		tr.setOutputProperty(OutputKeys.INDENT, "yes");
+		tr.setOutputProperty(OutputKeys.METHOD, "xml");
+		tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+		tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+
+		// Write to file
+		tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(file)));
 	}
 
 	/**
