@@ -60,7 +60,7 @@ public class GameLogic {
 
 		//Sets the amount of played games for each playing player to + 1.
 		//Resets every 9th playing day to keep scoring possible for AI.
-		//Also resets a players' current position.
+		//Also resets a players' current position, and updates a players' disabled status.
 		for(Player p : playingPlayers) {
 			if(p.getTeam() == gs.getMyTeam()) {
 				p.setPlayedGames(p.getPlayedGames() + 1);
@@ -71,6 +71,10 @@ public class GameLogic {
 			
 			if(gs.getGameRound() % 9 == 0) {
 				p.setPlayedGames(0);
+			}
+			
+			if(p.getDisabledFor() > 0) {
+				p.setDisabledFor(p.getDisabledFor() - 1);
 			}
 		}
 		
@@ -113,7 +117,10 @@ public class GameLogic {
 					&& generateRandom(0, 30) == 9) {
 				homeGoals++;
 				lastGoal = 0;
-				matchResult.addHomeGoal(i, playersHome.get(generateRandom(0, playersHome.size() - 1)));
+				
+				Player arnold = playersHome.get(generateRandom(0, playersHome.size() - 1));
+				arnold.setPrice(arnold.getPrice() + 10000);
+				matchResult.addHomeGoal(i, arnold);
 			}
 
 			if ((awayScoreChance - homeScoreChance) + generateRandom(100, 200) > awayScoreChance 
@@ -122,7 +129,10 @@ public class GameLogic {
 					&& generateRandom(0, 30) == 9) {
 				awayGoals++;
 				lastGoal = 0;
-				matchResult.addAwayGoal(i, playersAway.get(generateRandom(0, playersAway.size() - 1)));
+				
+				Player nick = playersAway.get(generateRandom(0, playersAway.size() - 1));
+				nick.setPrice(nick.getPrice() + 10000);
+				matchResult.addAwayGoal(i, nick);
 			}
 			
 			//Generates a random injury and gives it to a random player.
@@ -133,7 +143,7 @@ public class GameLogic {
 				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
 				
 				p.setInjury(injury);
-				p.setDisabled(true);
+				p.setDisabledFor(9);
 			}
 			
 			else if (injuryChance == 991) {
@@ -142,7 +152,7 @@ public class GameLogic {
 				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
 				
 				p.setInjury(injury);
-				p.setDisabled(true);
+				p.setDisabledFor(9);
 			}
 
 			lastGoal++;

@@ -244,7 +244,7 @@ public class Team extends Observable {
 		List<Player> certainPosition = new ArrayList<Player>();
 
 		for (int i = 0; i < players.size(); i++) {
-			if (players.get(i).getReadablePosition() == position && !players.get(i).getDisabled()) {
+			if (players.get(i).getReadablePosition() == position && players.get(i).getDisabledFor() == 0) {
 				certainPosition.add(players.get(i));
 			}
 		}
