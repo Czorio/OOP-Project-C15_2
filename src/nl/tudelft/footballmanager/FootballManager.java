@@ -29,7 +29,7 @@ public class FootballManager extends Application {
 		// TODO don't forget to re-enable this for the demo, if the intro video is done.
 		SplashScreen ss = null;
 		try {
-			ss = new SplashScreen(stage, new File("vid/intro.mp4").toURI().toURL().toString());
+			ss = new SplashScreen(stage, new File("vid/intro.avi").toURI().toURL().toString());
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
