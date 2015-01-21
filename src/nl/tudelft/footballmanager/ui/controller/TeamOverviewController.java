@@ -192,7 +192,8 @@ public class TeamOverviewController implements Initializable, Observer {
 		bindOtherPlayerStats();
 
 		yourPlayerTableView.itemsProperty().bind(yourPlayers);
-//		yourPlayerTableView.setItems(FXCollections.observableList(gameState.getMyTeam().getPlayers()));
+		yourPlayerTableView.getSelectionModel().select(0);
+
 		gameState.addObserver(this);
 		yourSelectedPlayer.addObserver(this);
 
