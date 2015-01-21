@@ -1,7 +1,9 @@
 package nl.tudelft.footballmanager.model.logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import nl.tudelft.footballmanager.model.GameState;
@@ -22,6 +24,7 @@ public class GameLogic {
 	private static long seed = System.currentTimeMillis();
 	private static Random random = new Random(seed);
 	private static List<Player> playingPlayers = TeamLogic.getPlayingPlayers();
+	private static int matchIncome;
 
 	/**
 	 * Creates and initializes a GameLogic instance.
@@ -142,20 +145,20 @@ public class GameLogic {
 			//Generates a random injury and gives it to a random player.
 			int injuryChance = generateRandom(0, 10000);
 			if (injuryChance == 990) {
-				String injury = generateInjury();
+				Map<String, Integer> injury = generateInjury();
 				Player p = playersHome.get(random.nextInt(playersHome.size()));
 				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
 				
-				p.setInjury(injury);
+				//p.setInjury(injury);
 				p.setDisabledFor(9);
 			}
 			
 			else if (injuryChance == 991) {
-				String injury = generateInjury();
+				Map<String, Integer> injury = generateInjury();
 				Player p = playersAway.get(random.nextInt(playersAway.size()));
 				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
 				
-				p.setInjury(injury);
+				//p.setInjury(injury);
 				p.setDisabledFor(9);
 			}
 
@@ -179,28 +182,31 @@ public class GameLogic {
 	 * Generates a random injury.
 	 * @return Returns a random injury.
 	 */
-	public static String generateInjury() {
-		List<String> injuries = new ArrayList<String>();
-		injuries.add("Achilles Tendon Rupture");
-		injuries.add("Sprained Ankle");
-		injuries.add("Back Muscle Pain");
-		injuries.add("Bursitis Knee");
-		injuries.add("Dislocated Shoulder");
-		injuries.add("Hamstring Strain");
-		injuries.add("High Ankle Sprain");
-		injuries.add("Knee Arthritis");
-		injuries.add("Meniscus Tear");
-		injuries.add("Pinched Nerve");
-		injuries.add("Shin Splints");
-		injuries.add("Shoulder Impingement");
-		injuries.add("Thigh Strain");
-		injuries.add("Stress Fracture");
-		injuries.add("Wry Neck");
-		injuries.add("Ruptured left testicle");
-		injuries.add("Broken back");
-		injuries.add("Broken nose");
+	public static Map<String, Integer> generateInjury() {
+		Map<String, Integer> injuries = new HashMap<String, Integer>();
 		
-		return injuries.get(random.nextInt(injuries.size()));
+		//List<String> injuries = new ArrayList<String>();
+		injuries.put("Achilles Tendon Rupture", 8);
+		injuries.put("Sprained Ankle", 2);
+		injuries.put("Back Muscle Pain", 1);
+		injuries.put("Bursitis Knee", 2);
+		injuries.put("Dislocated Shoulder", 4);
+		injuries.put("Hamstring Strain", 3);
+		injuries.put("High Ankle Sprain", 4);
+		injuries.put("Knee Arthritis", 2);
+		injuries.put("Meniscus Tear", 6);
+		injuries.put("Pinched Nerve", 2);
+		injuries.put("Shin Splints", 7);
+		injuries.put("Shoulder Impingement", 5);
+		injuries.put("Thigh Strain", 4);
+		injuries.put("Stress Fracture", 4);
+		injuries.put("Wry Neck", 5);
+		injuries.put("Ruptured left testicle", 15);
+		injuries.put("Broken back", 20);
+		injuries.put("Broken nose", 1);
+		injuries.put("Shot", 8);
+		
+		return injuries;
 	}
 
 	/**
@@ -247,6 +253,22 @@ public class GameLogic {
 	 */
 	public static void setGameState(GameState gs) {
 		GameLogic.gs = gs;
+	}
+	
+	/**
+	 * Gets the income for a match.
+	 * @return Returns the income from a match.
+	 */
+	public static int getMatchIncome() {
+		return GameLogic.matchIncome;
+	}
+	
+	/**
+	 * Sets the income for a match.
+	 * @param income The income to set.
+	 */
+	public static void setMatchIncome(int income) {
+		GameLogic.matchIncome = income;
 	}
 
 }
