@@ -97,6 +97,8 @@ public class GameLogic {
 
 		int homeGoals = 0;
 		int awayGoals = 0;
+		int homeIncome = 0;
+		int awayIncome = 0;
 		int lastGoal = 0; //Minutes since last goal.
 		int randomInterval = generateRandom(5, 12); //Interval where no goals can be scored.
 		int extraTime = generateRandom(0, 6); //Extra game time.
@@ -118,7 +120,7 @@ public class GameLogic {
 				homeGoals++;
 				lastGoal = 0;
 				
-				home.alterBudget(10000);
+				homeIncome += 100000;
 				
 				Player arnold = playersHome.get(generateRandom(0, playersHome.size() - 1));
 				arnold.setPrice(arnold.getPrice() + 10000);
@@ -132,7 +134,7 @@ public class GameLogic {
 				awayGoals++;
 				lastGoal = 0;
 				
-				away.alterBudget(10000);
+				awayIncome += 100000;
 				
 				Player nick = playersAway.get(generateRandom(0, playersAway.size() - 1));
 				nick.setPrice(nick.getPrice() + 10000);
@@ -167,11 +169,20 @@ public class GameLogic {
 		matchResult.setHomeScore(homeGoals);
 		matchResult.setAwayScore(awayGoals);
 		
-		home.alterBudget(20000 + generateRandom(0, 10000));
-		away.alterBudget(20000 + generateRandom(0, 10000));
+		homeIncome += 50000 +  generateRandom(0, 100000);
+		awayIncome += 50000 +  generateRandom(0, 100000);
+		
+		//Set the matchIncome to the income of the current users' team.
+		if (home.equals(gs.getMyTeam())) {
+			matchIncome = homeIncome;
+		} else if (away.equals(gs.getMyTeam())) {
+			matchIncome = awayIncome;
+		}
+		
+		home.alterBudget(homeIncome);
+		away.alterBudget(awayIncome);
 
 //		System.out.println("Final result: " + home.getName() + " " + homeGoals + " - " + awayGoals + " " + away.getName() + "\n");
-
 		return matchResult;
 	}
 	
