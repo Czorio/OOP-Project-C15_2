@@ -184,12 +184,17 @@ public class RootViewController implements Initializable, Observer {
 						int score1 = (scores.get(t1) != null ? scores.get(t1) : 0);
 						int score2 = (scores.get(t2) != null ? scores.get(t2) : 0);
 
-						if (score1 > score2)
+						if (score1 > score2) {
 							return -1;
-						else if (score1 < score2)
+						} else if (score1 < score2) {
 							return 1;
-						else
+						} else if (t1.getName().equals(gameState.getMyTeamName())) {
+							return -1;
+						} else if (t2.getName().equals(gameState.getMyTeamName())) {
+							return 1;
+						} else {
 							return 0;
+						}
 					}
 				};
 				FXCollections.sort(leagueScoreboardTableView.getItems(), comparator);
