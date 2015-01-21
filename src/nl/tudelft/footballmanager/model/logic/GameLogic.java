@@ -143,7 +143,7 @@ public class GameLogic {
 			
 			//Generates a random injury and gives it to a random player.
 			int injuryChance = generateRandom(0, 10000);
-			if (injuryChance == 990) {
+			if (injuryChance == 9) {
 				String injury = generateInjury();
 				Player p = playersHome.get(random.nextInt(playersHome.size()));
 				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
@@ -152,7 +152,7 @@ public class GameLogic {
 				p.setDisabledFor(generateRandom(3,10));
 			}
 			
-			else if (injuryChance == 991) {
+			else if (injuryChance == 9) {
 				String injury = generateInjury();
 				Player p = playersAway.get(random.nextInt(playersAway.size()));
 				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
@@ -169,8 +169,8 @@ public class GameLogic {
 		matchResult.setHomeScore(homeGoals);
 		matchResult.setAwayScore(awayGoals);
 		
-		homeIncome += 50000 +  generateRandom(0, 100000);
-		awayIncome += 50000 +  generateRandom(0, 100000);
+		homeIncome += 50000 + generateRandom(0, 100000);
+		awayIncome += 50000 + generateRandom(0, 100000);
 		
 		//Set the matchIncome to the income of the current users' team.
 		if (home.equals(gs.getMyTeam())) {
@@ -267,7 +267,6 @@ public class GameLogic {
 	 * @return Returns the income from a match.
 	 */
 	public static int getMatchIncome() {
-		// TODO implement this -- Mathijs
 		return GameLogic.matchIncome;
 	}
 	
