@@ -96,7 +96,7 @@ public class XMLConfigHandler extends DefaultHandler {
 		default:
 			String[] knownElements = new String[] {"PLAYERS", "LEAGUE", "TEAM", "PLAYER", "FIRSTNAME",
 					"LASTNAME", "POSITION", "PACE", "SHOOTING", "PASSING", "OFFENSIVE", "DEFENSIVE",
-					"STAMINA", "CLUB", "DATEOFBIRTH"};
+					"STAMINA", "CLUB", "DATEOFBIRTH", "INJURED"};
 			
 			if(!Arrays.asList(knownElements).contains(qName.toUpperCase())) {
 				System.out.println("XML: Unkown element in GameState XML file. --> startElement: " + qName);
