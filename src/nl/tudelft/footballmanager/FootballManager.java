@@ -13,6 +13,8 @@ import nl.tudelft.footballmanager.ui.controller.TitleScreenController;
 
 public class FootballManager extends Application {
 	private static Stage stage;
+	
+	private static boolean bShowSplash = false;
 
 	@Override
 	public void start(Stage stage) {
@@ -21,22 +23,23 @@ public class FootballManager extends Application {
 		FootballManager.stage.setMinWidth(1280);
 		FootballManager.stage.setMinHeight(720);
 		
-		
 		FootballManager.stage.centerOnScreen();
 		FootballManager.stage.show();
 
-		
-		// TODO don't forget to re-enable this for the demo, if the intro video is done.
-		SplashScreen ss = null;
-		try {
-			ss = new SplashScreen(stage, new File("vid/intro.avi").toURI().toURL().toString());
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		if(bShowSplash) {		
+			// TODO don't forget to re-enable this for the demo, if the intro video is done.
+			SplashScreen ss = null;
+			try {
+				ss = new SplashScreen(stage, new File("vid/intro.mp4").toURI().toURL().toString());
+			} catch (MalformedURLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		ss.show();
-		
-//		TitleScreenController.show();
+		}
+		else {
+			TitleScreenController.show();
+		}	
 
 	}
 
