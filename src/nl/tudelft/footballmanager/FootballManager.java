@@ -20,7 +20,7 @@ public class FootballManager extends Application {
 
 	@Override
 	public void start(Stage stage) {
-		System.getProperties().list(System.out);
+//		System.getProperties().list(System.out);
 		Dimension screenDimensions = Toolkit.getDefaultToolkit().getScreenSize();
 
 		FootballManager.stage = stage;
