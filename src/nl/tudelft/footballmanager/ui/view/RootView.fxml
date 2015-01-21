@@ -36,7 +36,7 @@
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="272.0">
                     <children>
-                        <Accordion prefHeight="276.0" prefWidth="158.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <Accordion fx:id="sidebarAccordion" prefHeight="276.0" prefWidth="158.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <panes>
                                 <TitledPane expanded="false" text="Statistics">
                                     <content>

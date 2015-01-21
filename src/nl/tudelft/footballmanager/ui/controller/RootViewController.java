@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -19,6 +16,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -63,6 +61,7 @@ public class RootViewController implements Initializable, Observer {
 //	@FXML private TableColumn<Team, Integer> leaguePosTableColumn;
 	@FXML private TableColumn<Team, String> leagueTeamTableColumn;
 	@FXML private TableColumn<Team, Integer> leagueScoreTableColumn;
+	@FXML private Accordion sidebarAccordion;
 
 	private static GameState gameState = null;
 
@@ -137,8 +136,6 @@ public class RootViewController implements Initializable, Observer {
 
 		Map<Team, Integer> scores = gameState.getOverallScores();
 		System.out.println("Scores: " + scores);
-//		Set<Entry<Team, Integer>> scoreSet = scores.entrySet();
-//		System.out.println("Scores: " + scoreSet);
 		leagueScoreboardTableView.setItems(FXCollections.observableList(gameState.getLeague().getTeams()));
 		
 		leagueScoreTableColumn.setCellValueFactory(new Callback<CellDataFeatures<Team, Integer>, ObservableValue<Integer>>() {
@@ -157,20 +154,7 @@ public class RootViewController implements Initializable, Observer {
 		
 		leaguePointsLabel.textProperty().bind(new SimpleIntegerProperty(scoreInt).asString());
 		
-//		leagueScoreboardTableView.setSortPolicy(new Callback<TableView<Team>, Boolean>() {
-//			@Override
-//			public Boolean call(TableView<Team> tableView) {
-//				List<Team> items = tableView.getItems();
-//				for (int i = 1; i < items.size(); i++) {
-//					Integer score2 = (scores.get(items.get(i)) != null ? scores.get(items.get(i)) : 0);
-//					Integer score1 = (scores.get(items.get(i - 1)) != null ? scores.get(items.get(i - 1)) : 0);
-//					if (score2 < score1) {
-//						Team.swap(items.get(i), items.get(i - 1));
-//					}
-//				}
-//				return true;
-//			}
-//		});
+		sidebarAccordion.setExpandedPane(sidebarAccordion.getPanes().get(2));
 	}
 
 	public static void show(GameState gs) {
