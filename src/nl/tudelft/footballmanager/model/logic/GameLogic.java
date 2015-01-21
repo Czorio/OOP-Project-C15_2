@@ -267,6 +267,7 @@ public class GameLogic {
 	 * @return Returns the income from a match.
 	 */
 	public static int getMatchIncome() {
+		// TODO implement this -- Mathijs
 		return GameLogic.matchIncome;
 	}
 	
