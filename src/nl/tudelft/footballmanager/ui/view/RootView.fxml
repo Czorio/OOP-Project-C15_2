@@ -13,7 +13,7 @@
 <?import fxmltableview.*?>
 <?import nl.tudelft.footballmanager.model.*?>
 
-<BorderPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.footballmanager.ui.controller.RootViewController">
+<BorderPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.footballmanager.ui.controller.RootViewController">
     <top>
         <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <items>
@@ -27,14 +27,14 @@
                         <MenuItem fx:id="quitDesktopMenuItem" mnemonicParsing="false" text="Quit to Desktop" />
                     </items>
                 </MenuButton>
-            <Label fx:id="yourTeamNameLabel" alignment="CENTER_RIGHT" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="514.0" text="#YourTeamName" />
+            <Label fx:id="yourTeamNameLabel" contentDisplay="RIGHT" prefHeight="17.0" prefWidth="255.0" text="#YourTeamName" />
             </items>
         </ToolBar>
     </top>
     <right>
-        <SplitPane dividerPositions="0.7509" orientation="VERTICAL" prefHeight="560.0" prefWidth="250.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.7509" orientation="VERTICAL" prefHeight="680.0" prefWidth="333.0" BorderPane.alignment="CENTER">
             <items>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="272.0">
                     <children>
                         <Accordion prefHeight="276.0" prefWidth="158.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <panes>

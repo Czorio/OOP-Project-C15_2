@@ -1,6 +1,7 @@
 package nl.tudelft.footballmanager;
 
 import java.io.File;
+import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -17,17 +18,24 @@ public class FootballManager extends Application {
 	public void start(Stage stage) {
 		FootballManager.stage = stage;
 		FootballManager.stage.setTitle("Football Manager 2142");
-		FootballManager.stage.setMinWidth(800);
-		FootballManager.stage.setMinHeight(600);
+		FootballManager.stage.setMinWidth(1280);
+		FootballManager.stage.setMinHeight(720);
+		
 		FootballManager.stage.centerOnScreen();
 		FootballManager.stage.show();
 
 		
 		// TODO don't forget to re-enable this for the demo, if the intro video is done.
-//		SplashScreen ss = new SplashScreen(stage, "vid/intro.mp4");
-//		ss.show();
+		SplashScreen ss = null;
+		try {
+			ss = new SplashScreen(stage, new File("vid/intro.mp4").toURI().toURL().toString());
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ss.show();
 		
-		TitleScreenController.show();
+//		TitleScreenController.show();
 
 	}
 
