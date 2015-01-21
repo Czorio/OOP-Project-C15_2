@@ -83,7 +83,6 @@ public class PostMatchViewController implements Initializable, Observer {
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Initializing " + this.getClass());
 		
-		incomeLabel.textProperty().bind(new SimpleIntegerProperty(GameLogic.getMatchIncome()).asString());
 
 		int gameRound = gameState.getGameRound();
 		try {
@@ -134,6 +133,7 @@ public class PostMatchViewController implements Initializable, Observer {
 
 		new GameLogic(gameState);
 		GameLogic.matchDay();
+		incomeLabel.textProperty().bind(new SimpleIntegerProperty(GameLogic.getMatchIncome()).asString());
 
 		System.out.println("Initializing " + this.getClass() + " finished");
 }
