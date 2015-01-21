@@ -26,7 +26,8 @@ public class FootballManager extends Application {
 		FootballManager.stage.centerOnScreen();
 		FootballManager.stage.show();
 
-		if(bShowSplash) {		
+		// Gewoon lekker niet op een Mac
+		if(bShowSplash && !System.getProperty("os.name").equals("Mac OS X")) {		
 			// TODO don't forget to re-enable this for the demo, if the intro video is done.
 			SplashScreen ss = null;
 			try {
