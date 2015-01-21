@@ -32,3 +32,4 @@ local.properties
 
 # Because Mac
 .DS_Store
+/bin/

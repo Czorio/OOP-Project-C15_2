@@ -57,7 +57,7 @@ public class TeamLogicTest {
 	@Test
 	public void testCalculateTeamOffScore() {
 		TeamLogic.createAIActivePlayers(ajax);
-		assertEquals(47, TeamLogic.calculateTeamOffScore(ajax));
+		assertEquals(51, TeamLogic.calculateTeamOffScore(ajax));
 	}
 
 	/**
@@ -66,7 +66,7 @@ public class TeamLogicTest {
 	@Test
 	public void testCalculateTeamDefScore() {
 		TeamLogic.createAIActivePlayers(ajax);
-		assertEquals(60, TeamLogic.calculateTeamDefScore(ajax));
+		assertEquals(58, TeamLogic.calculateTeamDefScore(ajax));
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class TeamLogicTest {
 	@Test
 	public void testCalculateTeamTotalScore() {
 		TeamLogic.createAIActivePlayers(ajax);
-		assertEquals(170, TeamLogic.calculateTeamTotalScore(ajax));
+		assertEquals(172, TeamLogic.calculateTeamTotalScore(ajax));
 	}
 	
 	/**

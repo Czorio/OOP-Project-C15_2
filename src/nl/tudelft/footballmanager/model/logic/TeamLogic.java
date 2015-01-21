@@ -132,6 +132,10 @@ public final class TeamLogic {
 		}
 		
 		catch (IndexOutOfBoundsException a) {
+			if(isTesting) {
+				throw a;
+			}
+			
 			System.out.println("No goalkeeper available for team " + team.getName());
 			missingPlayers++;
 		}
@@ -145,6 +149,10 @@ public final class TeamLogic {
 			} 
 			
 			catch (IndexOutOfBoundsException a) {
+				if(isTesting) {
+					throw a;
+				}
+				
 				System.out.println("Not enough defenders available for team " + team.getName());
 				missingPlayers++;
 			}
@@ -159,6 +167,10 @@ public final class TeamLogic {
 			} 
 			
 			catch (IndexOutOfBoundsException a) {
+				if(isTesting) {
+					throw a;
+				}
+				
 				System.out.println("Not enough midfielders available for team " + team.getName());
 				missingPlayers++;
 			}
@@ -173,6 +185,10 @@ public final class TeamLogic {
 			} 
 			
 			catch (IndexOutOfBoundsException a) {
+				if(isTesting) {
+					throw a;
+				}
+				
 				System.out.println("Not enough attackers available for team " + team.getName());
 				missingPlayers++;
 			}
