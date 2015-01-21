@@ -35,7 +35,7 @@ public class Player extends Observable {
 	private int price; // Will be based on his stats.
 	private int playedGames;
 	private String injury;
-	private boolean disabled;
+	private int disabledFor;
 
 	/**
 	 * Creates and initializes a Player object.
@@ -99,7 +99,7 @@ public class Player extends Observable {
 		this.price = 0;
 		this.playedGames = 0;
 		this.injury = null;
-		this.disabled = false;
+		this.disabledFor = 0;
 
 		setChanged();
 		notifyObservers(this);
@@ -137,7 +137,7 @@ public class Player extends Observable {
 					this.price == that.price &&
 					this.playedGames == that.playedGames &&
 					this.injury == that.injury &&
-					this.disabled == that.disabled;
+					this.disabledFor == that.disabledFor;
 			
 			if (this.nationality != null) {
 				if (that.nationality != null) {
@@ -181,7 +181,7 @@ public class Player extends Observable {
 				+ this.price + " "
 				+ this.playedGames + " "
 				+ this.injury + " "
-				+ this.disabled + "]";
+				+ this.disabledFor + "]";
 	}
 
 	/**
@@ -585,19 +585,19 @@ public class Player extends Observable {
 	}
 	
 	/**
-	 * Gets if a player (dis)abled.
-	 * @return Returns if a player is disabled
+	 * Gets how long a player is disabled.
+	 * @return Returns for how long a player is disabled
 	 */
-	public boolean getDisabled() {
-		return this.disabled;
+	public int getDisabledFor() {
+		return this.disabledFor;
 	}
 	
 	/**
-	 * Sets a player (dis)abled.
-	 * @param disabled Sets if a player is disabled.
+	 * Sets how long a player is disabled.
+	 * @param disabled Sets for how long a player is disabled.
 	 */
-	public void setDisabled(boolean disabled) {
-		this.disabled = disabled;
+	public void setDisabledFor(int disabledFor) {
+		this.disabledFor = disabledFor;
 		
 		setChanged();
 		notifyObservers(this);
