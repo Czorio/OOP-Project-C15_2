@@ -119,7 +119,7 @@ public class XMLPlayer extends XML {
 		leagueArray.add(league);
 
 		ArrayList<League> result = readFromFile(leagueArray);
-		if (result == null) return null;
+		if (result.isEmpty()) return null;
 		return result.get(0);
 	}
 
