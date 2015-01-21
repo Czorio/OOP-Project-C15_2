@@ -54,7 +54,7 @@ public class SplashScreen {
 			
 		});
 		
-		mv.setLayoutY(stage.heightProperty().divide(4.5).get());
+		//mv.setLayoutY(stage.heightProperty().divide(4.5).get());
 
 		mv.fitHeightProperty().bind(stage.heightProperty());
 		mv.fitWidthProperty().bind(stage.widthProperty());
