@@ -47,6 +47,8 @@ public class RootViewController implements Initializable, Observer {
 	@FXML private Button loadGameButton;
 
 	@FXML private Label yourTeamNameLabel;
+	@FXML private Label leagueNameLabel;
+	
 	@FXML private Label gamesPlayedLabel;
 	@FXML private Label gamesWonLabel;
 	@FXML private Label gamesLostLabel;
@@ -93,7 +95,8 @@ public class RootViewController implements Initializable, Observer {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
+		
+		leagueNameLabel.setText(gameState.getLeagueName());
 		yourTeamNameLabel.setText(gameState.getMyTeamName());
 
 		saveGameButton.setOnAction((event) -> {

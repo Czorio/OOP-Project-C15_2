@@ -56,6 +56,10 @@ public class NewGameViewController implements Initializable, Observer {
 	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		
+		// default coach name is username
+		coachNameTextField.setText(System.getProperty("user.name"));
+		
 		cancelButton.setOnAction((event) -> {
 			TitleScreenController.show();
 		});

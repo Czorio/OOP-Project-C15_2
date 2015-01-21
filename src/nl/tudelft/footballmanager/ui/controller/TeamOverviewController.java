@@ -94,6 +94,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private Label otherPlayerStaminaLabel;
 	@FXML private Label otherPlayerPriceLabel;
 	@FXML private Label otherPlayerTeamLabel;
+	@FXML private Label transferWindowLabel1;
 	@FXML private Button buyOtherPlayerButton;
 
 	SimpleStringProperty otherName;
@@ -172,7 +173,8 @@ public class TeamOverviewController implements Initializable, Observer {
 			isTransfer = new SimpleStringProperty("Closed");
 		}
 		
-		transferWindowLabel.textProperty().bind(isTransfer);;
+		transferWindowLabel.textProperty().bind(isTransfer);
+		transferWindowLabel1.textProperty().bind(isTransfer);
 		
 		
 		sellYourPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));

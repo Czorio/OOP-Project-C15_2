@@ -190,7 +190,7 @@
 												</TableView>
 											</children>
 										</AnchorPane>
-										<AnchorPane maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="160.0" prefWidth="150.0" SplitPane.resizableWithParent="false">
+										<AnchorPane maxWidth="300.0" minHeight="0.0" minWidth="300.0" prefHeight="160.0" prefWidth="300.0" SplitPane.resizableWithParent="false">
 											<children>
 												<GridPane layoutX="-34.0" layoutY="176.0" prefHeight="422.0" prefWidth="146.0" AnchorPane.bottomAnchor="109.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 													<columnConstraints>
@@ -225,6 +225,16 @@
 												</GridPane>
 												<Separator layoutY="421.0" prefHeight="3.0" prefWidth="146.0" AnchorPane.bottomAnchor="107.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
 												<Button fx:id="buyOtherPlayerButton" layoutX="38.0" layoutY="464.0" mnemonicParsing="false" text="Buy Player" AnchorPane.bottomAnchor="42.0" AnchorPane.leftAnchor="38.0" AnchorPane.rightAnchor="41.0" />
+                                    <StackPane layoutX="52.0" layoutY="435.0" AnchorPane.bottomAnchor="78.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                       <children>
+                                          <HBox alignment="CENTER" layoutX="61.0" layoutY="434.0" spacing="3.0">
+                                             <children>
+                                                <Label layoutX="61.0" layoutY="434.0" text="Transfer window is" />
+                                                <Label fx:id="transferWindowLabel1" layoutX="160.0" layoutY="434.0" text="#TransferWindow" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </StackPane>
 											</children>
 										</AnchorPane>
 									</items>
