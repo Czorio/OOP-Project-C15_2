@@ -10,6 +10,7 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
@@ -81,6 +82,8 @@ public class PostMatchViewController implements Initializable, Observer {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Initializing " + this.getClass());
+		
+		incomeLabel.textProperty().bind(new SimpleIntegerProperty(gameState.getMatchIncome()).asString());
 
 		int gameRound = gameState.getGameRound();
 		try {

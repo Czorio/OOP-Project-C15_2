@@ -45,6 +45,12 @@ public class RootViewController implements Initializable, Observer {
 	@FXML private Button loadGameButton;
 	
 	@FXML private Label yourTeamNameLabel;
+	@FXML private Label gamesPlayedLabel;
+	@FXML private Label gamesWonLabel;
+	@FXML private Label gamesLostLabel;
+	@FXML private Label gamesDrawLabel;
+	@FXML private Label leaguePointsLabel;
+	@FXML private Label teamPosLabel;
 	
 	@FXML private Label gamesPlayed;
 	@FXML private Label teamBalanceLabel;
@@ -124,6 +130,7 @@ public class RootViewController implements Initializable, Observer {
 
 		SimpleIntegerProperty round = new SimpleIntegerProperty(gameState.getGameRound());
 		gamesPlayed.textProperty().bind(round.asString());
+		gamesPlayedLabel.textProperty().bind(round.asString());
 
 		SimpleIntegerProperty balance = new SimpleIntegerProperty(gameState.getMyTeam().getBudget());
 		teamBalanceLabel.textProperty().bind(balance.asString());
@@ -145,6 +152,10 @@ public class RootViewController implements Initializable, Observer {
 			}
 			
 		});
+
+		int scoreInt = (scores.get(gameState.getMyTeam()) != null ? scores.get(gameState.getMyTeam()) : 0);
+		
+		leaguePointsLabel.textProperty().bind(new SimpleIntegerProperty(scoreInt).asString());
 		
 //		leagueScoreboardTableView.setSortPolicy(new Callback<TableView<Team>, Boolean>() {
 //			@Override

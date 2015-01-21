@@ -1,5 +1,7 @@
 package nl.tudelft.footballmanager;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
@@ -13,16 +15,20 @@ import nl.tudelft.footballmanager.ui.controller.TitleScreenController;
 
 public class FootballManager extends Application {
 	private static Stage stage;
-	
+
 	private static boolean bShowSplash = false;
 
 	@Override
 	public void start(Stage stage) {
+		System.getProperties().list(System.out);
+		Dimension screenDimensions = Toolkit.getDefaultToolkit().getScreenSize();
+
 		FootballManager.stage = stage;
 		FootballManager.stage.setTitle("Football Manager 2142");
-		FootballManager.stage.setMinWidth(1280);
-		FootballManager.stage.setMinHeight(720);
-		
+
+		FootballManager.stage.setHeight(screenDimensions.getHeight() - 100);
+		FootballManager.stage.setWidth(screenDimensions.getWidth() - 50);
+
 		FootballManager.stage.centerOnScreen();
 		FootballManager.stage.show();
 
@@ -36,7 +42,7 @@ public class FootballManager extends Application {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		ss.show();
+			ss.show();
 		}
 		else {
 			TitleScreenController.show();
