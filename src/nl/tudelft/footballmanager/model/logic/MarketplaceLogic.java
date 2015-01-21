@@ -28,8 +28,8 @@ public final class MarketplaceLogic {
 		if(toTeam.getBudget() < player.getPrice())
 			return false;
 		
-		// A team cannot have less then 7 players.
-		if(fromTeam.getPlayers().size() <= 7)
+		// A team cannot have less then 11 players.
+		if(fromTeam.getPlayers().size() <= 11)
 			return false;
 		
 		// Change players and set new budgets.
