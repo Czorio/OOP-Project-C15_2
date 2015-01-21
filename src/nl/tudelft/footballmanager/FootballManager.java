@@ -21,9 +21,6 @@ public class FootballManager extends Application {
 		FootballManager.stage.setMinWidth(1280);
 		FootballManager.stage.setMinHeight(720);
 		
-        stage.minWidthProperty().bind(stage.heightProperty());
-        stage.minHeightProperty().bind(stage.widthProperty());
-		
 		
 		FootballManager.stage.centerOnScreen();
 		FootballManager.stage.show();
