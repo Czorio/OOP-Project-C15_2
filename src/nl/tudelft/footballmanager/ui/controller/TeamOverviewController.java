@@ -35,12 +35,15 @@ import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
 import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
+import nl.tudelft.footballmanager.model.logic.TeamLogic;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
 public class TeamOverviewController implements Initializable, Observer {
+	
+	private int fielded;
 
 	public final static String teamOverviewFileName = "ui/view/TeamOverview.fxml";
 
@@ -107,6 +110,13 @@ public class TeamOverviewController implements Initializable, Observer {
 
 	@Override
 	public void update(Observable o, Object arg) {
+		
+		
+		// TODO update your own fielded players upon change
+		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
+		
+		SimpleIntegerProperty inField = new SimpleIntegerProperty(fielded);
+		placedPlayersLabel.textProperty().bind(inField.asString());
 
 		if (yourSelectedPlayer == o) {
 			try {
@@ -147,12 +157,20 @@ public class TeamOverviewController implements Initializable, Observer {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		// Get the amount of players of your team that are currently playing
+		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
+		
+		SimpleIntegerProperty inField = new SimpleIntegerProperty(fielded);
+		placedPlayersLabel.textProperty().bind(inField.asString());
+		
+		
 		sellYourPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
 		buyOtherPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
 		
 		yourPlayers = new SimpleListProperty<Player>(FXCollections.observableList(gameState.getMyTeam().getPlayers()));
 
 		curPosChoiceBox.setItems(FXCollections.observableArrayList(
+				"None",
 				"Goalkeeper",
 				"Attacker",
 				"Midfielder",
@@ -164,6 +182,12 @@ public class TeamOverviewController implements Initializable, Observer {
 				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
 				yourPlayerTableView.getSelectionModel().getSelectedItem().setCurPosition(newValue);
 				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
+				
+				/*if(newValue == "None") {
+					decreaseFielded();
+				} else {
+					increaseFielded();
+				}*/
 			}
 		});
 
@@ -277,5 +301,21 @@ public class TeamOverviewController implements Initializable, Observer {
 	 */
 	public static GameState getGameState() {
 		return gameState;
+	}
+	
+	private void decreaseFielded() {
+		if (fielded > 0) {
+			fielded--;
+		} else {
+			fielded = 0;
+		}
+	}
+	
+	private void increaseFielded() {
+		if(fielded < 11) {
+			fielded++;
+		} else {
+			fielded = 11;
+		}
 	}
 }
