@@ -146,16 +146,16 @@ public class GameLogic {
 			if (injuryChance == 9) {
 				String injury = generateInjury();
 				Player p = playersHome.get(random.nextInt(playersHome.size()));
-				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
+				System.out.println("Injury: " + p.getFirstName() + " " + p.getLastName() + " - " + injury);
 				
 				p.setInjury(injury);
 				p.setDisabledFor(generateRandom(3,10));
 			}
 			
-			else if (injuryChance == 9) {
+			else if (injuryChance == 10) {
 				String injury = generateInjury();
 				Player p = playersAway.get(random.nextInt(playersAway.size()));
-				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
+				System.out.println("Injury: " + p.getFirstName() + " " + p.getLastName() + " - " + injury);
 				
 				p.setInjury(injury);
 				p.setDisabledFor(generateRandom(3,10));
