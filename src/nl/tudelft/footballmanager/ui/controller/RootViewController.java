@@ -20,15 +20,18 @@ import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
+import nl.tudelft.footballmanager.model.Match;
 import nl.tudelft.footballmanager.model.Team;
 
 /**
@@ -64,6 +67,27 @@ public class RootViewController implements Initializable, Observer {
 	@FXML private Accordion sidebarAccordion;
 
 	private static GameState gameState = null;
+	
+	private static Callback<TableColumn<Team, String>, TableCell<Team, String>> highlightMyTeam = new Callback<TableColumn<Team, String>, TableCell<Team, String>>() {
+		@Override
+		public TableCell<Team, String> call(TableColumn<Team, String> param) {
+			return new TableCell<Team, String>() {
+				@Override
+				protected void updateItem(String teamName, boolean empty) {
+					if (teamName == null || empty) {
+						this.setText(null);
+						this.setTextFill(Color.WHITE);
+					} else if (teamName.equals(gameState.getMyTeamName())) {
+						this.setText(teamName);
+						this.setTextFill(Color.RED);
+					} else {
+						this.setText(teamName);
+						this.setTextFill(Color.BLACK);
+					}
+				}
+			};
+		}
+	};
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -155,6 +179,8 @@ public class RootViewController implements Initializable, Observer {
 		leaguePointsLabel.textProperty().bind(new SimpleIntegerProperty(scoreInt).asString());
 		
 		sidebarAccordion.setExpandedPane(sidebarAccordion.getPanes().get(2));
+		
+		leagueTeamTableColumn.setCellFactory(highlightMyTeam);
 	}
 
 	public static void show(GameState gs) {
