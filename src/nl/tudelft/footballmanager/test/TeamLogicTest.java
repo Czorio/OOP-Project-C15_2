@@ -88,23 +88,46 @@ public class TeamLogicTest {
 	}
 	
 	/**
+	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createActivePlayers(nl.tudelft.footballmanager.model.Team)}.
+	 */
+	@Test
+	public void testCreateActivePlayers() {
+		ajax.getPlayer(1053).setCurPosition("Goalkeeper");
+		ajax.getPlayer(213).setCurPosition("Defender");
+		ajax.getPlayer(9341).setCurPosition("Defender");
+		ajax.getPlayer(11487).setCurPosition("Defender");
+		ajax.getPlayer(12587).setCurPosition("Defender");
+		ajax.getPlayer(339).setCurPosition("Midfielder");
+		ajax.getPlayer(5121).setCurPosition("Midfielder");
+		ajax.getPlayer(6145).setCurPosition("Midfielder");
+		ajax.getPlayer(12483).setCurPosition("Midfielder");
+		ajax.getPlayer(1580).setCurPosition("Attacker");
+		ajax.getPlayer(12467).setCurPosition("Attacker");
+		TeamLogic.createActivePlayers(ajax);
+		
+		assertEquals(TeamLogic.getPlayingPlayersPerTeam(ajax), TeamLogic.getPlayingPlayers());
+	}
+	
+	
+	/**
 	 * Tests invalid amount of goalkeepers.
 	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createAIActivePlayers(nl.tudelft.footballmanager.model.Team)}.
 	 */
-	@Test(expected=IndexOutOfBoundsException.class)
+	@Test
 	public void testCreateAIInvalidGK() {
 		ajax.removePlayer(ajax.getPlayer(1053));
 		ajax.removePlayer(ajax.getPlayer(2958));
 		ajax.removePlayer(ajax.getPlayer(5646));
 		
 		TeamLogic.createAIActivePlayers(ajax);
+		assertEquals("Goalkeeper", TeamLogic.getTestPlayer().getCurPosition());
 	}
 	
 	/**
 	 * Tests invalid amount of defenders.
 	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createAIActivePlayers(nl.tudelft.footballmanager.model.Team)}.
 	 */
-	@Test(expected=IndexOutOfBoundsException.class)
+	@Test
 	public void testCreateAIInvalidDef() {
 		ajax.removePlayer(ajax.getPlayer(213));
 		ajax.removePlayer(ajax.getPlayer(215));
@@ -114,13 +137,14 @@ public class TeamLogicTest {
 		ajax.removePlayer(ajax.getPlayer(12587));
 		
 		TeamLogic.createAIActivePlayers(ajax);
+		assertEquals("Defender", TeamLogic.getTestPlayer().getCurPosition());
 	}
 	
 	/**
 	 * Tests invalid amount of midfielders.
 	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createAIActivePlayers(nl.tudelft.footballmanager.model.Team)}.
 	 */
-	@Test(expected=IndexOutOfBoundsException.class)
+	@Test
 	public void testCreateAIInvalidMid() {
 		ajax.removePlayer(ajax.getPlayer(339));
 		ajax.removePlayer(ajax.getPlayer(5121));
@@ -129,13 +153,14 @@ public class TeamLogicTest {
 		ajax.removePlayer(ajax.getPlayer(12483));
 		
 		TeamLogic.createAIActivePlayers(ajax);
+		assertEquals("Midfielder", TeamLogic.getTestPlayer().getCurPosition());
 	}
-	
+
 	/**
 	 * Tests invalid amount of attackers.
 	 * Test method for {@link nl.tudelft.footballmanager.model.logic.TeamLogic#createAIActivePlayers(nl.tudelft.footballmanager.model.Team)}.
 	 */
-	@Test(expected=IndexOutOfBoundsException.class)
+	@Test
 	public void testCreateAIInvalidAtt() {
 		ajax.removePlayer(ajax.getPlayer(1398));
 		ajax.removePlayer(ajax.getPlayer(1580));
@@ -147,6 +172,7 @@ public class TeamLogicTest {
 		ajax.removePlayer(ajax.getPlayer(12783));
 		
 		TeamLogic.createAIActivePlayers(ajax);
+		assertEquals("Attacker", TeamLogic.getTestPlayer().getCurPosition());
 	}
 
 	/**

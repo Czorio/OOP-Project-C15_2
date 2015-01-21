@@ -21,6 +21,7 @@ public final class TeamLogic {
 	private static long seed = System.nanoTime();
 	private static Random random = new Random(seed);
 	private static boolean isTesting = false;
+	private static Player testPlayer; //Only used for JUnit tests.
 
 	public TeamLogic() { }
 
@@ -132,11 +133,7 @@ public final class TeamLogic {
 		}
 		
 		catch (IndexOutOfBoundsException a) {
-			if(isTesting) {
-				throw a;
-			}
-			
-			System.out.println("No goalkeeper available for team " + team.getName());
+			System.err.println("No goalkeeper available for team " + team.getName());
 			missingPlayers++;
 		}
 		
@@ -149,11 +146,7 @@ public final class TeamLogic {
 			} 
 			
 			catch (IndexOutOfBoundsException a) {
-				if(isTesting) {
-					throw a;
-				}
-				
-				System.out.println("Not enough defenders available for team " + team.getName());
+				System.err.println("Not enough defenders available for team " + team.getName());
 				missingPlayers++;
 			}
 		}
@@ -167,11 +160,7 @@ public final class TeamLogic {
 			} 
 			
 			catch (IndexOutOfBoundsException a) {
-				if(isTesting) {
-					throw a;
-				}
-				
-				System.out.println("Not enough midfielders available for team " + team.getName());
+				System.err.println("Not enough midfielders available for team " + team.getName());
 				missingPlayers++;
 			}
 		}
@@ -185,11 +174,7 @@ public final class TeamLogic {
 			} 
 			
 			catch (IndexOutOfBoundsException a) {
-				if(isTesting) {
-					throw a;
-				}
-				
-				System.out.println("Not enough attackers available for team " + team.getName());
+				System.err.println("Not enough attackers available for team " + team.getName());
 				missingPlayers++;
 			}
 		}
@@ -198,6 +183,7 @@ public final class TeamLogic {
 		for (int i = 0; i < missingPlayers; i++) {
 			int randomNumber = random.nextInt(allPlayers.size());
 			Player batlik = allPlayers.get(randomNumber);
+			testPlayer = batlik; //For JUnit tests.
 			
 			if (batlik.getCurPosition() != "None") {
 				if (nrGoalkeepers - goalkeepers.size() > 0) {
@@ -226,7 +212,7 @@ public final class TeamLogic {
 			}
 			
 			else {
-				System.out.println("Still missing players");
+//				System.err.println("Still missing players");
 				i--;
 			}
 		}
@@ -332,5 +318,21 @@ public final class TeamLogic {
 	 */
 	public static void setIsTesting(boolean testing) {
 		TeamLogic.isTesting = testing;
+	}
+	
+	/**
+	 * Testmethod used for JUnit tests.
+	 * @return Returns the testplayer.
+	 */
+	public static Player getTestPlayer() {
+		return testPlayer;
+	}
+	
+	/**
+	 * Testmethod used for JUnit tests.
+	 * @param batlik The player to set as testPlayer.
+	 */
+	public static void setTestPlayer(Player batlik) {
+		TeamLogic.testPlayer = batlik;
 	}
 }
