@@ -118,6 +118,8 @@ public class GameLogic {
 				homeGoals++;
 				lastGoal = 0;
 				
+				home.alterBudget(10000);
+				
 				Player arnold = playersHome.get(generateRandom(0, playersHome.size() - 1));
 				arnold.setPrice(arnold.getPrice() + 10000);
 				matchResult.addHomeGoal(i, arnold);
@@ -129,6 +131,8 @@ public class GameLogic {
 					&& generateRandom(0, 30) == 9) {
 				awayGoals++;
 				lastGoal = 0;
+				
+				away.alterBudget(10000);
 				
 				Player nick = playersAway.get(generateRandom(0, playersAway.size() - 1));
 				nick.setPrice(nick.getPrice() + 10000);
@@ -162,6 +166,9 @@ public class GameLogic {
 
 		matchResult.setHomeScore(homeGoals);
 		matchResult.setAwayScore(awayGoals);
+		
+		home.alterBudget(20000 + generateRandom(0, 10000));
+		away.alterBudget(20000 + generateRandom(0, 10000));
 
 //		System.out.println("Final result: " + home.getName() + " " + homeGoals + " - " + awayGoals + " " + away.getName() + "\n");
 
@@ -191,6 +198,7 @@ public class GameLogic {
 		injuries.add("Wry Neck");
 		injuries.add("Ruptured left testicle");
 		injuries.add("Broken back");
+		injuries.add("Broken nose");
 		
 		return injuries.get(random.nextInt(injuries.size()));
 	}

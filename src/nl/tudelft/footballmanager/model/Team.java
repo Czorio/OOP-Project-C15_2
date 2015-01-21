@@ -26,7 +26,7 @@ public class Team extends Observable {
 	public Team(String name, List<Player> players) {
 		this.name = name;
 		this.players = FXCollections.observableList(players);
-		this.budget = 0;
+		this.budget = 1000000;
 
 		for (Player player : this.players) {
 			player.setTeam(this);
