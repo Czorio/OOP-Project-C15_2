@@ -147,7 +147,7 @@ public class GameLogic {
 				System.out.println(p.getFirstName() + " " + p.getLastName() + " - " + injury);
 				
 				p.setInjury(injury);
-				p.setDisabledFor(9);
+				p.setDisabledFor(generateRandom(3,10));
 			}
 			
 			else if (injuryChance == 991) {
