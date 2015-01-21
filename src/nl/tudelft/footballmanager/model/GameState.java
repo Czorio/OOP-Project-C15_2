@@ -147,7 +147,10 @@ public class GameState extends Observable {
 	}
 
 	public String getLeagueName() {
-		return getLeague().getName();
+		if (getLeague() != null) {
+			return getLeague().getName();
+		}
+		return null;
 	}
 
 	@Override
