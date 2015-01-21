@@ -3,6 +3,7 @@ package nl.tudelft.footballmanager.ui.controller;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
@@ -44,7 +45,7 @@ public class RootViewController implements Initializable, Observer {
 
 	@FXML private Button saveGameButton;
 	@FXML private Button loadGameButton;
-	
+
 	@FXML private Label yourTeamNameLabel;
 	@FXML private Label gamesPlayedLabel;
 	@FXML private Label gamesWonLabel;
@@ -52,7 +53,7 @@ public class RootViewController implements Initializable, Observer {
 	@FXML private Label gamesDrawLabel;
 	@FXML private Label leaguePointsLabel;
 	@FXML private Label teamPosLabel;
-	
+
 	@FXML private Label gamesPlayed;
 	@FXML private Label teamBalanceLabel;
 	@FXML private Button nextRoundButton;
@@ -61,7 +62,7 @@ public class RootViewController implements Initializable, Observer {
 	@FXML private MenuItem quitMenuMenuItem;
 	@FXML private MenuItem quitDesktopMenuItem;
 	@FXML private TableView<Team> leagueScoreboardTableView;
-//	@FXML private TableColumn<Team, Integer> leaguePosTableColumn;
+	//	@FXML private TableColumn<Team, Integer> leaguePosTableColumn;
 	@FXML private TableColumn<Team, String> leagueTeamTableColumn;
 	@FXML private TableColumn<Team, Integer> leagueScoreTableColumn;
 	@FXML private Accordion sidebarAccordion;
@@ -91,7 +92,7 @@ public class RootViewController implements Initializable, Observer {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
 		yourTeamNameLabel.setText(gameState.getMyTeamName());
 
 		saveGameButton.setOnAction((event) -> {
@@ -161,7 +162,7 @@ public class RootViewController implements Initializable, Observer {
 		Map<Team, Integer> scores = gameState.getOverallScores();
 		System.out.println("Scores: " + scores);
 		leagueScoreboardTableView.setItems(FXCollections.observableList(gameState.getLeague().getTeams()));
-		
+
 		leagueScoreTableColumn.setCellValueFactory(new Callback<CellDataFeatures<Team, Integer>, ObservableValue<Integer>>() {
 
 			@Override
@@ -171,13 +172,35 @@ public class RootViewController implements Initializable, Observer {
 					return new SimpleIntegerProperty(0).asObject();
 				return new SimpleIntegerProperty(score).asObject();
 			}
-			
+
+		});
+
+		leagueScoreboardTableView.sortPolicyProperty().set( new Callback<TableView<Team>, Boolean>() {
+			@Override
+			public Boolean call(TableView<Team> param) {
+				Comparator<Team> comparator = new Comparator<Team>() {
+					@Override
+					public int compare(Team t1, Team t2) {
+						int score1 = (scores.get(t1) != null ? scores.get(t1) : 0);
+						int score2 = (scores.get(t2) != null ? scores.get(t2) : 0);
+
+						if (score1 > score2)
+							return -1;
+						else if (score1 < score2)
+							return 1;
+						else
+							return 0;
+					}
+				};
+				FXCollections.sort(leagueScoreboardTableView.getItems(), comparator);
+				return true;
+			}
 		});
 
 		int scoreInt = (scores.get(gameState.getMyTeam()) != null ? scores.get(gameState.getMyTeam()) : 0);
-		
+
 		leaguePointsLabel.textProperty().bind(new SimpleIntegerProperty(scoreInt).asString());
-		
+
 		sidebarAccordion.setExpandedPane(sidebarAccordion.getPanes().get(2));
 		
 		leagueTeamTableColumn.setCellFactory(highlightMyTeam);
