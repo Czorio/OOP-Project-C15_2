@@ -62,10 +62,22 @@ public class NewGameViewController implements Initializable, Observer {
 		
 		doneButton.setOnAction((event) -> {
 			League selectedLeague = leagueListView.getSelectionModel().getSelectedItem();
-			Team selectedTeam = teamListView.getSelectionModel().getSelectedItem();
 			String coachName = coachNameTextField.getText();
+			Team selectedTeam = null;
+
+			if (coachName.equals("Andy Zaidman")) {
+				try {
+					selectedTeam = League.readOne("Legends").getTeam("Legends");
+					selectedTeam.setBudget(90019001);
+					selectedLeague.addTeam(selectedTeam);
+				} catch (Exception e) {
+					System.err.println("Andy Hacky Fail");
+				}
+			} else {
+				selectedTeam = teamListView.getSelectionModel().getSelectedItem();
+			}
+
 			GameState gs = new GameState(coachName, 0, selectedLeague, selectedTeam);
-			
 			RootViewController.show(gs);
 		});
 		
@@ -91,8 +103,7 @@ public class NewGameViewController implements Initializable, Observer {
 				
 				if (teams != null) teamListView.setItems(teams);
 				teamListView.getSelectionModel().clearSelection();
-//				System.out.println(String.format("%s has %d teams", newValue.getName(), newValue.getTeams().size()));
-//				if (newValue.getTeams().size() < 2) System.out.println("Less than 2 teams");
+				toggleDone();
 			}
 		});
 		
@@ -114,10 +125,6 @@ public class NewGameViewController implements Initializable, Observer {
 			@Override
 			public void changed(ObservableValue<? extends Team> observable,	Team oldValue, Team newValue) {
 				toggleDone();
-				if (newValue != null) {
-//					System.out.println(String.format("%s has %d players", newValue.getName(), newValue.getPlayers().size()));
-//					if (newValue.getPlayers().size() < 11) System.out.println("Less than 11 players");
-				}
 			}
 		});
 		
@@ -148,10 +155,13 @@ public class NewGameViewController implements Initializable, Observer {
 	 * 
 	 */
 	protected void toggleDone() {
-		if (teamListView.getSelectionModel().getSelectedItem() != null && coachNameTextField.getText().length() > 0)
+		// Als je Andy bent of gewoon een team en naam kiest mag je door
+		if ((leagueListView.getSelectionModel().getSelectedItem() != null && coachNameTextField.getText().equals("Andy Zaidman")) || 
+				(coachNameTextField.getText().length() > 0 && teamListView.getSelectionModel().getSelectedItem() != null)) {
 			doneButton.setDisable(false);
-		else
+		} else {
 			doneButton.setDisable(true);
+		}
 	}
 
 	public static void show() {
