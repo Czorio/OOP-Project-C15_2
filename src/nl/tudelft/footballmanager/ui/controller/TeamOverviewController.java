@@ -189,6 +189,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				"Midfielder",
 				"Defender"));
 		
+		// TODO Selecting none should remove player from playingPlayers, update when selecting different player
 		curPosChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {

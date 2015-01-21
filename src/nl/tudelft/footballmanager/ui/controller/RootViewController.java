@@ -49,6 +49,8 @@ public class RootViewController implements Initializable, Observer {
 	@FXML private Label yourTeamNameLabel;
 	@FXML private Label leagueNameLabel;
 	
+	
+	// TODO make gamesWonLabel, gamesLostLabel, gamesDrawLabel and teamPosLabel work
 	@FXML private Label gamesPlayedLabel;
 	@FXML private Label gamesWonLabel;
 	@FXML private Label gamesLostLabel;
