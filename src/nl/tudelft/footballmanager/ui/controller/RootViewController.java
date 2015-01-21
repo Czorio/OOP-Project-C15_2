@@ -79,7 +79,7 @@ public class RootViewController implements Initializable, Observer {
 						this.setTextFill(Color.WHITE);
 					} else if (teamName.equals(gameState.getMyTeamName())) {
 						this.setText(teamName);
-						this.setTextFill(Color.RED);
+						this.setTextFill(Color.BLUE);
 					} else {
 						this.setText(teamName);
 						this.setTextFill(Color.BLACK);
