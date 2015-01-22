@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -128,6 +129,8 @@ public class TeamOverviewController implements Initializable, Observer {
 				update(otherSelectedPlayer, null);
 			}
 		});
+		
+		
 
 		SimpleStringProperty isTransfer = null;
 		if(MarketplaceLogic.isTransferWindow(gameState.getGameRound())) {
@@ -138,16 +141,20 @@ public class TeamOverviewController implements Initializable, Observer {
 
 		transferWindowLabel.textProperty().bind(isTransfer);
 		transferWindowLabel1.textProperty().bind(isTransfer);
+		
+		
 
 		// Get the amount of players of your team that are currently playing
 		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
 		placedPlayersLabel.textProperty().bind(new SimpleIntegerProperty(fielded).asString());
+		
+		
 
 		sellYourPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
 		buyOtherPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
 
 		curPosChoiceBox.setItems(FXCollections.observableArrayList(
-				"None",
+				null,
 				"Goalkeeper",
 				"Attacker",
 				"Midfielder",
@@ -273,6 +280,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				def.set(yourSelectedPlayer.getDefensive());
 				stamina.set(yourSelectedPlayer.getStamina());
 				price.set(yourSelectedPlayer.getPrice());
+				curPosChoiceBox.getSelectionModel().select(yourSelectedPlayer.getCurPosition());
 			} catch (NullPointerException e) {
 				name.set(null);
 				position.set(null);
@@ -300,6 +308,8 @@ public class TeamOverviewController implements Initializable, Observer {
 				otherTeam.set(null);
 			}
 		}
+		
+		yourPlayerTableView.sort();
 	}
 
 	/**
