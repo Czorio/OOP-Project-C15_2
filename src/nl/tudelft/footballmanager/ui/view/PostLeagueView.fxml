@@ -6,8 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane prefHeight="560.0" prefWidth="589.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="nl.tudelft.footballmanager.ui.controller.PostLeagueViewController">
+<AnchorPane prefHeight="560.0" prefWidth="589.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="nl.tudelft.footballmanager.ui.controller.PostLeagueViewController">
    <children>
       <StackPane layoutX="179.0" layoutY="14.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="14.0">
          <children>
@@ -44,7 +43,7 @@
          <columns>
             <TableColumn fx:id="leaguePosTableColumn" prefWidth="33.000001549720764" text="#" />
             <TableColumn fx:id="leagueTeamTableColumn" prefWidth="387.0" text="Team" />
-            <TableColumn fx:id="leagieScoreTableColumn" prefWidth="93.0" text="Score" />
+            <TableColumn fx:id="leagueScoreTableColumn" prefWidth="93.0" text="Score" />
          </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
