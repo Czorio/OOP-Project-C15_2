@@ -10,9 +10,6 @@ import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
-import com.sun.org.apache.bcel.internal.generic.RETURN;
-
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -43,7 +40,7 @@ import nl.tudelft.footballmanager.model.logic.TeamLogic;
  *
  */
 public class TeamOverviewController implements Initializable, Observer {
-	
+
 	private int fielded;
 
 	public final static String teamOverviewFileName = "ui/view/TeamOverview.fxml";
@@ -108,111 +105,14 @@ public class TeamOverviewController implements Initializable, Observer {
 	private Player yourSelectedPlayer = new Player();
 	private Player otherSelectedPlayer = new Player();
 	private static GameState gameState = new GameState();
-	
-	SimpleListProperty<Player> yourPlayers = null;
 
-	@Override
-	public void update(Observable o, Object arg) {
-		
-		// TODO update your own fielded players upon change
-		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
-		
-		SimpleIntegerProperty inField = new SimpleIntegerProperty(fielded);
-		placedPlayersLabel.textProperty().bind(inField.asString());
-
-		if (yourSelectedPlayer == o) {
-			try {
-				name.set(yourSelectedPlayer.getFirstName().concat(" ").concat(yourSelectedPlayer.getLastName()));
-				position.set(yourSelectedPlayer.getReadablePosition());
-				off.set(yourSelectedPlayer.getOffensive());
-				def.set(yourSelectedPlayer.getDefensive());
-				stamina.set(yourSelectedPlayer.getStamina());
-				price.set(yourSelectedPlayer.getPrice());
-			} catch (NullPointerException e) {
-				name.set(null);
-				position.set(null);
-				off.set(0);
-				def.set(0);
-				stamina.set(0);
-				price.set(0);
-			}
-		} else if (otherSelectedPlayer == o) {
-			try {
-				otherName.set(otherSelectedPlayer.getFirstName().concat(" ").concat(otherSelectedPlayer.getLastName()));
-				otherPosition.set(otherSelectedPlayer.getReadablePosition());
-				otherOff.set(otherSelectedPlayer.getOffensive());
-				otherDef.set(otherSelectedPlayer.getDefensive());
-				otherStamina.set(otherSelectedPlayer.getStamina());
-				otherPrice.set(otherSelectedPlayer.getPrice());
-				otherTeam.set(otherSelectedPlayer.getClub());
-			} catch (NullPointerException e) {
-				otherName.set(null);
-				otherPosition.set(null);
-				otherOff.set(0);
-				otherDef.set(0);
-				otherStamina.set(0);
-				otherPrice.set(0);
-				otherTeam.set(null);
-			}
-		}
-	}
+	SimpleListProperty<Player> yourPlayers = new SimpleListProperty<Player>();
+	SimpleListProperty<Player> otherPlayers = new SimpleListProperty<Player>();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		// Get the amount of players of your team that are currently playing
-		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
+		gameState.addObserver(this);
 		
-		SimpleIntegerProperty inField = new SimpleIntegerProperty(fielded);
-		placedPlayersLabel.textProperty().bind(inField.asString());
-		
-		
-		SimpleStringProperty isTransfer = null;
-		if(MarketplaceLogic.isTransferWindow(gameState.getGameRound())) {
-			isTransfer = new SimpleStringProperty("Open");
-		} else {
-			isTransfer = new SimpleStringProperty("Closed");
-		}
-		
-		transferWindowLabel.textProperty().bind(isTransfer);
-		transferWindowLabel1.textProperty().bind(isTransfer);
-		
-		
-		sellYourPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
-		buyOtherPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
-		
-		yourPlayers = new SimpleListProperty<Player>(FXCollections.observableList(gameState.getMyTeam().getPlayers()));
-
-		curPosChoiceBox.setItems(FXCollections.observableArrayList(
-				"None",
-				"Goalkeeper",
-				"Attacker",
-				"Midfielder",
-				"Defender"));
-		
-		// TODO Selecting none should remove player from playingPlayers, update when selecting different player
-		curPosChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-			@Override
-			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
-				yourPlayerTableView.getSelectionModel().getSelectedItem().setCurPosition(newValue);
-				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
-				
-				/*if(newValue == "None") {
-					decreaseFielded();
-				} else {
-					increaseFielded();
-				}*/
-			}
-		});
-
-		sellYourPlayerButton.setOnAction((event) -> {
-			String p = yourSelectedPlayer.getFirstName() + " " + yourSelectedPlayer.getLastName();
-			
-			// TODO implement selling player, sells to 3rd team in league now
-			boolean res = MarketplaceLogic.transferPlayer(yourSelectedPlayer.getTeam(), gameState.getLeague().getTeams().get(3), yourSelectedPlayer, 1);
-			System.out.println("SELLING " + p + (res == true ? " succeeded!" : " failed"));
-		});
-
 		yourPlayerTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Player>() {
 			@Override
 			public void changed(ObservableValue<? extends Player> observable, Player oldValue, Player newValue) {
@@ -228,28 +128,81 @@ public class TeamOverviewController implements Initializable, Observer {
 				update(otherSelectedPlayer, null);
 			}
 		});
-		
-		otherPlayersTeamCol.setCellValueFactory((param) -> {
-			return new SimpleStringProperty(param.getValue().getClub());
-		}); 
 
-		bindYourPlayerStats();
-		bindOtherPlayerStats();
-
-		yourPlayerTableView.itemsProperty().bind(yourPlayers);
-		yourPlayerTableView.getSelectionModel().select(0);
-
-		gameState.addObserver(this);
-		yourSelectedPlayer.addObserver(this);
-
-		ObservableList<Player> otherPlayers = FXCollections.observableList(new ArrayList<Player>());
-		for (Team t : gameState.getLeague().getTeams()) {
-			if (t == gameState.getMyTeam()) continue;
-			otherPlayers.addAll(t.getPlayers());
+		SimpleStringProperty isTransfer = null;
+		if(MarketplaceLogic.isTransferWindow(gameState.getGameRound())) {
+			isTransfer = new SimpleStringProperty("Open");
+		} else {
+			isTransfer = new SimpleStringProperty("Closed");
 		}
 
-		otherPlayersTableView.setItems(otherPlayers);
-		//		System.out.println(otherPlayers);
+		transferWindowLabel.textProperty().bind(isTransfer);
+		transferWindowLabel1.textProperty().bind(isTransfer);
+
+		// Get the amount of players of your team that are currently playing
+		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
+		placedPlayersLabel.textProperty().bind(new SimpleIntegerProperty(fielded).asString());
+
+		sellYourPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
+		buyOtherPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
+
+		curPosChoiceBox.setItems(FXCollections.observableArrayList(
+				"None",
+				"Goalkeeper",
+				"Attacker",
+				"Midfielder",
+				"Defender"));
+
+		// TODO Selecting none should remove player from playingPlayers, update when selecting different player
+		curPosChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
+			@Override
+			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
+				yourPlayerTableView.getSelectionModel().getSelectedItem().setCurPosition(newValue);
+				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
+
+				/*if(newValue == "None") {
+					decreaseFielded();
+				} else {
+					increaseFielded();
+				}*/
+			}
+		});
+
+		sellYourPlayerButton.setOnAction((event) -> {
+			String p = yourSelectedPlayer.getFirstName() + " " + yourSelectedPlayer.getLastName();
+
+			// TODO implement selling player, sells to 3rd team in league now
+			boolean res = MarketplaceLogic.transferPlayer(yourSelectedPlayer.getTeam(), gameState.getLeague().getTeams().get(3), yourSelectedPlayer, 1);
+			System.out.println("SELLING " + p + (res == true ? " succeeded!" : " failed"));
+		});
+
+		otherPlayersTeamCol.setCellValueFactory((param) -> {
+			return new SimpleStringProperty(param.getValue().getClub());
+		});
+		
+		this.new PlayersLoader().start();
+	}
+
+	class PlayersLoader extends Thread {
+		public void run() {
+			bindYourPlayerStats();
+			bindOtherPlayerStats();
+
+			ObservableList<Player> observablePlayers = FXCollections.observableList(gameState.getMyTeam().getPlayers());
+			yourPlayers = new SimpleListProperty<Player>(observablePlayers);
+			yourPlayerTableView.itemsProperty().bind(yourPlayers);
+			yourPlayerTableView.getSelectionModel().select(0);
+
+			ObservableList<Player> otherObservablePlayers = FXCollections.observableList(new ArrayList<Player>());
+			for (Team t : gameState.getLeague().getTeams()) {
+				if (t == gameState.getMyTeam()) continue;
+				otherObservablePlayers.addAll(t.getPlayers());
+			}
+			otherPlayers = new SimpleListProperty<Player>(otherObservablePlayers);
+			otherPlayersTableView.itemsProperty().bind(otherPlayers);
+			otherPlayersTableView.getSelectionModel().select(0);
+		}
 	}
 
 	/**
@@ -303,6 +256,52 @@ public class TeamOverviewController implements Initializable, Observer {
 		}
 	}
 
+	@Override
+	public void update(Observable o, Object arg) {
+
+		// TODO update your own fielded players upon change
+		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
+
+		SimpleIntegerProperty inField = new SimpleIntegerProperty(fielded);
+		placedPlayersLabel.textProperty().bind(inField.asString());
+
+		if (yourSelectedPlayer == o) {
+			try {
+				name.set(yourSelectedPlayer.getFirstName().concat(" ").concat(yourSelectedPlayer.getLastName()));
+				position.set(yourSelectedPlayer.getReadablePosition());
+				off.set(yourSelectedPlayer.getOffensive());
+				def.set(yourSelectedPlayer.getDefensive());
+				stamina.set(yourSelectedPlayer.getStamina());
+				price.set(yourSelectedPlayer.getPrice());
+			} catch (NullPointerException e) {
+				name.set(null);
+				position.set(null);
+				off.set(0);
+				def.set(0);
+				stamina.set(0);
+				price.set(0);
+			}
+		} else if (otherSelectedPlayer == o) {
+			try {
+				otherName.set(otherSelectedPlayer.getFirstName().concat(" ").concat(otherSelectedPlayer.getLastName()));
+				otherPosition.set(otherSelectedPlayer.getReadablePosition());
+				otherOff.set(otherSelectedPlayer.getOffensive());
+				otherDef.set(otherSelectedPlayer.getDefensive());
+				otherStamina.set(otherSelectedPlayer.getStamina());
+				otherPrice.set(otherSelectedPlayer.getPrice());
+				otherTeam.set(otherSelectedPlayer.getClub());
+			} catch (NullPointerException e) {
+				otherName.set(null);
+				otherPosition.set(null);
+				otherOff.set(0);
+				otherDef.set(0);
+				otherStamina.set(0);
+				otherPrice.set(0);
+				otherTeam.set(null);
+			}
+		}
+	}
+
 	/**
 	 * @return the yourSelectedPlayer
 	 */
@@ -316,7 +315,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	public static GameState getGameState() {
 		return gameState;
 	}
-	
+
 	private void decreaseFielded() {
 		if (fielded > 0) {
 			fielded--;
@@ -324,7 +323,7 @@ public class TeamOverviewController implements Initializable, Observer {
 			fielded = 0;
 		}
 	}
-	
+
 	private void increaseFielded() {
 		if(fielded < 11) {
 			fielded++;

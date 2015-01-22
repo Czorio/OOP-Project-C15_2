@@ -57,6 +57,9 @@ public class NewGameViewController implements Initializable, Observer {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
+		this.new LeaguesLoader().start();
+		doneButton.setDisable(true);
+		
 		// default coach name is username
 		coachNameTextField.setText(System.getProperty("user.name"));
 		
@@ -138,9 +141,6 @@ public class NewGameViewController implements Initializable, Observer {
 				toggleDone();
 			}
 		});
-		
-		this.new LeaguesLoader().start();
-		doneButton.setDisable(true);
 	}
 	
 	class LeaguesLoader extends Thread {
