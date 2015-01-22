@@ -113,7 +113,7 @@ public class GameLogic {
 
 		//Match starts here
 		for (int i = 1; i <= (90 + extraTime); i++) {
-			if ((homeScoreChance - awayScoreChance) + generateRandom(100, 200) > homeScoreChance 
+			if ((homeScoreChance - awayScoreChance) + generateRandom(100, 200) > awayScoreChance 
 					&& homeGoals < 10 
 					&& lastGoal >= randomInterval 
 					&& generateRandom(0, 30) == 9) {
@@ -127,7 +127,7 @@ public class GameLogic {
 				matchResult.addHomeGoal(i, arnold);
 			}
 
-			if ((awayScoreChance - homeScoreChance) + generateRandom(100, 200) > awayScoreChance 
+			if ((awayScoreChance - homeScoreChance) + generateRandom(100, 200) > homeScoreChance 
 					&& awayGoals < 10 
 					&& lastGoal >= randomInterval 
 					&& generateRandom(0, 30) == 9) {
