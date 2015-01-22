@@ -130,7 +130,12 @@ public class RootViewController implements Initializable, Observer {
 		});
 
 		nextRoundButton.setOnAction((event) -> {
-			PostMatchViewController.show(gameState);
+			if (gameState.getMatchScheme().matchDayExists(gameState.getGameRound() + 1)) {
+				System.out.println(gameState.getMatchScheme().getMatchdays());
+				PostMatchViewController.show(gameState);
+			} else {
+				PostLeagueViewController.show(gameState);
+			}
 		});
 
 		// Save and Quit to Menu

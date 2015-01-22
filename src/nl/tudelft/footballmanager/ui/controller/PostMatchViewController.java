@@ -102,10 +102,15 @@ public class PostMatchViewController implements Initializable, Observer {
 		}
 
 		continueButton.setOnAction((event) -> {
-			// After the match, players will be trasfered, so they will be visible when the RootViewController is showed.
-			MarketplaceLogic.RandomPlayerTransfer(gameState.getGameRound(), gameState.getLeague(), gameState.getMyTeam());
+			if (gameState.getMatchScheme().matchDayExists(gameState.getGameRound() + 1)) {
+				System.out.println("Next: " + gameState.getMatchScheme().getMatchDay(gameState.getGameRound() + 1));
 
-			RootViewController.show(gameState);
+				// After the match, players will be trasfered, so they will be visible when the RootViewController is showed.
+				MarketplaceLogic.RandomPlayerTransfer(gameState.getGameRound(), gameState.getLeague(), gameState.getMyTeam());
+				RootViewController.show(gameState);
+			} else {
+				PostLeagueViewController.show(gameState);
+			}
 
 
 		});
