@@ -45,11 +45,11 @@ public class GameLogic {
 
 		for(Match m : todaysMatches) {		
 			if(m.getHome().equals(gs.getMyTeam())) {
-				TeamLogic.createAIActivePlayers(m.getHome()); //TODO Seperate appproach for playerteam
+				TeamLogic.createActivePlayers(m.getHome()); //TODO Seperate appproach for playerteam
 				TeamLogic.createAIActivePlayers(m.getAway());
 			} else if (m.getAway().equals(gs.getMyTeam())) {
 				TeamLogic.createAIActivePlayers(m.getHome());
-				TeamLogic.createAIActivePlayers(m.getAway()); //TODO seperate approach for playerteam
+				TeamLogic.createActivePlayers(m.getAway()); //TODO seperate approach for playerteam
 			} else {
 				TeamLogic.createAIActivePlayers(m.getHome());
 				TeamLogic.createAIActivePlayers(m.getAway());
