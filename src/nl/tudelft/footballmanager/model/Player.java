@@ -2,6 +2,8 @@ package nl.tudelft.footballmanager.model;
 import java.util.Date;
 import java.util.Observable;
 
+import javafx.beans.property.SimpleStringProperty;
+
 /**
  * Player class.
  *
@@ -25,7 +27,7 @@ public class Player extends Observable {
 	private String nationality;
 	private Date dateOfBirth;
 	private String position;
-	private String curPosition;
+	private SimpleStringProperty curPosition;
 	private int pace;
 	private int shooting;
 	private int passing;
@@ -63,7 +65,7 @@ public class Player extends Observable {
 		this.nationality = nationality;
 		this.dateOfBirth = dateOfBirth;
 		this.position = position;
-		//this.curPosition = curPosition;
+		this.curPosition = new SimpleStringProperty();
 		this.pace = pace;
 		this.shooting = shooting;
 		this.passing = passing;
@@ -89,7 +91,7 @@ public class Player extends Observable {
 		this.nationality = null;
 		this.dateOfBirth = null;
 		this.position = null;
-		this.curPosition = null;
+		this.curPosition = new SimpleStringProperty();
 		this.pace = 0;
 		this.shooting = 0;
 		this.passing = 0;
@@ -109,7 +111,7 @@ public class Player extends Observable {
 	 * A completely empty Player object.
 	 */
 	public Player() {
-		
+		this.curPosition = new SimpleStringProperty();
 	}
 
 	/**
@@ -344,22 +346,31 @@ public class Player extends Observable {
 	public String getCurPosition(){
 		if (curPosition == null) {
 			return null;
-		} else if (curPosition.equals("ST") || curPosition.equals("CF") || curPosition.equals("LW") || curPosition.equals("RW") || curPosition.equals("Attacker")) {
-			return "Attacker";
-		} else if (curPosition.equals("CM") || curPosition.equals("CDM") || curPosition.equals("CAM")
-				|| curPosition.equals("RM")
-				|| curPosition.equals("LM") || curPosition.equals("Midfielder")) {
-			return "Midfielder";
-		} else if (curPosition.equals("CB") || curPosition.equals("RB") || curPosition.equals("LB")
-				|| curPosition.equals("Defender")) {
-			return "Defender";
-		} else if (curPosition.equals("GK") || curPosition.equals("Goalkeeper")) {
-			return "Goalkeeper";
-		} else if (curPosition.equals("None")){
-			return "None";
 		} else {
-			return null;
+			return curPosition.get();
 		}
+//		if (curPosition == null) {
+//			return null;
+//		} else if (curPosition.equals("ST") || curPosition.equals("CF") || curPosition.equals("LW") || curPosition.equals("RW") || curPosition.equals("Attacker")) {
+//			return "Attacker";
+//		} else if (curPosition.equals("CM") || curPosition.equals("CDM") || curPosition.equals("CAM")
+//				|| curPosition.equals("RM")
+//				|| curPosition.equals("LM") || curPosition.equals("Midfielder")) {
+//			return "Midfielder";
+//		} else if (curPosition.equals("CB") || curPosition.equals("RB") || curPosition.equals("LB")
+//				|| curPosition.equals("Defender")) {
+//			return "Defender";
+//		} else if (curPosition.equals("GK") || curPosition.equals("Goalkeeper")) {
+//			return "Goalkeeper";
+//		} else if (curPosition.equals("None")){
+//			return "None";
+//		} else {
+//			return "FOUT";
+//		}
+	}
+	
+	public SimpleStringProperty curPositionProperty() {
+		return curPosition;
 	}
 
 	/**
@@ -367,7 +378,7 @@ public class Player extends Observable {
 	 * @param curPosition The current position to set.
 	 */
 	public void setCurPosition(String curPosition) {
-		this.curPosition = curPosition;
+		this.curPosition.set(curPosition);
 
 		this.setChanged();
 		this.notifyObservers(this);

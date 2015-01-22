@@ -23,7 +23,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
@@ -113,12 +112,32 @@ public class TeamOverviewController implements Initializable, Observer {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		gameState.addObserver(this);
-		
+
 		yourPlayerTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Player>() {
 			@Override
 			public void changed(ObservableValue<? extends Player> observable, Player oldValue, Player newValue) {
 				yourSelectedPlayer = newValue;
 				update(yourSelectedPlayer, null);
+
+//				if (yourSelectedPlayer != null) {
+//					switch (yourSelectedPlayer.getCurPosition()) {
+//					case "Goalkeeper":
+//						curPosChoiceBox.getSelectionModel().select(1);
+//						break;
+//					case "Attacker":
+//						curPosChoiceBox.getSelectionModel().select(2);
+//						break;
+//					case "Midfielder":
+//						curPosChoiceBox.getSelectionModel().select(3);
+//						break;
+//					case "Defender":
+//						curPosChoiceBox.getSelectionModel().select(4);
+//						break;
+//					default:
+//						curPosChoiceBox.getSelectionModel().select(0);
+//						break;
+//					}
+//				}
 			}
 		});
 
@@ -129,8 +148,8 @@ public class TeamOverviewController implements Initializable, Observer {
 				update(otherSelectedPlayer, null);
 			}
 		});
-		
-		
+
+
 
 		SimpleStringProperty isTransfer = null;
 		if(MarketplaceLogic.isTransferWindow(gameState.getGameRound())) {
@@ -141,14 +160,14 @@ public class TeamOverviewController implements Initializable, Observer {
 
 		transferWindowLabel.textProperty().bind(isTransfer);
 		transferWindowLabel1.textProperty().bind(isTransfer);
-		
-		
+
+
 
 		// Get the amount of players of your team that are currently playing
 		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
 		placedPlayersLabel.textProperty().bind(new SimpleIntegerProperty(fielded).asString());
-		
-		
+
+
 
 		sellYourPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
 		buyOtherPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
@@ -159,6 +178,8 @@ public class TeamOverviewController implements Initializable, Observer {
 				"Attacker",
 				"Midfielder",
 				"Defender"));
+		
+//		curPosChoiceBox.valueProperty().bindBidirectional(yourSelectedPlayer.curPositionProperty());
 
 		// TODO Selecting none should remove player from playingPlayers, update when selecting different player
 		curPosChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
@@ -187,7 +208,7 @@ public class TeamOverviewController implements Initializable, Observer {
 		otherPlayersTeamCol.setCellValueFactory((param) -> {
 			return new SimpleStringProperty(param.getValue().getClub());
 		});
-		
+
 		this.new PlayersLoader().start();
 	}
 
@@ -199,7 +220,7 @@ public class TeamOverviewController implements Initializable, Observer {
 			ObservableList<Player> observablePlayers = FXCollections.observableList(gameState.getMyTeam().getPlayers());
 			yourPlayers = new SimpleListProperty<Player>(observablePlayers);
 			yourPlayerTableView.itemsProperty().bind(yourPlayers);
-			yourPlayerTableView.getSelectionModel().select(0);
+			yourPlayerTableView.getSelectionModel().selectFirst();
 
 			ObservableList<Player> otherObservablePlayers = FXCollections.observableList(new ArrayList<Player>());
 			for (Team t : gameState.getLeague().getTeams()) {
@@ -208,7 +229,7 @@ public class TeamOverviewController implements Initializable, Observer {
 			}
 			otherPlayers = new SimpleListProperty<Player>(otherObservablePlayers);
 			otherPlayersTableView.itemsProperty().bind(otherPlayers);
-			otherPlayersTableView.getSelectionModel().select(0);
+			otherPlayersTableView.getSelectionModel().selectFirst();
 		}
 	}
 
@@ -280,6 +301,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				def.set(yourSelectedPlayer.getDefensive());
 				stamina.set(yourSelectedPlayer.getStamina());
 				price.set(yourSelectedPlayer.getPrice());
+//				curPosChoiceBox.getSelectionModel().select(curPosChoiceBox.getItems().indexOf(yourSelectedPlayer.getCurPosition()));
 				curPosChoiceBox.getSelectionModel().select(yourSelectedPlayer.getCurPosition());
 			} catch (NullPointerException e) {
 				name.set(null);
@@ -308,7 +330,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				otherTeam.set(null);
 			}
 		}
-		
+
 		yourPlayerTableView.sort();
 	}
 
