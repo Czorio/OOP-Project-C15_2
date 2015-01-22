@@ -32,7 +32,6 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
-import nl.tudelft.footballmanager.model.Match;
 import nl.tudelft.footballmanager.model.Team;
 
 /**
@@ -98,8 +97,26 @@ public class RootViewController implements Initializable, Observer {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
+		gameState.addObserver(this);
+
+		SimpleIntegerProperty round = new SimpleIntegerProperty(gameState.getGameRound());
+		gamesPlayed.textProperty().bind(round.asString());
+		gamesPlayedLabel.textProperty().bind(round.asString());
+
+		SimpleIntegerProperty balance = new SimpleIntegerProperty(gameState.getMyTeam().getBudget());
+		teamBalanceLabel.textProperty().bind(balance.asString());
+
+		Map<Team, Integer> scores = gameState.getOverallScores();
+		System.out.println("Scores: " + scores);
+		leagueScoreboardTableView.setItems(FXCollections.observableList(gameState.getLeague().getTeams()));
+		
 		leagueNameLabel.setText(gameState.getLeagueName());
 		yourTeamNameLabel.setText(gameState.getMyTeamName());
+		
+		int scoreInt = (scores.get(gameState.getMyTeam()) != null ? scores.get(gameState.getMyTeam()) : 0);
+		leaguePointsLabel.textProperty().bind(new SimpleIntegerProperty(scoreInt).asString());
+		sidebarAccordion.setExpandedPane(sidebarAccordion.getPanes().get(2));
+		leagueTeamTableColumn.setCellFactory(highlightMyTeam);
 
 		saveGameButton.setOnAction((event) -> {
 			boolean result = saveGame(gameState);
@@ -156,21 +173,7 @@ public class RootViewController implements Initializable, Observer {
 			System.out.println("Quit to Desktop!");
 		});
 
-		gameState.addObserver(this);
-
-		SimpleIntegerProperty round = new SimpleIntegerProperty(gameState.getGameRound());
-		gamesPlayed.textProperty().bind(round.asString());
-		gamesPlayedLabel.textProperty().bind(round.asString());
-
-		SimpleIntegerProperty balance = new SimpleIntegerProperty(gameState.getMyTeam().getBudget());
-		teamBalanceLabel.textProperty().bind(balance.asString());
-
-		Map<Team, Integer> scores = gameState.getOverallScores();
-		System.out.println("Scores: " + scores);
-		leagueScoreboardTableView.setItems(FXCollections.observableList(gameState.getLeague().getTeams()));
-
 		leagueScoreTableColumn.setCellValueFactory(new Callback<CellDataFeatures<Team, Integer>, ObservableValue<Integer>>() {
-
 			@Override
 			public ObservableValue<Integer> call(CellDataFeatures<Team, Integer> param) {
 				Integer score = scores.get(param.getValue());
@@ -178,10 +181,9 @@ public class RootViewController implements Initializable, Observer {
 					return new SimpleIntegerProperty(0).asObject();
 				return new SimpleIntegerProperty(score).asObject();
 			}
-
 		});
 
-		leagueScoreboardTableView.sortPolicyProperty().set( new Callback<TableView<Team>, Boolean>() {
+		leagueScoreboardTableView.sortPolicyProperty().set(new Callback<TableView<Team>, Boolean>() {
 			@Override
 			public Boolean call(TableView<Team> param) {
 				Comparator<Team> comparator = new Comparator<Team>() {
@@ -207,14 +209,6 @@ public class RootViewController implements Initializable, Observer {
 				return true;
 			}
 		});
-
-		int scoreInt = (scores.get(gameState.getMyTeam()) != null ? scores.get(gameState.getMyTeam()) : 0);
-
-		leaguePointsLabel.textProperty().bind(new SimpleIntegerProperty(scoreInt).asString());
-
-		sidebarAccordion.setExpandedPane(sidebarAccordion.getPanes().get(2));
-		
-		leagueTeamTableColumn.setCellFactory(highlightMyTeam);
 	}
 
 	public static void show(GameState gs) {
