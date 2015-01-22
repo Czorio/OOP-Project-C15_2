@@ -185,9 +185,9 @@ public class TeamOverviewController implements Initializable, Observer {
 		curPosChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
+//				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
 				yourPlayerTableView.getSelectionModel().getSelectedItem().setCurPosition(newValue);
-				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
+//				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
 
 				/*if(newValue == "None") {
 					decreaseFielded();
