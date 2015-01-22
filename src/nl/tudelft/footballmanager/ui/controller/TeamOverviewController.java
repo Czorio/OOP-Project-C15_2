@@ -41,7 +41,7 @@ import nl.tudelft.footballmanager.model.logic.TeamLogic;
  */
 public class TeamOverviewController implements Initializable, Observer {
 
-	private int fielded;
+	//private static int fielded;
 
 	public final static String teamOverviewFileName = "ui/view/TeamOverview.fxml";
 
@@ -164,7 +164,7 @@ public class TeamOverviewController implements Initializable, Observer {
 
 
 		// Get the amount of players of your team that are currently playing
-		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
+		int fielded = gameState.getMyTeam().getPlayingPlayers();
 		placedPlayersLabel.textProperty().bind(new SimpleIntegerProperty(fielded).asString());
 
 
@@ -194,6 +194,14 @@ public class TeamOverviewController implements Initializable, Observer {
 				} else {
 					increaseFielded();
 				}*/
+				if(newValue == null) {
+					gameState.getMyTeam().decreasePlayingPlayers();
+					update(null, null);
+				} else {
+					gameState.getMyTeam().increasePlayingPlayers();
+					update(null, null);
+				}
+				
 			}
 		});
 
@@ -288,7 +296,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	public void update(Observable o, Object arg) {
 
 		// TODO update your own fielded players upon change
-		fielded = TeamLogic.getPlayingPlayersPerTeam(gameState.getMyTeam()).size();
+		 int fielded = gameState.getMyTeam().getPlayingPlayers();
 
 		SimpleIntegerProperty inField = new SimpleIntegerProperty(fielded);
 		placedPlayersLabel.textProperty().bind(inField.asString());
@@ -330,8 +338,6 @@ public class TeamOverviewController implements Initializable, Observer {
 				otherTeam.set(null);
 			}
 		}
-
-		yourPlayerTableView.sort();
 	}
 
 	/**
@@ -348,7 +354,7 @@ public class TeamOverviewController implements Initializable, Observer {
 		return gameState;
 	}
 
-	private void decreaseFielded() {
+	/*private void decreaseFielded() {
 		if (fielded > 0) {
 			fielded--;
 		} else {
@@ -362,5 +368,5 @@ public class TeamOverviewController implements Initializable, Observer {
 		} else {
 			fielded = 11;
 		}
-	}
+	} */
 }

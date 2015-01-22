@@ -13,6 +13,8 @@ import javafx.collections.ObservableList;
  *
  */
 public class Team extends Observable {
+	private int playingPlayers;
+	
 	private String name;
 	private ObservableList<Player> players;
 	private int budget;
@@ -31,6 +33,8 @@ public class Team extends Observable {
 		for (Player player : this.players) {
 			player.setTeam(this);
 		}
+		
+		this.playingPlayers = 0;
 
 		setChanged();
 		notifyObservers(this);
@@ -44,6 +48,7 @@ public class Team extends Observable {
 	 */
 	public Team(String name) {
 		this(name, new ArrayList<Player>());
+		this.playingPlayers = 0;
 	}
 
 	/**
@@ -254,5 +259,17 @@ public class Team extends Observable {
 	
 	public int getPlayerCount() {
 		return this.getPlayers().size();
+	}
+	
+	public void increasePlayingPlayers() {
+		playingPlayers++;
+	}
+	
+	public void decreasePlayingPlayers() {
+		playingPlayers--;
+	}
+	
+	public int getPlayingPlayers() {
+		return playingPlayers;
 	}
 }
