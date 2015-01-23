@@ -2,6 +2,11 @@ package nl.tudelft.footballmanager.model;
 import java.util.Date;
 import java.util.Observable;
 
+import javax.swing.JOptionPane;
+
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialogs;
+
 import javafx.beans.property.SimpleStringProperty;
 
 /**
@@ -378,10 +383,17 @@ public class Player extends Observable {
 	 * @param curPosition The current position to set.
 	 */
 	public void setCurPosition(String curPosition) {
-		this.curPosition.set(curPosition);
 
-		this.setChanged();
-		this.notifyObservers(this);
+		if(team.getPlayingPlayers() < 11) {
+			this.curPosition.set(curPosition);
+
+			this.setChanged();
+			this.notifyObservers(this);
+		} else {
+			System.out.println("Could not put player in field, fielded players is full");
+			
+			Action response = Dialogs.create().lightweight().title("Too many players!").message("Can't add players if 11 are already in the field!").showWarning();
+		}
 	}
 
 
