@@ -277,7 +277,14 @@ public class Team extends Observable {
 	 * @return
 	 */
 	public int getPlayingPlayers() {
-		return playingPlayers;
+		int playing = 0;
+		
+		for (Player player : players) {
+			if(player.getCurPosition() != null) {
+				playing++;
+			}
+		}
+		return playing;
 	}
 
 	/**
