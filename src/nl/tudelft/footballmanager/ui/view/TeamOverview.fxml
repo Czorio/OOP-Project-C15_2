@@ -105,7 +105,7 @@
       													</rowConstraints>
       													<children>
       														<Label text="Name:" />
-      														<Label text="Position:" GridPane.rowIndex="1" />
+      														<Label text="Preferential Position:" GridPane.rowIndex="1" />
       														<Label text="Off Score:" GridPane.rowIndex="2" />
       														<Label text="Def Score:" GridPane.rowIndex="3" />
       														<Label text="Stamina:" GridPane.rowIndex="4" />
@@ -232,7 +232,7 @@
 													</rowConstraints>
 													<children>
 														<Label text="Name:" />
-														<Label text="Position:" GridPane.rowIndex="1" />
+														<Label text="Preferential Position:" GridPane.rowIndex="1" />
 														<Label text="Off Score:" GridPane.rowIndex="2" />
 														<Label text="Def Score:" GridPane.rowIndex="3" />
 														<Label text="Stamina:" GridPane.rowIndex="4" />
