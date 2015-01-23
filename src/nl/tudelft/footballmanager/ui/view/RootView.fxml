@@ -33,11 +33,11 @@
         </ToolBar>
     </top>
     <right>
-        <SplitPane dividerPositions="0.7861356932153393" orientation="VERTICAL" prefHeight="680.0" prefWidth="333.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.7509" orientation="VERTICAL" prefHeight="680.0" prefWidth="333.0" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="272.0">
                <children>
-                  <TableView fx:id="leagueScoreboardTableView" layoutX="26.0" layoutY="76.0" prefHeight="416.0" prefWidth="303.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="76.0">
+                  <TableView fx:id="leagueScoreboardTableView" layoutX="26.0" layoutY="60.0" prefHeight="432.0" prefWidth="279.0" AnchorPane.bottomAnchor="14.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="60.0">
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
@@ -63,11 +63,9 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
-                  <Label layoutX="20.0" layoutY="59.0" text="League Scoreboard:" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="206.0" AnchorPane.topAnchor="55.0" />
-                  <Separator layoutX="66.0" layoutY="48.0" prefWidth="200.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="48.0" />
                </children>
                 </AnchorPane>
-                <AnchorPane maxHeight="150.0" minHeight="150.0" minWidth="0.0" prefHeight="150.0" prefWidth="331.0">
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <children>
                         <Button fx:id="nextRoundButton" layoutX="22.0" layoutY="75.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="148.0" text="To next gameday" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                         <HBox alignment="CENTER" layoutX="15.0" layoutY="31.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">

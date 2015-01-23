@@ -40,6 +40,10 @@ import nl.tudelft.footballmanager.model.logic.TeamLogic;
  *
  */
 public class TeamOverviewController implements Initializable, Observer {
+	
+	@FXML private Label gamesWonLabel;
+	@FXML private Label gamesLostLabel;
+	@FXML private Label gamesDrawLabel;
 
 	//private static int fielded;
 
@@ -112,6 +116,10 @@ public class TeamOverviewController implements Initializable, Observer {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		gameState.addObserver(this);
+		
+		gamesWonLabel.setText("" + gameState.getMyTeam().getGamesWon());
+		gamesLostLabel.setText("" + gameState.getMyTeam().getGamesLost());
+		gamesDrawLabel.setText("" + gameState.getMyTeam().getGamesDraw());
 
 		yourPlayerTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Player>() {
 			@Override
