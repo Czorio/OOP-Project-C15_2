@@ -166,6 +166,11 @@ public class GameLogic {
 		}
 		//Match ends here
 
+		homeIncome += 50000 + generateRandom(0, 100000);
+		awayIncome += 50000 + generateRandom(0, 100000);
+		home.alterBudget(homeIncome);
+		away.alterBudget(awayIncome);
+
 		//Set the matchIncome to the income of the current users' team.
 		if (home.equals(gs.getMyTeam())) {
 			matchIncome = homeIncome;
@@ -191,10 +196,6 @@ public class GameLogic {
 			away.setGamesPlayed(away.getGamesPlayed() + 1);
 		}
 		
-		homeIncome += 50000 + generateRandom(0, 100000);
-		awayIncome += 50000 + generateRandom(0, 100000);
-		home.alterBudget(homeIncome);
-		away.alterBudget(awayIncome);
 		
 		matchResult.setHomeScore(homeGoals);
 		matchResult.setAwayScore(awayGoals);
