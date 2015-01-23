@@ -323,7 +323,7 @@ public class Player extends Observable {
 		} else if (position.equals("CM") || position.equals("CDM") || position.equals("CAM")
 				|| position.equals("RM") || position.equals("LM") || position.equals("Midfielder")) {
 			return "Midfielder";
-		} else if (position.equals("CB") || position.equals("RB") || position.equals("LB")
+		} else if (position.equals("CB") || position.equals("RB") || position.equals("LB") || position.equals("LWB") || position.equals("RWB")
 				|| position.equals("Defender")) {
 			return "Defender";
 		} else if (position.equals("GK") || position.equals("Goalkeeper")) {
