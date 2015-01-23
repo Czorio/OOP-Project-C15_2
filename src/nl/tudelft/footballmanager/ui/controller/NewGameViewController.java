@@ -147,7 +147,7 @@ public class NewGameViewController implements Initializable, Observer {
 		public void run() {
 			List<League> leagues = League.readAll();
 			
-			ObservableList<League> checkedLeagues = FXCollections.observableArrayList(League.checkNumbersAndAddPrice(leagues, 2, 11));
+			ObservableList<League> checkedLeagues = FXCollections.observableArrayList(League.checkNumbersAndAddPrice(leagues, 3, 11));
 			FXCollections.sort(checkedLeagues, League.NAME_COMPARATOR);
 
 			leagueListView.setItems(checkedLeagues);
