@@ -101,7 +101,7 @@ public class RootViewController implements Initializable, Observer {
 
 		SimpleIntegerProperty round = new SimpleIntegerProperty(gameState.getGameRound());
 		gamesPlayed.textProperty().bind(round.asString());
-		gamesPlayedLabel.textProperty().bind(round.asString());
+		//gamesPlayedLabel.textProperty().bind(round.asString());
 
 		SimpleIntegerProperty balance = new SimpleIntegerProperty(gameState.getMyTeam().getBudget());
 		teamBalanceLabel.textProperty().bind(balance.asString());
@@ -113,9 +113,9 @@ public class RootViewController implements Initializable, Observer {
 		leagueNameLabel.setText(gameState.getLeagueName());
 		yourTeamNameLabel.setText(gameState.getMyTeamName());
 		
-		int scoreInt = (scores.get(gameState.getMyTeam()) != null ? scores.get(gameState.getMyTeam()) : 0);
-		leaguePointsLabel.textProperty().bind(new SimpleIntegerProperty(scoreInt).asString());
-		sidebarAccordion.setExpandedPane(sidebarAccordion.getPanes().get(2));
+		//int scoreInt = (scores.get(gameState.getMyTeam()) != null ? scores.get(gameState.getMyTeam()) : 0);
+		//leaguePointsLabel.textProperty().bind(new SimpleIntegerProperty(scoreInt).asString());
+		//sidebarAccordion.setExpandedPane(sidebarAccordion.getPanes().get(2));
 		leagueTeamTableColumn.setCellFactory(highlightMyTeam);
 
 		saveGameButton.setOnAction((event) -> {
