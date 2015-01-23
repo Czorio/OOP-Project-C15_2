@@ -9,18 +9,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
+ * Class to make a team.
  * @author Toine Hartman <tjbhartman@gmail.com>
- *
  */
 public class Team extends Observable {
-	private int playingPlayers;
+	private int playingPlayers; //TODO Remove bullshit? code
 	
 	private String name;
 	private ObservableList<Player> players;
-	private int budget;
+	private int budget, gamesWon, gamesDraw, gamesLost, gamesPlayed;
 
 	/**
-	 * Construct a name with given name and playerlist.
+	 * Construct a team with given name and playerlist.
 	 * 
 	 * @param name
 	 * @param players
@@ -29,6 +29,10 @@ public class Team extends Observable {
 		this.name = name;
 		this.players = FXCollections.observableList(players);
 		this.budget = 1000000;
+		this.gamesWon = 0;
+		this.gamesDraw = 0;
+		this.gamesLost = 0;
+		this.gamesPlayed = 0;
 
 		for (Player player : this.players) {
 			player.setTeam(this);
@@ -60,23 +64,12 @@ public class Team extends Observable {
 	public void alterBudget(int mutation) {
 		setBudget(getBudget() + mutation);
 	}
-
-	// Just an example
-//	public String toString() {
-//		String res = this.getName() + " (" + this.getBudget() + ") " + "\n";
-//		for (Player p : this.getPlayers()) {
-//			res += p.getFirstName() + " " + p.getLastName() + "\n";
-//		}
-//
-//		return res;
-//	}
 	
 	public String toString() {
 		return this.name;
 	}
 
 	public final static Comparator<Team> NAME_SORTER = new Comparator<Team>() {
-
 		@Override
 		public int compare(Team t1, Team t2) {
 			return t1.getName().compareToIgnoreCase(t2.getName());
@@ -257,19 +250,97 @@ public class Team extends Observable {
 		return certainPosition;
 	}
 	
+	/**
+	 * Gets the amount of players in the team.
+	 * @return The amount of players.
+	 */
 	public int getPlayerCount() {
 		return this.getPlayers().size();
 	}
 	
+	/**
+	 * Adds one player to the playingPlayers.
+	 */
 	public void increasePlayingPlayers() {
 		playingPlayers++;
 	}
 	
+	/**
+	 * Subtracts one from the playingPlayers.
+	 */
 	public void decreasePlayingPlayers() {
 		playingPlayers--;
 	}
 	
+	/**
+	 * Gets the amount of playingPlayers.
+	 * @return
+	 */
 	public int getPlayingPlayers() {
 		return playingPlayers;
+	}
+
+	/**
+	 * Gets the amount of games won.
+	 * @return Games won.
+	 */
+	public int getGamesWon() {
+		return gamesWon;
+	}
+
+	/**
+	 * Sets the amount of games won.
+	 * @param gamesWon The amount to set to.
+	 */
+	public void setGamesWon(int gamesWon) {
+		this.gamesWon = gamesWon;
+	}
+
+	/**
+	 * Gets the amount of games draw.
+	 * @return Games draw.
+	 */
+	public int getGamesDraw() {
+		return gamesDraw;
+	}
+
+	/**
+	 * Sets the amount of games draw.
+	 * @param gamesDraw The amount to set to.
+	 */
+	public void setGamesDraw(int gamesDraw) {
+		this.gamesDraw = gamesDraw;
+	}
+
+	/**
+	 * Gets the amount of games lost.
+	 * @return Games lost.
+	 */
+	public int getGamesLost() {
+		return gamesLost;
+	}
+
+	/**
+	 * Sets the amount of games lost.
+	 * @param gamesLost The amount to set.
+	 */
+	public void setGamesLost(int gamesLost) {
+		this.gamesLost = gamesLost;
+	}
+
+	/**
+	 * Gets the amount of games played.
+	 * @return Games played.
+	 */
+	public int getGamesPlayed() {
+		return gamesPlayed;
+	}
+
+	/**
+	 * Sets the amount of games played.
+	 * @param gamesPlayed The amount te set to.
+	 */
+	public void setGamesPlayed(int gamesPlayed) {
+		this.gamesPlayed = gamesPlayed;
 	}
 }

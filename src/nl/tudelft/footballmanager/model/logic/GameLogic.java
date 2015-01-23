@@ -166,12 +166,6 @@ public class GameLogic {
 		}
 		//Match ends here
 
-		matchResult.setHomeScore(homeGoals);
-		matchResult.setAwayScore(awayGoals);
-		
-		homeIncome += 50000 + generateRandom(0, 100000);
-		awayIncome += 50000 + generateRandom(0, 100000);
-		
 		//Set the matchIncome to the income of the current users' team.
 		if (home.equals(gs.getMyTeam())) {
 			matchIncome = homeIncome;
@@ -179,8 +173,31 @@ public class GameLogic {
 			matchIncome = awayIncome;
 		}
 		
+		//Sets the statistics for the teams that played the match.
+		if (homeGoals > awayGoals) {
+			home.setGamesWon(home.getGamesWon() + 1);
+			home.setGamesPlayed(home.getGamesPlayed() + 1);
+			away.setGamesLost(away.getGamesLost() + 1);
+			away.setGamesPlayed(away.getGamesPlayed() + 1);
+		} else if (homeGoals == awayGoals) {
+			home.setGamesDraw(home.getGamesDraw() + 1);
+			home.setGamesPlayed(home.getGamesPlayed() + 1);
+			away.setGamesDraw(away.getGamesDraw() + 1);
+			away.setGamesPlayed(away.getGamesPlayed() + 1);
+		} else if (homeGoals < awayGoals) {
+			home.setGamesLost(home.getGamesLost() + 1);
+			home.setGamesPlayed(home.getGamesPlayed() + 1);
+			away.setGamesWon(away.getGamesWon() + 1);
+			away.setGamesPlayed(away.getGamesPlayed() + 1);
+		}
+		
+		homeIncome += 50000 + generateRandom(0, 100000);
+		awayIncome += 50000 + generateRandom(0, 100000);
 		home.alterBudget(homeIncome);
 		away.alterBudget(awayIncome);
+		
+		matchResult.setHomeScore(homeGoals);
+		matchResult.setAwayScore(awayGoals);
 
 //		System.out.println("Final result: " + home.getName() + " " + homeGoals + " - " + awayGoals + " " + away.getName() + "\n");
 		return matchResult;
