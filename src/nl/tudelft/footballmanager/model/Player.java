@@ -354,24 +354,6 @@ public class Player extends Observable {
 		} else {
 			return curPosition.get();
 		}
-//		if (curPosition == null) {
-//			return null;
-//		} else if (curPosition.equals("ST") || curPosition.equals("CF") || curPosition.equals("LW") || curPosition.equals("RW") || curPosition.equals("Attacker")) {
-//			return "Attacker";
-//		} else if (curPosition.equals("CM") || curPosition.equals("CDM") || curPosition.equals("CAM")
-//				|| curPosition.equals("RM")
-//				|| curPosition.equals("LM") || curPosition.equals("Midfielder")) {
-//			return "Midfielder";
-//		} else if (curPosition.equals("CB") || curPosition.equals("RB") || curPosition.equals("LB")
-//				|| curPosition.equals("Defender")) {
-//			return "Defender";
-//		} else if (curPosition.equals("GK") || curPosition.equals("Goalkeeper")) {
-//			return "Goalkeeper";
-//		} else if (curPosition.equals("None")){
-//			return "None";
-//		} else {
-//			return "FOUT";
-//		}
 	}
 	
 	public SimpleStringProperty curPositionProperty() {
@@ -383,17 +365,10 @@ public class Player extends Observable {
 	 * @param curPosition The current position to set.
 	 */
 	public void setCurPosition(String curPosition) {
+		this.curPosition.set(curPosition);
 
-		if(team.getPlayingPlayers() < 11) {
-			this.curPosition.set(curPosition);
-
-			this.setChanged();
-			this.notifyObservers(this);
-		} else {
-			System.out.println("Could not put player in field, fielded players is full");
-			
-			Action response = Dialogs.create().lightweight().title("Too many players!").message("Can't add players if 11 are already in the field!").showWarning();
-		}
+		this.setChanged();
+		this.notifyObservers(this);
 	}
 
 

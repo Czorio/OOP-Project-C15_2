@@ -112,6 +112,8 @@ public class TeamOverviewController implements Initializable, Observer {
 
 	SimpleListProperty<Player> yourPlayers = new SimpleListProperty<Player>();
 	SimpleListProperty<Player> otherPlayers = new SimpleListProperty<Player>();
+	
+	SimpleIntegerProperty iFielded = new SimpleIntegerProperty();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -120,32 +122,20 @@ public class TeamOverviewController implements Initializable, Observer {
 		gamesWonLabel.setText("" + gameState.getMyTeam().getGamesWon());
 		gamesLostLabel.setText("" + gameState.getMyTeam().getGamesLost());
 		gamesDrawLabel.setText("" + gameState.getMyTeam().getGamesDraw());
+		
+		placedPlayersLabel.textProperty().bind(iFielded.asString());
 
 		yourPlayerTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Player>() {
 			@Override
 			public void changed(ObservableValue<? extends Player> observable, Player oldValue, Player newValue) {
 				yourSelectedPlayer = newValue;
 				update(yourSelectedPlayer, null);
-
-//				if (yourSelectedPlayer != null) {
-//					switch (yourSelectedPlayer.getCurPosition()) {
-//					case "Goalkeeper":
-//						curPosChoiceBox.getSelectionModel().select(1);
-//						break;
-//					case "Attacker":
-//						curPosChoiceBox.getSelectionModel().select(2);
-//						break;
-//					case "Midfielder":
-//						curPosChoiceBox.getSelectionModel().select(3);
-//						break;
-//					case "Defender":
-//						curPosChoiceBox.getSelectionModel().select(4);
-//						break;
-//					default:
-//						curPosChoiceBox.getSelectionModel().select(0);
-//						break;
-//					}
-//				}
+				
+				if (gameState.getMyTeam().getNumOfPlayingPlayers() >= 11 && yourSelectedPlayer.getCurPosition() == null) {
+					curPosChoiceBox.setDisable(true);
+				} else {
+					curPosChoiceBox.setDisable(false);
+				}
 			}
 		});
 
@@ -169,14 +159,6 @@ public class TeamOverviewController implements Initializable, Observer {
 		transferWindowLabel.textProperty().bind(isTransfer);
 		transferWindowLabel1.textProperty().bind(isTransfer);
 
-
-
-		// Get the amount of players of your team that are currently playing
-		int fielded = gameState.getMyTeam().getPlayingPlayers();
-		placedPlayersLabel.textProperty().bind(new SimpleIntegerProperty(fielded).asString());
-
-
-
 		sellYourPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
 		buyOtherPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
 
@@ -186,29 +168,17 @@ public class TeamOverviewController implements Initializable, Observer {
 				"Attacker",
 				"Midfielder",
 				"Defender"));
-		
-//		curPosChoiceBox.valueProperty().bindBidirectional(yourSelectedPlayer.curPositionProperty());
 
-		// TODO Selecting none should remove player from playingPlayers, update when selecting different player
 		curPosChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-//				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
-				yourPlayerTableView.getSelectionModel().getSelectedItem().setCurPosition(newValue);
-//				System.out.println(yourPlayerTableView.getSelectionModel().getSelectedItem());
-
-				/*if(newValue == "None") {
-					decreaseFielded();
+				if (gameState.getMyTeam().getNumOfPlayingPlayers() < 11) {
+					yourPlayerTableView.getSelectionModel().getSelectedItem().setCurPosition(newValue);
 				} else {
-					increaseFielded();
-				}*/
-				if(newValue == null) {
-					gameState.getMyTeam().decreasePlayingPlayers();
-					update(null, null);
-				} else {
-					gameState.getMyTeam().increasePlayingPlayers();
-					update(null, null);
+					// TODO display alert here
 				}
+				
+				iFielded.set(gameState.getMyTeam().getNumOfPlayingPlayers());
 				
 			}
 		});
@@ -303,12 +273,6 @@ public class TeamOverviewController implements Initializable, Observer {
 	@Override
 	public void update(Observable o, Object arg) {
 
-		// TODO update your own fielded players upon change
-		 int fielded = gameState.getMyTeam().getPlayingPlayers();
-
-		SimpleIntegerProperty inField = new SimpleIntegerProperty(fielded);
-		placedPlayersLabel.textProperty().bind(inField.asString());
-
 		if (yourSelectedPlayer == o) {
 			try {
 				name.set(yourSelectedPlayer.getFirstName().concat(" ").concat(yourSelectedPlayer.getLastName()));
@@ -361,20 +325,4 @@ public class TeamOverviewController implements Initializable, Observer {
 	public static GameState getGameState() {
 		return gameState;
 	}
-
-	/*private void decreaseFielded() {
-		if (fielded > 0) {
-			fielded--;
-		} else {
-			fielded = 0;
-		}
-	}
-
-	private void increaseFielded() {
-		if(fielded < 11) {
-			fielded++;
-		} else {
-			fielded = 11;
-		}
-	} */
 }
