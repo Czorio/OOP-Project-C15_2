@@ -221,14 +221,14 @@ public class League extends Observable {
 				for (Player p : t.getPlayers()) {
 					PlayerLogic.calculatePrice(p);
 				}
-				if (t.getPlayers().size() < 11) {
+				if (t.getPlayers().size() < minPlayers) {
 //					System.out.println(String.format("Team %s has %d players and is therefore ignored", t.getName(), t.getPlayers().size()));
 					numOfPlayersOnIndex[t.getPlayers().size()] += 1;
 					continue;
 				}
 				lCopy.addTeam(t);
 			}
-			if (lCopy.getTeams().size() < 2) {
+			if (lCopy.getTeams().size() < minTeams) {
 //				System.out.println(String.format("League %s has %d teams and is therefore ignored", lCopy.getName(), lCopy.getTeams().size()));
 				continue;
 			}
