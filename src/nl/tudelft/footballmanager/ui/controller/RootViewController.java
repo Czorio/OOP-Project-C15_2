@@ -11,6 +11,7 @@ import java.util.ResourceBundle;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -98,6 +99,14 @@ public class RootViewController implements Initializable, Observer {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		gameState.addObserver(this);
+		
+		if (TeamOverviewController.iFielded.intValue() >= 11) {
+			nextRoundButton.setDisable(false);
+			nextRoundButton.setText("To next gameday");
+		} else {
+			nextRoundButton.setDisable(true);
+			nextRoundButton.setText("Select 11 players to play with");
+		}
 
 		SimpleIntegerProperty round = new SimpleIntegerProperty(gameState.getGameRound());
 		gamesPlayed.textProperty().bind(round.asString());
@@ -117,6 +126,19 @@ public class RootViewController implements Initializable, Observer {
 		//leaguePointsLabel.textProperty().bind(new SimpleIntegerProperty(scoreInt).asString());
 		//sidebarAccordion.setExpandedPane(sidebarAccordion.getPanes().get(2));
 		leagueTeamTableColumn.setCellFactory(highlightMyTeam);
+		
+		TeamOverviewController.iFielded.addListener(new ChangeListener<Number>() {
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				if (newValue.intValue() >= 11) {
+					nextRoundButton.setDisable(false);
+					nextRoundButton.setText("To next gameday");
+				} else {
+					nextRoundButton.setDisable(true);
+					nextRoundButton.setText("Select 11 players to play with");
+				}
+			}
+		});
 
 		saveGameButton.setOnAction((event) -> {
 			boolean result = saveGame(gameState);

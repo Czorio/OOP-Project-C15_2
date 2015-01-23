@@ -33,7 +33,6 @@ import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
 import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
-import nl.tudelft.footballmanager.model.logic.TeamLogic;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -44,8 +43,6 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private Label gamesWonLabel;
 	@FXML private Label gamesLostLabel;
 	@FXML private Label gamesDrawLabel;
-
-	//private static int fielded;
 
 	public final static String teamOverviewFileName = "ui/view/TeamOverview.fxml";
 
@@ -113,7 +110,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	SimpleListProperty<Player> yourPlayers = new SimpleListProperty<Player>();
 	SimpleListProperty<Player> otherPlayers = new SimpleListProperty<Player>();
 	
-	SimpleIntegerProperty iFielded = new SimpleIntegerProperty();
+	public static SimpleIntegerProperty iFielded = new SimpleIntegerProperty();
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -147,8 +144,6 @@ public class TeamOverviewController implements Initializable, Observer {
 			}
 		});
 
-
-
 		SimpleStringProperty isTransfer = null;
 		if(MarketplaceLogic.isTransferWindow(gameState.getGameRound())) {
 			isTransfer = new SimpleStringProperty("Open");
@@ -172,10 +167,9 @@ public class TeamOverviewController implements Initializable, Observer {
 		curPosChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				if (gameState.getMyTeam().getNumOfPlayingPlayers() < 11) {
-					yourPlayerTableView.getSelectionModel().getSelectedItem().setCurPosition(newValue);
-				} else {
-					// TODO display alert here
+				// TODO add check for 1 goalkeeper
+				if (gameState.getMyTeam().getNumOfPlayingPlayers() < 11 || (gameState.getMyTeam().getNumOfPlayingPlayers() == 11 && yourSelectedPlayer.getCurPosition() != null)) {
+					yourSelectedPlayer.setCurPosition(newValue);
 				}
 				
 				iFielded.set(gameState.getMyTeam().getNumOfPlayingPlayers());
