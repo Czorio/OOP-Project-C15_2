@@ -59,7 +59,7 @@ public class GameStateTest {
 	public void testSetLeagueString() {
 		testGameState7.setLeague("Eredivisie");
 		assertEquals("Eredivisie", testGameState7.getLeagueName());
-		testGameState7.setLeague("Eredivisiee");
+		testGameState7.setLeague("Eredivisie");
 		assertEquals(null, testGameState7.getLeagueName());
 	}
 	
