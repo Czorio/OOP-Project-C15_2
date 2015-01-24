@@ -26,6 +26,8 @@ public class PlayerTest {
 	Player LW = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"LW",40,40,40,40,40,40);
 	Player RM = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"RM",40,40,40,40,40,40);
 	Player LM = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"LM",40,40,40,40,40,40);
+	Player LWB = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"LWB",40,40,40,40,40,40);
+	Player RWB = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"RWB",40,40,40,40,40,40);
 	Player Attacker = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"Attacker",40,40,40,40,40,40);
 	Player Midfielder = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"Midfielder",40,40,40,40,40,40);
 	Player Defender = new Player(1,"Test","Test","Ajax","Eredivisie","Dutch", new Date(1/1/2015),"Defender",40,40,40,40,40,40);
@@ -74,7 +76,7 @@ public class PlayerTest {
 		RW.setNationality(null);
 		CF.setCurPosition(null);
 		assertFalse(CB.equals(empTeam));
-		assertEquals(true,CB.equals(CB1));
+		assertEquals(false,CB.equals(CB1));
 		assertEquals(false,CB.equals(ST));
 		assertFalse(RW.equals(ST));
 		assertFalse(CF.equals(ST));
@@ -119,19 +121,14 @@ public class PlayerTest {
 		assertEquals(RB.getPosition(),"RB");
 		assertEquals(LB.getPosition(),"LB");
 		assertEquals(CB.getPosition(),"CB");
-		
 	}
 	
 	/**getReadablePosition Test 
 	 * 
 	 */
 	@Test
-	public void testGetReadablePosition(){
+	public void testGetReadablePositionCF(){
 		assertEquals(CF.getReadablePosition(),"Attacker");
-		assertEquals(ST.getReadablePosition(),"Attacker");
-		assertEquals(RW.getReadablePosition(),"Attacker");
-		assertEquals(CM.getReadablePosition(),"Midfielder");
-		assertEquals(CDM.getReadablePosition(),"Midfielder");
 		assertEquals(CAM.getReadablePosition(),"Midfielder");
 		assertEquals(LW.getReadablePosition(),"Attacker");
 		assertEquals(RM.getReadablePosition(),"Midfielder");
@@ -147,49 +144,48 @@ public class PlayerTest {
 		assertEquals(NoPos.getReadablePosition(),null);
 	}
 	
+	@Test
+	public void testGetReadablePositionST(){
+		assertEquals("Attacker",ST.getReadablePosition());
+	}
+	
+	@Test
+	public void testGetReadablePositionRW(){
+		assertEquals("Attacker",RW.getReadablePosition());
+	}
+	
+	@Test
+	public void testGetReadablePositionCM(){
+		assertEquals("Midfielder",CM.getReadablePosition());
+	}
+	
+	@Test
+	public void testGetReadablePositionCDM(){
+		assertEquals("Midfielder",CDM.getReadablePosition());
+	}
+	
+	@Test
+	public void testGetReadablePositionLWB(){
+		assertEquals("Defender",LWB.getReadablePosition());
+	}
+	
+	@Test
+	public void testGetReadablePositionRWB(){
+		assertEquals("Defender",RWB.getReadablePosition());
+	}
+	
 	/**getCurPosision Test
 	 * 
 	 */
 	@Test
-	public void testGetCurPosition(){
+	public void testGetCurPositionCF(){
 		CF.setCurPosition("CF");
-		ST.setCurPosition("ST");
-		RW.setCurPosition("RW");
-		CM.setCurPosition("CM");
-		CDM.setCurPosition("CDM");
-		CAM.setCurPosition("CAM");
-		LW.setCurPosition("LW");
-		RM.setCurPosition("RM");
-		LM.setCurPosition("LM");
-		GK.setCurPosition("GK");
-		RB.setCurPosition("RB");
-		LB.setCurPosition("LB");
-		CB.setCurPosition("CB");
-		NoPos.setCurPosition("NO");
-		CB1.setCurPosition("None");
-		Attacker.setCurPosition("Attacker");
-		Defender.setCurPosition("Defender");
-		Midfielder.setCurPosition("Midfielder");
-		Goalkeeper.setCurPosition("Goalkeeper");
-		assertEquals(CF.getCurPosition(),"Attacker");
-		assertEquals(ST.getCurPosition(),"Attacker");
-		assertEquals(RW.getCurPosition(),"Attacker");
-		assertEquals(CM.getCurPosition(),"Midfielder");
-		assertEquals(CDM.getCurPosition(),"Midfielder");
-		assertEquals(CAM.getCurPosition(),"Midfielder");
-		assertEquals(LW.getCurPosition(),"Attacker");
-		assertEquals(RM.getCurPosition(),"Midfielder");
-		assertEquals(LM.getCurPosition(),"Midfielder");
-		assertEquals(GK.getCurPosition(),"Goalkeeper");
-		assertEquals(RB.getCurPosition(),"Defender");
-		assertEquals(LB.getCurPosition(),"Defender");
-		assertEquals(CB.getCurPosition(),"Defender");
-		assertEquals(Attacker.getCurPosition(),"Attacker");
-		assertEquals(Midfielder.getCurPosition(),"Midfielder");
-		assertEquals(Defender.getCurPosition(),"Defender");
-		assertEquals(Goalkeeper.getCurPosition(),"Goalkeeper");
-		assertEquals(NoPos.getCurPosition(),null);
-		assertEquals(CB1.getCurPosition(),"None");
+		assertEquals("CF",CF.getCurPosition());
+	}
+	
+	@Test
+	public void testGetCurPositionNULL(){
+		assertEquals(null,ST.getCurPosition());
 	}
 
 	/**setId Test

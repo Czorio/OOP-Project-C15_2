@@ -70,6 +70,26 @@ public class TeamTest {
 		testTeam.addPlayer(testPlayer);
 		assertEquals(testTeam.getPlayer(3),testPlayer);
 	}
+	
+	@Test
+	public void testGetNumOfPlayingPlayers(){
+		testTeam2.addPlayer(testPlayer);
+		testPlayer.setCurPosition("ST");
+		assertEquals(0,testTeam.getNumOfPlayingPlayers());
+		assertEquals(1,testTeam2.getNumOfPlayingPlayers());	
+	}
+	
+	@Test
+	public void testGetPlayingPlayers(){
+		assertEquals(0,testTeam.getPlayingPlayers());
+	}
+	
+	@Test
+	public void testGetPlayingPlayers2(){
+		testTeam2.addPlayer(testPlayer);
+		testPlayer.setCurPosition("CM");
+		assertEquals(1,testTeam2.getPlayingPlayers());
+	}
 
 	/**
 	 * removePlayer Test

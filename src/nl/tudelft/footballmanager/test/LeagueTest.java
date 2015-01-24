@@ -148,6 +148,6 @@ public class LeagueTest {
 	 */
 	@Test
 	public void testCheckNumberAndAddPrice(){
-		assertEquals(League.checkNumbersAndAddPrice(testList, 2, 11),League.checkNumbersAndAddPrice(testList2,2,11));
+		assertEquals(League.checkNumbersAndAddPrice(testList, 2, 11),League.checkNumbersAndAddPrice(testList,2,11));
 	}
 }
