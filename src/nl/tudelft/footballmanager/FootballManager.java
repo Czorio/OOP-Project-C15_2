@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javafx.application.Application;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import nl.tudelft.footballmanager.ui.controller.SplashScreen;
@@ -32,6 +33,8 @@ public class FootballManager extends Application {
 
 		FootballManager.stage.centerOnScreen();
 		FootballManager.stage.show();
+
+		FootballManager.stage.getIcons().add(new Image(("file:img/ball_icon.png")));
 
 		// Gewoon lekker niet op een Mac
 		if(bShowSplash && !System.getProperty("os.name").equals("Mac OS X")) {		
