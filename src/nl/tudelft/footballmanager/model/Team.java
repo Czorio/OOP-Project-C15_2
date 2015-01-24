@@ -9,7 +9,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * Class to make a team.
+ * Team object, containing players and properties of a team.
  * @author Toine Hartman <tjbhartman@gmail.com>
  */
 public class Team extends Observable {
@@ -42,9 +42,7 @@ public class Team extends Observable {
 
 	/**
 	 * Construct an empty Team
-	 * 
-	 * @param name
-	 *            Name of the Team
+	 * @param name Name of the Team
 	 */
 	public Team(String name) {
 		this(name, new ArrayList<Player>());
@@ -52,9 +50,7 @@ public class Team extends Observable {
 
 	/**
 	 * Alters the budget by a given amount
-	 * 
-	 * @param mutation
-	 *            Amount to add (positive number) or subtract (negative number)
+	 * @param mutation Amount to add (positive number) or subtract (negative number)
 	 */
 	public void alterBudget(int mutation) {
 		setBudget(getBudget() + mutation);
@@ -101,6 +97,10 @@ public class Team extends Observable {
 		return !bExists;
 	}
 	
+	/**
+	 * Get the number of players with a set playing position
+	 * @return the number
+	 */
 	public int getNumOfPlayingPlayers() {
 		int count = 0;
 		for (Player p : this.getPlayers()) {
@@ -113,7 +113,6 @@ public class Team extends Observable {
 
 	/**
 	 * Remove player, if the player exists, based on Player ID.
-	 * 
 	 * @param player
 	 */
 	public boolean removePlayer(Player player) {

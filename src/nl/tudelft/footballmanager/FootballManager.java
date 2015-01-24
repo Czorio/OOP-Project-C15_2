@@ -21,13 +21,12 @@ public class FootballManager extends Application {
 
 	@Override
 	public void start(Stage stage) {
-//		System.getProperties().list(System.out);
-		Dimension screenDimensions = Toolkit.getDefaultToolkit().getScreenSize();
-
 		FootballManager.stage = stage;
 		FootballManager.stage.setTitle("Football Manager 2142");
 		
-		// 16:9, bitches
+		// Get the dimensions of the screen and make the window slighty smaller,
+		// maintaining 16:9
+		Dimension screenDimensions = Toolkit.getDefaultToolkit().getScreenSize();
 		FootballManager.stage.setHeight(screenDimensions.getHeight() - 100);
 		FootballManager.stage.setWidth(((screenDimensions.getHeight() - 100)/9)*16);
 
@@ -36,15 +35,16 @@ public class FootballManager extends Application {
 
 		FootballManager.stage.getIcons().add(new Image(("file:img/ball_icon.png")));
 
-		// Gewoon lekker niet op een Mac
+		// Playing an MP4 splash video does not work on Mac OS X, so it is disabled
 		if(bShowSplash && !System.getProperty("os.name").equals("Mac OS X")) {		
 			SplashScreen ss = null;
 			try {
 				ss = new SplashScreen(stage, new File("vid/intro.mp4").toURI().toURL().toString());
+				ss.show();
 			} catch (MalformedURLException e) {
-				e.printStackTrace();
+				System.err.println("Showing splash screen failed, skipping...");
+				TitleScreenController.show();
 			}
-			ss.show();
 		}
 		else {
 			TitleScreenController.show();
@@ -53,6 +53,7 @@ public class FootballManager extends Application {
 	}
 
 	public static void main(String[] args) {
+		// Launch the JavaFX application
 		launch(args);
 	}
 

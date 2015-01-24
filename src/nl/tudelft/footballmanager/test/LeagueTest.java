@@ -134,14 +134,6 @@ public class LeagueTest {
 	public void testGetPlayerCountList(){
 		assertEquals(League.getPlayerCount(testList),10658);
 	}
-
-	/**
-	 * getMaxGamesToPlay Test
-	 */
-	@Test
-	public void testGetMaxGamesToPlay(){
-		assertEquals(testLeague.getMaxGamesToPlay(),34);
-	}
 	
 	/**
 	 * checkNumberAndAddPrice Test

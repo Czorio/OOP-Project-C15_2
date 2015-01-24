@@ -3,7 +3,6 @@
  */
 package nl.tudelft.footballmanager.model;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Observable;
@@ -38,11 +37,6 @@ public class MatchScheme extends Observable {
 		matchdays = new ArrayList<MatchDay>();
 	}
 
-	public static void main(String[] args) {
-		MatchScheme s = new MatchScheme(new GameState(new File(inFile)), 0);
-//		System.out.println(s);
-	}
-
 	/**
 	 * Populates a MatchScheme with Matches, with constraints:
 	 * - a single team can play only one Match on a MatchDay
@@ -73,9 +67,7 @@ public class MatchScheme extends Observable {
 					m.setSchemable(false);
 				}
 			}
-			
-//			System.out.println(String.format("[%d] Actual num of games today: %d", matchDay.getRound(), matchDay.getMatchCount()));
-//			System.out.println(String.format("%d: %s", round, matchDay));
+
 			this.matchdays.add(matchDay);
 			round++;
 		}
@@ -139,9 +131,6 @@ public class MatchScheme extends Observable {
 		return false;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		return "MatchScheme [matchdays=" + matchdays + "]";

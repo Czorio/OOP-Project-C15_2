@@ -2,11 +2,6 @@ package nl.tudelft.footballmanager.model;
 import java.util.Date;
 import java.util.Observable;
 
-import javax.swing.JOptionPane;
-
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.Dialogs;
-
 import javafx.beans.property.SimpleStringProperty;
 
 /**

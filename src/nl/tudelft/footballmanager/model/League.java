@@ -195,7 +195,12 @@ public class League extends Observable {
 	}
 
 	/**
-	 * @return
+	 * Create all possible matches in this League
+	 * This creates the Cartesian product of the teams, i.e. all combinations of two teams,
+	 * excluding combinations with the team itself. Those combinations are returned as schemable matches.
+	 * 
+	 * @param league The league to create all matches for
+	 * @return an ArrayList of all possible matches
 	 */
 	public ArrayList<SchemableMatch> getPossibleMatches(League league) {
 		ArrayList<SchemableMatch> matches = new ArrayList<SchemableMatch>();
@@ -203,14 +208,23 @@ public class League extends Observable {
 		for (Team a : league.getTeams()) {
 			for (Team b : league.getTeams()) {
 				if (a.equals(b)) continue;
-
 				matches.add(new SchemableMatch(a, b, true));
 			}
 		}
-		
 		return matches;
 	}
 	
+	/**
+	 * Filter a list of leagues to be usable.
+	 * All teams with at least a certain number of players are kept.
+	 * All leagues with at least a certain number of teams are kept.
+	 * 
+	 * Usable to filter single-team leagues or teams with too less players to play.
+	 * @param leagues The list of leagues to filter.
+	 * @param minTeams The minimum number of teams in a league 
+	 * @param minPlayers The minimum number of players in a team
+	 * @return The filtered list of leagues
+	 */
 	public static List<League> checkNumbersAndAddPrice(List<League> leagues, int minTeams, int minPlayers) {
 		List<League> checkedLeagues = new ArrayList<League>();
 		int[] numOfPlayersOnIndex = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
@@ -222,19 +236,18 @@ public class League extends Observable {
 					PlayerLogic.calculatePrice(p);
 				}
 				if (t.getPlayers().size() < minPlayers) {
-//					System.out.println(String.format("Team %s has %d players and is therefore ignored", t.getName(), t.getPlayers().size()));
 					numOfPlayersOnIndex[t.getPlayers().size()] += 1;
 					continue;
 				}
 				lCopy.addTeam(t);
 			}
 			if (lCopy.getTeams().size() < minTeams) {
-//				System.out.println(String.format("League %s has %d teams and is therefore ignored", lCopy.getName(), lCopy.getTeams().size()));
 				continue;
 			}
 			checkedLeagues.add(lCopy);
 		}
 		
+		// Print some statistics about the filtered teams
 		for (int i = 0; i < numOfPlayersOnIndex.length; i++) {
 			System.out.println(String.format("%d teams have %d players", numOfPlayersOnIndex[i], i));
 		}
@@ -247,10 +260,18 @@ public class League extends Observable {
 		return checkedLeagues;
 	}
 	
+	/**
+	 * Count the number of teams in this league
+	 * @return the number of teams
+	 */
 	public int getTeamCount() {
 		return this.getTeams().size();
 	}
 	
+	/**
+	 * Count the number of players in this league
+	 * @return the number of players
+	 */
 	public int getPlayerCount() {
 		int playerCount = 0;
 		for (Team t : this.getTeams()) {
@@ -260,6 +281,11 @@ public class League extends Observable {
 		return playerCount;
 	}
 	
+	/**
+	 * Get the number of players in a list of leagues
+	 * @param leagues The list of leagues
+	 * @return the total number of players in these leagues 
+	 */
 	public static int getPlayerCount(List<League> leagues) {
 		int playerCount = 0;
 		for (League l : leagues) {
@@ -269,6 +295,11 @@ public class League extends Observable {
 		return playerCount;
 	}
 	
+	/**
+	 * Count the number of teams in a list of leagues
+	 * @param leagues The list of leagues
+	 * @return The number of teams in these leagues
+	 */
 	public static int getTeamCount(List<League> leagues) {
 		int teamCount = 0;
 		for (League l : leagues) {
@@ -276,10 +307,6 @@ public class League extends Observable {
 		}
 		
 		return teamCount;
-	}
-
-	public int getMaxGamesToPlay() {
-		return (teams.size() - 1) * 2;
 	}
 
 }

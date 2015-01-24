@@ -6,8 +6,6 @@ package nl.tudelft.footballmanager.ui.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -39,7 +37,7 @@ import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
  * @author Mathijs de Boer <czorio4@gmail.com>
  *
  */
-public class PostMatchViewController implements Initializable, Observer {
+public class PostMatchViewController implements Initializable {
 
 	public final static String postMatchViewFileName = "ui/view/PostMatchView.fxml";
 
@@ -53,6 +51,9 @@ public class PostMatchViewController implements Initializable, Observer {
 
 	private static GameState gameState = null;
 
+	/**
+	 * Callback to highlight your team name in a table.
+	 */
 	private static Callback<TableColumn<Match, String>, TableCell<Match, String>> highlightMyTeam = new Callback<TableColumn<Match, String>, TableCell<Match, String>>() {
 		@Override
 		public TableCell<Match, String> call(TableColumn<Match, String> param) {
@@ -74,11 +75,6 @@ public class PostMatchViewController implements Initializable, Observer {
 			};
 		}
 	};
-
-	@Override
-	public void update(Observable o, Object arg) {
-
-	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

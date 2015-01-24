@@ -7,8 +7,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -36,7 +34,7 @@ import nl.tudelft.footballmanager.model.Team;
  * @author Mathijs de Boer <czorio4@gmail.com>
  *
  */
-public class PostLeagueViewController implements Initializable, Observer {
+public class PostLeagueViewController implements Initializable {
 	
 	public final static String postLeagueViewFileName = "ui/view/PostLeagueView.fxml";
 	
@@ -48,6 +46,9 @@ public class PostLeagueViewController implements Initializable, Observer {
 	
 	private static GameState gameState = null;
 	
+	/**
+	 * Callback to highlight your team name in a table.
+	 */
 	private static Callback<TableColumn<Team, String>, TableCell<Team, String>> highlightMyTeam = new Callback<TableColumn<Team, String>, TableCell<Team, String>>() {
 		@Override
 		public TableCell<Team, String> call(TableColumn<Team, String> param) {
@@ -69,11 +70,6 @@ public class PostLeagueViewController implements Initializable, Observer {
 			};
 		}
 	};
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-
-	}
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

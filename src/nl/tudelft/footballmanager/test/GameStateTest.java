@@ -3,16 +3,16 @@
  */
 package nl.tudelft.footballmanager.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
-import java.io.IOException;
 
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.League;
 import nl.tudelft.footballmanager.model.Team;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 

@@ -6,8 +6,6 @@ package nl.tudelft.footballmanager.ui.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
 
 import javafx.beans.value.ChangeListener;
@@ -33,7 +31,7 @@ import nl.tudelft.footballmanager.model.Team;
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
-public class NewGameViewController implements Initializable, Observer {
+public class NewGameViewController implements Initializable {
 	
 	public final static String newGameViewFileName = "ui/view/NewGameView.fxml";
 	
@@ -42,14 +40,6 @@ public class NewGameViewController implements Initializable, Observer {
 	@FXML private ListView<League> leagueListView;
 	@FXML private ListView<Team> teamListView;
 	@FXML private TextField coachNameTextField;
-
-	/* (non-Javadoc)
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
-	@Override
-	public void update(Observable o, Object arg) {
-		
-	}
 
 	/* (non-Javadoc)
 	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
@@ -156,10 +146,11 @@ public class NewGameViewController implements Initializable, Observer {
 	}
 	
 	/**
-	 * 
+	 * Decides whether the "Done" buttons is enabled. It wil be enabled if:
+	 * 1. You are Andy Zaidman and you chose a league to play in, with your Legends team.
+	 * 2. You are anyone else and you chose a league and team (and you do have a name).
 	 */
 	protected void toggleDone() {
-		// Als je Andy bent of gewoon een team en naam kiest mag je door
 		if ((leagueListView.getSelectionModel().getSelectedItem() != null && coachNameTextField.getText().equals("Andy Zaidman")) || 
 				(coachNameTextField.getText().length() > 0 && teamListView.getSelectionModel().getSelectedItem() != null)) {
 			doneButton.setDisable(false);

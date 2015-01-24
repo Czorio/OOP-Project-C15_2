@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Comparator;
 import java.util.Map;
-import java.util.Observable;
-import java.util.Observer;
 import java.util.ResourceBundle;
 
 import javafx.application.Platform;
@@ -39,7 +37,7 @@ import nl.tudelft.footballmanager.model.Team;
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
-public class RootViewController implements Initializable, Observer {
+public class RootViewController implements Initializable {
 
 	public final static String rootViewFileName = "ui/view/RootView.fxml";
 
@@ -98,8 +96,6 @@ public class RootViewController implements Initializable, Observer {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
-		gameState.addObserver(this);
-		
 		if (TeamOverviewController.iFielded.intValue() >= 11) {
 			nextRoundButton.setDisable(false);
 			nextRoundButton.setText("To next gameday");
@@ -110,7 +106,6 @@ public class RootViewController implements Initializable, Observer {
 
 		SimpleIntegerProperty round = new SimpleIntegerProperty(gameState.getGameRound());
 		gamesPlayed.textProperty().bind(round.asString());
-		//gamesPlayedLabel.textProperty().bind(round.asString());
 
 		SimpleIntegerProperty balance = new SimpleIntegerProperty(gameState.getMyTeam().getBudget());
 		teamBalanceLabel.textProperty().bind(balance.asString());
@@ -121,10 +116,7 @@ public class RootViewController implements Initializable, Observer {
 		
 		leagueNameLabel.setText(gameState.getLeagueName());
 		yourTeamNameLabel.setText(gameState.getMyTeamName());
-		
-		//int scoreInt = (scores.get(gameState.getMyTeam()) != null ? scores.get(gameState.getMyTeam()) : 0);
-		//leaguePointsLabel.textProperty().bind(new SimpleIntegerProperty(scoreInt).asString());
-		//sidebarAccordion.setExpandedPane(sidebarAccordion.getPanes().get(2));
+
 		leagueTeamTableColumn.setCellFactory(highlightMyTeam);
 		
 		TeamOverviewController.iFielded.addListener(new ChangeListener<Number>() {
@@ -298,15 +290,4 @@ public class RootViewController implements Initializable, Observer {
 		fc.setInitialDirectory(new File(System.getProperty("user.dir")));
 		fc.setSelectedExtensionFilter(new ExtensionFilter("XML", "*.xml"));
 	}
-
-	@Override
-	public void update(Observable o, Object arg) {
-
-		// TODO check if last game has been played, if so, goto PostLeagueView
-		if(gameState.getGameRound() <= gameState.getLeague().getMaxGamesToPlay()) {
-			PostLeagueViewController.show(gameState);
-		}
-	}
-
-
 }

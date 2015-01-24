@@ -33,18 +33,12 @@ public class TitleScreenController implements Initializable, Observer {
 	@FXML private Button newGameButton;
 	@FXML private Button loadGameButton;
 	@FXML private Button quitGameButton;
-	
-	/* (non-Javadoc)
-	 * @see java.util.Observer#update(java.util.Observable, java.lang.Object)
-	 */
+
 	@Override
 	public void update(Observable o, Object arg) {
 		System.out.println(String.format("%s:\n\t%s\n\t%s", this.getClass(), o, arg));
 	}
 
-	/* (non-Javadoc)
-	 * @see javafx.fxml.Initializable#initialize(java.net.URL, java.util.ResourceBundle)
-	 */
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		
@@ -101,7 +95,6 @@ public class TitleScreenController implements Initializable, Observer {
 		try {
 			AnchorPane titleScreen = (AnchorPane) l.load();
 			FootballManager.getStage().setScene(new Scene(titleScreen));
-//			FootballManager.getStage().show();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

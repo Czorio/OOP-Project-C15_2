@@ -16,7 +16,7 @@ public class Test {
 		System.out.println(gameState.getCoachName());
 		
 		File out = new File("XML/out.xml");
-		boolean succeeded = GameState.save(gameState, out);
+		GameState.save(gameState, out);
 		
 		// XMLPlayer can read and write one or multiple leagues at once.
 		// You can therefore input a single String or an ArrayList of Strings.				
