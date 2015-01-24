@@ -17,12 +17,14 @@ import nl.tudelft.footballmanager.model.Team;
  */
 public class GameLogic {
 
-	private static GameState gs;
+	private static boolean isTesting;
+	private static int matchIncome;
 	private static long seed = System.currentTimeMillis();
+
 	private static Random random = new Random(seed);
 	private static List<Player> playingPlayers = TeamLogic.getPlayingPlayers();
-	private static int matchIncome;
-
+	private static GameState gs;
+	
 	/**
 	 * Creates and initializes a GameLogic instance.
 	 * @param gs The current gamestate to use.
@@ -143,8 +145,11 @@ public class GameLogic {
 			}
 			
 			//Generates a random injury and gives it to a random player.
-			int injuryChance = generateRandom(0, 10000);
-			if (injuryChance == 9) {
+			int injuryChance;
+			
+			injuryChance = generateRandom(0, 10000);
+			
+			if (injuryChance == 9 && !isTesting) {
 				String injury = generateInjury();
 				Player p = playersHome.get(random.nextInt(playersHome.size()));
 				System.out.println("Injury: " + p.getFirstName() + " " + p.getLastName() + " - " + injury);
@@ -153,8 +158,9 @@ public class GameLogic {
 				p.setDisabledFor(generateRandom(3,10));
 			}
 			
-			else if (injuryChance == 10) {
+			else if (injuryChance == 10 && !isTesting) {
 				String injury = generateInjury();
+				System.out.println(playersAway.size());
 				Player p = playersAway.get(random.nextInt(playersAway.size()));
 				System.out.println("Injury: " + p.getFirstName() + " " + p.getLastName() + " - " + injury);
 				
@@ -297,4 +303,19 @@ public class GameLogic {
 		GameLogic.matchIncome = income;
 	}
 
+	/**
+	 * @return the isTesting
+	 */
+	public static boolean isTesting() {
+		return isTesting;
+	}
+
+	/**
+	 * @param isTesting the isTesting to set
+	 */
+	public static void setIsTesting(boolean isTesting) {
+		GameLogic.isTesting = isTesting;
+	}
+
+	
 }

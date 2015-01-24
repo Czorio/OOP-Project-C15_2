@@ -40,7 +40,7 @@ public class MatchScheme extends Observable {
 
 	public static void main(String[] args) {
 		MatchScheme s = new MatchScheme(new GameState(new File(inFile)), 0);
-		System.out.println(s);
+//		System.out.println(s);
 	}
 
 	/**
@@ -74,8 +74,8 @@ public class MatchScheme extends Observable {
 				}
 			}
 			
-			System.out.println(String.format("[%d] Actual num of games today: %d", matchDay.getRound(), matchDay.getMatchCount()));
-			System.out.println(String.format("%d: %s", round, matchDay));
+//			System.out.println(String.format("[%d] Actual num of games today: %d", matchDay.getRound(), matchDay.getMatchCount()));
+//			System.out.println(String.format("%d: %s", round, matchDay));
 			this.matchdays.add(matchDay);
 			round++;
 		}

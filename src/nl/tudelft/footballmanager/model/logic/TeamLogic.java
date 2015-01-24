@@ -76,8 +76,6 @@ public final class TeamLogic {
 	 * @return Returns the total score of a certain team.
 	 */
 	public static final int calculateTeamTotalScore(Team team) {
-		//For now only based on the offensive, defensive and stamina score of a team.
-		//TODO Add parameters to calculate the final score of a team
 		return (calculateTeamOffScore(team) + calculateTeamDefScore(team) + calculateTeamStaminaScore(team));
 	}
 	
