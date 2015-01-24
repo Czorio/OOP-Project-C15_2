@@ -178,7 +178,7 @@ public class Player extends Observable {
 				+ this.nationality + " "
 				+ this.dateOfBirth + " "
 				+ this.position + " "
-				+ this.curPosition + " "
+				+ this.curPosition.get() + " "
 				+ this.pace + " "
 				+ this.shooting + " "
 				+ this.passing + " "
