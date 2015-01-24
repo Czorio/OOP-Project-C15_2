@@ -16,28 +16,29 @@ import nl.tudelft.footballmanager.model.Team;
  */
 public final class MarketplaceLogic {
 	private MarketplaceLogic(){};
-	
+
 	/**
 	 * Handles transfering of players.
 	 * @param fromTeam	Team from which the player needs to be removed.
 	 * @param toTeam	Team to which the players needs to be moved.
 	 * @param player	The player
+	 * @return 			If the transfer was succesful.
 	 */
 	public static final boolean transferPlayer(Team fromTeam, Team toTeam, Player player, int currentRound) {
 		boolean ret = false;
-		
+
 		// Transfermarket not open.
 		if(!isTransferWindow(currentRound))
 			return false;
-		
+
 		// Budget not sufficient
 		if(toTeam.getBudget() < player.getPrice())
 			return false;
-		
+
 		// A team cannot have less then 11 players.
 		if(fromTeam.getPlayers().size() <= 11)
 			return false;
-		
+
 		// Change players and set new budgets.
 		if(fromTeam.removePlayer(player)) {
 			if(toTeam.addPlayer(player)) {
@@ -52,77 +53,79 @@ public final class MarketplaceLogic {
 		}		
 		return ret;
 	}
-	
+
 
 	/**
 	 * Transfers a random player to a random team.
 	 * @param currentRound	The round we currently play in.
 	 * @param league		The league object.
 	 * @param myTeam		The team you're coaching.
+	 * @return				If the transfer has succeded. //Used for JUnit tests.
 	 */
-	public static final void RandomPlayerTransfer(int currentRound, League league, Team myTeam) {
-		if(isTransferWindow(currentRound)) {
-			
-			int fromTeam;
-			int toTeam;
-			int player;
-			
-			// On a single day, anywhere between 0 and 60 players can be transfered.
-			for (int i = 0; i < GameLogic.generateRandom(0, 60); i++) {
-				
-				// Select the from team.
-				do {
-					int x = GameLogic.generateRandom(0, league.getTeams().size()-1);
-					if(!league.getTeams().get(x).getName().equals(myTeam.getName())) {
-						fromTeam = x;
-						break;
-					}
-				} while (true);
-				
-				// Select the to team.
-				do {
-					int y = GameLogic.generateRandom(0, league.getTeams().size()-1);
-					if(!league.getTeams().get(y).getName().equals(myTeam.getName()) && 
-							!league.getTeams().get(y).getName().equals(league.getTeams().get(fromTeam).getName())) {
-						toTeam = y;
-						break;
-					}
-				} while (true);
-				
-				// Select the player.
-				player = GameLogic.generateRandom(0, league.getTeams().get(fromTeam).getPlayers().size()-1);
-				
-				System.out.print("[Transfering " + league.getTeams().get(fromTeam).getPlayers().get(player).getFirstName() + " "
-						+ league.getTeams().get(fromTeam).getPlayers().get(player).getLastName()
-						+ " from " + league.getTeams().get(fromTeam).getName() + " to "
-						+ league.getTeams().get(toTeam).getName());
-				
-				boolean bSuccess = transferPlayer(league.getTeams().get(fromTeam), league.getTeams().get(toTeam), league.getTeams().get(fromTeam).getPlayers().get(player), currentRound);								
-			
-				System.out.println(" -> SUCCESS: " + bSuccess);
-			}
-		}		
+	public static final boolean RandomPlayerTransfer(int currentRound, League league, Team myTeam) {
+		if(!isTransferWindow(currentRound)) return false; 
+
+		int fromTeam;
+		int toTeam;
+		int player;
+
+		// On a single day, anywhere between 0 and 60 players can be transfered.
+		for (int i = 0; i < GameLogic.generateRandom(0, 60); i++) {
+
+			// Select the from team.
+			do {
+				int x = GameLogic.generateRandom(0, league.getTeams().size()-1);
+				if(!league.getTeams().get(x).getName().equals(myTeam.getName())) {
+					fromTeam = x;
+					break;
+				}
+			} while (true);
+
+			// Select the to team.
+			do {
+				int y = GameLogic.generateRandom(0, league.getTeams().size()-1);
+				if(!league.getTeams().get(y).getName().equals(myTeam.getName()) && 
+						!league.getTeams().get(y).getName().equals(league.getTeams().get(fromTeam).getName())) {
+					toTeam = y;
+					break;
+				}
+			} while (true);
+
+			// Select the player.
+			player = GameLogic.generateRandom(0, league.getTeams().get(fromTeam).getPlayers().size()-1);
+
+			System.out.print("[Transfering " + league.getTeams().get(fromTeam).getPlayers().get(player).getFirstName() + " "
+					+ league.getTeams().get(fromTeam).getPlayers().get(player).getLastName()
+					+ " from " + league.getTeams().get(fromTeam).getName() + " to "
+					+ league.getTeams().get(toTeam).getName());
+
+			boolean bSuccess = transferPlayer(league.getTeams().get(fromTeam), league.getTeams().get(toTeam), league.getTeams().get(fromTeam).getPlayers().get(player), currentRound);								
+
+			System.out.println(" -> SUCCESS: " + bSuccess);
+		}
+
+		return true;		
 	}
-	
+
 	/**
 	 * Offers the bid to the player.
 	 * @param team The team that offers the bid.
 	 * @param player The player they bid on.
 	 * @param price The price they are willing to pay.
 	 * @param gs The current gamestate.
-	 * @return 
+	 * @return If the bid was succesful.
 	 */
 	public static final boolean giveBid(Team team, Player player, int price, GameState gs) {
 		//TODO Offer the bid to the player.
-		
+
 		if(isTransferWindow(1)/*Change to: The player accepts the bid*/) {
 			transferPlayer(team, gs.getMyTeam(), player, gs.getGameRound());
 			return true;
 		}
-		
+
 		return false;
 	}
-	
+
 	/**
 	 * A random team bids on a random player, for a semi random price.
 	 * @param gs The current gamestate.
@@ -130,15 +133,15 @@ public final class MarketplaceLogic {
 	public static final void randomBid(GameState gs) {
 		List<Team> teams = gs.getLeague().getTeams();
 		Team biddingTeam = teams.get(GameLogic.generateRandom(0, teams.size() - 1));
-		
+
 		List<Player> userPlayers = gs.getMyTeam().getPlayers();
 		Player p = userPlayers.get(GameLogic.generateRandom(0, userPlayers.size() - 1));
-		
+
 		int price = p.getPrice() + GameLogic.generateRandom(0, 300000) - GameLogic.generateRandom(0, 300000);
-		
+
 		giveBid(biddingTeam, p, price, gs);
 	}
-	
+
 	/**
 	 * Handles opening and closing of the transfer window.
 	 * Transfer window is opened the first 4 rounds and between round 18 and 20.
