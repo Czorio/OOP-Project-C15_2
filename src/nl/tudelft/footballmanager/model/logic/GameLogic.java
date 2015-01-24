@@ -34,12 +34,12 @@ public class GameLogic {
 	/**
 	 * Plays all the games that should be played on the current matchday.
 	 */
-	public static void matchDay() {
+	public static boolean matchDay() {
 		MatchScheme ms = gs.getMatchScheme();
 		int matchDay = gs.getGameRound();
 
 		// No more rounds
-		if(matchDay >= gs.getMatchScheme().getMatchdays().size()) return;
+		if(matchDay >= gs.getMatchScheme().getMatchdays().size()) return false;
 
 		List<Match> todaysMatches = ms.getMatchdays().get(matchDay).getMatches();
 
@@ -80,6 +80,7 @@ public class GameLogic {
 		
 		TeamLogic.clearPlayers();
 		gs.nextRound();
+		return true;
 	}
 
 	/**

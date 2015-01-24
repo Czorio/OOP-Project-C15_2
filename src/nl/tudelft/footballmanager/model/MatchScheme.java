@@ -15,6 +15,7 @@ import java.util.Random;
  */
 public class MatchScheme extends Observable {
 	private ArrayList<MatchDay> matchdays;
+	private static String inFile = "XML/GameState.xml";
 
 	public MatchScheme(GameState state, int maxMatchesPerDay) {
 		this(state.getLeague(), maxMatchesPerDay);
@@ -38,7 +39,7 @@ public class MatchScheme extends Observable {
 	}
 
 	public static void main(String[] args) {
-		MatchScheme s = new MatchScheme(new GameState(new File("XML/GameState.xml")), 0);
+		MatchScheme s = new MatchScheme(new GameState(new File(inFile)), 0);
 		System.out.println(s);
 	}
 
@@ -144,5 +145,19 @@ public class MatchScheme extends Observable {
 	@Override
 	public String toString() {
 		return "MatchScheme [matchdays=" + matchdays + "]";
+	}
+	
+	/**
+	 * @return the inFile
+	 */
+	public static String getInFile() {
+		return inFile;
+	}
+
+	/**
+	 * @param inFile the inFile to set
+	 */
+	public static void setInFile(String inFile) {
+		MatchScheme.inFile = inFile;
 	}
 }
