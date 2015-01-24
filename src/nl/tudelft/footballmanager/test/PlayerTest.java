@@ -96,7 +96,7 @@ public class PlayerTest {
 	@Test
 	public void testToString() {
 		assertEquals(CB.toString(),CB1.toString());
-		assertEquals(CB.toString(),("[1 Davy Klaasen: Ajax Dutch " + new Date(1/1/1990) +  " CB " +null + " 40 50 60 60 80 70 0 0]"));
+		assertEquals(CB.toString(),("[1 Davy Klaasen: Ajax Dutch " + new Date(1/1/1990) +  " CB " +null + " 40 50 60 60 80 70 0 0 null 0]"));
 		assertNotEquals(CB.toString(),ST.toString());
 		
 	}

@@ -128,6 +128,6 @@ public class TeamTest {
 	@Test
 	public void testAlterBudget(){
 		testTeam.alterBudget(7000);
-		assertEquals(testTeam.getBudget(),7000);
+		assertEquals(testTeam.getBudget(),1007000);
 	}
 }
