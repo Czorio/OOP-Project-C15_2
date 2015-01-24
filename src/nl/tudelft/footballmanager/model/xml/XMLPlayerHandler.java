@@ -175,6 +175,14 @@ public class XMLPlayerHandler extends DefaultHandler {
 				currentPlayer.setDisabledFor(Integer.parseInt(new String(ch, start, length)));
 				break;
 				
+			case "CURRENTPOSITION":
+				if ( new String(ch, start, length).equals( new String( "none" ) ) )
+					break;
+				else {
+					currentPlayer.setCurPosition( new String(ch, start, length) );
+					break;
+				}
+				
 			default:
 				//System.out.println("XML: Unkown element in GameState XML file. --> XMLConfigHandler.characters()");
 				break;
@@ -267,6 +275,7 @@ public class XMLPlayerHandler extends DefaultHandler {
 		list.add("CLUB");
 		list.add("DATEOFBIRTH");
 		list.add("INJURED");
+		list.add("CURRENTPOSITION");
 		
 		return list;
 	}

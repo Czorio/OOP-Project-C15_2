@@ -219,7 +219,19 @@ public class XMLPlayer extends XML {
 				
 				ePlayerElement = dom.createElement("Injured");
 				ePlayerElement.appendChild(dom.createTextNode(String.valueOf(league.getTeams().get(i).getPlayers().get(j).getDisabledFor())));
-				ePlayer.appendChild(ePlayerElement);				
+				ePlayer.appendChild(ePlayerElement);
+				
+				if ( league.getTeams().get(i).getPlayers().get(j).getCurPosition() == null ) {
+					ePlayerElement = dom.createElement("CurrentPosition");
+					ePlayerElement.appendChild(dom.createTextNode( "none" ));
+					ePlayer.appendChild(ePlayerElement);
+				}
+				else {
+					ePlayerElement = dom.createElement("CurrentPosition");
+					ePlayerElement.appendChild(dom.createTextNode(league.getTeams().get(i).getPlayers().get(j).getCurPosition()));
+					ePlayer.appendChild(ePlayerElement);
+				}				
+				
 				
 				eTeam.appendChild(ePlayer);
 			}
