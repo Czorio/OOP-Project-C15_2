@@ -22,7 +22,7 @@ import nl.tudelft.footballmanager.ui.controller.TitleScreenController;
 public class FootballManager extends Application {
 	private static Stage stage;
 
-	private static boolean bShowSplash = false;
+	private static boolean bShowSplash = true;
 
 	@Override
 	public void start(Stage stage) {
