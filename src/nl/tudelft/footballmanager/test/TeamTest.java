@@ -16,7 +16,6 @@ import org.junit.Test;
 
 public class TeamTest {
 
-	
 	File in = new File("GameData/Leagues.xml");
 	XMLPlayer xmlplayer = new XMLPlayer(in);
 	League league = xmlplayer.readFromFile("Eredivisie");
@@ -33,6 +32,7 @@ public class TeamTest {
 	
 	Player testPlayer = new Player(3,"Mitchell","Shet","Ado Den Haag","Eredivisie","Dutch",new Date(2/2/2000),"ST",50,60,60,70,40,60);
 	Player testPlayer2 = new Player(1,"Davy","Klaasen","Ajax","Eredivisie","Dutch", new Date(1/1/1990),"CB",40,50,60,60,80,70);
+	
 	/**
 	 * Constructor test
 	 */
@@ -41,7 +41,6 @@ public class TeamTest {
 		assertEquals(testTeam.getName(),"Ajax");
 		assertNotEquals(testTeam.getPlayer("Stefano","Denswil"),testTeam.getPlayer("Mike", "van der Hoorn"));
 		assertNotEquals(testTeam.getByPosition("Defender"),testTeam.getByPosition("Attacker"));
-		
 	}
 
 	/**
@@ -150,4 +149,5 @@ public class TeamTest {
 		testTeam.alterBudget(7000);
 		assertEquals(testTeam.getBudget(),107000);
 	}
+	
 }

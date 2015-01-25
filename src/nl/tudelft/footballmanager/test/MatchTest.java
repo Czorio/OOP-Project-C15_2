@@ -18,8 +18,6 @@ public class MatchTest {
 	
 	MatchResult testResult = new MatchResult();
 	
-	
-	
 	/**Constructor Match nl.tudelft.footballmanager.test
 	 * Test the constructor with getters.
 	 */

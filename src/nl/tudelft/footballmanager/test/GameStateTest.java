@@ -18,7 +18,7 @@ import org.junit.Test;
 
 /**
  * @author Steven Meijer <stevenmeijer9@gmail.com>
- * @version 03/12/14
+ * @version final
  */
 public class GameStateTest {
 
@@ -59,8 +59,6 @@ public class GameStateTest {
 	public void testSetLeagueString() {
 		testGameState7.setLeague("Eredivisie");
 		assertEquals("Eredivisie", testGameState7.getLeagueName());
-//		testGameState7.setLeague("Eredivisie");
-//		assertEquals(null, testGameState7.getLeagueName());
 	}
 	
 	@Test
@@ -202,104 +200,5 @@ public class GameStateTest {
 	public void testSaveFile() {
 		assertNotNull(GameState.save(testGameState3, saveFile));
 	}
-	//TODO Test GameState.LoadGameState(file)
-//	/**
-//	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#loadGameState(java.io.File)}.
-//	 * Tests Coach name.
-//	 */
-//	@Test
-//	public void testLoadGameStateFileCoachName() {
-//		
-//		assertEquals("Steven Meijer", testGameState2.getCoachName());
-//		assertNotEquals("Boris Schrijver", testGameState2.getTeam());
-//	}
-//
-//	/**
-//	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#loadGameState(java.io.File)}.
-//	 * Tests Round number.
-//	 */
-//	@Test
-//	public void testLoadGameStateFileRound() {
-//		assertEquals(4, testGameState2.getRound());
-//		assertNotEquals(5, testGameState2.getRound());
-//	}
-//
-//	/**
-//	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#loadGameState(java.io.File)}.
-//	 * Tests League.
-//	 */
-//	@Test
-//	public void testLoadGameStateFileLeague() {
-//		assertEquals("Eredivisie", testGameState2.getLeague());
-//		assertNotEquals("Eerste Divisie", testGameState2.getLeague());
-//	}
-//
-//	/**
-//	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#loadGameState(java.io.File)}.
-//	 * Tests Team.
-//	 */
-//	@Test
-//	public void testLoadGameStateFileTeam() {
-//		assertEquals("Feyenoord", testGameState2.getTeam());
-//		assertNotEquals("Ajax", testGameState2.getTeam());
-//	}
-
-	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#saveGameState(java.io.File)}.
-	 * Tests saving of Coach name
-	 */
-/*	@Test
-	public void testSaveGameStateCoachName() {
-		GameState.save(testGameState1, saveFile);
-
-		assertTrue(testGameState5.getCoachName().equals(testGameState1.getCoachName()));
-		
-		saveFile.delete();
-	}
 	
-	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#saveGameState(java.io.File)}.
-	 * Tests saving of Round number
-	 */
-/*	@Test
-	public void testSaveGameStateRound() {
-		GameState.save(testGameState1, saveFile);
-
-		assertEquals(testGameState5.getGameRound(), testGameState1.getGameRound());
-		
-		saveFile.delete();
-	}
-	
-	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#saveGameState(java.io.File)}.
-	 * Tests saving of League
-	 */
-/*	@Test
-	public void testSaveGameStateLeague() {
-		GameState.save(testGameState1, saveFile);
-
-		assertTrue(testGameState5.getLeague().equals(testGameState1.getLeague()));
-		
-		saveFile.delete();
-	}
-	
-	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#saveGameState(java.io.File)}.
-	 * Tests saving of Team name
-	 */
-/*	@Test
-	public void testSaveGameStateTeam() {
-		GameState.save(testGameState1, saveFile);
-
-		assertTrue(testGameState5.getMyTeam().equals(testGameState1.getMyTeam()));
-		
-		saveFile.delete();
-	}
-	
-	//TODO Fix delete file
-	@After
-	public void deleteOutput() {
-		saveFile.delete();
-	}
-*/
 }

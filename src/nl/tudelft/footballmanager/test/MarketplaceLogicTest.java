@@ -18,8 +18,7 @@ import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 import org.junit.Test;
 
 /**
- * @author Steven
- *
+ * @author Steven Meijer <stevenmeijer9@gmail.com>
  */
 public class MarketplaceLogicTest {
 

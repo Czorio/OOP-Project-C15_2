@@ -11,7 +11,6 @@ import org.junit.Test;
 
 /**
  * @author Steven Meijer <stevenmeijer9@gmail.com>
- *
  */
 public class PlayerLogicTest {
 	
@@ -91,6 +90,7 @@ public class PlayerLogicTest {
 	@Test
 	public void testCalculatePlayerStamina() {
 		testPlayer.setStamina(90);
+		
 		assertEquals(testPlayer.getStamina(), PlayerLogic.calculatePlayerStamina(testPlayer));
 	}
 	
@@ -101,9 +101,12 @@ public class PlayerLogicTest {
 	@Test
 	public void testCalculatePlayerStaminaElseIf(){
 		testPlayer.setStamina(70);
+		
 		assertEquals(testPlayer.getStamina(), PlayerLogic.calculatePlayerStamina(testPlayer));
+		
 		testPlayer.setStamina(30);
 		testPlayer2.setStamina(85);
+		
 		assertNotEquals(testPlayer.getStamina(), PlayerLogic.calculatePlayerStamina(testPlayer2));
 	}
 	
@@ -115,6 +118,7 @@ public class PlayerLogicTest {
 	public void testCalculatePlayerStaminaElse(){
 		testPlayer.setStamina(30);
 		testPlayer2.setStamina(30);
+		
 		assertEquals(PlayerLogic.calculatePlayerStamina(testPlayer2), PlayerLogic.calculatePlayerStamina(testPlayer));
 	}
 
@@ -125,6 +129,7 @@ public class PlayerLogicTest {
 	@Test
 	public void testCalculatePriceGK() {
 		testPlayer2.setStamina(75);
+		
 		assertEquals(1546000,PlayerLogic.calculatePrice(testPlayer2));
 	}
 	
@@ -137,6 +142,7 @@ public class PlayerLogicTest {
 		testPlayer.setDefensive(75);
 		testPlayer.setOffensive(75);
 		testPlayer.setStamina(75);
+		
 		assertEquals(1462500,PlayerLogic.calculatePrice(testPlayer));
 	}
 	
@@ -149,6 +155,7 @@ public class PlayerLogicTest {
 		testPlayer.setDefensive(60);
 		testPlayer.setOffensive(60);
 		testPlayer.setStamina(60);
+		
 		assertEquals(990000,PlayerLogic.calculatePrice(testPlayer));
 	}
 	
@@ -160,6 +167,7 @@ public class PlayerLogicTest {
 		testPlayer.setDefensive(10);
 		testPlayer.setOffensive(10);
 		testPlayer.setStamina(10);
+		
 		assertEquals(144000, PlayerLogic.calculatePrice(testPlayer));
 	}
 

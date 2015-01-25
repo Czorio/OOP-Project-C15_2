@@ -18,7 +18,6 @@ import org.junit.Test;
 
 /**
  * @author Steven Meijer <stevenmeijer9@gmail.com>
- *
  */
 public class TeamLogicTest {
 
@@ -107,7 +106,6 @@ public class TeamLogicTest {
 		
 		assertEquals(TeamLogic.getPlayingPlayersPerTeam(ajax), TeamLogic.getPlayingPlayers());
 	}
-	
 	
 	/**
 	 * Tests invalid amount of goalkeepers.

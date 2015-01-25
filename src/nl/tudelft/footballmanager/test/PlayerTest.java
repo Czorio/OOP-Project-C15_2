@@ -36,7 +36,6 @@ public class PlayerTest {
 	
 	Team empTeam = new Team("Ajax", new ArrayList<Player>());
 
-	
 	/**Constructor Test
 	 * Tests the constructor using few get Methods and comparing them to actual value.
 	 */
@@ -100,7 +99,6 @@ public class PlayerTest {
 		assertEquals(CB.toString(),CB1.toString());
 		assertEquals(CB.toString(),("[1 Davy Klaasen: Ajax Dutch " + new Date(1/1/1990) +  " CB " +null + " 40 50 60 60 80 70 0 0 null 0]"));
 		assertNotEquals(CB.toString(),ST.toString());
-		
 	}
 	
 	/**getPosition test
@@ -221,20 +219,6 @@ public class PlayerTest {
 		assertNotEquals(RW.getLastName(),"Pietje");
 	}
 
-	/**
-	 * setClub Test
-	 * Use setClub method to change playes club. Use getClub to nl.tudelft.footballmanager.test.
-	 
-	@Test
-	public void testSetClub(){
-		CB.setClub("Feyenoord");
-		RW.setClub("Cambuur");
-		assertEquals(CB.getClub(),"Feyenoord");
-		
-		assertNotEquals(RW.getClub(),"AZ");
-	}
-	*/
-
 	/**setNationality Test
 	 * setNationality of players. Use getNationality to compare.
 	 */
@@ -331,7 +315,6 @@ public class PlayerTest {
 		RW.setStamina(70);
 		assertEquals(CB.getStamina(),80);
 		assertNotEquals(RW.getStamina(),100);
-		
 	}
 	
 	/**setLeague Test
@@ -364,6 +347,3 @@ public class PlayerTest {
 	}
 
 }
-
-
-

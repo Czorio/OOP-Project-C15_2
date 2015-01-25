@@ -23,7 +23,6 @@ import org.junit.Test;
 
 /**
  * @author Steven Meijer <stevenmeijer9@gmail.com>
- *
  */
 public class GameLogicTest {
 
@@ -68,7 +67,6 @@ public class GameLogicTest {
 		matches.add(new Match(tFCGroningen, tAZ));
 		ms.addMatchDay(new MatchDay(0, matches));
 		ms.addMatchDay(new MatchDay(1, matches2));
-
 	}
 	
 	@After
@@ -113,9 +111,6 @@ public class GameLogicTest {
 	@Test
 	public void testMatchDaySets() {
 		Player p = tAjax.getPlayer(1580);
-//		Player q = tFeyenoord.getPlayer(250);
-//		Player r = tFCGroningen.getPlayer(375);
-//		Player s = tAZ.getPlayer(192);
 		
 		p.setPlayedGames(0);
 		p.setDisabledFor(5);

@@ -28,9 +28,7 @@ public class LeagueTest {
 	List<Player> feyenoord = feyenoordEredivisie.getPlayers();
 	Team testTeam = new Team ("Ajax", ajax);
 	Team testTeam2 = new Team("Feyenoord", feyenoord );
-	
-	
-	
+
 	League testLeague = new League("Eredivisie", league.getTeams());
 	League testLeague2 = new League("Barclays Premier League", league2.getTeams());
 	League testLeague3 = new League("Eredivisie", league.getTeams());
@@ -142,4 +140,5 @@ public class LeagueTest {
 	public void testCheckNumberAndAddPrice(){
 		assertEquals(League.checkNumbersAndAddPrice(testList, 2, 11),League.checkNumbersAndAddPrice(testList,2,11));
 	}
+	
 }

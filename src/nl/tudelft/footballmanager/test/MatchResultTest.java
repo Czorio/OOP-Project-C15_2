@@ -19,7 +19,6 @@ public class MatchResultTest {
 	Map<Integer, Player> homeGoals = new HashMap<Integer, Player>();
 	Map<Integer, Player> awayGoals = new HashMap<Integer, Player>();
 	
-	
 	@Test
 	public void testAddHomeGoal() {
 		testResult.addHomeGoal(20, nick);
