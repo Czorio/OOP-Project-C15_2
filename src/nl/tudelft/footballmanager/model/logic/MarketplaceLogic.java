@@ -1,8 +1,5 @@
 package nl.tudelft.footballmanager.model.logic;
 
-import java.util.List;
-
-import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.League;
 import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
@@ -106,38 +103,6 @@ public final class MarketplaceLogic {
 		}
 
 		return true;		
-	}
-
-	/**
-	 * Handles the bid when it is accepted.
-	 * 
-	 * @param team The team that offers the bid.
-	 * @param player The player they bid on.
-	 * @param price The price they are willing to pay.
-	 * @param gs The current gamestate.
-	 * @return If the bid was succesful.
-	 */
-	public static final void acceptedBid(Team team, Player player, int price, GameState gs) {
-		//TODO call method when player accepts bid.
-		transferPlayer(gs.getMyTeam(), team, player, gs.getGameRound());
-	}
-
-	/**
-	 * A random team bids on a random player, for a semi random price.
-	 * @param gs The current gamestate.
-	 */
-	public static final void randomBid(GameState gs) {
-		if (!isTransferWindow(gs.getGameRound())) return;
-		
-		List<Team> teams = gs.getLeague().getTeams();
-		Team biddingTeam = teams.get(GameLogic.generateRandom(0, teams.size() - 1));
-
-		List<Player> userPlayers = gs.getMyTeam().getPlayers();
-		Player p = userPlayers.get(GameLogic.generateRandom(0, userPlayers.size() - 1));
-
-		int price = p.getPrice() + GameLogic.generateRandom(0, 300000) - GameLogic.generateRandom(0, 300000);
-
-		acceptedBid(biddingTeam, p, price, gs); //TODO Change to show popup.
 	}
 
 	/**
