@@ -361,4 +361,13 @@ public class Team extends Observable {
 	public void setGamesPlayed(int gamesPlayed) {
 		this.gamesPlayed.set(gamesPlayed);
 	}
+	
+	public boolean hasFieldedKeeper() {
+		for (Player player : players) {
+			if(player.getCurPosition() == "Goalkeeper") {
+				return true;
+			}
+		}
+		return false;
+	}
 }

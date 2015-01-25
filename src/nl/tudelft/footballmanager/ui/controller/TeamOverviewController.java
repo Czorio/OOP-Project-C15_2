@@ -171,7 +171,29 @@ public class TeamOverviewController implements Initializable, Observer {
 		curPosChoiceBox.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
 			@Override
 			public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-				// TODO add check for 1 goalkeeper
+				
+				// First, check whether the player has chosen to field a GK
+				if(newValue == "Goalkeeper") {
+					// GK? get whether the team already has a Player with CurPos == "Goalkeeper"
+					if(!gameState.getMyTeam().hasFieldedKeeper()) {
+						// set curPos
+						yourSelectedPlayer.setCurPosition(newValue);	
+					} else {
+						// team already has GK, notify user
+						Dialogs.create()
+				        .owner(FootballManager.getStage())
+				        .title("Already have a keeper in the field!")
+				        .masthead(null)
+				        .message("You already have selected a keeper to play with!")
+				        .showError();
+						// set choicebox to the first child, null
+						curPosChoiceBox.getSelectionModel().selectFirst();
+						
+						yourSelectedPlayer.setCurPosition(null);
+					}
+					// if not GK, just continue
+				}
+				
 				if (gameState.getMyTeam().getNumOfPlayingPlayers() < 11 || (gameState.getMyTeam().getNumOfPlayingPlayers() == 11 && yourSelectedPlayer.getCurPosition() != null)) {
 					yourSelectedPlayer.setCurPosition(newValue);
 				}
