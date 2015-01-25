@@ -67,7 +67,7 @@ public class GameLogic {
 			if(p.getTeam() == gs.getMyTeam()) {
 				p.setPlayedGames(p.getPlayedGames() + 1);
 			} else {
-				p.setCurPosition("None");
+				p.setCurPosition(null);
 				p.setPlayedGames(p.getPlayedGames() + 1);
 			}
 			

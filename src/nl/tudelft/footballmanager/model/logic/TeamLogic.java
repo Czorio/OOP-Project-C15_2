@@ -85,7 +85,7 @@ public final class TeamLogic {
 	 */
 	public static void createActivePlayers(Team team) {
 		for (Player p : team.getPlayers()) {
-			if (p.getCurPosition() != "None"  && p.getCurPosition() != null) {
+			if (p.getCurPosition() != null) {
 				playingPlayers.add(p);
 			}
 		}
@@ -183,7 +183,7 @@ public final class TeamLogic {
 			Player batlik = allPlayers.get(randomNumber);
 			testPlayer = batlik; //For JUnit tests.
 			
-			if (batlik.getCurPosition() != "None") {
+			if (batlik.getCurPosition() != null) {
 				if (nrGoalkeepers - goalkeepers.size() > 0) {
 					batlik.setCurPosition("Goalkeeper");
 					System.out.println("Added gk");

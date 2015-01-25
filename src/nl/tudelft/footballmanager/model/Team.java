@@ -5,6 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Observable;
 
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -15,7 +16,7 @@ import javafx.collections.ObservableList;
 public class Team extends Observable {
 	private String name;
 	private ObservableList<Player> players;
-	private int budget, gamesWon, gamesDraw, gamesLost, gamesPlayed;
+	private SimpleIntegerProperty budget, gamesWon, gamesDraw, gamesLost, gamesPlayed;
 
 	/**
 	 * Construct a team with given name and playerlist.
@@ -26,11 +27,11 @@ public class Team extends Observable {
 	public Team(String name, List<Player> players) {
 		this.name = name;
 		this.players = FXCollections.observableList(players);
-		this.budget = 1000000;
-		this.gamesWon = 0;
-		this.gamesDraw = 0;
-		this.gamesLost = 0;
-		this.gamesPlayed = 0;
+		this.budget = new SimpleIntegerProperty(100000);
+		this.gamesWon = new SimpleIntegerProperty(0);
+		this.gamesDraw = new SimpleIntegerProperty(0);
+		this.gamesLost = new SimpleIntegerProperty(0);
+		this.gamesPlayed = new SimpleIntegerProperty(0);
 
 		for (Player player : this.players) {
 			player.setTeam(this);
@@ -91,7 +92,7 @@ public class Team extends Observable {
 			player.setTeam(this);
 
 			setChanged();
-			notifyObservers(this.players);
+			notifyObservers(this);
 		}
 
 		return !bExists;
@@ -130,7 +131,7 @@ public class Team extends Observable {
 			player.setTeam(null);
 
 			setChanged();
-			notifyObservers(this.players);
+			notifyObservers(this);
 		}
 
 		return bExists;
@@ -148,6 +149,26 @@ public class Team extends Observable {
 		}
 
 		return false;
+	}
+	
+	public SimpleIntegerProperty budgetProperty() {
+		return this.budget;
+	}
+	
+	public SimpleIntegerProperty gamesPlayedProperty() {
+		return this.gamesPlayed;
+	}
+	
+	public SimpleIntegerProperty gamesWonProperty() {
+		return this.gamesWon;
+	}
+	
+	public SimpleIntegerProperty gamesDrawProperty() {
+		return this.gamesDraw;
+	}
+	
+	public SimpleIntegerProperty gamesLostProperty() {
+		return this.gamesLost;
 	}
 
 	/**
@@ -222,7 +243,7 @@ public class Team extends Observable {
 	 * @return the budget
 	 */
 	public int getBudget() {
-		return budget;
+		return budget.get();
 	}
 
 	/**
@@ -230,7 +251,7 @@ public class Team extends Observable {
 	 *            the budget to set
 	 */
 	public void setBudget(int budget) {
-		this.budget = budget;
+		this.budget.set(budget);
 		setChanged();
 		notifyObservers(this);
 	}
@@ -282,7 +303,7 @@ public class Team extends Observable {
 	 * @return Games won.
 	 */
 	public int getGamesWon() {
-		return gamesWon;
+		return gamesWon.get();
 	}
 
 	/**
@@ -290,7 +311,7 @@ public class Team extends Observable {
 	 * @param gamesWon The amount to set to.
 	 */
 	public void setGamesWon(int gamesWon) {
-		this.gamesWon = gamesWon;
+		this.gamesWon.set(gamesWon);
 	}
 
 	/**
@@ -298,7 +319,7 @@ public class Team extends Observable {
 	 * @return Games draw.
 	 */
 	public int getGamesDraw() {
-		return gamesDraw;
+		return gamesDraw.get();
 	}
 
 	/**
@@ -306,7 +327,7 @@ public class Team extends Observable {
 	 * @param gamesDraw The amount to set to.
 	 */
 	public void setGamesDraw(int gamesDraw) {
-		this.gamesDraw = gamesDraw;
+		this.gamesDraw.set(gamesDraw);
 	}
 
 	/**
@@ -314,7 +335,7 @@ public class Team extends Observable {
 	 * @return Games lost.
 	 */
 	public int getGamesLost() {
-		return gamesLost;
+		return gamesLost.get();
 	}
 
 	/**
@@ -322,7 +343,7 @@ public class Team extends Observable {
 	 * @param gamesLost The amount to set.
 	 */
 	public void setGamesLost(int gamesLost) {
-		this.gamesLost = gamesLost;
+		this.gamesLost.set(gamesLost);
 	}
 
 	/**
@@ -330,7 +351,7 @@ public class Team extends Observable {
 	 * @return Games played.
 	 */
 	public int getGamesPlayed() {
-		return gamesPlayed;
+		return gamesPlayed.get();
 	}
 
 	/**
@@ -338,6 +359,6 @@ public class Team extends Observable {
 	 * @param gamesPlayed The amount te set to.
 	 */
 	public void setGamesPlayed(int gamesPlayed) {
-		this.gamesPlayed = gamesPlayed;
+		this.gamesPlayed.set(gamesPlayed);
 	}
 }

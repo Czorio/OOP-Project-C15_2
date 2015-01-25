@@ -107,8 +107,7 @@ public class RootViewController implements Initializable {
 		SimpleIntegerProperty round = new SimpleIntegerProperty(gameState.getGameRound());
 		gamesPlayed.textProperty().bind(round.asString());
 
-		SimpleIntegerProperty balance = new SimpleIntegerProperty(gameState.getMyTeam().getBudget());
-		teamBalanceLabel.textProperty().bind(balance.asString());
+		teamBalanceLabel.textProperty().bind(gameState.getMyTeam().budgetProperty().asString());
 
 		Map<Team, Integer> scores = gameState.getOverallScores();
 		System.out.println("Scores: " + scores);

@@ -5,11 +5,11 @@ package nl.tudelft.footballmanager.ui.controller;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -33,6 +33,9 @@ import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
 import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
+
+import org.controlsfx.dialog.Dialogs;
+
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -107,8 +110,8 @@ public class TeamOverviewController implements Initializable, Observer {
 	private Player otherSelectedPlayer = new Player();
 	private static GameState gameState = new GameState();
 
-	SimpleListProperty<Player> yourPlayers = new SimpleListProperty<Player>();
-	SimpleListProperty<Player> otherPlayers = new SimpleListProperty<Player>();
+	static ListProperty<Player> yourPlayers = new SimpleListProperty<Player>();
+	static ListProperty<Player> otherPlayers = new SimpleListProperty<Player>();
 	
 	public static SimpleIntegerProperty iFielded = new SimpleIntegerProperty();
 
@@ -178,18 +181,54 @@ public class TeamOverviewController implements Initializable, Observer {
 		});
 
 		sellYourPlayerButton.setOnAction((event) -> {
-			String p = yourSelectedPlayer.getFirstName() + " " + yourSelectedPlayer.getLastName();
-
 			// TODO implement selling player, sells to 3rd team in league now
-			boolean res = MarketplaceLogic.transferPlayer(yourSelectedPlayer.getTeam(), gameState.getLeague().getTeams().get(3), yourSelectedPlayer, 1);
-			System.out.println("SELLING " + p + (res == true ? " succeeded!" : " failed"));
+			if (!MarketplaceLogic.transferPlayer(yourSelectedPlayer.getTeam(), gameState.getLeague().getTeams().get(3), yourSelectedPlayer, 1)) {
+				Dialogs.create()
+		        .owner(FootballManager.getStage())
+		        .title("Player not sold!")
+		        .masthead("This player was not sold!")
+		        .message("The budget of the buying team was insufficient!")
+		        .showError();
+			}
+			RootViewController.show(gameState);
+		});
+		
+		buyOtherPlayerButton.setOnAction((event) -> {
+			if (!MarketplaceLogic.transferPlayer(otherSelectedPlayer.getTeam(), gameState.getMyTeam(), otherSelectedPlayer, gameState.getGameRound())) {
+				Dialogs.create()
+		        .owner(FootballManager.getStage())
+		        .title("Player not bought!")
+		        .masthead("This player was not bought!")
+		        .message("Check if your not buying the 11th player of this team, and make sure your budget is sufficient.")
+		        .showError();
+			}
+			RootViewController.show(gameState);
 		});
 
 		otherPlayersTeamCol.setCellValueFactory((param) -> {
 			return new SimpleStringProperty(param.getValue().getClub());
 		});
 
-		this.new PlayersLoader().start();
+		bindYourPlayerStats();
+		bindOtherPlayerStats();
+
+		ObservableList<Player> observablePlayers = FXCollections.observableList(gameState.getMyTeam().getPlayers());
+		yourPlayers = new SimpleListProperty<Player>(observablePlayers);
+		
+		ObservableList<Player> otherObservablePlayers = FXCollections.observableArrayList();
+		for (Team t : gameState.getLeague().getTeams()) {
+			if (t == gameState.getMyTeam()) continue;
+			otherObservablePlayers.addAll(t.getPlayers());
+		}
+		otherPlayers = new SimpleListProperty<Player>(otherObservablePlayers);
+		
+		yourPlayerTableView.itemsProperty().bind(yourPlayers);
+		otherPlayersTableView.itemsProperty().bind(otherPlayers);
+		
+		yourPlayerTableView.getSelectionModel().selectFirst();
+		otherPlayersTableView.getSelectionModel().selectFirst();
+		
+//		this.new PlayersLoader().start();
 	}
 
 	class PlayersLoader extends Thread {
@@ -199,16 +238,18 @@ public class TeamOverviewController implements Initializable, Observer {
 
 			ObservableList<Player> observablePlayers = FXCollections.observableList(gameState.getMyTeam().getPlayers());
 			yourPlayers = new SimpleListProperty<Player>(observablePlayers);
-			yourPlayerTableView.itemsProperty().bind(yourPlayers);
-			yourPlayerTableView.getSelectionModel().selectFirst();
-
-			ObservableList<Player> otherObservablePlayers = FXCollections.observableList(new ArrayList<Player>());
+			
+			ObservableList<Player> otherObservablePlayers = FXCollections.observableArrayList();
 			for (Team t : gameState.getLeague().getTeams()) {
 				if (t == gameState.getMyTeam()) continue;
 				otherObservablePlayers.addAll(t.getPlayers());
 			}
 			otherPlayers = new SimpleListProperty<Player>(otherObservablePlayers);
+			
+			yourPlayerTableView.itemsProperty().bind(yourPlayers);
 			otherPlayersTableView.itemsProperty().bind(otherPlayers);
+			
+			yourPlayerTableView.getSelectionModel().selectFirst();
 			otherPlayersTableView.getSelectionModel().selectFirst();
 		}
 	}
