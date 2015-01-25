@@ -100,14 +100,6 @@ public class MarketplaceLogicTest {
 	}
 
 	/**
-	 * Test method for {@link nl.tudelft.footballmanager.model.logic.MarketplaceLogic#giveBid(nl.tudelft.footballmanager.model.Team, nl.tudelft.footballmanager.model.Player, int, nl.tudelft.footballmanager.model.GameState)}.
-	 */
-	@Test
-	public void testGiveBid() {
-		fail("Not yet implemented");
-	}
-
-	/**
 	 * Test method for {@link nl.tudelft.footballmanager.model.logic.MarketplaceLogic#isTransferWindow(int)}.
 	 */
 	@Test
