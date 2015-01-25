@@ -43,6 +43,7 @@ public class PostLeagueViewController implements Initializable {
 	@FXML private TableView<Team> leagueScoreboardTableView;
 	@FXML private TableColumn<Team, String> leagueTeamTableColumn;
 	@FXML private TableColumn<Team, Integer> leagueScoreTableColumn;
+	@FXML private TableColumn<Team, Integer> leaguePosTableColumn;
 	
 	private static GameState gameState = null;
 	
@@ -70,6 +71,8 @@ public class PostLeagueViewController implements Initializable {
 			};
 		}
 	};
+	
+	
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

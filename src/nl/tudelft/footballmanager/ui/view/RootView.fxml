@@ -33,7 +33,7 @@
         </ToolBar>
     </top>
     <right>
-        <SplitPane dividerPositions="0.7509" orientation="VERTICAL" prefHeight="680.0" prefWidth="333.0" BorderPane.alignment="CENTER">
+        <SplitPane dividerPositions="0.7509" maxWidth="324.0" minWidth="324.0" orientation="VERTICAL" prefHeight="680.0" prefWidth="324.0" BorderPane.alignment="CENTER">
             <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="506.0" prefWidth="272.0">
                <children>
@@ -65,7 +65,7 @@
                   </GridPane>
                </children>
                 </AnchorPane>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                <AnchorPane maxHeight="160.0" minHeight="160.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                     <children>
                         <Button fx:id="nextRoundButton" layoutX="22.0" layoutY="75.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="148.0" text="To next gameday" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" />
                         <HBox alignment="CENTER" layoutX="15.0" layoutY="31.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="30.0">
