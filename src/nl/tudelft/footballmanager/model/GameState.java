@@ -19,10 +19,12 @@ public class GameState extends Observable {
 	private MatchScheme matchScheme = null;
 
 	/**
-	 * @param coachName
-	 * @param gameRound
-	 * @param league
-	 * @param myTeam
+	 * Creates and initializes a Gamestate with actual League and Team.
+	 * 
+	 * @param coachName The name of the coach.
+	 * @param gameRound The current gameround.
+	 * @param league The current league.
+	 * @param myTeam The team the user is playing.
 	 */
 	public GameState(String coachName, int gameRound, League league, Team myTeam) {
 		this.coachName = coachName;
@@ -36,6 +38,14 @@ public class GameState extends Observable {
 		this.notifyObservers(this);
 	}
 
+	/**
+	 * Creates and initializes a Gamestate with Lague and Team as String.
+	 * 
+	 * @param coachName The name of the coach.
+	 * @param gameRound The current gameround.
+	 * @param league The current league.
+	 * @param myTeam The team the user is playing.
+	 */
 	public GameState(String coachName, int gameRound, String leagueName, String myTeamName) {
 		this.coachName = coachName;
 		this.gameRound = gameRound;
@@ -59,6 +69,7 @@ public class GameState extends Observable {
 	}
 
 	/**
+	 * Creates a gamestate from a file.
 	 * @param file XML file to read config from.
 	 */
 	public GameState(File file) {
@@ -77,7 +88,7 @@ public class GameState extends Observable {
 	}
 
 	/**
-	 * 
+	 * Creates and empty GameState.
 	 */
 	public GameState() {
 		this.coachName = "";
@@ -89,14 +100,30 @@ public class GameState extends Observable {
 		this.notifyObservers(this);
 	}
 
+	/**
+	 * Loads a GameState from a file.
+	 * @param file The file to read from.
+	 * @return The GameState.
+	 */
 	public static GameState load(File file) {
 		return new XMLConfig(file).readFromFile();
 	}
 
+	/**
+	 * Save a GameState to a file.
+	 * @param gameState The GameState to save.
+	 * @param file The file to save to.
+	 * @return Returns if the save was successful.
+	 */
 	public static boolean save(GameState gameState, File file) {
 		return new XMLConfig(file).writeToFile(gameState);
 	}
 
+	/**
+	 * Checks if a GameState has null elements, and therefor is useless.
+	 * @param gameState The GameState to check.
+	 * @return Returns if the GameState is useless.
+	 */
 	public static boolean isUseless(GameState gameState) {
 		return gameState == null
 				|| gameState.getCoachName() == null
@@ -104,10 +131,17 @@ public class GameState extends Observable {
 				|| gameState.getMyTeam() == null;
 	}
 
+	/**
+	 * Goes to the next round.
+	 */
 	public void nextRound() {
 		this.setGameRound(getGameRound() + 1);
 	}
 
+	/**
+	 * Gets the score of all the teams in the current league.
+	 * @return The score for each team.
+	 */
 	public Map<Team, Integer> getOverallScores() {
 		Map<Team, Integer> points = FXCollections.observableHashMap();
 
@@ -142,10 +176,18 @@ public class GameState extends Observable {
 		return points;
 	}
 
+	/**
+	 * Gets the users team as a string.
+	 * @return String of the users team.
+	 */
 	public String getMyTeamName() {
 		return getMyTeam().getName();
 	}
 
+	/**
+	 * Gets the users league as string.
+	 * @return String of the users league.
+	 */
 	public String getLeagueName() {
 		if (getLeague() != null) {
 			return getLeague().getName();
@@ -153,6 +195,9 @@ public class GameState extends Observable {
 		return null;
 	}
 
+	/**
+	 * toString method for the GameState.
+	 */
 	@Override
 	public String toString() {
 		return "GameState [coachName=" + coachName + ", round=" + gameRound
@@ -160,14 +205,16 @@ public class GameState extends Observable {
 	}
 
 	/**
-	 * @return the coachName
+	 * Gets the coachName as a string.
+	 * @return A string of the coach name.
 	 */
 	public String getCoachName() {
 		return coachName;
 	}
 
 	/**
-	 * @param coachName the coachName to set
+	 * Sets the coach name.
+	 * @param coachName The coachName to set.
 	 */
 	public void setCoachName(String coachName) {
 		this.coachName = coachName;
@@ -177,14 +224,16 @@ public class GameState extends Observable {
 	}
 
 	/**
-	 * @return the gameRound
+	 * Gets the current gameround.
+	 * @return the gameRound.
 	 */
 	public int getGameRound() {
 		return gameRound;
 	}
 
 	/**
-	 * @param gameRound the gameRound to set
+	 * Sets the gameRound.
+	 * @param gameRound the gameRound to set.
 	 */
 	public void setGameRound(int gameRound) {
 		this.gameRound = gameRound;
@@ -194,13 +243,15 @@ public class GameState extends Observable {
 	}
 
 	/**
-	 * @return the league
+	 * Gets the current league.
+	 * @return Returns the league.
 	 */
 	public League getLeague() {
 		return league;
 	}
 
 	/**
+	 * Sets the current league.
 	 * @param league the league to set
 	 */
 	public void setLeague(League league) {
@@ -210,6 +261,10 @@ public class GameState extends Observable {
 		notifyObservers(this);
 	}
 
+	/**
+	 * Sets the league, but as string.
+	 * @param leagueName The name of the league.
+	 */
 	public void setLeague(String leagueName) {
 		try {
 			this.league = League.readOne(leagueName);
@@ -222,6 +277,7 @@ public class GameState extends Observable {
 	}
 
 	/**
+	 * Gets the users team name.
 	 * @return the myTeam
 	 */
 	public Team getMyTeam() {
@@ -229,6 +285,7 @@ public class GameState extends Observable {
 	}
 
 	/**
+	 * Sets the users team.
 	 * @param myTeam the myTeam to set
 	 */
 	public void setMyTeam(Team myTeam) {
@@ -239,7 +296,8 @@ public class GameState extends Observable {
 	}
 	/**
 	 * Sets team according to name.
-	 * Cannot set team if league is not set
+	 * Cannot set team if league is not set.
+	 * 
 	 * @param myTeamName
 	 * @throws Exception 
 	 */
@@ -255,6 +313,7 @@ public class GameState extends Observable {
 	}
 
 	/**
+	 * Gets the matchscheme for the current gamestate.
 	 * @return the matchScheme
 	 */
 	public MatchScheme getMatchScheme() {
@@ -262,6 +321,7 @@ public class GameState extends Observable {
 	}
 
 	/**
+	 * Sets the matchscheme for the current gamestate.
 	 * @param matchScheme the matchScheme to set
 	 */
 	public void setMatchScheme(MatchScheme matchScheme) {

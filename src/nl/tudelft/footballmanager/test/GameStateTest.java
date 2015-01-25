@@ -8,9 +8,17 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Map;
 
+import javafx.collections.FXCollections;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.League;
+import nl.tudelft.footballmanager.model.Match;
+import nl.tudelft.footballmanager.model.MatchDay;
+import nl.tudelft.footballmanager.model.MatchResult;
+import nl.tudelft.footballmanager.model.MatchScheme;
+import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
 
 import org.junit.Before;
@@ -26,6 +34,15 @@ public class GameStateTest {
 	GameState testGameState1, testGameState2, testGameState3, testGameState4, testGameState5, testGameState6, testGameState7;
 	Team testTeam1;
 	League testLeague1;
+	MatchScheme ms;
+	MatchDay md;
+	ArrayList<Match> matches;
+	Match match;
+	MatchResult mr;
+	Map<Team, Integer> points;
+	
+	Team ajax = new Team("Ajax");
+	Team feyenoord = new Team("Feyenoord");
 	
 	@Before 
 	public void initialize() {
@@ -43,6 +60,16 @@ public class GameStateTest {
 //		testGameState5 = new GameState(saveFile);
 		testGameState6 = new GameState("Jans Janssen", 2, testLeague1, testTeam1);
 		testGameState7 = new GameState();
+		
+		ajax = new Team("Ajax");
+		feyenoord = new Team("Feyenoord");
+		
+		ms = new MatchScheme();
+		matches = new ArrayList<Match>();
+		match = new Match(ajax, feyenoord);
+		mr = new MatchResult();
+		
+		points = FXCollections.observableHashMap();
 	}
 
 	/**
@@ -199,6 +226,70 @@ public class GameStateTest {
 	@Test
 	public void testSaveFile() {
 		assertNotNull(GameState.save(testGameState3, saveFile));
+	}
+	
+	/**
+	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#getOverallScores()}.
+	 * Tests Team.
+	 */
+	@Test
+	public void testGetOverallScoresDraw() {
+		mr.setHomeScore(1);
+		mr.setAwayScore(1);
+		
+		match.setMatchResult(mr);
+		matches.add(0, match);
+
+		md = new MatchDay(0, matches);
+		ms.addMatchDay(md);
+		testGameState1.setMatchScheme(ms);
+		
+		points.put(ajax, 1);
+		points.put(feyenoord, 1);
+
+		assertEquals(points, testGameState1.getOverallScores());
+	}
+	
+	/**
+	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#getOverallScores()}.
+	 * Tests Team.
+	 */
+	@Test
+	public void testGetOverallScoresHomeWin() {
+		mr.setHomeScore(1);
+		mr.setAwayScore(0);
+		
+		match.setMatchResult(mr);
+		matches.add(0, match);
+
+		md = new MatchDay(0, matches);
+		ms.addMatchDay(md);
+		testGameState1.setMatchScheme(ms);
+		
+		points.put(ajax, 3);
+
+		assertEquals(points, testGameState1.getOverallScores());
+	}
+	
+	/**
+	 * Test method for {@link nl.tudelft.footballmanager.model.GameState#getOverallScores()}.
+	 * Tests Team.
+	 */
+	@Test
+	public void testGetOverallScoresAwayWin() {
+		mr.setHomeScore(0);
+		mr.setAwayScore(1);
+		
+		match.setMatchResult(mr);
+		matches.add(0, match);
+
+		md = new MatchDay(0, matches);
+		ms.addMatchDay(md);
+		testGameState1.setMatchScheme(ms);
+		
+		points.put(feyenoord, 3);
+
+		assertEquals(points, testGameState1.getOverallScores());
 	}
 	
 }
