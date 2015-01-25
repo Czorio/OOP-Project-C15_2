@@ -41,6 +41,7 @@ import org.controlsfx.dialog.Dialogs;
  * @author Toine Hartman <tjbhartman@gmail.com>
  *
  */
+@SuppressWarnings("deprecation")
 public class TeamOverviewController implements Initializable, Observer {
 	
 	@FXML private Label gamesWonLabel;
@@ -189,8 +190,9 @@ public class TeamOverviewController implements Initializable, Observer {
 		        .masthead("This player was not sold!")
 		        .message("The budget of the buying team was insufficient!")
 		        .showError();
+			} else {
+				RootViewController.show(gameState);
 			}
-			RootViewController.show(gameState);
 		});
 		
 		buyOtherPlayerButton.setOnAction((event) -> {
@@ -201,8 +203,9 @@ public class TeamOverviewController implements Initializable, Observer {
 		        .masthead("This player was not bought!")
 		        .message("Check if your not buying the 11th player of this team, and make sure your budget is sufficient.")
 		        .showError();
+			} else {
+				RootViewController.show(gameState);
 			}
-			RootViewController.show(gameState);
 		});
 
 		otherPlayersTeamCol.setCellValueFactory((param) -> {
