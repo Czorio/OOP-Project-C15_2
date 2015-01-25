@@ -187,7 +187,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				Dialogs.create()
 		        .owner(FootballManager.getStage())
 		        .title("Player not sold!")
-		        .masthead("This player was not sold!")
+		        .masthead(null)
 		        .message("The budget of the buying team was insufficient!")
 		        .showError();
 			} else {
@@ -200,7 +200,7 @@ public class TeamOverviewController implements Initializable, Observer {
 				Dialogs.create()
 		        .owner(FootballManager.getStage())
 		        .title("Player not bought!")
-		        .masthead("This player was not bought!")
+		        .masthead(null)
 		        .message("Check if your not buying the 11th player of this team, and make sure your budget is sufficient.")
 		        .showError();
 			} else {
