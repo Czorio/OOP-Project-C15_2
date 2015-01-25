@@ -37,7 +37,6 @@ import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Match;
 import nl.tudelft.footballmanager.model.MatchDay;
-import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
 import nl.tudelft.footballmanager.model.logic.GameLogic;
 import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
