@@ -19,6 +19,7 @@ public final class MarketplaceLogic {
 
 	/**
 	 * Handles transfering of players.
+	 * 
 	 * @param fromTeam	Team from which the player needs to be removed.
 	 * @param toTeam	Team to which the players needs to be moved.
 	 * @param player	The player
@@ -54,9 +55,9 @@ public final class MarketplaceLogic {
 		return ret;
 	}
 
-
 	/**
 	 * Transfers a random player to a random team.
+	 * 
 	 * @param currentRound	The round we currently play in.
 	 * @param league		The league object.
 	 * @param myTeam		The team you're coaching.
@@ -108,22 +109,17 @@ public final class MarketplaceLogic {
 	}
 
 	/**
-	 * Offers the bid to the player.
+	 * Handles the bid when it is accepted.
+	 * 
 	 * @param team The team that offers the bid.
 	 * @param player The player they bid on.
 	 * @param price The price they are willing to pay.
 	 * @param gs The current gamestate.
 	 * @return If the bid was succesful.
 	 */
-	public static final boolean giveBid(Team team, Player player, int price, GameState gs) {
-		//TODO Offer the bid to the player.
-
-		if(isTransferWindow(1)/*Change to: The player accepts the bid*/) {
-			transferPlayer(team, gs.getMyTeam(), player, gs.getGameRound());
-			return true;
-		}
-
-		return false;
+	public static final void acceptedBid(Team team, Player player, int price, GameState gs) {
+		//TODO call method when player accepts bid.
+		transferPlayer(gs.getMyTeam(), team, player, gs.getGameRound());
 	}
 
 	/**
@@ -131,6 +127,8 @@ public final class MarketplaceLogic {
 	 * @param gs The current gamestate.
 	 */
 	public static final void randomBid(GameState gs) {
+		if (!isTransferWindow(gs.getGameRound())) return;
+		
 		List<Team> teams = gs.getLeague().getTeams();
 		Team biddingTeam = teams.get(GameLogic.generateRandom(0, teams.size() - 1));
 
@@ -139,20 +137,22 @@ public final class MarketplaceLogic {
 
 		int price = p.getPrice() + GameLogic.generateRandom(0, 300000) - GameLogic.generateRandom(0, 300000);
 
-		giveBid(biddingTeam, p, price, gs);
+		acceptedBid(biddingTeam, p, price, gs); //TODO Change to show popup.
 	}
 
 	/**
 	 * Handles opening and closing of the transfer window.
 	 * Transfer window is opened the first 4 rounds and between round 18 and 20.
+	 * 
 	 * @return Whether or not the transfer window is open or closed.
 	 */
 	public static final boolean isTransferWindow(int currentRound) {
-		if(currentRound >= 1 && currentRound <= 4)
+		if(currentRound >= 0 && currentRound < 4)
 			return true;
 		else if(currentRound >= 18 && currentRound <= 20)
 			return true;
 		else
 			return false;
 	}
+	
 }
