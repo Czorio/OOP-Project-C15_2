@@ -61,7 +61,8 @@ public class XMLPlayer extends XML {
 			setTransformer(dom);
 
 		} catch(ParserConfigurationException | TransformerException | IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Error writing players in GameState file.");
 		}
 	}
 
@@ -89,7 +90,8 @@ public class XMLPlayer extends XML {
 			setTransformer(dom);
 
 		} catch(ParserConfigurationException | TransformerException | IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Error writing players GameState file.");
 		}
 	}
 	
@@ -143,7 +145,8 @@ public class XMLPlayer extends XML {
 			return handler.getLeagueObjects();
 
 		} catch(ParserConfigurationException | SAXException | IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Error reading GameState file.");
 		}
 
 		// Return empty ArrayList if non found.

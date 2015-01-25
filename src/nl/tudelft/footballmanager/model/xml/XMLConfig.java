@@ -114,11 +114,13 @@ public class XMLConfig extends XML {
 	            // Write to file
 	            tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(file)));
 	        } catch(TransformerException | IOException e) {
-	        	e.printStackTrace();
+	        	//e.printStackTrace();
+	        	System.out.println("Error writing GameState file.");
 	        }
 	    	
 	    } catch(ParserConfigurationException e) {
-	    	e.printStackTrace();
+	    	//e.printStackTrace();
+	    	System.out.println("Error parsing GameState file.");
 	    }
 		
 		return true;
@@ -193,7 +195,8 @@ public class XMLConfig extends XML {
 			
 			
 		} catch(ParserConfigurationException | SAXException | IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			System.out.println("Error reading GameState file.");
 		}
 		
 		// Return empty GameState if non found.
