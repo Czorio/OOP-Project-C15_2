@@ -4,21 +4,14 @@ import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Date;
 
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.League;
-import nl.tudelft.footballmanager.model.Player;
-import nl.tudelft.footballmanager.model.Team;
 import nl.tudelft.footballmanager.model.xml.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.xml.sax.Attributes;
 import org.xml.sax.helpers.AttributesImpl;
-
-import com.sun.org.apache.xerces.internal.parsers.XML11Configurable;
-import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
 public class XMLTest {
 	XMLConfig xmlConfig;
