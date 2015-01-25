@@ -66,8 +66,6 @@ public class TeamOverviewController implements Initializable, Observer {
 	@FXML private Label yourPlayerDefensiveLabel;
 	@FXML private Label yourPlayerStaminaLabel;
 	@FXML private Label yourPlayerPriceLabel;
-	@FXML private Label transferWindowLabel;
-	@FXML private Button sellYourPlayerButton;
 
 	SimpleStringProperty name;
 	SimpleStringProperty position;
@@ -156,10 +154,8 @@ public class TeamOverviewController implements Initializable, Observer {
 			isTransfer = new SimpleStringProperty("Closed");
 		}
 
-		transferWindowLabel.textProperty().bind(isTransfer);
 		transferWindowLabel1.textProperty().bind(isTransfer);
 
-		sellYourPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
 		buyOtherPlayerButton.setDisable(!MarketplaceLogic.isTransferWindow(gameState.getGameRound()));
 
 		curPosChoiceBox.setItems(FXCollections.observableArrayList(
@@ -201,20 +197,6 @@ public class TeamOverviewController implements Initializable, Observer {
 				
 				iFielded.set(gameState.getMyTeam().getNumOfPlayingPlayers());
 				
-			}
-		});
-
-		sellYourPlayerButton.setOnAction((event) -> {
-			// TODO implement selling player, sells to 3rd team in league now
-			if (!MarketplaceLogic.transferPlayer(yourSelectedPlayer.getTeam(), gameState.getLeague().getTeams().get(3), yourSelectedPlayer, 1)) {
-				Dialogs.create()
-		        .owner(FootballManager.getStage())
-		        .title("Player not sold!")
-		        .masthead(null)
-		        .message("The budget of the buying team was insufficient!")
-		        .showError();
-			} else {
-				TeamOverviewController.show(rootLayout, gameState);
 			}
 		});
 		
