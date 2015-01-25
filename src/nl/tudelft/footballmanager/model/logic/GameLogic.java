@@ -173,8 +173,8 @@ public class GameLogic {
 		}
 		//Match ends here
 
-		homeIncome += 50000 + generateRandom(0, 100000);
-		awayIncome += 50000 + generateRandom(0, 100000);
+		homeIncome += 90000 + ((homeGoals + 1) * generateRandom(0, 100000));
+		awayIncome += 90000 + ((awayGoals + 1) * generateRandom(0, 100000));
 		home.alterBudget(homeIncome);
 		away.alterBudget(awayIncome);
 
