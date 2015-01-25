@@ -150,4 +150,11 @@ public class TeamTest {
 		assertEquals(testTeam.getBudget(),107000);
 	}
 	
+	@Test
+	public void testHasFielKeeper(){
+		testTeam.addPlayer(testPlayer);
+		testPlayer.setCurPosition("GK");
+		assertEquals(true,testTeam.hasFieldedKeeper());
+		assertEquals(false,testTeam2.hasFieldedKeeper());
+	}
 }

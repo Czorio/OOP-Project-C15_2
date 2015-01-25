@@ -364,7 +364,7 @@ public class Team extends Observable {
 	
 	public boolean hasFieldedKeeper() {
 		for (Player player : players) {
-			if(player.getCurPosition() == "Goalkeeper") {
+			if(player.getCurPosition() == "GK") {
 				return true;
 			}
 		}
