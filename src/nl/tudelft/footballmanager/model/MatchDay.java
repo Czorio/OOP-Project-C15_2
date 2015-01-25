@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nl.tudelft.footballmanager.model;
 
 import java.util.ArrayList;
@@ -8,24 +5,36 @@ import java.util.Observable;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
- *
  */
 public class MatchDay extends Observable {
 	private ArrayList<Match> matches;
 	private int round;
 
 	/**
-	 * @param matches
+	 * Creates and initializes a matchday.
+	 * 
+	 * @param round The gameround of this matchday.
+	 * @param matches The matches to be played this day.
 	 */
 	public MatchDay(int round, ArrayList<Match> matches) {
 		this.matches = matches;
 		this.round = round;
 	}
 	
+	/**
+	 * Creates and initializes a gameday with no matches.
+	 * 
+	 * @param round The gameround of this matchday.
+	 */
 	public MatchDay(int round) {
 		this(round, new ArrayList<Match>());
 	}
 	
+	/**
+	 * Gets the teams that are playing this matchday.
+	 * 
+	 * @return Returns the teams that are playng today.
+	 */
 	public ArrayList<Team> getTodaysTeams() {
 		ArrayList<Team> t = new ArrayList<Team>();
 		for (Match m : matches) {
@@ -36,25 +45,41 @@ public class MatchDay extends Observable {
 		return t;
 	}
 	
+	/**
+	 * Checks if a team can play today, i.e. they are not already playing today.
+	 * 
+	 * @param t The team to check.
+	 * @return Returns if team t can play today.
+	 */
 	public boolean teamCanPlayToday(Team t) {
 		if (getTodaysTeams().contains(t)) return false;
 		return true;
 	}
 	
+	/**
+	 * Checks if a match can be played today, i.e. if both teams can play today.
+	 * 
+	 * @param m The match to check.
+	 * @return Returns if a match can be played today.
+	 */
 	public boolean matchCanBePlayedToday(Match m) {
 		if (teamCanPlayToday(m.getHome()) && teamCanPlayToday(m.getAway())) return true;
 		return false;
 	}
 
 	/**
-	 * @return the matches
+	 * Gets the matches for today.
+	 * 
+	 * @return Returns the matches of today.
 	 */
 	public ArrayList<Match> getMatches() {
 		return matches;
 	}
 
 	/**
-	 * @param matches the matches to set
+	 * Sets the matches for today.
+	 * 
+	 * @param matches The matches to set.
 	 */
 	public void setMatches(ArrayList<Match> matches) {
 		this.matches = matches;
@@ -63,6 +88,11 @@ public class MatchDay extends Observable {
 		notifyObservers(this);
 	}
 	
+	/**
+	 * Adds a match for today.
+	 * 
+	 * @param m The match to add.
+	 */
 	public void addMatch(Match m) {
 		this.matches.add(m);
 		
@@ -71,14 +101,18 @@ public class MatchDay extends Observable {
 	}
 
 	/**
-	 * @return the round
+	 * Gets the round of this matchday.
+	 * 
+	 * @return Returns the roundnumber.
 	 */
 	public int getRound() {
 		return round;
 	}
 
 	/**
-	 * @param round the round to set
+	 * Sets the roundnumber of this matchday.
+	 * 
+	 * @param round The roundnumber to set.
 	 */
 	public void setRound(int round) {
 		this.round = round;
@@ -87,8 +121,10 @@ public class MatchDay extends Observable {
 		notifyObservers(this);
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
+	/**
+	 * String representation of the matchday.
+	 * 
+	 * @return Returns this matchday as a string.
 	 */
 	@Override
 	public String toString() {
@@ -96,9 +132,12 @@ public class MatchDay extends Observable {
 	}
 
 	/**
-	 * @return
+	 * Gets the amount of matches played today.
+	 * 
+	 * @return The number of matches played this matchday.
 	 */
 	public int getMatchCount() {
 		return this.matches.size();
 	}
+	
 }

@@ -1,4 +1,5 @@
 package nl.tudelft.footballmanager.model;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Map;
@@ -70,6 +71,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Creates a gamestate from a file.
+	 * 
 	 * @param file XML file to read config from.
 	 */
 	public GameState(File file) {
@@ -102,6 +104,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Loads a GameState from a file.
+	 * 
 	 * @param file The file to read from.
 	 * @return The GameState.
 	 */
@@ -111,6 +114,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Save a GameState to a file.
+	 * 
 	 * @param gameState The GameState to save.
 	 * @param file The file to save to.
 	 * @return Returns if the save was successful.
@@ -121,6 +125,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Checks if a GameState has null elements, and therefor is useless.
+	 * 
 	 * @param gameState The GameState to check.
 	 * @return Returns if the GameState is useless.
 	 */
@@ -140,6 +145,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Gets the score of all the teams in the current league.
+	 * 
 	 * @return The score for each team.
 	 */
 	public Map<Team, Integer> getOverallScores() {
@@ -178,6 +184,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Gets the users team as a string.
+	 * 
 	 * @return String of the users team.
 	 */
 	public String getMyTeamName() {
@@ -186,6 +193,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Gets the users league as string.
+	 * 
 	 * @return String of the users league.
 	 */
 	public String getLeagueName() {
@@ -196,7 +204,9 @@ public class GameState extends Observable {
 	}
 
 	/**
-	 * toString method for the GameState.
+	 * Represent this gameState as a String.
+	 * 
+	 * @return Returns the gameState as a string.
 	 */
 	@Override
 	public String toString() {
@@ -205,7 +215,8 @@ public class GameState extends Observable {
 	}
 
 	/**
-	 * Gets the coachName as a string.
+	 * Gets the coachName as a string
+	 * 
 	 * @return A string of the coach name.
 	 */
 	public String getCoachName() {
@@ -214,6 +225,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Sets the coach name.
+	 * 
 	 * @param coachName The coachName to set.
 	 */
 	public void setCoachName(String coachName) {
@@ -225,6 +237,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Gets the current gameround.
+	 * 
 	 * @return the gameRound.
 	 */
 	public int getGameRound() {
@@ -233,6 +246,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Sets the gameRound.
+	 * 
 	 * @param gameRound the gameRound to set.
 	 */
 	public void setGameRound(int gameRound) {
@@ -244,6 +258,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Gets the current league.
+	 * 
 	 * @return Returns the league.
 	 */
 	public League getLeague() {
@@ -252,6 +267,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Sets the current league.
+	 * 
 	 * @param league the league to set
 	 */
 	public void setLeague(League league) {
@@ -263,6 +279,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Sets the league, but as string.
+	 * 
 	 * @param leagueName The name of the league.
 	 */
 	public void setLeague(String leagueName) {
@@ -278,6 +295,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Gets the users team name.
+	 * 
 	 * @return the myTeam
 	 */
 	public Team getMyTeam() {
@@ -286,6 +304,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Sets the users team.
+	 * 
 	 * @param myTeam the myTeam to set
 	 */
 	public void setMyTeam(Team myTeam) {
@@ -314,6 +333,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Gets the matchscheme for the current gamestate.
+	 * 
 	 * @return the matchScheme
 	 */
 	public MatchScheme getMatchScheme() {
@@ -322,6 +342,7 @@ public class GameState extends Observable {
 
 	/**
 	 * Sets the matchscheme for the current gamestate.
+	 * 
 	 * @param matchScheme the matchScheme to set
 	 */
 	public void setMatchScheme(MatchScheme matchScheme) {
