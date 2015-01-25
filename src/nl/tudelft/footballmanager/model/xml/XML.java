@@ -33,7 +33,7 @@ public abstract class XML {
 	 * @param qName
 	 * @return
 	 */
-	protected static String getValueIgnoreCase(Attributes attributes, String qName){
+	public static String getValueIgnoreCase(Attributes attributes, String qName){
 		String qn = null;
 	    for(int i = 0; i < attributes.getLength(); i++){
 	        qn = attributes.getQName(i);
