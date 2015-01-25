@@ -218,16 +218,16 @@ public class RootViewController implements Initializable {
 
 						for (MatchDay md : gameState.getMatchScheme().getMatchdays()) {
 							for (Match m : md.getMatches()) {
-								if (m.getHome().equals(t1) && !m.getAway().equals(t2)) {
+								if (m.getHome().equals(t1) && !m.getAway().equals(t2) && m.getMatchResult() != null) {
 									goals1 += m.getMatchResult().getHomeScore();
 									goals11 += m.getMatchResult().getAwayScore();
-								} else if (m.getAway().equals(t1) && !m.getHome().equals(t2)) {
+								} else if (m.getAway().equals(t1) && !m.getHome().equals(t2) && m.getMatchResult() != null) {
 									goals1 += m.getMatchResult().getAwayScore();
 									goals11 += m.getMatchResult().getHomeScore();
-								} else if (m.getHome().equals(t2) && !m.getAway().equals(t1)) {
+								} else if (m.getHome().equals(t2) && !m.getAway().equals(t1) && m.getMatchResult() != null) {
 									goals2 += m.getMatchResult().getHomeScore();
 									goals21 += m.getMatchResult().getAwayScore();
-								} else if (m.getAway().equals(t2) && !m.getHome().equals(t1)) {
+								} else if (m.getAway().equals(t2) && !m.getHome().equals(t1) && m.getMatchResult() != null) {
 									goals2 += m.getMatchResult().getAwayScore();
 									goals21 += m.getMatchResult().getHomeScore();
 								}

@@ -5,7 +5,10 @@ package nl.tudelft.footballmanager.ui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -79,6 +82,63 @@ public class PostLeagueViewController implements Initializable {
 		
 		Map<Team, Integer> scores = gameState.getOverallScores();
 		System.out.println("Scores: " + scores);
+		
+		Comparator<Team> TeamComparator = new Comparator<Team>() {
+			@Override
+			public int compare(Team t1, Team t2) {
+				int score1 = (scores.get(t1) != null ? scores.get(t1) : 0);
+				int score2 = (scores.get(t2) != null ? scores.get(t2) : 0);
+				int goals1 = 0; //t1 goals
+				int goals11 = 0; //t1 counter goals
+				int goals2 = 0; //t2 goals
+				int goals21 = 0; //t2 counter goals
+
+				for (MatchDay md : gameState.getMatchScheme().getMatchdays()) {
+					for (Match m : md.getMatches()) {
+						if (m.getHome().equals(t1) && !m.getAway().equals(t2) && m.getMatchResult() != null) {
+							goals1 += m.getMatchResult().getHomeScore();
+							goals11 += m.getMatchResult().getAwayScore();
+						} else if (m.getAway().equals(t1) && !m.getHome().equals(t2) && m.getMatchResult() != null) {
+							goals1 += m.getMatchResult().getAwayScore();
+							goals11 += m.getMatchResult().getHomeScore();
+						} else if (m.getHome().equals(t2) && !m.getAway().equals(t1) && m.getMatchResult() != null) {
+							goals2 += m.getMatchResult().getHomeScore();
+							goals21 += m.getMatchResult().getAwayScore();
+						} else if (m.getAway().equals(t2) && !m.getHome().equals(t1) && m.getMatchResult() != null) {
+							goals2 += m.getMatchResult().getAwayScore();
+							goals21 += m.getMatchResult().getHomeScore();
+						}
+					}
+				}
+				
+				if (score1 > score2) {
+					return -1;
+				} else if (score1 < score2) {
+					return 1;
+				} else if (goals1 > goals2) {
+					return -1;
+				} else if ((goals11 - goals1) > (goals21 - goals2)) {
+					return 1;
+				} else if ((goals11 - goals1) < (goals21 - goals2)) {
+					return -1;
+				} else if ((goals1 - goals11) > (goals2 - goals21)) {
+					return 1;
+				} else if ((goals1 - goals11) < (goals2 - goals21)) {
+					return -1;
+				} else if (goals1 > goals2) {
+					return 1;
+				} else if (goals1 < goals2) {
+					return -1;
+				} else if (t1.getName().equals(gameState.getMyTeamName())) {
+					return -1;
+				} else if (t2.getName().equals(gameState.getMyTeamName())) {
+					return 1;
+				} else {
+					return 0;
+				}
+			}
+		};
+		
 		leagueScoreboardTableView.setItems(FXCollections.observableList(gameState.getLeague().getTeams()));
 		leagueTeamTableColumn.setCellValueFactory(new PropertyValueFactory<Team, String>("name"));
 		leagueTeamTableColumn.setCellFactory(highlightMyTeam);
@@ -95,64 +155,8 @@ public class PostLeagueViewController implements Initializable {
 
 		leagueScoreboardTableView.sortPolicyProperty().set(new Callback<TableView<Team>, Boolean>() {
 			@Override
-			public Boolean call(TableView<Team> param) {
-				Comparator<Team> comparator = new Comparator<Team>() {
-					@Override
-					public int compare(Team t1, Team t2) {
-						int score1 = (scores.get(t1) != null ? scores.get(t1) : 0);
-						int score2 = (scores.get(t2) != null ? scores.get(t2) : 0);
-						int goals1 = 0; //t1 goals
-						int goals11 = 0; //t1 counter goals
-						int goals2 = 0; //t2 goals
-						int goals21 = 0; //t2 counter goals
-
-						for (MatchDay md : gameState.getMatchScheme().getMatchdays()) {
-							for (Match m : md.getMatches()) {
-								if (m.getHome().equals(t1) && !m.getAway().equals(t2)) {
-									goals1 += m.getMatchResult().getHomeScore();
-									goals11 += m.getMatchResult().getAwayScore();
-								} else if (m.getAway().equals(t1) && !m.getHome().equals(t2)) {
-									goals1 += m.getMatchResult().getAwayScore();
-									goals11 += m.getMatchResult().getHomeScore();
-								} else if (m.getHome().equals(t2) && !m.getAway().equals(t1)) {
-									goals2 += m.getMatchResult().getHomeScore();
-									goals21 += m.getMatchResult().getAwayScore();
-								} else if (m.getAway().equals(t2) && !m.getHome().equals(t1)) {
-									goals2 += m.getMatchResult().getAwayScore();
-									goals21 += m.getMatchResult().getHomeScore();
-								}
-							}
-						}
-						
-						if (score1 > score2) {
-							return -1;
-						} else if (score1 < score2) {
-							return 1;
-						} else if (goals1 > goals2) {
-							return -1;
-						} else if ((goals11 - goals1) > (goals21 - goals2)) {
-							return 1;
-						} else if ((goals11 - goals1) < (goals21 - goals2)) {
-							return -1;
-						} else if ((goals1 - goals11) > (goals2 - goals21)) {
-							return 1;
-						} else if ((goals1 - goals11) < (goals2 - goals21)) {
-							return -1;
-						} else if (goals1 > goals2) {
-							return 1;
-						} else if (goals1 < goals2) {
-							return -1;
-						} else if (t1.getName().equals(gameState.getMyTeamName())) {
-							return -1;
-						} else if (t2.getName().equals(gameState.getMyTeamName())) {
-							return 1;
-						} else {
-							return 0;
-						}
-					}
-				};
-				
-				FXCollections.sort(leagueScoreboardTableView.getItems(), comparator);
+			public Boolean call(TableView<Team> param) {				
+				FXCollections.sort(leagueScoreboardTableView.getItems(), TeamComparator);
 				return true;
 			}
 		});
@@ -164,6 +168,9 @@ public class PostLeagueViewController implements Initializable {
 			System.out.println("Returned to Menu!");
 		});
 		
+		List<Team> positions = new ArrayList<Team>(gameState.getLeague().getTeams());
+		Collections.sort(positions, TeamComparator);
+		teamPosLabel.textProperty().bind(new SimpleIntegerProperty(positions.indexOf(gameState.getMyTeam()) + 1).asString());
 	}
 
 	/**
