@@ -6,10 +6,12 @@ package nl.tudelft.footballmanager.ui.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableStringValue;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -29,6 +31,7 @@ import javafx.util.Callback;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Match;
+import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.logic.GameLogic;
 import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
 
@@ -45,6 +48,12 @@ public class PostMatchViewController implements Initializable {
 	@FXML private TableColumn<Match, String> playedMatchesTeam1TableColumn;
 	@FXML private TableColumn<Match, String> playedMatchesTeam2TableColumn;
 	@FXML private TableColumn<Match, String> playedMatchesScoreTableColumn;
+
+	@FXML private TableView<Integer> eventsTableView;
+	@FXML private TableColumn<Integer, Integer> eventsMinuteTableColumn;
+	@FXML private TableColumn<Integer, String> eventsPlayerNameTableColumn;
+	@FXML private TableColumn<Integer, String> eventsTeamTableColumn;
+	@FXML private TableColumn<Integer, String> eventsEventTableColumn;
 
 	@FXML private Label incomeLabel;
 	@FXML private Button continueButton;
@@ -79,7 +88,7 @@ public class PostMatchViewController implements Initializable {
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println("Initializing " + this.getClass());
-		
+
 
 		int gameRound = gameState.getGameRound();
 		try {
@@ -133,24 +142,70 @@ public class PostMatchViewController implements Initializable {
 			}
 		});
 
+		playedMatchesTableView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Match>() {
+			@Override
+			public void changed(ObservableValue<? extends Match> observable, Match oldValue, Match newValue) {
+				if (newValue != null) {
+					Map<Integer, Player> goals = newValue.getMatchResult().getHomeGoals();
+					goals.putAll(newValue.getMatchResult().getAwayGoals());
+					eventsTableView.setItems(FXCollections.observableArrayList(goals.keySet()));
+				}
+			}
+		});
+
+		eventsMinuteTableColumn.setCellValueFactory(new Callback<CellDataFeatures<Integer, Integer>, ObservableValue<Integer>>() {
+			@Override
+			public ObservableValue<Integer> call(CellDataFeatures<Integer, Integer> param) {
+				return new SimpleIntegerProperty(param.getValue()).asObject();
+			}
+		});
+		
+		eventsPlayerNameTableColumn.setCellValueFactory(new Callback<CellDataFeatures<Integer, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Integer, String> param) {
+				Map<Integer, Player> goals = playedMatchesTableView.getSelectionModel().getSelectedItem().getMatchResult().getHomeGoals();
+				goals.putAll(playedMatchesTableView.getSelectionModel().getSelectedItem().getMatchResult().getAwayGoals());
+				return new SimpleStringProperty(goals.get(param.getValue()).getFirstName() + " " + goals.get(param.getValue()).getLastName());
+			}
+		});
+		
+		eventsTeamTableColumn.setCellValueFactory(new Callback<CellDataFeatures<Integer, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Integer, String> param) {
+				Map<Integer, Player> goals = playedMatchesTableView.getSelectionModel().getSelectedItem().getMatchResult().getHomeGoals();
+				goals.putAll(playedMatchesTableView.getSelectionModel().getSelectedItem().getMatchResult().getAwayGoals());
+				return new SimpleStringProperty(goals.get(param.getValue()).getClub());
+			}
+		});
+		
+		eventsEventTableColumn.setCellValueFactory(new Callback<CellDataFeatures<Integer, String>, ObservableValue<String>>() {
+			@Override
+			public ObservableValue<String> call(CellDataFeatures<Integer, String> param) {
+				if (param.getValue() != null)
+					return new SimpleStringProperty("Goal");
+				else
+					return null;
+			}
+		});
+
 		new GameLogic(gameState);
 		GameLogic.matchDay();
 		incomeLabel.textProperty().bind(new SimpleIntegerProperty(GameLogic.getMatchIncome()).asString());
 
 		System.out.println("Initializing " + this.getClass() + " finished");
-}
-
-public static void show(GameState gs) {
-	gameState = gs;
-
-	FXMLLoader l = new FXMLLoader();
-	l.setLocation(FootballManager.class.getResource(postMatchViewFileName));
-	try {
-		AnchorPane postMatchView = (AnchorPane) l.load();
-		FootballManager.getStage().setScene(new Scene(postMatchView));
-	} catch (IOException e) {
-		e.printStackTrace();
 	}
-}
+
+	public static void show(GameState gs) {
+		gameState = gs;
+
+		FXMLLoader l = new FXMLLoader();
+		l.setLocation(FootballManager.class.getResource(postMatchViewFileName));
+		try {
+			AnchorPane postMatchView = (AnchorPane) l.load();
+			FootballManager.getStage().setScene(new Scene(postMatchView));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 
 }
