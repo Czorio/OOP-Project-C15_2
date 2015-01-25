@@ -1,7 +1,7 @@
 /**
  * 
  */
-package nl.tudelft.footballmanager.model.logic;
+package nl.tudelft.footballmanager.test;
 
 import static org.junit.Assert.*;
 
@@ -12,6 +12,7 @@ import java.util.List;
 import nl.tudelft.footballmanager.model.League;
 import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
+import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
 import org.junit.Test;
