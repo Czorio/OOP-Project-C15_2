@@ -43,7 +43,7 @@ public class XMLPlayer extends XML {
 	 * write specific league to file.
 	 * @param league
 	 */
-	public void writeToFile(League league) {
+	public boolean writeToFile(League league) {
 		Document dom;    
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
@@ -62,15 +62,18 @@ public class XMLPlayer extends XML {
 
 		} catch(ParserConfigurationException | TransformerException | IOException e) {
 			//e.printStackTrace();
-			System.out.println("Error writing players in GameState file.");
+			System.err.println("Error writing players in GameState file.");
+			return false;
 		}
+		
+		return true;
 	}
 
 	/**
 	 * write multiple leagues to file.
 	 * @param league
 	 */
-	public void writeToFile(ArrayList<League> leagues) {
+	public boolean writeToFile(ArrayList<League> leagues) {
 		Document dom;    
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 
@@ -91,8 +94,11 @@ public class XMLPlayer extends XML {
 
 		} catch(ParserConfigurationException | TransformerException | IOException e) {
 			//e.printStackTrace();
-			System.out.println("Error writing players GameState file.");
+			System.err.println("Error writing players GameState file.");
+			return false;
 		}
+		
+		return true;
 	}
 	
 	/**
@@ -146,7 +152,7 @@ public class XMLPlayer extends XML {
 
 		} catch(ParserConfigurationException | SAXException | IOException e) {
 			//e.printStackTrace();
-			System.out.println("Error reading GameState file.");
+			System.err.println("Error reading GameState file.");
 		}
 
 		// Return empty ArrayList if non found.

@@ -119,7 +119,7 @@ public class XMLConfigHandler extends DefaultHandler {
 					"STAMINA", "CLUB", "DATEOFBIRTH", "INJURED", "CURRENTPOSITION"};
 			
 			if(!Arrays.asList(knownElements).contains(qName.toUpperCase())) {
-				System.out.println("XML: Unkown element in GameState XML file. --> startElement: " + qName);
+				System.err.println("XML: Unkown element in GameState XML file. --> startElement: " + qName);
 			}
 									
 			break;
@@ -204,7 +204,7 @@ public class XMLConfigHandler extends DefaultHandler {
 				break;
 				
 			default:
-				System.out.println("XML: Unkown element in GameState XML file. --> characters:" + new String(ch, start, length));
+				System.err.println("XML: Unkown element in GameState XML file. --> characters:" + new String(ch, start, length));
 				break;
 			}
 		}

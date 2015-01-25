@@ -120,7 +120,7 @@ public class XMLConfig extends XML {
 	    	
 	    } catch(ParserConfigurationException e) {
 	    	//e.printStackTrace();
-	    	System.out.println("Error parsing GameState file.");
+	    	System.err.println("Error parsing GameState file.");
 	    }
 		
 		return true;
@@ -196,7 +196,7 @@ public class XMLConfig extends XML {
 			
 		} catch(ParserConfigurationException | SAXException | IOException e) {
 			//e.printStackTrace();
-			System.out.println("Error reading GameState file.");
+			System.err.println("Error reading GameState file.");
 		}
 		
 		// Return empty GameState if non found.

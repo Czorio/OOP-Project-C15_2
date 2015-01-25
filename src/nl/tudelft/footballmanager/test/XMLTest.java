@@ -131,7 +131,7 @@ public class XMLTest {
 		ArrayList<League> league = xmlPlayer.readFromFile();
 		
 		XMLPlayer write = new XMLPlayer(new File("./XML/XMLTest_Write.xml"));
-		write.writeToFile(league);		
+		assertTrue( write.writeToFile(league) );
 	}
 	
 	@Test
@@ -140,7 +140,7 @@ public class XMLTest {
 		League league = xmlPlayer.readFromFile("Eredivisie");
 		
 		XMLPlayer write = new XMLPlayer(new File("./XML/XMLTest_Write.xml"));
-		write.writeToFile(league);		
+		assertTrue( write.writeToFile(league) );		
 	}
 	
 	@Test
@@ -150,13 +150,16 @@ public class XMLTest {
 		league.getTeams().get(0).getPlayers().get(0).setCurPosition(null);
 		
 		XMLPlayer write = new XMLPlayer(new File("./XML/XMLTest_Write.xml"));
-		write.writeToFile(league);		
+		assertTrue( write.writeToFile(league) );
 	}
 	
 	@Test
 	public void testReadEmptyFile() {
 		xmlPlayer = new XMLPlayer(new File("./XML/XMLTest_Empty.xml"));
-		League league = xmlPlayer.readFromFile("Eredivisie");		
+		League league = xmlPlayer.readFromFile("Eredivisie");
+		
+		assertNull( league );
+		
 	}
 	
 	@Test
@@ -185,6 +188,6 @@ public class XMLTest {
 		GameState gs = xmlConfig.readFromFile(); 
 		
 		XMLConfig xmlConfig = new XMLConfig(new File("./XML/XMLTest_GSWrite.xml"));
-		xmlConfig.writeToFile(gs);		
+		assertTrue( xmlConfig.writeToFile(gs) );
 	}
 }
