@@ -5,7 +5,6 @@ import nl.tudelft.footballmanager.model.Player;
 /**
  * Class to calculate a players statistics.
  * @author Steven Meijer <stevenmeijer9@gmail.com>
- *
  */
 public final class PlayerLogic {
 
@@ -13,6 +12,9 @@ public final class PlayerLogic {
 
 	/**
 	 * Calculates a player's offensive score by their position.
+	 * If the player is an attacker, give him a bonus.
+	 * If the player is a defender, give him a debuff.
+	 * 
 	 * @param player The player to calculate the score for.
 	 * @return Returns the offensive score of a player.
 	 */
@@ -31,6 +33,9 @@ public final class PlayerLogic {
 
 	/**
 	 * Calculates a player's defensive score by their position.
+	 * If the player is an attacker, give him a debuff.
+	 * If the player is a defender, give him a bonus.
+	 * 
 	 * @param player The player to calculate the score for.
 	 * @return Returns the defensive score of a player.
 	 */
@@ -49,6 +54,9 @@ public final class PlayerLogic {
 
 	/**
 	 * Calculates a player's stamina.
+	 * Stamina is reduced for each game the player had played, but resets every 9th game round (see GameLogic).
+	 * Players with less stamina lose more.
+	 * 
 	 * @param player The player to calculate the stamina for.
 	 * @return Returns the stamina of a player.
 	 */
@@ -68,8 +76,10 @@ public final class PlayerLogic {
 	
 	/**
 	 * Calculates the cost for a player.
+	 * Players with higher stats are worth way more.
+	 * 
 	 * @param player The player to calculate the cost for.
-	 * @return Returns the initial cost of a player.
+	 * @return Returns the cost of a player.
 	 */
 	public static final int calculatePrice(Player player) {
 		int stats = player.getOffensive() + player.getDefensive() + player.getStamina();
@@ -90,4 +100,5 @@ public final class PlayerLogic {
 		player.setPrice(price);
 		return price;
 	}
+	
 }

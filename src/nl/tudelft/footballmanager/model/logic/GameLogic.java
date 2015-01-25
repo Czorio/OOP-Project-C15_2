@@ -13,7 +13,6 @@ import nl.tudelft.footballmanager.model.Team;
 /**
  * Logic used to play a gameday, games are played between a home team and an away team, based on the current matchscheme.
  * @author Steven Meijer <stevenmeijer9@gmail.com>
- *
  */
 public class GameLogic {
 
@@ -40,18 +39,19 @@ public class GameLogic {
 		MatchScheme ms = gs.getMatchScheme();
 		int matchDay = gs.getGameRound();
 
-		// No more rounds
+		// Returns if there are no more rounds.
 		if(matchDay >= gs.getMatchScheme().getMatchdays().size()) return false;
 
 		List<Match> todaysMatches = ms.getMatchdays().get(matchDay).getMatches();
 
+		//Playes the matches for today.
 		for(Match m : todaysMatches) {		
 			if(m.getHome().equals(gs.getMyTeam())) {
-				TeamLogic.createActivePlayers(m.getHome()); //TODO Seperate appproach for playerteam
+				TeamLogic.createActivePlayers(m.getHome());
 				TeamLogic.createAIActivePlayers(m.getAway());
 			} else if (m.getAway().equals(gs.getMyTeam())) {
 				TeamLogic.createAIActivePlayers(m.getHome());
-				TeamLogic.createActivePlayers(m.getAway()); //TODO seperate approach for playerteam
+				TeamLogic.createActivePlayers(m.getAway());
 			} else {
 				TeamLogic.createAIActivePlayers(m.getHome());
 				TeamLogic.createAIActivePlayers(m.getAway());
@@ -91,6 +91,9 @@ public class GameLogic {
 	 * 
 	 * Every match takes 90 + 0-6 minutes.
 	 * 
+	 * Has a random chance to give a player on the field an injury, that disables that player for some time.
+	 * Sets the Matchresult and the stats for the teams played when the game is over.
+	 * 
 	 * @param home The home team to play.
 	 * @param away The away team to play.
 	 * @return Returns the result of the match.
@@ -110,9 +113,6 @@ public class GameLogic {
 		
 		List<Player> playersHome = TeamLogic.getPlayingPlayersPerTeam(home);
 		List<Player> playersAway = TeamLogic.getPlayingPlayersPerTeam(away);
-
-//		System.out.println("\n" + home.getName() + " total score: " + homeScoreChance);
-//		System.out.println(away.getName() + " total score: " + awayScoreChance);
 
 		//Match starts here
 		for (int i = 1; i <= (90 + extraTime); i++) {
@@ -145,8 +145,8 @@ public class GameLogic {
 			}
 			
 			//Generates a random injury and gives it to a random player.
+			//Injuries are disabled for JUnit tests.
 			int injuryChance;
-			
 			injuryChance = generateRandom(0, 10000);
 			
 			if (injuryChance == 9 && !isTesting) {
@@ -203,11 +203,9 @@ public class GameLogic {
 			away.setGamesPlayed(away.getGamesPlayed() + 1);
 		}
 		
-		
 		matchResult.setHomeScore(homeGoals);
 		matchResult.setAwayScore(awayGoals);
 
-//		System.out.println("Final result: " + home.getName() + " " + homeGoals + " - " + awayGoals + " " + away.getName() + "\n");
 		return matchResult;
 	}
 	
@@ -317,5 +315,4 @@ public class GameLogic {
 		GameLogic.isTesting = isTesting;
 	}
 
-	
 }

@@ -12,21 +12,22 @@ import nl.tudelft.footballmanager.model.Team;
 /**
  * Class used to generate an AI team and calculate the score of a team.
  * @author Steven Meijer <stevenmeijer9@gmail.com>
- *
  */
 public final class TeamLogic {
 
-	private static List<Player> playingPlayers = new ArrayList<Player>();
-	private static String teamSetup;
 	private static long seed = System.nanoTime();
-	private static Random random = new Random(seed);
 	private static boolean isTesting = false;
+	
+	private static Random random = new Random(seed);
+	private static String teamSetup;
+	private static List<Player> playingPlayers = new ArrayList<Player>();
 	private static Player testPlayer; //Only used for JUnit tests.
 
 	public TeamLogic() { }
 
 	/**
 	 * Calculates the offensive score of a team.
+	 * 
 	 * @param team The team to calculate the score of.
 	 * @return Returns the total offensive score.
 	 */
@@ -42,6 +43,7 @@ public final class TeamLogic {
 
 	/**
 	 * Calculates the defensive score of a team.
+	 * 
 	 * @param team The team to calculate the score of.
 	 * @return Returns the total defensive score.
 	 */
@@ -57,8 +59,9 @@ public final class TeamLogic {
 	
 	/**
 	 * Calculates the stamina score of a team. 
-	 * @param team to calculate score
-	 * @return calculated stamina of whole team
+	 * 
+	 * @param team The team to calculate the score of.
+	 * @return Returns the total stamina score.
 	 */
 	public static final int calculateTeamStaminaScore(Team team){
 		int stamScore = 0;
@@ -72,6 +75,7 @@ public final class TeamLogic {
 
 	/**
 	 * Calculates the total score of a team.
+	 * 
 	 * @param team The team to calculate the score of.
 	 * @return Returns the total score of a certain team.
 	 */
@@ -81,6 +85,7 @@ public final class TeamLogic {
 	
 	/**
 	 * Creates a team for the user currently playing.
+	 * 
 	 * @param team The team the user is playing.
 	 */
 	public static void createActivePlayers(Team team) {
@@ -93,20 +98,22 @@ public final class TeamLogic {
 
 	/**
 	 * Creates an AI team. Picks random players and places them on their positions.
+	 * Requirements: Team should have at least a total of 11 players, or it will return.
 	 * 
-	 * Requirements: Team should have at least a total of 11 players.
 	 * @param team The team to create.
 	 */
 	public static void createAIActivePlayers(Team team) {
+		if(team.getPlayers().size() < 11) return;
+		
 		List<Player> goalkeepers = team.getByPosition("Goalkeeper");
 		List<Player> defenders = team.getByPosition("Defender");
 		List<Player> midfielders = team.getByPosition("Midfielder");
 		List<Player> attackers = team.getByPosition("Attacker");
 		List<Player> allPlayers = team.getPlayers();
 		
+		//Don't shuffle when using Junit tests to allow for testing.
 		if(!isTesting) {
 			createSetup();
-//			System.out.println("The used setup for team " + team.getName() + " is " + teamSetup);
 			Collections.shuffle(goalkeepers);
 			Collections.shuffle(defenders);
 			Collections.shuffle(midfielders);
@@ -210,14 +217,14 @@ public final class TeamLogic {
 			}
 			
 			else {
-//				System.err.println("Still missing players");
 				i--;
 			}
 		}
 	}
 
 	/**
-	 * Creates a random setup for AI games.
+	 * Creates a random setup for AI teams.
+	 * 
 	 * @return Returns a random setup from the list.
 	 */
 	public static void createSetup() {
@@ -233,6 +240,7 @@ public final class TeamLogic {
 	
 	/**
 	 * Gets all the playing players for a certain team.
+	 * 
 	 * @param team The team to check for.
 	 * @return Returns a list of playing players for a certain team.
 	 */
@@ -244,11 +252,12 @@ public final class TeamLogic {
 				players.add(p);
 			}
 		 }
+		
 		return players;
 	}
 	
 	/**
-	 * Clears the playingPlayer list for next game round.
+	 * Clears the playingPlayer list for the next game round.
 	 */
 	public static void clearPlayers() {
 		playingPlayers.clear();
@@ -256,6 +265,7 @@ public final class TeamLogic {
 
 	/**
 	 * Gets the playingPlayers list.
+	 * 
 	 * @return playingPlayers.
 	 */
 	public static List<Player> getPlayingPlayers() {
@@ -264,7 +274,8 @@ public final class TeamLogic {
 
 	/**
 	 * Sets the playingPlayers list.
-	 * @param playingPlayers The players to be set.
+	 * 
+	 * @param playingPlayers The players to set.
 	 */
 	public static void setPlayingPlayers(List<Player> playingPlayers) {
 		TeamLogic.playingPlayers = playingPlayers;
@@ -272,6 +283,7 @@ public final class TeamLogic {
 
 	/**
 	 * Gets the setup used for a team.
+	 * 
 	 * @return Returns the used setup.
 	 */
 	public static String getTeamSetup() {
@@ -280,6 +292,7 @@ public final class TeamLogic {
 
 	/**
 	 * Sets the setup to be used by a team.
+	 * 
 	 * @param teamSetup The setup to use.
 	 */
 	public static void setTeamSetup(String teamSetup) {
@@ -287,7 +300,8 @@ public final class TeamLogic {
 	}
 	
 	/**
-	 * Gets the used seed.
+	 * Gets the used seed. Used for JUnit tests.
+	 * 
 	 * @return The used seed.
 	 */
 	public static long getSeed() {
@@ -295,7 +309,8 @@ public final class TeamLogic {
 	}
 
 	/**
-	 * Sets the seed to be used.
+	 * Sets the seed to be used. Used for JUni tests.
+	 * 
 	 * @param seed The seed to use.
 	 */
 	public static void setSeed(long seed) {
@@ -303,7 +318,9 @@ public final class TeamLogic {
 	}
 	
 	/**
-	 * Gets the isTesting value.
+	 * Gets the isTesting value. 
+	 * Allows testing of game through JUnit.
+	 * 
 	 * @return If we are testing.
 	 */
 	public static boolean getIsTesting() {
@@ -312,6 +329,8 @@ public final class TeamLogic {
 
 	/**
 	 * Sets the isTesting value.
+	 * Allows testing of game through JUnit.
+	 * 
 	 * @param seed The seed to use.
 	 */
 	public static void setIsTesting(boolean testing) {
@@ -319,18 +338,13 @@ public final class TeamLogic {
 	}
 	
 	/**
+	 * Gets the player that is being assigned a position.
 	 * Testmethod used for JUnit tests.
+	 * 
 	 * @return Returns the testplayer.
 	 */
 	public static Player getTestPlayer() {
 		return testPlayer;
 	}
 	
-	/**
-	 * Testmethod used for JUnit tests.
-	 * @param batlik The player to set as testPlayer.
-	 */
-	public static void setTestPlayer(Player batlik) {
-		TeamLogic.testPlayer = batlik;
-	}
 }
