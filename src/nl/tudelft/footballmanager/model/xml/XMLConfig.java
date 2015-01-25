@@ -104,21 +104,17 @@ public class XMLConfig extends XML {
 	        
 	        dom.appendChild(rootEle);
 	             
-	        try {
-	        	Transformer tr = TransformerFactory.newInstance().newTransformer();
-	        	tr.setOutputProperty(OutputKeys.INDENT, "yes");
-	        	tr.setOutputProperty(OutputKeys.METHOD, "xml");
-	        	tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-	            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-	            
-	            // Write to file
-	            tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(file)));
-	        } catch(TransformerException | IOException e) {
-	        	//e.printStackTrace();
-	        	System.out.println("Error writing GameState file.");
-	        }
+
+        	Transformer tr = TransformerFactory.newInstance().newTransformer();
+        	tr.setOutputProperty(OutputKeys.INDENT, "yes");
+        	tr.setOutputProperty(OutputKeys.METHOD, "xml");
+        	tr.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            tr.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
+            
+            // Write to file
+            tr.transform(new DOMSource(dom), new StreamResult(new FileOutputStream(file)));
 	    	
-	    } catch(ParserConfigurationException e) {
+	    } catch(ParserConfigurationException | TransformerException | IOException e) {
 	    	//e.printStackTrace();
 	    	System.err.println("Error parsing GameState file.");
 	    }

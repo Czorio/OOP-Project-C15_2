@@ -183,4 +183,35 @@ public class XMLTest {
 		XMLConfig xmlConfig = new XMLConfig(new File("./XML/XMLTest_GSWrite.xml"));
 		assertTrue( xmlConfig.writeToFile(gs) );
 	}
+	
+	@Test
+	public void testUnkownPlayerField() {
+		xmlPlayer = new XMLPlayer(new File("./XML/XMLTest3_wrongplayerField.xml"));
+		League league = xmlPlayer.readFromFile("Eredivisie");
+		assertNull(league);
+	}
+	
+	@Test
+	public void testTeamDoesntExist() {
+		xmlConfig = new XMLConfig( new File("./XML/XMLTest4.xml"));
+		assertTrue(xmlConfig.getFile().exists());
+		GameState gs = xmlConfig.readFromFile(); 
+		assertNotNull(gs);
+	}
+	
+	@Test
+	public void testMultipleLeagues() {
+		xmlPlayer = new XMLPlayer(new File("./GameDate/Leagues.xml"));
+		ArrayList<League> leagues = xmlPlayer.readFromFile();
+		assertNotNull(leagues);
+	}
+	
+	@Test
+	public void testMultipleLeaguesSharedNames() {
+		xmlPlayer = new XMLPlayer(new File("./XML/LeaguesSharedNames.xml"));
+		ArrayList<League> leagues = xmlPlayer.readFromFile();
+		assertNotNull(leagues);
+	}
+	
+
 }

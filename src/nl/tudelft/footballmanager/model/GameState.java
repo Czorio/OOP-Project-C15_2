@@ -322,13 +322,13 @@ public class GameState extends Observable {
 	 * @throws Exception 
 	 */
 	public void setMyTeam(String myTeamName) throws Exception {
-		if(this.league != null) {
+		if(this.league != null && this.league.getTeam(myTeamName) != null) {
 			this.myTeam = this.league.getTeam(myTeamName);
 
 			setChanged();
 			notifyObservers(this);
 		} else {
-			throw new Exception("LEAGUE NOT SET");
+			throw new Exception("LEAGUE NOT SET OR TEAM NOT FOUND");
 		}
 	}
 

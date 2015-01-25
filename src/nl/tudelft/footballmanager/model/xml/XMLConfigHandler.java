@@ -11,6 +11,7 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+
 /**
  * @author Boris Schrijver <boris@radialcontext.nl>
  */
@@ -18,7 +19,7 @@ public class XMLConfigHandler extends DefaultHandler {
 
 	private GameState gameState;
 	
-	private String currentElement;
+	private int currentElement;
 	
 	private int currentRound;
 	
@@ -45,181 +46,188 @@ public class XMLConfigHandler extends DefaultHandler {
 	
 	public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 		
+		String[] knownElements = new String[] {"PLAYERS", "LEAGUE", "TEAM", "PLAYER", "FIRSTNAME",
+				"LASTNAME", "POSITION", "PACE", "SHOOTING", "PASSING", "OFFENSIVE", "DEFENSIVE",
+				"STAMINA", "CLUB", "DATEOFBIRTH", "INJURED", "CURRENTPOSITION"};
+		
+		String[] configElements = new String[] {"GAMESTATE", "COACHNAME",
+				"ROUND", "MYTEAM", "GAMESWON", "GAMESLOST", "GAMESDRAWN", "GAMESPLAYED", "BALANCE", "MATCHSCHEME",
+				"MATCHDAY", "MATCH", "HOMETEAM", "AWAYTEAM", "HOMESCORE", "AWAYSCORE"};
+		
+		if(!Arrays.asList(knownElements).contains(qName.toUpperCase()) && !Arrays.asList(configElements).contains(qName.toUpperCase())) {
+			System.err.println("XML: Unkown element in GameState XML file. --> startElement: " + qName);
+			return;
+		}
+		
+		if(Arrays.asList(knownElements).contains(qName.toUpperCase()))
+			return;
+		
+		if(Arrays.asList(configElements).contains(qName.toUpperCase()))
+			currentElement = Arrays.asList(configElements).indexOf(qName.toUpperCase()) + 1;
+		
+		if(currentElement == 1)
+			gameState = new GameState(null, 0, (String)null, (String)null);
+		
+		if(currentElement == 11)
+			currentRound = Integer.parseInt(XML.getValueIgnoreCase(attributes, "ROUND"));
+		
+		/**
 		switch(qName.toUpperCase()) {
 		case "GAMESTATE":
 			// Initialize GameState object if null
-			if(gameState == null) gameState = new GameState(null, 0, (String)null, (String)null);
-			currentElement = "GAMESTATE";
+			gameState = new GameState(null, 0, (String)null, (String)null);
+			currentElement = 1;
 			break;
 			
 		case "COACHNAME":
-			currentElement ="COACHNAME";
+			currentElement = 2;
 			break;
 			
 		case "ROUND":
-			currentElement = "ROUND";
+			currentElement = 3;
 			break;
 			
 		case "MYTEAM":
-			currentElement = "MYTEAM";
+			currentElement = 4;
 			break;
 			
 		case "GAMESWON":
-			currentElement = "GAMESWON";
+			currentElement = 5;
 			break;
 			
 		case "GAMESLOST":
-			currentElement = "GAMESLOST";
+			currentElement = 6;
 			break;
 			
 		case "GAMESDRAWN":
-			currentElement = "GAMESDRAWN";
+			currentElement = 7;
 			break;
 			
 		case "GAMESPLAYED":
-			currentElement = "GAMESPLAYED";
+			currentElement = 8;
 			break;
 			
 		case "BALANCE":
-			currentElement = "BALANCE";
+			currentElement = 9;
 			break;
 			
 		case "MATCHSCHEME":
-			currentElement = "MATCHSCHEME";
+			currentElement = 10;
 			break;
 		
 		case "MATCHDAY":
-			currentElement = "MATCHDAY";
+			currentElement = 11;
 			currentRound = Integer.parseInt(XML.getValueIgnoreCase(attributes, "ROUND"));
 			break;
 			
 		case "MATCH":
-			currentElement = "MATCH";
+			currentElement = 12;
 			break;
 			
 		case "HOMETEAM":
-			currentElement = "HOMETEAM";
+			currentElement = 13;
 			break;
 			
 		case "AWAYTEAM":
-			currentElement = "AWAYTEAM";
+			currentElement = 14;
 			break;
 			
 		case "HOMESCORE":
-			currentElement = "HOMESCORE";
+			currentElement = 15;
 			break;
 			
 		case "AWAYSCORE":
-			currentElement = "AWAYSCORE";
+			currentElement = 16;
 			break;
-			
-		default:
-			String[] knownElements = new String[] {"PLAYERS", "LEAGUE", "TEAM", "PLAYER", "FIRSTNAME",
-					"LASTNAME", "POSITION", "PACE", "SHOOTING", "PASSING", "OFFENSIVE", "DEFENSIVE",
-					"STAMINA", "CLUB", "DATEOFBIRTH", "INJURED", "CURRENTPOSITION"};
-			
-			if(!Arrays.asList(knownElements).contains(qName.toUpperCase())) {
-				System.err.println("XML: Unkown element in GameState XML file. --> startElement: " + qName);
-			}
-									
-			break;
-		}		
+		}		**/
 	}
 	
 	public void characters(char ch[], int start, int length) throws SAXException {
 		
-		if(currentElement != null) {
+		if(currentElement != 0 && currentElement != 10) {
 			switch(currentElement) {
-			case "GAMESTATE":
+			case 1:
 				// Add the players at first.
 				gameState.setLeague(league);
 				break;
 				
-			case "COACHNAME":
+			case 2:
 				gameState.setCoachName(new String(ch, start, length));
 				break;
 				
-			case "ROUND":
+			case 3:
 				gameState.setGameRound(new Integer(new String(ch, start, length)).intValue());
 				break;
 				
-			case "MYTEAM":
+			case 4:
 				try {
 					gameState.setMyTeam(new String(ch, start, length));
 				} catch (Exception e) {
 					System.out.println("Unable to set MyTeam, it doesn't exist in the League.");
+					throw new SAXException("Couldn't set team.");
 				}
 				break;
 				
-			case "GAMESWON":
+			case 5:
 				gameState.getMyTeam().setGamesWon(new Integer(new String(ch, start, length)).intValue());
 				break;
 				
-			case "GAMESLOST":
+			case 6:
 				gameState.getMyTeam().setGamesLost(new Integer(new String(ch, start, length)).intValue());
 				break;
 				
-			case "GAMESDRAWN":
+			case 7:
 				gameState.getMyTeam().setGamesDraw(new Integer(new String(ch, start, length)).intValue());
 				break;
 				
-			case "GAMESPLAYED":
+			case 8:
 				gameState.getMyTeam().setGamesPlayed(new Integer(new String(ch, start, length)).intValue());
 				break;
 				
-			case "BALANCE":
+			case 9:
 				gameState.getMyTeam().setBudget(new Integer(new String(ch, start, length)).intValue());
 				break;
 				
-			case "MATCHSCHEME":
-				// Nothing to do!
-				break;
-				
-			case "MATCHDAY":
+			case 11:
 				// Adds the matchday
 				currentMatchDay = new MatchDay(currentRound);			
 				break;
 				
-			case "MATCH":
+			case 12:
 				// Create new match
 				currentMatch = new Match(null, null);
 				break;
 				
-			case "HOMETEAM":
+			case 13:
 				currentMatch.setHome(league.getTeam(new String(ch, start, length)));
 				break;
 				
-			case "AWAYTEAM":
+			case 14:
 				currentMatch.setAway(league.getTeam(new String(ch, start, length)));
 				break;
 				
-			case "HOMESCORE":
+			case 15:
 				currentMatch.setPlayed(true);
 				currentMatch.setMatchResult(new MatchResult());
 				currentMatch.getMatchResult().setHomeScore(new Integer(new String(ch, start, length)).intValue());
 				break;
 				
-			case "AWAYSCORE":
+			case 16:
 				currentMatch.getMatchResult().setAwayScore(new Integer(new String(ch, start, length)).intValue());
 				break;
 				
-			default:
-				System.err.println("XML: Unkown element in GameState XML file. --> characters:" + new String(ch, start, length));
-				break;
+			//default:
+			//	System.err.println("XML: Unkown element in GameState XML file. --> characters:" + new String(ch, start, length));
+			//	break;
 			}
-		}
-		
-		// currentElement will be set by the next call of startElement().
-		currentElement = null;		
+			
+			// currentElement will be set by the next call of startElement().
+			currentElement = 0;		
+		}		
 	}
 	
 	public void endElement(String uri, String localName, String qName) { 
 		switch(qName.toUpperCase()) {
-		case "GAMESTATE":
-			break;
-			
-		case "MATCHSCHEME":
-			break;
 			
 		case "MATCHDAY":
 			gameState.getMatchScheme().addMatchDay(currentMatchDay);
