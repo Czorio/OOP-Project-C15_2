@@ -292,14 +292,15 @@ public class RootViewController implements Initializable {
 			
 			Action response = Dialogs.create()
 				      .owner( FootballManager.getStage() )
-				      .title("Another Coach wants one of your players")
+				      .title(gameState.getLeague().getTeams().get(toTeam).getName()  + " bids on a player")
 				      .masthead(gameState.getMyTeam().getPlayers().get(player).getFirstName() + " " + gameState.getMyTeam().getPlayers().get(player).getLastName() )
 				      .message( "The bid is " + gameState.getMyTeam().getPlayers().get(player).getPrice() + ", do you agree?")
 				      .actions(new Action[] { Dialog.ACTION_YES, Dialog.ACTION_NO })
 				      .showConfirm();
 			
 			if(response == Dialog.ACTION_YES) {
-				MarketplaceLogic.transferPlayer( gameState.getMyTeam(), gameState.getLeague().getTeams().get(toTeam), gameState.getMyTeam().getPlayers().get(player), gameState.getGameRound());
+				boolean success = MarketplaceLogic.transferPlayer( gameState.getMyTeam(), gameState.getLeague().getTeams().get(toTeam), gameState.getMyTeam().getPlayers().get(player), gameState.getGameRound());
+				System.out.println("Player transfer: " + success);
 			}
 		}
 		
