@@ -5,6 +5,7 @@ package nl.tudelft.footballmanager.ui.controller;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -31,7 +32,9 @@ import javafx.util.Callback;
 import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Match;
+import nl.tudelft.footballmanager.model.MatchDay;
 import nl.tudelft.footballmanager.model.Player;
+import nl.tudelft.footballmanager.model.Team;
 import nl.tudelft.footballmanager.model.logic.GameLogic;
 import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
 
@@ -187,6 +190,21 @@ public class PostMatchViewController implements Initializable {
 					return null;
 			}
 		});
+		
+		eventsTableView.sortPolicyProperty().set(new Callback<TableView<Integer>, Boolean>() {
+			@Override
+			public Boolean call(TableView<Integer> param) {	
+				FXCollections.sort(eventsTableView.getItems(), new Comparator<Integer>() {
+					@Override
+					public int compare(Integer o1, Integer o2) {
+						return Integer.compare(o1, o2);
+					}
+				});
+				return true;
+			}
+		});
+		
+		eventsTableView.sort();
 
 		new GameLogic(gameState);
 		GameLogic.matchDay();
