@@ -275,10 +275,8 @@ public class RootViewController implements Initializable {
 		l.setLocation(FootballManager.class.getResource(rootViewFileName));
 		try {
 			BorderPane rootLayout = (BorderPane) l.load();
-			FootballManager.getStage().setScene(new Scene(rootLayout));
-			FootballManager.getStage().show();
-
 			TeamOverviewController.show(rootLayout, gameState);
+			FootballManager.getStage().setScene(new Scene(rootLayout));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
