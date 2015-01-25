@@ -7,6 +7,10 @@ import java.util.Comparator;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialogs;
+
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
@@ -33,7 +37,10 @@ import nl.tudelft.footballmanager.FootballManager;
 import nl.tudelft.footballmanager.model.GameState;
 import nl.tudelft.footballmanager.model.Match;
 import nl.tudelft.footballmanager.model.MatchDay;
+import nl.tudelft.footballmanager.model.Player;
 import nl.tudelft.footballmanager.model.Team;
+import nl.tudelft.footballmanager.model.logic.GameLogic;
+import nl.tudelft.footballmanager.model.logic.MarketplaceLogic;
 
 /**
  * @author Toine Hartman <tjbhartman@gmail.com>
@@ -95,6 +102,7 @@ public class RootViewController implements Initializable {
 		}
 	};
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		
@@ -266,6 +274,38 @@ public class RootViewController implements Initializable {
 				return true;
 			}
 		});
+		
+		
+		if(MarketplaceLogic.isTransferWindow(gameState.getGameRound()) && gameState.getGameRound() != 0 ) {
+			
+			// Select the player.
+			int player = GameLogic.generateRandom(0, gameState.getMyTeam().getPlayers().size()-1);
+						
+			int toTeam;
+			// Select the from team.
+			do {
+				int x = GameLogic.generateRandom(0, gameState.getLeague().getTeams().size()-1);
+				if(!gameState.getLeague().getTeams().get(x).getName().equals(gameState.getMyTeam().getName()) && gameState.getLeague().getTeams().get(x).getBudget() > gameState.getMyTeam().getPlayers().get(player).getPrice()) {
+					toTeam = x;
+					break;
+				}
+			} while (true);
+
+			
+			
+			Action response = Dialogs.create()
+				      .owner( FootballManager.getStage() )
+				      .title("Another Coach wants one of your players")
+				      .masthead(gameState.getMyTeam().getPlayer(player).getFirstName() + gameState.getMyTeam().getPlayer(player).getLastName() )
+				      .message( "The bid is " + gameState.getMyTeam().getPlayer(player).getPrice() + ", do you agree?")
+				      .actions(new Action[] { Dialog.ACTION_YES, Dialog.ACTION_NO })
+				      .showConfirm();
+			
+			if(response == Dialog.ACTION_YES) {
+				MarketplaceLogic.transferPlayer(gameState.getMyTeam(), gameState.getLeague().getTeams().get(toTeam), gameState.getMyTeam().getPlayers().get(player), gameState.getGameRound());
+			}
+		}
+		
 	}
 
 	public static void show(GameState gs) {
