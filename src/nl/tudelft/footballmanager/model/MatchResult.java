@@ -5,9 +5,8 @@ import java.util.Map;
 import java.util.Observable;
 
 /**
+ * Handles the results of a match, and the score of teams.
  * @author Boris Schrijver <boris@radialcontext.nl>
- * 
- * Match result and score
  */
 public class MatchResult  extends Observable {
 	private int homeScore;
@@ -15,6 +14,9 @@ public class MatchResult  extends Observable {
 	private Map<Integer, Player> homeGoals;
 	private Map<Integer, Player> awayGoals;
 	
+	/**
+	 * Creates and initializes a matchresult.
+	 */
 	public MatchResult() {
 		homeScore = 0;
 		awayScore = 0;
@@ -23,7 +25,10 @@ public class MatchResult  extends Observable {
 	}
 	
 	/**
-	 * @param time to add to the homeScoreTimes
+	 * Adds a goal for the home team.
+	 * 
+	 * @param time The time the goal was scored.
+	 * @param player The player that scored the goal.
 	 */
 	public void addHomeGoal(Integer time, Player player) {
 		homeGoals.put(time, player);
@@ -33,7 +38,10 @@ public class MatchResult  extends Observable {
 	}
 	
 	/**
-	 * @param time to add to the awayScoreTimes
+	 * Adds a goal for the away team.
+	 * 
+	 * @param time The time the goal was scored.
+	 * @param player The player that scored the goal.
 	 */
 	public void addAwayGoal(Integer time, Player player) {
 		awayGoals.put(time, player);
@@ -43,14 +51,18 @@ public class MatchResult  extends Observable {
 	}
 
 	/**
-	 * @return the homeScore
+	 * Gets the amount of goals of the home team.
+	 * 
+	 * @return Returns the homeScore.
 	 */
 	public int getHomeScore() {
 		return homeScore;
 	}
 
 	/**
-	 * @param homeScore the homeScore to set
+	 * Sets the amount of goals for the home team.
+	 * 
+	 * @param homeScore The homeScore to set.
 	 */
 	public void setHomeScore(int homeScore) {
 		this.homeScore = homeScore;
@@ -60,14 +72,18 @@ public class MatchResult  extends Observable {
 	}
 
 	/**
-	 * @return the awayScore
+	 * Gets the amount of goals of the away team
+	 * 
+	 * @return Returns the awayScore.
 	 */
 	public int getAwayScore() {
 		return awayScore;
 	}
 
 	/**
-	 * @param awayScore the awayScore to set
+	 * Sets the amount of goals for the away team.
+	 * 
+	 * @param awayScore The awayScore to set.
 	 */
 	public void setAwayScore(int awayScore) {
 		this.awayScore = awayScore;
@@ -78,6 +94,7 @@ public class MatchResult  extends Observable {
 	
 	/**
 	 * Gets the home goals.
+	 * 
 	 * @return Returns the home goals.
 	 */
 	public Map<Integer, Player> getHomeGoals() {
@@ -86,6 +103,7 @@ public class MatchResult  extends Observable {
 	
 	/**
 	 * Sets the home goals.
+	 * 
 	 * @param homeGoals The goals to set.
 	 */
 	public void setHomeGoals(Map<Integer, Player> homeGoals) {
@@ -97,6 +115,7 @@ public class MatchResult  extends Observable {
 	
 	/**
 	 * Gets the away goals.
+	 * 
 	 * @return Returns the away goals.
 	 */
 	public Map<Integer, Player> getAwayGoals() {
@@ -105,6 +124,7 @@ public class MatchResult  extends Observable {
 	
 	/**
 	 * Sets the away goals.
+	 * 
 	 * @param awayGoals The goals to set.
 	 */
 	public void setAwayGoals(Map<Integer, Player> awayGoals) {
@@ -116,11 +136,11 @@ public class MatchResult  extends Observable {
 	
 	/**
 	 * Gets the output of a match, in a readable way.
+	 * S
 	 * @return Returns the output.
 	 */
 	public String getReadableScore() {
 		return String.format("%d - %d", this.homeScore, this.awayScore);
 	}
 	
-		
 }

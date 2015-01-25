@@ -1,6 +1,3 @@
-/**
- * 
- */
 package nl.tudelft.footballmanager.model;
 
 import java.util.ArrayList;
@@ -9,20 +6,28 @@ import java.util.Observable;
 import java.util.Random;
 
 /**
+ * Handles the matchscheme.
  * @author Toine Hartman <tjbhartman@gmail.com>
- *
  */
 public class MatchScheme extends Observable {
 	private ArrayList<MatchDay> matchdays;
 	private static String inFile = "XML/GameState.xml";
 
+	/**
+	 * Creates and initializes a matchscheme.
+	 * 
+	 * @param state The current gamestate.
+	 * @param maxMatchesPerDay The maximum amount of matches per day.
+	 */
 	public MatchScheme(GameState state, int maxMatchesPerDay) {
 		this(state.getLeague(), maxMatchesPerDay);
 	}
 
 	/**
-	 * @param league
-	 * @param maxMatchesPerDay
+	 * Creates and initializes a matchscheme.
+	 * 
+	 * @param league The current league.
+	 * @param maxMatchesPerDay The maximum amount of matches per day.
 	 */
 	public MatchScheme(League league, int maxMatchesPerDay) {
 		matchdays = new ArrayList<MatchDay>();
@@ -31,7 +36,9 @@ public class MatchScheme extends Observable {
 	}
 
 	/**
-	 * @param league
+	 * Creates an matchscheme with no matches.
+	 * 
+	 * @param league The current league.
 	 */
 	public MatchScheme() {
 		matchdays = new ArrayList<MatchDay>();
@@ -42,6 +49,7 @@ public class MatchScheme extends Observable {
 	 * - a single team can play only one Match on a MatchDay
 	 * - if a number higher than 0 is passed to maxMatchesPerDay, this is the maximum number of Matches a day can have.
 	 * - the actual number of Matches per MatchDay is random
+	 * 
 	 * @param league The league for which the GameScheme needs to be created.
 	 * @param maxMatchesPerDay The maximum number of Matches a day.
 	 */
@@ -74,14 +82,18 @@ public class MatchScheme extends Observable {
 	}
 
 	/**
-	 * @return the matchdays
+	 * Gets the matchdays.
+	 * 
+	 * @return Returns the matchdays.
 	 */
 	public ArrayList<MatchDay> getMatchdays() {
 		return matchdays;
 	}
 
 	/**
-	 * @param matchdays the matchdays to set
+	 * Sets the matchdays.
+	 * 
+	 * @param matchdays The matchdays to set.
 	 */
 	public void setMatchdays(ArrayList<MatchDay> matchdays) {
 		this.matchdays = matchdays;
@@ -91,9 +103,10 @@ public class MatchScheme extends Observable {
 	}
 	
 	/**
-	 * Add a single match day to the list.
-	 * @param matchDay
-	 * @return
+	 * Add a single matchday to the list.
+	 * 
+	 * @param matchDay The matchday to add.
+	 * @return Returns if the match is not yet in the matchscheme.
 	 */
 	public boolean addMatchDay(MatchDay matchDay) {
 		for(MatchDay m : matchdays) {
@@ -106,9 +119,10 @@ public class MatchScheme extends Observable {
 	}
 	
 	/**
-	 * Return a single matchday if it exists
-	 * @param round
-	 * @return
+	 * Return a single matchday if it exists.
+	 * 
+	 * @param round The gameround.
+	 * @return Returs the matches for today.
 	 */
 	public MatchDay getMatchDay(int round) {
 		for(MatchDay m : matchdays) {
@@ -119,9 +133,10 @@ public class MatchScheme extends Observable {
 	}
 	
 	/**
-	 * Check if matchday exists.
-	 * @param matchDay
-	 * @return
+	 * Check if a matchday exists.
+	 * 
+	 * @param matchDay The matchday to check.
+	 * @return Returns if the match already exists.
 	 */
 	public boolean matchDayExists(int round) {
 		for(MatchDay m : matchdays) {
@@ -131,20 +146,29 @@ public class MatchScheme extends Observable {
 		return false;
 	}
 
+	/**
+	 * String representation of the current matchscheme.
+	 * 
+	 * @return Returns the matchscheme as a string.
+	 */
 	@Override
 	public String toString() {
 		return "MatchScheme [matchdays=" + matchdays + "]";
 	}
 	
 	/**
-	 * @return the inFile
+	 * Gets the file used.
+	 * 
+	 * @return Returns the inFile.
 	 */
 	public static String getInFile() {
 		return inFile;
 	}
 
 	/**
-	 * @param inFile the inFile to set
+	 * Sets the file to use.
+	 * 
+	 * @param inFile The inFile to set.
 	 */
 	public static void setInFile(String inFile) {
 		MatchScheme.inFile = inFile;

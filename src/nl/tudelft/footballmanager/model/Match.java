@@ -3,9 +3,9 @@ package nl.tudelft.footballmanager.model;
 import java.util.Observable;
 
 /**
+ * Handles a match between two teams.
  * @author Toine Hartman <tjbhartman@gmail.com>
  */
-
 public class Match extends Observable {
 	private Team home;
 	private Team away;

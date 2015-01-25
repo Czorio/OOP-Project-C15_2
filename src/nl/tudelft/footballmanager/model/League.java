@@ -15,6 +15,7 @@ import nl.tudelft.footballmanager.model.logic.PlayerLogic;
 import nl.tudelft.footballmanager.model.xml.XMLPlayer;
 
 /**
+ * Handles the league of a group of team.
  * @author Boris Schrijver <boris@radialcontext.nl>
  */
 public class League extends Observable {

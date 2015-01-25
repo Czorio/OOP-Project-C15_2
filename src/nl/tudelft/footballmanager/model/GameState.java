@@ -9,6 +9,7 @@ import javafx.collections.FXCollections;
 import nl.tudelft.footballmanager.model.xml.XMLConfig;
 
 /**
+ * Handles the current state of the game.
  * @author Boris Schrijver <boris@radialcontext.nl>
  */
 public class GameState extends Observable {

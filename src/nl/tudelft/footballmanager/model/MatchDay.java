@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 
 /**
+ * Handles a matchday, in where multiple matches can be played.
  * @author Toine Hartman <tjbhartman@gmail.com>
  */
 public class MatchDay extends Observable {

@@ -1,14 +1,12 @@
 package nl.tudelft.footballmanager.model;
+
 import java.util.Date;
 import java.util.Observable;
 
 import javafx.beans.property.SimpleStringProperty;
 
 /**
- * Player class.
- *
- * Represents a football player.
- *
+ * Handles the creation and properties of a player.
  * @author Toine Hartman <tjbhartman@gmail.com>
  */
 public class Player extends Observable {
@@ -41,6 +39,7 @@ public class Player extends Observable {
 
 	/**
 	 * Creates and initializes a Player object.
+	 * 
 	 * @param id The id of a player.
 	 * @param firstname The first name of a player.
 	 * @param lastname The last name of a player.
@@ -79,6 +78,7 @@ public class Player extends Observable {
 
 	/**
 	 * Create an empty Player object.
+	 * 
 	 * @param id The id of the player.
 	 */
 	public Player(Integer id) {
@@ -114,6 +114,7 @@ public class Player extends Observable {
 
 	/**
 	 * Compares two players to see if they are equal.
+	 * 
 	 * @param other The player to check against.
 	 * @return Returns if the two players are equal.
 	 */
@@ -150,6 +151,7 @@ public class Player extends Observable {
 
 	/**
 	 * Represent a player as a string.
+	 * 
 	 * @return This Player object as a String.
 	 */
 	@Override
@@ -174,6 +176,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the id.
+	 * 
 	 * @return The id.
 	 */
 	public int getId() {
@@ -182,6 +185,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the id of a player.
+	 * 
 	 * @param id The id to set.
 	 */
 	public void setId(int id) {
@@ -193,6 +197,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the first name.
+	 * 
 	 * @return The first name.
 	 */
 	public String getFirstName() {
@@ -201,6 +206,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the first name.
+	 * 
 	 * @param firstname The first name to set.
 	 */
 	public void setFirstName(String firstName) {
@@ -212,6 +218,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the last name.
+	 * 
 	 * @return The last name.
 	 */
 	public String getLastName() {
@@ -220,6 +227,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the last name.
+	 * 
 	 * @param lastname The last name to set.
 	 */
 	public void setLastName(String lastName) {
@@ -231,6 +239,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the club.
+	 * 
 	 * @return The club.
 	 */
 	public String getClub() {
@@ -239,6 +248,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the club.
+	 * 
 	 * @param club The club to set.
 	 */
 	public void setClub(String club) {
@@ -250,6 +260,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the nationality.
+	 * 
 	 * @return The nationality.
 	 */
 	public String getNationality() {
@@ -258,6 +269,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the nationality.
+	 * 
 	 * @param nationality The nationality to set.
 	 */
 	public void setNationality(String nationality) {
@@ -269,6 +281,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the date of birth.
+	 * 
 	 * @return The date of birth.
 	 */
 	public Date getDateOfBirth() {
@@ -277,6 +290,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the date of birth.
+	 * 
 	 * @param dateOfBirth The date of birth to set.
 	 */
 	public void setDateOfBirth(Date dateOfBirth) {
@@ -288,6 +302,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the raw position of a player.
+	 * 
 	 * @return The position.
 	 */
 	public String getPosition() {
@@ -296,6 +311,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the position in a readable way.
+	 * 
 	 * @return The position as a readable string.
 	 */
 	public String getReadablePosition() {
@@ -316,6 +332,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the position.
+	 * 
 	 * @param position The position to set.
 	 */
 	public void setPosition(String position) {
@@ -327,6 +344,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the current position.
+	 * 
 	 * @return The current position.
 	 */
 	public String getCurPosition(){
@@ -343,6 +361,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the current position.
+	 * 
 	 * @param curPosition The current position to set.
 	 */
 	public void setCurPosition(String curPosition) {
@@ -352,9 +371,9 @@ public class Player extends Observable {
 		this.notifyObservers(this);
 	}
 
-
 	/**
 	 * Gets the pace stat.
+	 * 
 	 * @return The pace stat.
 	 */
 	public int getPace() {
@@ -363,6 +382,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the pace stat.
+	 * 
 	 * @param pace The pace stat to set.
 	 */
 	public void setPace(int pace) {
@@ -374,6 +394,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the shooting stat.
+	 * 
 	 * @return The shooting stat.
 	 */
 	public int getShooting() {
@@ -382,6 +403,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the shooting stat.
+	 * 
 	 * @param shooting The shooting stat to set.
 	 */
 	public void setShooting(int shooting) {
@@ -393,6 +415,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the passing stat.
+	 * 
 	 * @return The passing stat.
 	 */
 	public int getPassing() {
@@ -401,6 +424,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the passing stat.
+	 * 
 	 * @param passing The passing stats to set.
 	 */
 	public void setPassing(int passing) {
@@ -412,6 +436,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the offensive stat.
+	 * 
 	 * @return The offensive stat.
 	 */
 	public int getOffensive() {
@@ -420,6 +445,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the offensive stat.
+	 * 
 	 * @param offensive The offensive stat to set.
 	 */
 	public void setOffensive(int offensive) {
@@ -431,6 +457,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the defensive stat.
+	 * 
 	 * @return The defensive stat.
 	 */
 	public int getDefensive() {
@@ -439,6 +466,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the defensive stat.
+	 * 
 	 * @param defensive The defensive stat to set.
 	 */
 	public void setDefensive(int defensive) {
@@ -450,6 +478,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the stamina.
+	 * 
 	 * @return The stamina.
 	 */
 	public int getStamina() {
@@ -458,6 +487,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the stamina.
+	 * 
 	 * @param stamina The stamina to set.
 	 */
 	public void setStamina(int stamina) {
@@ -469,6 +499,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the price.
+	 * 
 	 * @return The price.
 	 */
 	public int getPrice() {
@@ -477,6 +508,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the price.
+	 * 
 	 * @param price The price to set.
 	 */
 	public void setPrice(int price) {
@@ -488,6 +520,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the amount of played games.
+	 * 
 	 * @return The number of played games.
 	 */
 	public int getPlayedGames(){
@@ -496,6 +529,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the amount of played games.
+	 * 
 	 * @param playedGames The amount of games.
 	 */
 	public void setPlayedGames(int playedGames){
@@ -507,6 +541,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the league of this player.
+	 * 
 	 * @return The league of this player.
 	 */
 	public String getLeague(){
@@ -515,6 +550,7 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the league.
+	 * 
 	 * @param league The league to set.
 	 */
 	public void setLeague(String league){
@@ -526,6 +562,7 @@ public class Player extends Observable {
 
 	/**
 	 * Gets the current players' team.
+	 * 
 	 * @return The team the player is in.
 	 */
 	public Team getTeam() {
@@ -534,11 +571,11 @@ public class Player extends Observable {
 
 	/**
 	 * Sets the team.
+	 * 
 	 * @param team The team to set.
 	 */
 	public void setTeam(Team team) {
 		this.team = team;
-//		setClub(team.getTeam());
 
 		setChanged();
 		notifyObservers(this);
@@ -546,6 +583,7 @@ public class Player extends Observable {
 	
 	/**
 	 * Gets the injury of a player.
+	 * 
 	 * @return Returns the injury
 	 */
 	public String getInjury() {
@@ -554,6 +592,7 @@ public class Player extends Observable {
 	
 	/**
 	 * Sets an injury to a player.
+	 * 
 	 * @param injury The injury to set.
 	 */
 	public void setInjury(String injury) {
@@ -565,6 +604,7 @@ public class Player extends Observable {
 	
 	/**
 	 * Gets how long a player is disabled.
+	 * 
 	 * @return Returns for how long a player is disabled
 	 */
 	public int getDisabledFor() {
@@ -573,6 +613,7 @@ public class Player extends Observable {
 	
 	/**
 	 * Sets how long a player is disabled.
+	 * 
 	 * @param disabled Sets for how long a player is disabled.
 	 */
 	public void setDisabledFor(int disabledFor) {
