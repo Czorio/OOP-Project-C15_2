@@ -3,6 +3,11 @@
     <coachName>gjfhjgf</coachName>
     <round>1</round>
     <myTeam>FC Erzgebirge Aue</myTeam>
+    <gamesWon>0</gamesWon>
+    <gamesLost>0</gamesLost>
+    <gamesDrawn>0</gamesDrawn>
+    <gamesPlayed>0</gamesPlayed>
+    <balance>3000000</balance>
     <matchScheme>
         <matchDay round="1">
             <match played="true">
