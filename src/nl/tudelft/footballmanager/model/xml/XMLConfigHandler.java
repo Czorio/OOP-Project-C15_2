@@ -64,6 +64,26 @@ public class XMLConfigHandler extends DefaultHandler {
 			currentElement = "MYTEAM";
 			break;
 			
+		case "GAMESWON":
+			currentElement = "GAMESWON";
+			break;
+			
+		case "GAMESLOST":
+			currentElement = "GAMESLOST";
+			break;
+			
+		case "GAMESDRAWN":
+			currentElement = "GAMESDRAWN";
+			break;
+			
+		case "GAMESPLAYED":
+			currentElement = "GAMESPLAYED";
+			break;
+			
+		case "BALANCE":
+			currentElement = "BALANCE";
+			break;
+			
 		case "MATCHSCHEME":
 			currentElement = "MATCHSCHEME";
 			break;
@@ -129,6 +149,26 @@ public class XMLConfigHandler extends DefaultHandler {
 				} catch (Exception e) {
 					System.out.println("Unable to set MyTeam, it doesn't exist in the League.");
 				}
+				break;
+				
+			case "GAMESWON":
+				gameState.getMyTeam().setGamesWon(new Integer(new String(ch, start, length)).intValue());
+				break;
+				
+			case "GAMESLOST":
+				gameState.getMyTeam().setGamesLost(new Integer(new String(ch, start, length)).intValue());
+				break;
+				
+			case "GAMESDRAWN":
+				gameState.getMyTeam().setGamesDraw(new Integer(new String(ch, start, length)).intValue());
+				break;
+				
+			case "GAMESPLAYED":
+				gameState.getMyTeam().setGamesPlayed(new Integer(new String(ch, start, length)).intValue());
+				break;
+				
+			case "BALANCE":
+				gameState.getMyTeam().setBudget(new Integer(new String(ch, start, length)).intValue());
 				break;
 				
 			case "MATCHSCHEME":

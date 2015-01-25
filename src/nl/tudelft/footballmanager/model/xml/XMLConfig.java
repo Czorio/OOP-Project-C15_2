@@ -68,6 +68,32 @@ public class XMLConfig extends XML {
 	        el.appendChild(dom.createTextNode(gameState.getMyTeam().getName()));
 	        rootEle.appendChild(el);
 	        
+	        // Add gamesWon
+	        el = dom.createElement("gamesWon");
+	        el.appendChild(dom.createTextNode(Integer.toString(gameState.getMyTeam().getGamesWon())));
+	        rootEle.appendChild(el);
+	        
+	        // Add gamesLost
+	        el = dom.createElement("gamesLost");
+	        el.appendChild(dom.createTextNode(Integer.toString(gameState.getMyTeam().getGamesLost())));
+	        rootEle.appendChild(el);
+	        
+	        // Add gamesDrawn
+	        el = dom.createElement("gamesDrawn");
+	        el.appendChild(dom.createTextNode(Integer.toString(gameState.getMyTeam().getGamesDraw())));
+	        rootEle.appendChild(el);
+	        
+	        // Add gamesPlayed
+	        el = dom.createElement("gamesPlayed");
+	        el.appendChild(dom.createTextNode(Integer.toString(gameState.getMyTeam().getGamesPlayed())));
+	        rootEle.appendChild(el);
+	        
+	        // Add balance
+	        el = dom.createElement("balance");
+	        el.appendChild(dom.createTextNode(Integer.toString(gameState.getMyTeam().getBudget())));
+	        rootEle.appendChild(el);	        
+	        
+	        
 	        // Add matchScheme
 	        addGameScheme(dom, rootEle, gameState.getMatchScheme());
 	        
