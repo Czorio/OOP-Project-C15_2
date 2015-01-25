@@ -188,6 +188,8 @@
 																<PropertyValueFactory property="position" />
 															</cellValueFactory>
 														</TableColumn>
+														<TableColumn fx:id="otherPlayersTeamCol" prefWidth="75.0" text="Team">
+														</TableColumn>
 														<TableColumn fx:id="otherPlayersOffCol" prefWidth="75.0" text="OFF">
 															<cellValueFactory>
 																<PropertyValueFactory property="offensive" />
@@ -208,15 +210,13 @@
 																<PropertyValueFactory property="price" />
 															</cellValueFactory>
 														</TableColumn>
-														<TableColumn fx:id="otherPlayersTeamCol" prefWidth="75.0" text="Team">
-														</TableColumn>
 													</columns>
 												</TableView>
 											</children>
 										</AnchorPane>
 										<AnchorPane maxWidth="300.0" minHeight="0.0" minWidth="300.0" prefHeight="160.0" prefWidth="300.0" SplitPane.resizableWithParent="false">
 											<children>
-												<GridPane layoutX="-34.0" layoutY="176.0" prefHeight="422.0" prefWidth="146.0" AnchorPane.bottomAnchor="109.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+												<GridPane layoutX="-34.0" layoutY="176.0" prefHeight="232.0" prefWidth="300.0" AnchorPane.bottomAnchor="337.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 													<columnConstraints>
 														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 														<ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
