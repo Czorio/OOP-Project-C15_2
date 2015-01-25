@@ -110,6 +110,7 @@ public class TeamOverviewController implements Initializable, Observer {
 	private Player yourSelectedPlayer = new Player();
 	private Player otherSelectedPlayer = new Player();
 	private static GameState gameState = new GameState();
+	private static Pane rootLayout = null;
 
 	static ListProperty<Player> yourPlayers = new SimpleListProperty<Player>();
 	static ListProperty<Player> otherPlayers = new SimpleListProperty<Player>();
@@ -213,7 +214,7 @@ public class TeamOverviewController implements Initializable, Observer {
 		        .message("The budget of the buying team was insufficient!")
 		        .showError();
 			} else {
-				RootViewController.show(gameState);
+				TeamOverviewController.show(rootLayout, gameState);
 			}
 		});
 		
@@ -226,34 +227,15 @@ public class TeamOverviewController implements Initializable, Observer {
 		        .message("Check if your not buying the 11th player of this team, and make sure your budget is sufficient.")
 		        .showError();
 			} else {
-				RootViewController.show(gameState);
+				TeamOverviewController.show(rootLayout, gameState);
 			}
 		});
 
 		otherPlayersTeamCol.setCellValueFactory((param) -> {
 			return new SimpleStringProperty(param.getValue().getClub());
 		});
-
-		bindYourPlayerStats();
-		bindOtherPlayerStats();
-
-		ObservableList<Player> observablePlayers = FXCollections.observableList(gameState.getMyTeam().getPlayers());
-		yourPlayers = new SimpleListProperty<Player>(observablePlayers);
 		
-		ObservableList<Player> otherObservablePlayers = FXCollections.observableArrayList();
-		for (Team t : gameState.getLeague().getTeams()) {
-			if (t == gameState.getMyTeam()) continue;
-			otherObservablePlayers.addAll(t.getPlayers());
-		}
-		otherPlayers = new SimpleListProperty<Player>(otherObservablePlayers);
-		
-		yourPlayerTableView.itemsProperty().bind(yourPlayers);
-		otherPlayersTableView.itemsProperty().bind(otherPlayers);
-		
-		yourPlayerTableView.getSelectionModel().selectFirst();
-		otherPlayersTableView.getSelectionModel().selectFirst();
-		
-//		this.new PlayersLoader().start();
+		this.new PlayersLoader().start();
 	}
 
 	class PlayersLoader extends Thread {
@@ -317,8 +299,9 @@ public class TeamOverviewController implements Initializable, Observer {
 		yourPlayerPriceLabel.textProperty().bind(price.asString());
 	}
 
-	public static void show(Pane rootLayout, GameState gs) {
+	public static void show(Pane root, GameState gs) {
 		gameState = gs;
+		rootLayout = root;
 
 		FXMLLoader l = new FXMLLoader();
 		l.setLocation(FootballManager.class.getResource(teamOverviewFileName));
