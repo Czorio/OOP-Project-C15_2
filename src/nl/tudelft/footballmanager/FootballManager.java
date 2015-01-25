@@ -14,6 +14,11 @@ import javafx.stage.Stage;
 import nl.tudelft.footballmanager.ui.controller.SplashScreen;
 import nl.tudelft.footballmanager.ui.controller.TitleScreenController;
 
+/**
+ * Main class of the game.
+ * @author PassiVision
+ * @version 1.0.0
+ */
 public class FootballManager extends Application {
 	private static Stage stage;
 
@@ -24,7 +29,7 @@ public class FootballManager extends Application {
 		FootballManager.stage = stage;
 		FootballManager.stage.setTitle("Football Manager 2142");
 		
-		// Get the dimensions of the screen and make the window slighty smaller,
+		// Get the dimensions of the screen and make the window slightly smaller,
 		// maintaining 16:9
 		Dimension screenDimensions = Toolkit.getDefaultToolkit().getScreenSize();
 		FootballManager.stage.setHeight(screenDimensions.getHeight() - 100);
@@ -45,8 +50,7 @@ public class FootballManager extends Application {
 				System.err.println("Showing splash screen failed, skipping...");
 				TitleScreenController.show();
 			}
-		}
-		else {
+		} else {
 			TitleScreenController.show();
 		}	
 
