@@ -72,8 +72,6 @@ public class Player extends Observable {
 		this.offensive = offensive;
 		this.defensive = defensive;
 		this.stamina = stamina;
-		//this.price = price;
-		//this.playedGames = playedGames;
 
 		this.setChanged();
 		this.notifyObservers(this);
@@ -127,19 +125,7 @@ public class Player extends Observable {
 			boolean res = this.id == that.id &&
 					this.firstName.equals(that.firstName) &&
 					this.lastName.equals(that.lastName) &&
-					this.club.equals(that.club) &&
-					this.dateOfBirth.equals(that.dateOfBirth) &&
-					this.position.equals(that.position) &&
-					this.pace == that.pace &&
-					this.shooting == that.shooting &&
-					this.passing == that.passing &&
-					this.offensive == that.offensive &&
-					this.defensive == that.defensive &&
-					this.stamina == that.stamina &&
-					this.price == that.price &&
-					this.playedGames == that.playedGames &&
-					this.injury == that.injury &&
-					this.disabledFor == that.disabledFor;
+					this.club.equals(that.club);
 			
 			if (this.nationality != null) {
 				if (that.nationality != null) {
