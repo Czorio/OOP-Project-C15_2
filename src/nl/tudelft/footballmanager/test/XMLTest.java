@@ -24,10 +24,10 @@ public class XMLTest {
 		
 	@Before
 	public void setUp() {
-		if( !file1.exists() || !file2.exists() ) {
-			System.out.println( "File not found, stopping tests." );
-			System.exit(0);
-		}
+		//if( !file1.exists() || !file2.exists() ) {
+		//	System.out.println( "File not found, stopping tests." );
+		//	System.exit(0);
+		//}
 		
 		// Create XMLConfig
 		xmlConfig = new XMLConfig(file1);
