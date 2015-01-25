@@ -276,7 +276,15 @@ public class RootViewController implements Initializable {
 		if(MarketplaceLogic.isTransferWindow(gameState.getGameRound()) && gameState.getGameRound() != 0 ) {
 			
 			// Select the player.
-			int player = GameLogic.generateRandom(0, gameState.getMyTeam().getPlayers().size()-1);
+			int player;
+			
+			do {
+				int x = GameLogic.generateRandom(0, gameState.getMyTeam().getPlayers().size()-1);
+				if(gameState.getMyTeam().getPlayers().get(x).getCurPosition() == null) {
+					player = x;
+					break;
+				}
+			} while (true);	
 						
 			int toTeam;
 			// Select the from team.
